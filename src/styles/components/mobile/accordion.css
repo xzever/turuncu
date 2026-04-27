@@ -1,0 +1,87 @@
+/**
+ * Accordion — UI Kit genişleyen liste (Faz 10+ tasarım güncellemesi).
+ * Seçim A1: tek card + soft turuncu açık header.
+ * Açık item'ın trigger'ı rgba(255,106,0,0.12) bg + turuncu chevron alır.
+ */
+
+.ui-accordion {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-white, #ffffff);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(11, 27, 44, 0.06);
+}
+
+.ui-accordion__item {
+  border-bottom: 1px solid rgba(11, 27, 44, 0.08);
+}
+
+.ui-accordion__item:last-child {
+  border-bottom: none;
+}
+
+.ui-accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-4) var(--space-4);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-primary, #0b1b2c);
+  text-align: left;
+  font-family: inherit;
+  transition:
+    background-color var(--duration-fast, 150ms) ease,
+    color var(--duration-fast, 150ms) ease;
+}
+
+.ui-accordion__trigger:focus-visible {
+  outline: 2px solid var(--color-focus-ring, rgba(255, 255, 255, 0.85));
+  outline-offset: -2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ui-accordion__trigger:hover {
+    background-color: rgba(11, 27, 44, 0.03);
+  }
+}
+
+/* A1 — Açık item: soft turuncu header + turuncu chevron */
+.ui-accordion__item.is-open .ui-accordion__trigger {
+  background-color: rgba(255, 106, 0, 0.1);
+}
+
+.ui-accordion__title {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold, 600);
+  padding-right: var(--space-4);
+  line-height: 1.4;
+}
+
+.ui-accordion__icon {
+  color: var(--color-text-muted, rgba(11, 27, 44, 0.5));
+  transition:
+    transform var(--duration-fast, 150ms) ease,
+    color var(--duration-fast, 150ms) ease;
+  flex-shrink: 0;
+}
+
+.ui-accordion__item.is-open .ui-accordion__icon {
+  transform: rotate(180deg);
+  color: var(--color-primary, #ff6a00);
+}
+
+.ui-accordion__content-wrapper {
+  overflow: hidden;
+}
+
+.ui-accordion__content {
+  padding: 0 var(--space-4) var(--space-4);
+  font-size: var(--text-base);
+  color: var(--color-text-secondary, rgba(11, 27, 44, 0.72));
+  line-height: 1.6;
+}

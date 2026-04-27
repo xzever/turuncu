@@ -1,0 +1,42 @@
+/**
+ * Solstice Dark — token paleti (BELIRGIN warm sun versiyonu).
+ * Kinetic'ten net fark için:
+ *   - BG çok warm dark (sıcak kahve siyahı)
+ *   - Accent parlak amber-orange (vermillion red değil)
+ *   - Gold dengeli
+ */
+
+.solstice {
+  /* Surfaces — sıcak kahve dark */
+  --sol-bg:#0E0805;
+  --sol-surface:#1C140C;
+  --sol-surface-2:#2A1F14;
+  --sol-surface-3:#3D2E1F;
+
+  /* Text — warm cream */
+  --sol-text:#FAF1E2;
+  --sol-muted:rgba(250,241,226,0.72);
+  --sol-dim:rgba(250,241,226,0.48);
+  --sol-hint:rgba(250,241,226,0.32);
+
+  /* Accent — parlak amber/sunrise */
+  --sol-accent:#FF6A00;
+  --sol-accent-hover:#FF8533;
+  --sol-accent-soft:rgba(255,106,0,0.18);
+  --sol-accent-glow:rgba(255,106,0,0.5);
+
+  /* Gold ikincil */
+  --sol-gold:#E0BC72;
+  --sol-gold-soft:rgba(224,188,114,0.18);
+
+  /* Lines */
+  --sol-line:rgba(250,241,226,0.10);
+  --sol-line-soft:rgba(250,241,226,0.05);
+
+  /* Shadows */
+  --sol-shadow-sm:0 2px 8px rgba(0,0,0,0.40);
+  --sol-shadow:0 16px 48px rgba(0,0,0,0.6);
+  --sol-shadow-warm:0 12px 40px rgba(255,106,0,0.30);
+
+  color: var(--sol-text);
+}

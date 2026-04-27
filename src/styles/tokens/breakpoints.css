@@ -1,0 +1,21 @@
+/**
+ * Breakpoint design tokens — Anayasa Madde 3.1
+ *
+ * NOT: CSS custom properties media query'de KULLANILAMAZ.
+ * Bu dosya dokümantasyon + JS tarafının (runtime)
+ * `getComputedStyle` ile okuması için vardır.
+ *
+ * - Tailwind breakpoint'leri `tailwind.config.js → theme.screens`
+ *   üzerinden Anayasa'ya hizalanmıştır.
+ * - App shell (SiteHeader): viewport ≥ --bp-lg (1280px, ~13").
+ * - CSS @media query veya matchMedia için `src/lib/breakpoints.ts`
+ *   içindeki MQ objesini kullanınız.
+ */
+:root {
+  --bp-xs: 0;
+  --bp-sm: 768px;
+  --bp-md: 1024px;
+  --bp-lg: 1280px;
+  --bp-xl: 1440px;
+  --bp-2xl: 1920px;
+}

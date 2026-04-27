@@ -1,0 +1,329 @@
+﻿/* ═══════════════════════════════════════════════════════════════
+   Blog Tasarım Seçenekleri — 4 önizleme
+   Yapı:
+   - Filter (sol üst), Paylaş (filtrenin sağı), Indicator (alt orta) → referansla aynı
+   - SOL: .rfs-story__content — başlık + meta + pills + (mobil) toggle
+   - SA�?: .bs-art-zone — yazı (geniş alan, kullanıcının "blue area"sı)
+   - Sağ üst: .bs-sec-tag — Seçenek N rozeti (site header'ın ALTINDA)
+   - Stories container dikey scroll (referansta yatay)
+   AGENTS.md: tüm değerler token'a bağlı.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── DİKEY scroll override ─── */
+.bs-secenekler {
+  --bs-preview-header-offset: var(--topbar-clearance, var(--space-16));
+  --bs-sec-tag-top: calc(var(--bs-preview-header-offset) + var(--space-4));
+  --bs-content-top: calc(var(--bs-preview-header-offset) + var(--space-16) + var(--space-6));
+}
+
+.bs-secenekler .rfs-stories.bs-secenekler-stories {
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-snap-type: y proximity;
+  height: 100svh;
+}
+.bs-secenekler .rfs-stories.bs-secenekler-stories .rfs-story {
+  flex: 0 0 100svh;
+  min-width: 100%;
+  width: 100%;
+  height: 100svh;
+  scroll-snap-align: start;
+}
+
+/* ─── Seçenek rozeti — sağ üst, site header ALTINDA ─── */
+.bs-sec-tag {
+  position: absolute;
+  top: var(--bs-sec-tag-top);
+  right: var(--space-4);
+  z-index: var(--z-sticky, 30);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-full);
+  color: var(--color-white);
+  font-size: var(--text-xs);
+}
+.bs-sec-tag__num {
+  font-weight: var(--weight-bold);
+  color: var(--color-primary, #ff6a00);
+  letter-spacing: var(--tracking-wide, 0.05em);
+  text-transform: uppercase;
+}
+.bs-sec-tag__name {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MASAÜSTÜ (≥1280px) — Sol kolon dar (başlık), sağ kolon geniş (yazı)
+   ═══════════════════════════════════════════════════════════════ */
+@media (min-width: 1280px) {
+  /* Sol kolon: başlık/meta/pills — referanslar pozisyonu (bottom-left)
+     ama dar (max 440px), filtre/paylaş ile çakışmasın diye top başlat */
+  .bs-secenekler .rfs-story__content {
+    top: var(--bs-content-top);
+    bottom: calc(var(--space-16) + var(--space-3));
+    left: var(--space-6);
+    right: auto;
+    width: 380px;
+    max-width: 380px;
+    max-height: none;
+    overflow: visible;
+    padding: 0;
+    align-self: start;
+  }
+
+  /* Mobil "Yazıyı oku" butonu masaüstünde gizli */
+  .bs-secenekler .rfs-detail__toggle {
+    display: none;
+  }
+
+  /* SA�? — yazı alanı: site header altından indicator pille kadar
+     %60 genişlik, kendi içinde scroll */
+  .bs-secenekler .bs-art-zone {
+    position: absolute;
+    top: var(--bs-content-top);
+    bottom: calc(var(--space-16) + var(--space-6));
+    /* Sol kolondan sonra başla (380px + biraz boşluk + biraz daha) */
+    left: calc(var(--space-6) + 380px + var(--space-8));
+    right: var(--space-6);
+    z-index: 4;
+    overflow-y: auto;
+    color: var(--color-white);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+  }
+  .bs-secenekler .bs-art-zone::-webkit-scrollbar { width: 8px; }
+  .bs-secenekler .bs-art-zone::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-full);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBİL + TABLET (≤1279px)
+   .bs-art-zone .rfs-story__content içinde gibi davransın:
+   normal akışta, .rfs-detail--open kontrollü accordion gibi
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 1279px) {
+  .bs-secenekler .bs-art-zone {
+    position: absolute;
+    left: var(--space-4);
+    right: var(--space-4);
+    bottom: calc(var(--bottomnav-clearance, 0px) + var(--space-16) + var(--space-3));
+    top: auto;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition:
+      max-height var(--duration-base, 250ms) ease,
+      opacity var(--duration-fast, 150ms) ease;
+    z-index: 5;
+    color: var(--color-white);
+  }
+  .bs-secenekler .bs-art-zone--open {
+    max-height: 70svh;
+    opacity: 1;
+    overflow-y: auto;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   YAZI GÖVDESİ — 4 TASARIM (.bs-art-zone içinde render edilir)
+   ═══════════════════════════════════════════════════════════════ */
+.bs-art {
+  color: rgba(255, 255, 255, 0.92);
+  font-size: var(--text-base);
+  line-height: 1.7;
+}
+.bs-art__h {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+  margin-bottom: var(--space-3);
+  letter-spacing: -0.01em;
+}
+.bs-art p {
+  margin-bottom: var(--space-3);
+}
+.bs-art p:last-child {
+  margin-bottom: 0;
+}
+
+/* Masaüstünde yazı tipografisi büyür */
+@media (min-width: 1280px) {
+  .bs-art {
+    font-size: var(--text-lg);
+    line-height: 1.75;
+  }
+  .bs-art__h {
+    font-size: var(--text-2xl);
+  }
+}
+
+/* ─── SEÇENEK 1: Klasik akış ───
+   Tek koyu kart içinde dikey paragraf akışı. */
+.bs-art--v1 {
+  padding: var(--space-6);
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+}
+.bs-art--v1 .bs-art__sec + .bs-art__sec {
+  margin-top: var(--space-6);
+}
+.bs-art--v1 .bs-art__ul {
+  list-style: disc;
+  padding-left: var(--space-6);
+  margin-top: var(--space-2);
+}
+.bs-art--v1 .bs-art__ul li {
+  margin-bottom: var(--space-2);
+}
+
+/* ─── SEÇENEK 2: Cam panel ───
+   Backdrop-blur cam, bölümler arası gradient ayraç. */
+.bs-art--v2 {
+  padding: var(--space-6);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-2xl);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+.bs-art--v2 .bs-art__ul {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--space-2);
+  display: grid;
+  gap: var(--space-2);
+}
+.bs-art--v2 .bs-art__ul li {
+  position: relative;
+  padding-left: var(--space-5);
+}
+.bs-art--v2 .bs-art__ul li::before {
+  content: "●";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--color-primary, #ff6a00);
+  font-size: var(--text-xs);
+  line-height: 1.7;
+}
+.bs-art--v2 .bs-art__sep {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.22),
+    transparent
+  );
+  margin: var(--space-5) 0;
+}
+
+/* ─── SEÇENEK 3: Magazin (numara + drop cap) ───
+   Her bölüm büyük 01/02/03 numarasıyla başlar; ilk paragraf büyük. */
+.bs-art--v3 {
+  padding: 0;
+}
+.bs-art--v3 .bs-art__sec {
+  position: relative;
+  padding: var(--space-5) var(--space-5) var(--space-5) var(--space-16);
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-3);
+}
+.bs-art--v3 .bs-art__num {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-primary, #ff6a00);
+  opacity: 0.85;
+  line-height: 1;
+}
+.bs-art--v3 .bs-art__lead {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium, 500);
+  color: var(--color-white);
+}
+.bs-art--v3 .bs-art__ul {
+  list-style: square;
+  padding-left: var(--space-5);
+  margin-top: var(--space-2);
+}
+.bs-art--v3 .bs-art__ul li {
+  margin-bottom: var(--space-2);
+}
+.bs-art--v3 .bs-art__ul li::marker {
+  color: var(--color-primary, #ff6a00);
+}
+
+/* ─── SEÇENEK 4: Kart stack (turuncu vurgu) ───
+   Her bölüm ayrı kart, sol kenarda turuncu çizgi. */
+.bs-art--v4 {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.bs-art--v4 .bs-art__sec {
+  padding: var(--space-5) var(--space-5) var(--space-5) var(--space-6);
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 3px solid var(--color-primary, #ff6a00);
+  border-radius: var(--radius-md);
+}
+.bs-art--v4 .bs-art__ul {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--space-2);
+  display: grid;
+  gap: var(--space-2);
+}
+.bs-art--v4 .bs-art__ul li {
+  padding: var(--space-2) var(--space-3);
+  background: rgba(255, 255, 255, 0.04);
+  border-left: 2px solid rgba(255, 106, 0, 0.6);
+  border-radius: var(--radius-sm);
+}
+
+/* Mobil — yazı kartları daha kompakt */
+@media (max-width: 1279px) {
+  .bs-sec-tag {
+    top: calc(var(--bs-preview-header-offset) + var(--space-3));
+    right: var(--space-3);
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--text-2xs);
+  }
+  .bs-art--v1,
+  .bs-art--v2 {
+    padding: var(--space-4);
+  }
+  .bs-art--v3 .bs-art__sec {
+    padding-left: var(--space-12);
+  }
+  .bs-art--v3 .bs-art__num {
+    font-size: var(--text-2xl);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .bs-art--v2 {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .bs-secenekler .bs-art-zone {
+    transition: none;
+  }
+}

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>İletişim — V1 Cilalı (Mevcut yapı + ince ayar)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1A1C1E; --surface:#2A2D31; --surface-hi:#333537;
+    --text:#F4F4F6; --muted:rgba(244,244,246,0.72); --dim:rgba(244,244,246,0.55);
+    --primary:#E6391A; --primary-hover:#ff4a2a; --primary-soft:rgba(230,57,26,0.12); --primary-glow:rgba(230,57,26,0.3);
+    --border:#3A3D42; --border-soft:rgba(244,244,246,0.08);
+    --wa:#25d366;
+    --r-md:10px; --r-lg:14px; --r-xl:20px; --r-2xl:24px; --r-full:9999px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.55;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Manrope',sans-serif;font-weight:600;line-height:1.15;letter-spacing:-0.02em}
+  a{color:inherit;text-decoration:none}
+  /* Top bar */
+  .topbar{position:sticky;top:0;z-index:30;background:rgba(26,28,30,0.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border-soft);padding:14px 32px;display:flex;align-items:center;gap:32px}
+  .topbar-logo{font-family:'Manrope',sans-serif;font-weight:700;color:var(--primary);font-size:18px;letter-spacing:-0.01em}
+  .topbar-nav{display:flex;gap:28px;font-size:14px}
+  .topbar-nav a{color:var(--muted);transition:color .15s}
+  .topbar-nav a:hover{color:var(--text)}
+  .topbar-nav a.active{color:var(--text)}
+  .topbar-cta{margin-left:auto;background:var(--primary);color:var(--text);padding:10px 20px;border-radius:var(--r-full);font-size:13px;font-weight:600;letter-spacing:0.02em}
+  /* Page */
+  .page{max-width:1440px;margin:0 auto;padding:48px 32px 96px}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+  /* Sticky trust strip */
+  .quick-trust{position:sticky;top:64px;background:var(--surface-hi);border:1px solid var(--border);border-radius:var(--r-full);padding:8px 16px;display:flex;gap:18px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:24px;width:fit-content}
+  .quick-trust .dot{width:8px;height:8px;border-radius:50%;background:var(--primary);box-shadow:0 0 0 4px var(--primary-soft);animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 4px var(--primary-soft)}50%{box-shadow:0 0 0 8px rgba(230,57,26,0.06)}}
+  /* Hero */
+  .hero{margin-bottom:32px}
+  .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--primary);text-transform:uppercase;letter-spacing:0.12em;font-weight:700;margin-bottom:16px}
+  .hero-eyebrow .live-dot{width:8px;height:8px;border-radius:50%;background:var(--primary);animation:pulse 2s ease-in-out infinite}
+  .hero h1{font-size:40px;margin-bottom:12px}
+  .hero h1 span{color:var(--primary)}
+  .hero-sub{font-size:18px;color:var(--muted);max-width:520px}
+  .trust{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px;padding:20px;background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--r-xl)}
+  .trust-cell{text-align:center}
+  .trust-num{font-family:'Manrope',sans-serif;font-size:28px;font-weight:700;color:var(--primary);display:block;margin-bottom:4px}
+  .trust-txt{font-size:12px;color:var(--dim);text-transform:uppercase;letter-spacing:0.08em}
+  /* Branch */
+  .branch-select{margin-bottom:20px}
+  .branch-label{font-size:12px;text-transform:uppercase;letter-spacing:0.12em;color:var(--dim);margin-bottom:10px;font-weight:700}
+  .branch-tabs{display:flex;gap:8px;flex-wrap:wrap}
+  .branch-tab{background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:8px 16px;border-radius:var(--r-full);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;font-family:inherit}
+  .branch-tab:hover{border-color:var(--text);color:var(--text)}
+  .branch-tab.is-active{background:var(--primary);border-color:var(--primary);color:var(--text);box-shadow:0 0 24px var(--primary-glow)}
+  /* Map */
+  .map{position:relative;height:280px;background:#0a0a0b;border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;margin-bottom:20px;background-image:linear-gradient(rgba(244,244,246,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(244,244,246,0.04) 1px,transparent 1px);background-size:32px 32px}
+  .map-pin{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:20px;height:20px;background:var(--primary);border-radius:50%;border:3px solid var(--text);box-shadow:0 0 0 8px rgba(230,57,26,0.3)}
+  .map-overlay{position:absolute;top:12px;right:12px;background:var(--surface-hi);border:1px solid var(--border);padding:8px 14px;border-radius:var(--r-full);font-size:12px;color:var(--text);display:flex;align-items:center;gap:6px;cursor:pointer}
+  .map-overlay:hover{background:var(--surface)}
+  .map-actions{position:absolute;bottom:12px;left:12px;display:flex;gap:8px}
+  .map-btn{background:rgba(26,28,30,0.85);backdrop-filter:blur(8px);border:1px solid var(--border);padding:8px 14px;border-radius:var(--r-full);font-size:12px;color:var(--text);cursor:pointer}
+  /* Branch card */
+  .branch-card{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--r-xl);padding:24px}
+  .bc-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border-soft)}
+  .bc-name{font-size:20px;font-weight:600}
+  .bc-badge{background:var(--primary-soft);color:var(--primary);padding:4px 12px;border-radius:var(--r-full);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em}
+  .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .info-row{display:flex;gap:12px;padding:10px;border-radius:var(--r-md);transition:background .15s;cursor:pointer}
+  .info-row:hover{background:var(--surface-hi)}
+  .info-row.full{grid-column:1/-1}
+  .info-icon{width:40px;height:40px;border-radius:50%;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .info-icon.wa{background:rgba(37,211,102,0.12);color:var(--wa)}
+  .info-icon svg{width:18px;height:18px}
+  .info-content{display:flex;flex-direction:column;justify-content:center;min-width:0}
+  .info-label{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:0.08em;font-weight:700}
+  .info-value{font-size:14px;color:var(--text);margin-top:2px;word-break:break-word}
+  .open-now{display:inline-flex;align-items:center;gap:6px;background:rgba(123,240,182,0.1);color:#7bf0b6;padding:4px 10px;border-radius:var(--r-full);font-size:11px;font-weight:600;margin-top:8px}
+  .open-now .dot{width:6px;height:6px;background:#7bf0b6;border-radius:50%;animation:pulse 2s ease-in-out infinite}
+  .hours-grid{margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:4px 16px}
+  .hours-row{display:flex;justify-content:space-between;font-size:12px;padding:4px 0}
+  .hours-row.today{color:var(--primary);font-weight:600}
+  .hours-row.closed{color:var(--dim)}
+  .hours-day{color:var(--muted)}
+  /* Form */
+  .form-card{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--r-xl);padding:32px}
+  .form-eyebrow{font-size:12px;color:var(--primary);text-transform:uppercase;letter-spacing:0.12em;font-weight:700;margin-bottom:8px}
+  .form-title{font-size:24px;margin-bottom:8px}
+  .form-desc{font-size:14px;color:var(--muted);margin-bottom:24px}
+  .form-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .field{display:flex;flex-direction:column}
+  .field.full{grid-column:1/-1}
+  .field label{font-size:11px;color:var(--text);text-transform:uppercase;letter-spacing:0.12em;font-weight:700;margin-bottom:8px}
+  .field input,.field select,.field textarea{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:14px 16px;border-radius:var(--r-md);font-size:16px;font-family:inherit;transition:border-color .15s,box-shadow .15s}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-soft)}
+  .field textarea{min-height:120px;resize:vertical}
+  .form-bottom{margin-top:20px;padding-top:20px;border-top:1px solid var(--border-soft)}
+  .checkbox{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--muted);margin-bottom:16px}
+  .checkbox input{width:18px;height:18px;accent-color:var(--primary);margin-top:2px}
+  .checkbox a{color:var(--primary);text-decoration:underline}
+  .submit{width:100%;background:var(--primary);color:var(--text);border:none;padding:16px;border-radius:var(--r-full);font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;letter-spacing:0.02em;box-shadow:0 8px 24px var(--primary-glow);transition:transform .15s,background .15s}
+  .submit:hover{background:var(--primary-hover)}
+  .submit:active{transform:scale(0.98)}
+  /* Variation tag */
+  .vtag{position:fixed;top:16px;right:16px;background:var(--primary);color:var(--text);padding:6px 14px;border-radius:var(--r-full);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;z-index:100}
+</style>
+</head>
+<body>
+<div class="vtag">V1 · Cilalı</div>
+
+<header class="topbar">
+  <a href="#" class="topbar-logo">Turuncu Solar</a>
+  <nav class="topbar-nav">
+    <a href="#">Ana sayfa</a>
+    <a href="#">Sistemlerimiz</a>
+    <a href="#">Sistem Farkları</a>
+    <a href="#">Referanslar</a>
+    <a href="#">Blog</a>
+    <a href="#" class="active">İletişim</a>
+  </nav>
+  <a href="#" class="topbar-cta">Ücretsiz Keşif</a>
+</header>
+
+<main class="page">
+  <div class="split">
+    <!-- LEFT -->
+    <section>
+      <div class="hero">
+        <p class="hero-eyebrow"><span class="live-dot"></span>24 saat içinde dönüş</p>
+        <h1>Bize <span>Ulaşın</span></h1>
+        <p class="hero-sub">Projenize dair görüşmek, teklif almak veya sorularınız için.</p>
+        <div class="trust">
+          <div class="trust-cell"><span class="trust-num">500+</span><span class="trust-txt">Proje</span></div>
+          <div class="trust-cell"><span class="trust-num">45 MW</span><span class="trust-txt">Güç</span></div>
+          <div class="trust-cell"><span class="trust-num">7+</span><span class="trust-txt">Yıl</span></div>
+        </div>
+      </div>
+
+      <div class="branch-select">
+        <p class="branch-label">Şube seçin</p>
+        <div class="branch-tabs">
+          <button class="branch-tab is-active">İstanbul Merkez</button>
+          <button class="branch-tab">Ankara</button>
+          <button class="branch-tab">İzmir</button>
+          <button class="branch-tab">Bursa</button>
+        </div>
+      </div>
+
+      <div class="map">
+        <div class="map-pin"></div>
+        <div class="map-overlay">📍 Maslak, İstanbul</div>
+        <div class="map-actions">
+          <button class="map-btn">Haritada aç</button>
+          <button class="map-btn">Yol tarifi</button>
+        </div>
+      </div>
+
+      <div class="branch-card">
+        <div class="bc-header">
+          <h2 class="bc-name">Maslak Showroom</h2>
+          <span class="bc-badge">Merkez</span>
+        </div>
+        <div class="info-grid">
+          <a class="info-row" href="tel:+902121234567">
+            <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6.6 4.75h2.1l.95 3.35-1.55 1.4a12.9 12.9 0 005.9 5.9l1.4-1.55 3.35.95v2.1a1.35 1.35 0 01-1.35 1.35h-.8A12.6 12.6 0 014.75 6.15v-.8A1.35 1.35 0 016.1 4z"/></svg></div>
+            <div class="info-content"><span class="info-label">Telefon</span><span class="info-value">+90 212 123 45 67</span></div>
+          </a>
+          <a class="info-row" href="https://wa.me/905551234567">
+            <div class="info-icon wa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20a7.7 7.7 0 003.9-1.05l3.35.85-.9-3.2A7.8 7.8 0 1012 20z"/></svg></div>
+            <div class="info-content"><span class="info-label">WhatsApp</span><span class="info-value">+90 555 123 45 67</span></div>
+          </a>
+          <a class="info-row" href="mailto:info@turuncusolar.com">
+            <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="m4.5 7 7.5 5.75L19.5 7"/></svg></div>
+            <div class="info-content"><span class="info-label">E-posta</span><span class="info-value">info@turuncusolar.com</span></div>
+          </a>
+          <div class="info-row">
+            <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M12 7.5v4.75l3 1.75"/></svg></div>
+            <div class="info-content">
+              <span class="info-label">Şu an</span>
+              <span class="open-now"><span class="dot"></span>Açık · 18:00'a kadar</span>
+            </div>
+          </div>
+          <div class="info-row full">
+            <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20s6-5.33 6-10a6 6 0 10-12 0c0 4.67 6 10 6 10z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+            <div class="info-content"><span class="info-label">Adres</span><span class="info-value">Büyükdere Cad. No:255 Maslak Office Building K:12, Sarıyer/İstanbul</span></div>
+          </div>
+          <div class="info-row full">
+            <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/></svg></div>
+            <div class="info-content">
+              <span class="info-label">Çalışma saatleri</span>
+              <div class="hours-grid">
+                <div class="hours-row today"><span class="hours-day">Cumartesi</span><span>09:00-18:00</span></div>
+                <div class="hours-row"><span class="hours-day">Pazar</span><span class="closed">Kapalı</span></div>
+                <div class="hours-row"><span class="hours-day">Pazartesi</span><span>09:00-18:00</span></div>
+                <div class="hours-row"><span class="hours-day">Salı</span><span>09:00-18:00</span></div>
+                <div class="hours-row"><span class="hours-day">Çarşamba</span><span>09:00-18:00</span></div>
+                <div class="hours-row"><span class="hours-day">Perşembe</span><span>09:00-18:00</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT -->
+    <section>
+      <div class="form-card">
+        <p class="form-eyebrow">İletişim formu</p>
+        <h2 class="form-title">Mesaj gönderin</h2>
+        <p class="form-desc">Mesajınızı bırakın, en kısa sürede dönüş yapalım.</p>
+        <form class="form-fields">
+          <div class="field"><label>Konu kategorisi</label><select><option>Seçin...</option><option>Teklif</option><option>Servis</option></select></div>
+          <div class="field"><label>Lokasyon</label><select><option>İstanbul Merkez</option></select></div>
+          <div class="field"><label>Ad Soyad *</label><input type="text" placeholder="Adınız Soyadınız"></div>
+          <div class="field"><label>Şirket</label><input type="text" placeholder="Firma adı"></div>
+          <div class="field"><label>E-posta *</label><input type="email" placeholder="ornek@firma.com"></div>
+          <div class="field"><label>Telefon *</label><input type="tel" placeholder="+90 5XX XXX XX XX"></div>
+          <div class="field"><label>İl</label><select><option>İstanbul</option></select></div>
+          <div class="field"><label>İlçe</label><select><option>Sarıyer</option></select></div>
+          <div class="field full"><label>Konu</label><input type="text" placeholder="Mesajınızın konusu"></div>
+          <div class="field full"><label>Mesajınız *</label><textarea placeholder="Projeniz veya sorunuz hakkında detayları yazın..."></textarea></div>
+        </form>
+        <div class="form-bottom">
+          <label class="checkbox"><input type="checkbox"><span>Kişisel verilerimin işlenmesine dair <a href="#">aydınlatma metnini</a> okudum, onaylıyorum.</span></label>
+          <button class="submit">Mesaj gönder →</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+</body>
+</html>

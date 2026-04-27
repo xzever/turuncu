@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SSS — V1 Magazine / Editorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1A1C1E; --surface:#2A2D31; --surface-hi:#333537;
+    --text:#F4F4F6; --muted:rgba(244,244,246,0.72); --dim:rgba(244,244,246,0.55);
+    --primary:#E6391A; --primary-hover:#ff4a2a; --primary-soft:rgba(230,57,26,0.12); --primary-glow:rgba(230,57,26,0.3);
+    --border:#3A3D42; --border-soft:rgba(244,244,246,0.08);
+    --r-md:10px; --r-lg:14px; --r-xl:20px; --r-2xl:24px; --r-full:9999px;
+    --pad-x:clamp(16px, 4vw, 48px);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{background:var(--bg);color:var(--text)}
+  body{font-family:'Inter',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden}
+  h1,h2,h3{font-family:'Manrope',sans-serif;font-weight:600;line-height:1.15;letter-spacing:-0.02em}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  ul{padding-left:18px;margin:8px 0}
+  li{margin-bottom:4px;color:var(--muted)}
+  b{color:var(--text);font-weight:600}
+
+  /* TOPBAR — desktop full nav, mobile minimal+hamburger */
+  .topbar{position:sticky;top:0;z-index:30;background:rgba(26,28,30,0.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border-soft);padding:14px var(--pad-x);display:flex;align-items:center;gap:24px}
+  .logo{font-family:'Manrope',sans-serif;font-weight:700;color:var(--primary);font-size:18px;flex-shrink:0}
+  .nav-desktop{display:none;gap:24px;font-size:14px}
+  .nav-desktop a{color:var(--muted)}
+  .nav-desktop a.active{color:var(--text)}
+  .topbar-cta{margin-left:auto;background:var(--primary);color:var(--text);padding:10px 18px;border-radius:var(--r-full);font-size:13px;font-weight:600;flex-shrink:0}
+  .hamburger{margin-left:auto;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:var(--r-md);font-size:20px;color:var(--text)}
+  @media (min-width:1024px){
+    .nav-desktop{display:flex}
+    .hamburger{display:none}
+  }
+
+  /* HERO — ÜSTTE TAM GENİŞLİK */
+  .hero{padding:48px var(--pad-x) 32px;text-align:center;max-width:1280px;margin:0 auto;position:relative}
+  .hero::before{content:"";position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:min(600px,90vw);height:300px;background:radial-gradient(ellipse at center,rgba(230,57,26,0.12) 0%,transparent 70%);pointer-events:none;z-index:-1}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);padding:6px 14px;border-radius:var(--r-full);font-size:11px;color:var(--text);text-transform:uppercase;letter-spacing:0.12em;font-weight:600;margin-bottom:20px}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--primary)}
+  .hero h1{font-size:clamp(32px, 6vw, 56px);margin-bottom:16px}
+  .hero h1 span{color:var(--primary)}
+  .hero p{font-size:clamp(15px, 2vw, 18px);color:var(--muted);max-width:560px;margin:0 auto 32px}
+
+  /* SEARCH BAR */
+  .search-wrap{max-width:560px;margin:0 auto;position:relative}
+  .search-wrap input{width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:14px 56px 14px 48px;border-radius:var(--r-full);font-size:16px;font-family:inherit;outline:none;transition:border-color .15s, box-shadow .15s}
+  .search-wrap input:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-soft)}
+  .search-wrap .ic{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--dim);font-size:18px;pointer-events:none}
+
+  /* CATEGORY PILLS — yatay scroll, sticky */
+  .cat-band{position:sticky;top:69px;z-index:20;background:rgba(26,28,30,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border-soft);padding:12px var(--pad-x);overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
+  .cat-band::-webkit-scrollbar{display:none}
+  .cat-band{scrollbar-width:none}
+  .cat-row{display:flex;gap:8px;min-width:max-content;max-width:1280px;margin:0 auto}
+  .cat{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:9px 16px;border-radius:var(--r-full);font-size:13px;font-weight:500;flex-shrink:0;scroll-snap-align:start;min-height:40px}
+  .cat .num{background:var(--bg);color:var(--dim);padding:2px 8px;border-radius:var(--r-full);font-size:11px;font-weight:700}
+  .cat.is-active{background:var(--primary);border-color:var(--primary);color:var(--text)}
+  .cat.is-active .num{background:rgba(0,0,0,0.25);color:var(--text)}
+
+  /* PAGE */
+  .page{max-width:1280px;margin:0 auto;padding:32px var(--pad-x) 80px}
+
+  /* FEATURED CARD — büyük, tam genişlik */
+  .featured{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-2xl);padding:clamp(20px, 3vw, 36px);margin-bottom:32px;position:relative;overflow:hidden}
+  .featured::before{content:"";position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,var(--primary-soft) 0%,transparent 70%);pointer-events:none}
+  .featured-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px;position:relative}
+  .featured-tag{font-size:10px;color:var(--primary);text-transform:uppercase;letter-spacing:0.12em;font-weight:700;background:var(--primary-soft);padding:4px 12px;border-radius:var(--r-full)}
+  .featured-cat{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:0.08em;font-weight:600}
+  .featured h2{font-size:clamp(22px, 3.5vw, 32px);margin-bottom:16px;line-height:1.2;position:relative}
+  .featured-body{font-size:15px;color:var(--muted);max-width:680px;position:relative}
+  .featured-body p{margin-bottom:12px}
+  .featured-body ul{margin:12px 0}
+  .featured-body li{margin-bottom:6px}
+  .featured-foot{display:flex;align-items:center;gap:12px;margin-top:20px;padding-top:20px;border-top:1px solid var(--border-soft);flex-wrap:wrap;position:relative}
+  .featured-tags{display:flex;gap:6px;flex-wrap:wrap}
+  .featured-tag-chip{font-size:11px;background:var(--bg);color:var(--dim);padding:4px 10px;border-radius:var(--r-full);border:1px solid var(--border-soft)}
+
+  /* SECTION TITLE */
+  .section-h{font-size:14px;color:var(--dim);text-transform:uppercase;letter-spacing:0.12em;font-weight:700;margin:24px 0 16px;display:flex;align-items:center;gap:12px}
+  .section-h::after{content:"";flex:1;height:1px;background:var(--border-soft)}
+  .section-h .count{background:var(--surface);color:var(--text);padding:2px 10px;border-radius:var(--r-full);font-size:11px;font-weight:700;letter-spacing:0.04em}
+
+  /* GRID — 1/2/3 cols */
+  .grid{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:32px}
+  @media (min-width:640px){
+    .grid{grid-template-columns:1fr 1fr}
+  }
+  @media (min-width:1024px){
+    .grid{grid-template-columns:repeat(3,1fr);gap:16px}
+  }
+
+  /* ARTICLE CARDS */
+  .article{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--r-xl);padding:20px;cursor:pointer;transition:border-color .15s, transform .15s;display:flex;flex-direction:column;height:100%}
+  .article:hover{border-color:var(--primary);transform:translateY(-2px)}
+  .art-meta{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .art-num{font-family:'Manrope',sans-serif;font-size:11px;font-weight:700;color:var(--dim);background:var(--bg);padding:3px 10px;border-radius:var(--r-md)}
+  .art-cat{font-size:10px;background:var(--primary-soft);color:var(--primary);padding:3px 10px;border-radius:var(--r-full);text-transform:uppercase;letter-spacing:0.08em;font-weight:700}
+  .art-title{font-family:'Manrope',sans-serif;font-size:17px;font-weight:600;line-height:1.3;margin-bottom:10px;flex:1}
+  .art-preview{font-size:13px;color:var(--muted);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:14px}
+  .art-foot{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border-soft);font-size:12px;color:var(--dim);margin-top:auto}
+  .art-link{color:var(--primary);font-weight:600}
+
+  /* BRIDGE / HELP CARD */
+  .help{background:linear-gradient(135deg, var(--surface-hi), var(--surface));border:1px solid var(--border);border-radius:var(--r-2xl);padding:clamp(24px, 4vw, 40px);text-align:center;margin-top:32px}
+  .help-ic{width:64px;height:64px;border-radius:50%;background:var(--primary-soft);color:var(--primary);display:inline-flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:16px}
+  .help h3{font-size:clamp(18px, 2.5vw, 22px);margin-bottom:8px}
+  .help p{font-size:14px;color:var(--muted);max-width:480px;margin:0 auto 20px}
+  .help-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+  .btn-primary{background:var(--primary);color:var(--text);padding:14px 24px;border-radius:var(--r-full);font-size:14px;font-weight:600;box-shadow:0 8px 24px var(--primary-glow)}
+  .btn-primary:hover{background:var(--primary-hover)}
+  .btn-ghost{background:transparent;color:var(--text);padding:14px 24px;border:1px solid var(--border);border-radius:var(--r-full);font-size:14px;font-weight:600}
+
+  /* TAG */
+  .vtag{position:fixed;top:14px;right:14px;background:var(--primary);color:var(--text);padding:4px 10px;border-radius:var(--r-full);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;z-index:100;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="vtag">V1 · Magazine</div>
+
+<header class="topbar">
+  <a href="#" class="logo">Turuncu Solar</a>
+  <nav class="nav-desktop">
+    <a href="#">Ana sayfa</a>
+    <a href="#">Sistemler</a>
+    <a href="#">Referanslar</a>
+    <a href="#">Blog</a>
+    <a href="#" class="active">SSS</a>
+    <a href="#">İletişim</a>
+  </nav>
+  <a href="#" class="topbar-cta">Keşif</a>
+  <button class="hamburger" aria-label="Menü">≡</button>
+</header>
+
+<section class="hero">
+  <p class="eyebrow"><span class="dot"></span>Yardım Merkezi</p>
+  <h1>Sıkça <span>Sorulan Sorular</span></h1>
+  <p>Güneş enerjisi sistemleri, kurulum, maliyet ve garanti hakkında en çok merak edilenler.</p>
+  <div class="search-wrap">
+    <span class="ic">⌕</span>
+    <input type="text" placeholder="Soru ara... örn. 'kurulum süresi'">
+  </div>
+</section>
+
+<div class="cat-band">
+  <div class="cat-row">
+    <button class="cat is-active">Tümü <span class="num">10</span></button>
+    <button class="cat">Kurulum <span class="num">3</span></button>
+    <button class="cat">Maliyet <span class="num">2</span></button>
+    <button class="cat">Bakım <span class="num">1</span></button>
+    <button class="cat">Teknik <span class="num">2</span></button>
+    <button class="cat">İzinler <span class="num">1</span></button>
+    <button class="cat">Garanti <span class="num">1</span></button>
+  </div>
+</div>
+
+<main class="page">
+  <!-- FEATURED -->
+  <article class="featured">
+    <div class="featured-meta">
+      <span class="featured-tag">★ En çok sorulan</span>
+      <span class="featured-cat">Kurulum · 5 dk okuma</span>
+    </div>
+    <h2>Güneş enerjisi sistemi kurulumu ne kadar sürer?</h2>
+    <div class="featured-body">
+      <p>Ortalama bir konut için <b>fiziksel kurulum 2–4 gün</b> sürer. Toplam proje süreci:</p>
+      <ul>
+        <li><b>Ön keşif &amp; ölçüm</b> — 1 hafta</li>
+        <li><b>Mühendislik &amp; tasarım</b> — 1–2 hafta</li>
+        <li><b>Şebeke başvurusu &amp; izinler</b> — 3–4 hafta</li>
+        <li><b>Fiziksel kurulum</b> — 2–4 gün</li>
+        <li><b>Test ve devreye alma</b> — 1 gün</li>
+      </ul>
+      <p>Toplam süre ortalama <b>5–7 haftadır</b>; izin süresi şehirden şehire değişir.</p>
+    </div>
+    <div class="featured-foot">
+      <div class="featured-tags">
+        <span class="featured-tag-chip">Süreç</span>
+        <span class="featured-tag-chip">Zaman</span>
+        <span class="featured-tag-chip">Planlama</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- DİĞER SORULAR -->
+  <h2 class="section-h">Diğer sorular <span class="count">9</span></h2>
+  <div class="grid">
+    <article class="article">
+      <div class="art-meta"><span class="art-num">02</span><span class="art-cat">Maliyet</span></div>
+      <h3 class="art-title">Yatırımın geri dönüş süresi ne kadar?</h3>
+      <p class="art-preview">Konutlarda tipik geri ödeme süresi 4–6 yıl. 25 yıl panel ömrüyle sistem kendini ödedikten sonra...</p>
+      <div class="art-foot"><span>★ 4.7k</span><span class="art-link">Oku →</span></div>
+    </article>
+    <article class="article">
+      <div class="art-meta"><span class="art-num">03</span><span class="art-cat">Kurulum</span></div>
+      <h3 class="art-title">Kurulum çatımı zarar verir mi, sızıntı yapar mı?</h3>
+      <p class="art-preview">Profesyonel montaj sızıntı riskini ortadan kaldırır. Çatı tipinizle uyumlu ankraj sistemi kullanılır...</p>
+      <div class="art-foot"><span>★ 3.8k</span><span class="art-link">Oku →</span></div>
+    </article>
+    <article class="article">
+      <div class="art-meta"><span class="art-num">04</span><span class="art-cat">Teknik</span></div>
+      <h3 class="art-title">Sistem bulutlu havalarda çalışır mı?</h3>
+      <p class="art-preview">Evet, paneller difüz ışıkla da üretim yapar. Verim ortalama %20-30'a düşer ama sıfır olmaz...</p>
+      <div class="art-foot"><span>★ 3.4k</span><span class="art-link">Oku →</span></div>
+    </article>
+    <article class="article">
+      <div class="art-meta"><span class="art-num">05</span><span class="art-cat">Bakım</span></div>
+      <h3 class="art-title">Bakım ne sıklıkta yapılmalı?</h3>
+      <p class="art-preview">Yılda 1-2 kez görsel inspeksiyon ve panel temizliği yeterlidir. Toz oranı yüksek bölgelerde 3 ay olabilir...</p>
+      <div class="art-foot"><span>★ 2.9k</span><span class="art-link">Oku →</span></div>
+    </article>
+    <article class="article">
+      <div class="art-meta"><span class="art-num">06</span><span class="art-cat">İzinler</span></div>
+      <h3 class="art-title">Hangi izinler gerekli, başvuruları siz mi yapıyorsunuz?</h3>
+      <p class="art-preview">Tüm izin ve başvuru süreçlerini ekibimiz yönetir. EPDK, dağıtım şirketi, OSB onayı dahil...</p>
+      <div class="art-foot"><span>★ 2.6k</span><span class="art-link">Oku →</span></div>
+    </article>
+    <article class="article">
+      <div class="art-meta"><span class="art-num">07</span><span class="art-cat">Garanti</span></div>
+      <h3 class="art-title">Panellerin garantisi nedir?</h3>
+      <p class="art-preview">Üretim garantisi 25-30 yıl, ürün garantisi 12-15 yıl. İnvertör 10 yıl, montaj işçilik 5 yıl...</p>
+      <div class="art-foot"><span>★ 2.4k</span><span class="art-link">Oku →</span></div>
+    </article>
+    <article class="article">
+      <div class="art-meta"><span class="art-num">08</span><span class="art-cat">Teknik</span></div>
+      <h3 class="art-title">Sistem büyüklüğü nasıl belirleniyor?</h3>
+      <p class="art-preview">Aylık tüketim profili, çatı alanı ve yönü, gölge analizi, bütçe — bu dört değişken sistem boyutunu belirler...</p>
+      <div class="art-foot"><span>★ 2.2k</span><span class="art-link">Oku →</span></div>
+    </article>
+    <article class="article">
+      <div class="art-meta"><span class="art-num">09</span><span class="art-cat">Maliyet</span></div>
+      <h3 class="art-title">Devlet teşviği veya hibe var mı?</h3>
+      <p class="art-preview">Konut tarifesinde mahsuplaşma, ticari Y.E.K.D.E.M, OSB'lerde KOSGEB destek programları mevcut...</p>
+      <div class="art-foot"><span>★ 2.0k</span><span class="art-link">Oku →</span></div>
+    </article>
+    <article class="article">
+      <div class="art-meta"><span class="art-num">10</span><span class="art-cat">Kurulum</span></div>
+      <h3 class="art-title">Mevcut çatıma kurulum mümkün mü?</h3>
+      <p class="art-preview">Çoğu çatı tipi uygundur (kiremit, metal, beton, sandwich panel). Ön keşif ile yapı statiği değerlendirilir...</p>
+      <div class="art-foot"><span>★ 1.8k</span><span class="art-link">Oku →</span></div>
+    </article>
+  </div>
+
+  <!-- HELP -->
+  <div class="help">
+    <div class="help-ic">☀</div>
+    <h3>Aradığını bulamadın mı?</h3>
+    <p>Mühendis Mehmet ortalama 2-4 dakika içinde yanıtlıyor. WhatsApp veya telefon ile direkt iletişime geç.</p>
+    <div class="help-actions">
+      <button class="btn-primary">WhatsApp ile yaz →</button>
+      <button class="btn-ghost">Telefonla ara</button>
+    </div>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Turuncu Solar — SET A v2 · Solstice Pro (full set)</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EE; --surface:#FFFFFF; --surface-2:#F5EDDF; --surface-3:#EDE3D2;
+    --text:#1B1813; --muted:#6B5F4E; --dim:#9C8E7A; --hint:#BFB29A;
+    --accent:#D4621A; --accent-hover:#B8521A;
+    --accent-soft:rgba(212,98,26,0.10); --accent-glow:rgba(212,98,26,0.25);
+    --gold:#C9A961; --gold-soft:rgba(201,169,97,0.12);
+    --line:rgba(27,24,19,0.10); --line-soft:rgba(27,24,19,0.05);
+    --shadow-sm:0 2px 8px rgba(27,24,19,0.04);
+    --shadow:0 8px 32px rgba(27,24,19,0.08);
+    --shadow-warm:0 12px 40px rgba(212,98,26,0.12);
+    --f-display:'Newsreader',serif; --f-body:'Inter',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--f-body);background:#E8E3D8;color:#1B1813;line-height:1.5;-webkit-font-smoothing:antialiased;padding:32px 16px;min-height:100vh}
+  .head{max-width:1600px;margin:0 auto 48px;text-align:center}
+  .head h1{font-family:var(--f-display);font-size:48px;font-weight:600;letter-spacing:-0.02em;margin-bottom:12px}
+  .head .tag{display:inline-block;background:var(--accent);color:#FFF;padding:4px 14px;border-radius:999px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:18px}
+  .head .desc{font-size:16px;color:#5A5246;max-width:640px;margin:0 auto}
+  .section{max-width:1600px;margin:0 auto 48px;background:#FFFEFA;border-radius:24px;padding:32px;box-shadow:0 4px 16px rgba(0,0,0,0.04)}
+  .sec-label{font-family:var(--f-display);font-size:13px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.16em;margin-bottom:6px}
+  .sec-name{font-family:var(--f-display);font-size:30px;font-weight:600;letter-spacing:-0.01em;margin-bottom:24px}
+
+  /* Devices grid: phone | tablet portrait | tablet landscape */
+  .devices{display:grid;grid-template-columns:1fr;gap:28px;justify-items:center}
+  @media (min-width:1280px){.devices{grid-template-columns:auto auto auto;align-items:start;gap:24px}}
+
+  .device{background:#000;padding:6px;border-radius:42px;box-shadow:0 24px 60px rgba(0,0,0,0.20)}
+  .device.tab-port{border-radius:24px;padding:8px}
+  .device.tab-land{border-radius:24px;padding:8px}
+  .device-label{text-align:center;margin-top:10px;font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.1em;font-weight:600}
+  .screen{background:var(--bg);border-radius:36px;overflow:hidden;width:340px;height:720px;display:flex;flex-direction:column;position:relative}
+  .device.tab-port .screen{border-radius:18px;width:520px;height:720px}
+  .device.tab-land .screen{border-radius:18px;width:720px;height:520px}
+
+  .app{flex:1;overflow:hidden;display:flex;flex-direction:column;color:var(--text);background:var(--bg)}
+
+  /* TOPBAR — phone & tablet */
+  .mtb{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:var(--bg)}
+  .mtb-frame{width:40px;height:40px;border-radius:14px;border:1px solid var(--accent-glow);background:var(--accent-soft);color:var(--accent);display:inline-flex;align-items:center;justify-content:center}
+  .mtb-frame svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2}
+  .mtb-actions{display:flex;gap:8px}
+  .mtb-icon-btn{width:40px;height:40px;border-radius:14px;border:1px solid var(--line);background:var(--surface);color:var(--text);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+  .mtb-icon-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+  .mtb-title{font-family:var(--f-display);font-weight:600;font-size:14px;color:var(--text)}
+
+  .content{flex:1;overflow-y:auto;padding:0 18px 18px;-webkit-overflow-scrolling:touch}
+  .content::-webkit-scrollbar{width:0}
+
+  /* BOTTOM NAV — phone (capsule floating) */
+  .bnav{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);background:var(--text);color:#FAF6EE;padding:5px;border-radius:999px;display:flex;align-items:center;gap:3px;box-shadow:0 16px 40px rgba(0,0,0,0.25);z-index:5}
+  .bn-item{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(250,246,238,0.55);cursor:pointer;background:transparent;border:none}
+  .bn-item.is-active{background:var(--accent);color:#FFF}
+  .bn-item svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+  .bn-fab{width:42px;height:42px;border-radius:50%;background:var(--accent);color:#FFF;display:flex;align-items:center;justify-content:center;margin:0 3px}
+  .bn-fab svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+
+  /* BOTTOM NAV — tablet (wider, with labels) */
+  .device.tab-port .bnav,
+  .device.tab-land .bnav{padding:6px 10px;gap:4px}
+  .device.tab-port .bn-item,
+  .device.tab-land .bn-item{width:auto;height:38px;padding:0 14px;border-radius:999px;flex-direction:row;gap:6px;font-size:11px;font-weight:600}
+  .device.tab-port .bn-item span,
+  .device.tab-land .bn-item span{display:inline}
+  .bn-item span{display:none}
+
+  /* COMMON */
+  .eyebrow{font-size:10px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.16em;margin-bottom:8px}
+  .h1{font-family:var(--f-display);font-size:28px;font-weight:600;letter-spacing:-0.02em;line-height:1.05;color:var(--text)}
+  .h1 em{font-style:italic;color:var(--accent)}
+  .h2{font-family:var(--f-display);font-size:18px;font-weight:600;letter-spacing:-0.01em;color:var(--text);margin-bottom:10px}
+  .lead{font-size:13px;color:var(--muted);line-height:1.55;margin:8px 0 14px}
+  .pill{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:#FFF;padding:10px 18px;border-radius:999px;font-size:12px;font-weight:600;border:none;font-family:inherit;cursor:pointer}
+  .pill svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2}
+  .pill.ghost{background:var(--surface);color:var(--text);border:1px solid var(--line)}
+  .pill.gold{background:var(--gold);color:#FFF}
+  .pill.sm{padding:7px 14px;font-size:11px}
+  .card{background:var(--surface);border:1px solid var(--line-soft);border-radius:18px;padding:14px;box-shadow:var(--shadow-sm)}
+  .card.warm{background:var(--surface-2)}
+  .card.feat{background:linear-gradient(135deg,#FFF8EE,#FAF6EE);border-color:var(--accent)}
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:12px 0}
+  .stat{text-align:center;padding:10px 4px;background:var(--surface);border-radius:12px;border:1px solid var(--line-soft)}
+  .stat-num{font-family:var(--f-display);font-size:18px;font-weight:600;color:var(--accent);display:block}
+  .stat-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;display:block}
+  .chip{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-size:10px;color:var(--muted);font-weight:500}
+  .chip svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2}
+  .chip.is-active{background:var(--accent);color:#FFF;border-color:var(--accent)}
+  .chip .count{font-size:9px;opacity:0.7;margin-left:2px}
+
+  /* ICON CHIP — kategori avatar gibi */
+  .icon-chip{width:36px;height:36px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--accent-glow)}
+  .icon-chip svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+  .icon-chip.gold{background:var(--gold-soft);color:var(--gold);border-color:var(--gold)}
+  .icon-chip.lg{width:44px;height:44px}
+  .icon-chip.lg svg{width:20px;height:20px}
+
+  /* HERO image */
+  .hero-img{height:160px;border-radius:16px;background:linear-gradient(135deg,#F4D29A 0%,#D4621A 50%,#7A3A0F 100%);position:relative;overflow:hidden;margin-bottom:12px}
+  .hero-img::after{content:"";position:absolute;top:30%;left:60%;width:80px;height:80px;background:radial-gradient(circle,#FFF8E7 0%,transparent 70%);opacity:0.6}
+
+  /* FEATURED post */
+  .feat-art{background:var(--surface);border-radius:18px;overflow:hidden;border:1px solid var(--line-soft);margin-bottom:10px}
+  .feat-img{height:110px;background:linear-gradient(135deg,#E8C998,#D4621A)}
+  .feat-body{padding:12px}
+  .feat-cat{font-size:9px;color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:4px}
+  .feat-title{font-family:var(--f-display);font-size:14px;font-weight:600;line-height:1.25;margin-bottom:4px}
+  .feat-meta{font-size:10px;color:var(--dim)}
+
+  /* LIST row */
+  .list-row{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--line-soft)}
+  .list-row:last-child{border-bottom:none}
+  .list-thumb{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,#F4D29A,#D4621A);flex-shrink:0}
+  .list-body{flex:1;min-width:0}
+  .list-cat{font-size:9px;color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:0.1em}
+  .list-title{font-family:var(--f-display);font-size:12px;font-weight:600;line-height:1.3;margin:2px 0;color:var(--text)}
+  .list-meta{font-size:9px;color:var(--dim)}
+
+  /* FORM */
+  .fld{margin-bottom:10px}
+  .fld label{font-size:9px;color:var(--text);text-transform:uppercase;letter-spacing:0.1em;font-weight:700;margin-bottom:4px;display:block}
+  .fld input,.fld textarea{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px;font-size:12px;font-family:inherit;color:var(--text)}
+  .fld textarea{min-height:60px;resize:none}
+  .picker{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text);cursor:pointer}
+  .picker svg{width:13px;height:13px;color:var(--accent);stroke:currentColor;fill:none;stroke-width:2}
+
+  /* MAP */
+  .map{height:120px;border-radius:14px;background:linear-gradient(135deg,#F5EDDF,#E8DCC4);position:relative;border:1px solid var(--line-soft);margin-bottom:10px;overflow:hidden}
+  .map::after{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:12px;height:12px;background:var(--accent);border-radius:50%;border:2px solid #FFF;box-shadow:0 0 0 6px rgba(212,98,26,0.3)}
+
+  /* SEARCH */
+  .search{position:relative;margin-bottom:10px}
+  .search input{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 12px 10px 36px;font-size:12px;font-family:inherit;color:var(--text)}
+  .search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:13px;height:13px;color:var(--muted);stroke:currentColor;fill:none;stroke-width:2}
+
+  /* ACCORDION */
+  .acc-row{padding:10px 12px;background:var(--surface);border:1px solid var(--line-soft);border-radius:12px;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+  .acc-row.is-open{border-color:var(--accent);background:#FFF8EE}
+  .acc-num{font-family:var(--f-display);font-weight:700;font-size:11px;color:var(--accent);min-width:18px}
+  .acc-title{flex:1;font-family:var(--f-display);font-weight:500;font-size:12px;line-height:1.3;color:var(--text)}
+
+  /* SYS card */
+  .sys-card{background:var(--surface);border:1px solid var(--line-soft);border-radius:16px;padding:14px;margin-bottom:8px}
+  .sys-card.feat{background:linear-gradient(135deg,#FFF8EE,#FAF6EE);border-color:var(--accent)}
+  .sys-card h3{font-family:var(--f-display);font-size:15px;font-weight:600;margin:8px 0 4px}
+  .sys-card p{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:10px}
+  .sys-features{list-style:none;padding:0;margin:0 0 10px}
+  .sys-features li{font-size:11px;color:var(--text);padding:3px 0;display:flex;align-items:center;gap:6px}
+  .sys-features li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0}
+
+  /* Tablet grids */
+  .device.tab-port .grid-2,
+  .device.tab-land .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .device.tab-land .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+
+  /* Detail page hero */
+  .det-hero{height:140px;border-radius:14px;background:linear-gradient(135deg,#F4D29A 0%,#D4621A 60%);position:relative;overflow:hidden;margin-bottom:14px}
+  .det-hero::after{content:"";position:absolute;top:20%;right:20%;width:60px;height:60px;background:radial-gradient(circle,#FFF8E7 0%,transparent 70%);opacity:0.5}
+
+  .breadcrumb{font-size:10px;color:var(--dim);margin-bottom:6px}
+  .breadcrumb a{color:var(--accent)}
+
+  .meta-row{display:flex;align-items:center;gap:8px;font-size:10px;color:var(--dim);margin-bottom:10px;flex-wrap:wrap}
+  .meta-row .dot{width:3px;height:3px;border-radius:50%;background:var(--dim)}
+
+  .prose p{font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:8px}
+  .prose b,.prose strong{color:var(--text);font-weight:600}
+  .prose h3{font-family:var(--f-display);font-size:14px;font-weight:600;margin:12px 0 6px;color:var(--text)}
+  .prose ul{padding-left:16px;margin:6px 0}
+  .prose li{font-size:11px;color:var(--muted);margin-bottom:3px}
+
+  .tag-list{display:flex;gap:4px;flex-wrap:wrap;margin-top:10px}
+</style>
+</head>
+<body>
+
+<header class="head">
+  <span class="tag">SET A v2 · Solstice Pro</span>
+  <h1>Turuncu Solar — Full Set</h1>
+  <p class="desc">Sıcak krem palet, serif başlıklar, kategori ikon avatar'ları (Lucide). 12 sayfa × 3 cihaz: phone / tablet portrait / tablet landscape — tablet'te bottom bar dahil.</p>
+</header>
+
+<!-- Reusable SVG sembol kütüphanesi (defs) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="9 22 9 12 15 12 15 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" fill="none" stroke="currentColor" stroke-width="2"/><rect x="14" y="3" width="7" height="7" fill="none" stroke="currentColor" stroke-width="2"/><rect x="3" y="14" width="7" height="7" fill="none" stroke="currentColor" stroke-width="2"/><rect x="14" y="14" width="7" height="7" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-bldg" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="17" x2="12.01" y2="17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></symbol>
+  <symbol id="i-msg" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-arr" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="12 5 19 12 12 19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="m21 21-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="3" y1="18" x2="21" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><line x1="2" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="2"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-bat" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-clip" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-money" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23" stroke="currentColor" stroke-width="2"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-set" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-badge" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="2"/><line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="2"/><line x1="3" y1="18" x2="12" y2="18" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><polyline points="22,6 12,13 2,6" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="10" r="3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><polyline points="12 6 12 12 16 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polygon points="22 2 15 22 11 13 2 9 22 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="19" r="3" fill="none" stroke="currentColor" stroke-width="2"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" stroke="currentColor" stroke-width="2"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19.2 2.96a1 1 0 0 1 1.8.66c0 1.07-.42 4.32-1.84 6.7-2.4 4.04-5.18 5.7-8.16 5.7H8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M2 21c0-3 1.85-5.36 5.08-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-calc" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><line x1="8" y1="6" x2="16" y2="6" stroke="currentColor" stroke-width="2"/><line x1="8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><line x1="12" y1="12" x2="12" y2="12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><line x1="16" y1="12" x2="16" y2="12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><line x1="8" y1="16" x2="8" y2="16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><line x1="12" y1="16" x2="12" y2="16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></symbol>
+</defs>
+</svg>
+
+<!-- ════════════════════ P01 · ANA SAYFA ════════════════════ -->
+<section class="section">
+  <p class="sec-label">P01 · Ana Sayfa</p>
+  <h2 class="sec-name">Hero · stat · sistem önizleme</h2>
+  <div class="devices">
+
+    <!-- PHONE -->
+    <div><div class="device"><div class="screen"><div class="app">
+      <div class="mtb">
+        <span class="mtb-frame"><svg><use href="#i-sun"/></svg></span>
+        <div class="mtb-actions">
+          <button class="mtb-icon-btn"><svg><use href="#i-globe"/></svg></button>
+          <button class="mtb-icon-btn"><svg><use href="#i-menu"/></svg></button>
+        </div>
+      </div>
+      <div class="content">
+        <p class="eyebrow">Yeni · Mart 2026</p>
+        <h1 class="h1">Güneş, evinde<br><em>tasarrufa dönüşür.</em></h1>
+        <p class="lead">Çatına özel sistem tasarımı, kurulum ve 25 yıl garanti.</p>
+        <button class="pill"><svg><use href="#i-calc"/></svg> Ücretsiz keşif</button>
+        <div class="hero-img" style="margin-top:14px"></div>
+        <div class="stat-row">
+          <div class="stat"><span class="stat-num">500+</span><span class="stat-lbl">Proje</span></div>
+          <div class="stat"><span class="stat-num">45MW</span><span class="stat-lbl">Güç</span></div>
+          <div class="stat"><span class="stat-num">7+</span><span class="stat-lbl">Yıl</span></div>
+        </div>
+        <h2 class="h2" style="margin-top:14px">Sistemler</h2>
+        <div class="card warm" style="margin-bottom:6px;display:flex;align-items:center;gap:10px">
+          <span class="icon-chip"><svg><use href="#i-sun"/></svg></span>
+          <div style="flex:1"><strong style="font-family:var(--f-display);font-size:13px">On-Grid</strong><div style="font-size:10px;color:var(--muted)">Şebeke bağlantılı</div></div>
+          <svg style="width:14px;height:14px;color:var(--accent);stroke:currentColor;fill:none;stroke-width:2"><use href="#i-arr"/></svg>
+        </div>
+        <div class="card" style="margin-bottom:6px;display:flex;align-items:center;gap:10px">
+          <span class="icon-chip"><svg><use href="#i-bat"/></svg></span>
+          <div style="flex:1"><strong style="font-family:var(--f-display);font-size:13px">Hibrit</strong><div style="font-size:10px;color:var(--muted)">Akülü + şebekeli</div></div>
+          <svg style="width:14px;height:14px;color:var(--accent);stroke:currentColor;fill:none;stroke-width:2"><use href="#i-arr"/></svg>
+        </div>
+        <div style="height:80px"></div>
+      </div>
+      <nav class="bnav">
+        <button class="bn-item is-active"><svg><use href="#i-home"/></svg></button>
+        <button class="bn-item"><svg><use href="#i-grid"/></svg></button>
+        <button class="bn-fab"><svg><use href="#i-calc"/></svg></button>
+        <button class="bn-item"><svg><use href="#i-help"/></svg></button>
+        <button class="bn-item"><svg><use href="#i-msg"/></svg></button>
+      </nav>
+    </div></div></div><div class="device-label">Phone · 390pt</div></div>
+
+    <!-- TABLET PORTRAIT -->
+    <div><div class="device tab-port"><div class="screen"><div class="app">
+      <div class="mtb" style="padding:14px 22px">
+        <span class="mtb-frame"><svg><use href="#i-sun"/></svg></span>
+        <span class="mtb-title" style="font-size:16px">Turuncu Solar</span>
+        <div class="mtb-actions"><button class="mtb-icon-btn"><svg><use href="#i-search"/></svg></button><button class="mtb-icon-btn"><svg><use href="#i-menu"/></svg></button></div>
+      </div>
+      <div class="content" style="padding:0 22px 22px">
+        <div class="grid-2" style="margin-top:14px;align-items:center">
+          <div>
+            <p class="eyebrow">Yeni · Mart 2026</p>
+            <h1 class="h1" style="font-size:32px">Güneş, evinde <em>tasarrufa dönüşür.</em></h1>
+            <p class="lead">Çatına özel sistem tasarımı, kurulum ve 25 yıl garanti.</p>
+            <button class="pill"><svg><use href="#i-calc"/></svg> Ücretsiz keşif</button>
+          </div>
+          <div class="hero-img" style="height:180px;margin-bottom:0"></div>
+        </div>
+        <div class="stat-row" style="margin-top:18px">
+          <div class="stat" style="padding:14px 6px"><span class="stat-num" style="font-size:24px">500+</span><span class="stat-lbl">Proje</span></div>
+          <div class="stat" style="padding:14px 6px"><span class="stat-num" style="font-size:24px">45 MW</span><span class="stat-lbl">Güç</span></div>
+          <div class="stat" style="padding:14px 6px"><span class="stat-num" style="font-size:24px">7+ Yıl</span><span class="stat-lbl">Tecrübe</span></div>
+        </div>
+        <h2 class="h2" style="margin-top:18px;font-size:20px">Sistemler</h2>
+        <div class="grid-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+          <div class="card warm"><span class="icon-chip"><svg><use href="#i-sun"/></svg></span><h3 style="font-family:var(--f-display);font-size:13px;margin:6px 0 2px">On-Grid</h3><p style="font-size:10px;color:var(--muted)">Şebeke bağlantılı</p></div>
+          <div class="card"><span class="icon-chip"><svg><use href="#i-bat"/></svg></span><h3 style="font-family:var(--f-display);font-size:13px;margin:6px 0 2px">Hibrit</h3><p style="font-size:10px;color:var(--muted)">Akülü + şebekeli</p></div>
+          <div class="card"><span class="icon-chip"><svg><use href="#i-zap"/></svg></span><h3 style="font-family:var(--f-display);font-size:13px;margin:6px 0 2px">Off-Grid</h3><p style="font-size:10px;color:var(--muted)">Tam bağımsız</p></div>
+        </div>
+        <div style="height:90px"></div>
+      </div>
+      <nav class="bnav">
+        <button class="bn-item is-active"><svg><use href="#i-home"/></svg><span>Ana</span></button>
+        <button class="bn-item"><svg><use href="#i-grid"/></svg><span>Sistem</span></button>
+        <button class="bn-fab"><svg><use href="#i-calc"/></svg></button>
+        <button class="bn-item"><svg><use href="#i-help"/></svg><span>SSS</span></button>
+        <button class="bn-item"><svg><use href="#i-msg"/></svg><span>Mesaj</span></button>
+      </nav>
+    </div></div></div><div class="device-label">Tablet portrait · 768pt</div></div>
+
+    <!-- TABLET LANDSCAPE -->
+    <div><div class="device tab-land"><div class="screen"><div class="app">
+      <div class="mtb" style="padding:14px 26px">
+        <span class="mtb-frame"><svg><use href="#i-sun"/></svg></span>
+        <span class="mtb-title" style="font-size:16px">Turuncu Solar</span>
+        <div class="mtb-actions"><button class="mtb-icon-btn"><svg><use href="#i-search"/></svg></button><button class="mtb-icon-btn"><svg><use href="#i-menu"/></svg></button></div>
+      </div>
+      <div class="content" style="padding:0 26px 22px">
+        <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:20px;align-items:center;margin-top:14px">
+          <div>
+            <p class="eyebrow">Yeni · Mart 2026</p>
+            <h1 class="h1" style="font-size:34px">Güneş, evinde <em>tasarrufa dönüşür.</em></h1>
+            <p class="lead">Çatına özel sistem tasarımı, kurulum ve 25 yıl garanti — tek partnerden.</p>
+            <button class="pill"><svg><use href="#i-calc"/></svg> Ücretsiz keşif başlat</button>
+            <div class="stat-row" style="margin-top:14px">
+              <div class="stat"><span class="stat-num" style="font-size:20px">500+</span><span class="stat-lbl">Proje</span></div>
+              <div class="stat"><span class="stat-num" style="font-size:20px">45 MW</span><span class="stat-lbl">Güç</span></div>
+              <div class="stat"><span class="stat-num" style="font-size:20px">7+</span><span class="stat-lbl">Yıl</span></div>
+            </div>
+          </div>
+          <div class="hero-img" style="height:240px;margin-bottom:0"></div>
+        </div>
+        <h2 class="h2" style="margin-top:14px;font-size:18px">Sistemler</h2>
+        <div class="grid-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+          <div class="card warm" style="display:flex;align-items:center;gap:8px"><span class="icon-chip"><svg><use href="#i-sun"/></svg></span><div><strong style="font-family:var(--f-display);font-size:12px">On-Grid</strong><div style="font-size:10px;color:var(--muted)">Şebekeli</div></div></div>
+          <div class="card" style="display:flex;align-items:center;gap:8px"><span class="icon-chip"><svg><use href="#i-bat"/></svg></span><div><strong style="font-family:var(--f-display);font-size:12px">Hibrit</strong><div style="font-size:10px;color:var(--muted)">Akülü</div></div></div>
+          <div class="card" style="display:flex;align-items:center;gap:8px"><span class="icon-chip"><svg><use href="#i-zap"/></svg></span><div><strong style="font-family:var(--f-display);font-size:12px">Off-Grid</strong><div style="font-size:10px;color:var(--muted)">Bağımsız</div></div></div>
+        </div>
+        <div style="height:80px"></div>
+      </div>
+      <nav class="bnav">
+        <button class="bn-item is-active"><svg><use href="#i-home"/></svg><span>Ana</span></button>
+        <button class="bn-item"><svg><use href="#i-grid"/></svg><span>Sistem</span></button>
+        <button class="bn-fab"><svg><use href="#i-calc"/></svg></button>
+        <button class="bn-item"><svg><use href="#i-help"/></svg><span>SSS</span></button>
+        <button class="bn-item"><svg><use href="#i-msg"/></svg><span>Mesaj</span></button>
+      </nav>
+    </div></div></div><div class="device-label">Tablet landscape · 1024pt</div></div>
+
+  </div>
+</section>
+
+<!-- ════════════════════ P02 · SİSTEMLER LİSTE ════════════════════ -->
+<section class="section">
+  <p class="sec-label">P02 · Sistemler liste</p>
+  <h2 class="sec-name">3 sistem · seçim rehberi</h2>
+  <div class="devices">
+
+    <div><div class="device"><div class="screen"><div class="app">
+      <div class="mtb"><button class="mtb-icon-btn"><svg><use href="#i-back"/></svg></button><span class="mtb-title">Sistemler</span><button class="mtb-icon-btn"><svg><use href="#i-help"/></svg></button></div>
+      <div class="content">
+        <p class="eyebrow">Hangisi senin için?</p>
+        <h1 class="h1">Sana uygun <em>sistemi seç.</em></h1>
+        <p class="lead">3 sistem mimarisi, farklı senaryolar için optimize.</p>
+        <article class="sys-card feat">
+          <div style="display:flex;align-items:center;gap:10px;justify-content:space-between"><span class="icon-chip lg"><svg><use href="#i-sun"/></svg></span><span class="chip is-active">EN POPÜLER</span></div>
+          <h3>On-Grid</h3>
+          <p>Şebekeye bağlı, ürettiğin enerjiyi mahsup edersin.</p>
+          <ul class="sys-features"><li>Sıfır fatura hedefi</li><li>5–7 yıl geri ödeme</li><li>Düşük başlangıç</li></ul>
+          <button class="pill sm"><svg><use href="#i-arr"/></svg> Detaylı incele</button>
+        </article>
+        <article class="sys-card">
+          <span class="icon-chip lg"><svg><use href="#i-bat"/></svg></span>
+          <h3>Hibrit</h3>
+          <p>Akülü + şebekeli, kesintide bile çalışır.</p>
+          <button class="pill ghost sm"><svg><use href="#i-arr"/></svg> Detay</button>
+        </article>
+        <article class="sys-card">
+          <span class="icon-chip lg gold"><svg><use href="#i-zap"/></svg></span>
+          <h3>Off-Grid</h3>
+          <p>Tam bağımsız sistem, uzak yapılar için.</p>
+          <button class="pill ghost sm"><svg><use href="#i-arr"/></svg> Detay</button>
+        </article>
+        <div style="height:80px"></div>
+      </div>
+      <nav class="bnav"><button class="bn-item"><svg><use href="#i-home"/></svg></button><button class="bn-item is-active"><svg><use href="#i-grid"/></svg></button><button class="bn-fab"><svg><use href="#i-calc"/></svg></button><button class="bn-item"><svg><use href="#i-help"/></svg></button><button class="bn-item"><svg><use href="#i-msg"/></svg></button></nav>
+    </div></div></div><div class="device-label">Phone</div></div>
+
+    <div><div class="device tab-port"><div class="screen"><div class="app">
+      <div class="mtb" style="padding:14px 22px"><button class="mtb-icon-btn"><svg><use href="#i-back"/></svg></button><span class="mtb-title" style="font-size:16px">Sistemler</span><div class="mtb-actions"><button class="mtb-icon-btn"><svg><use href="#i-search"/></svg></button><button class="mtb-icon-btn"><svg><use href="#i-menu"/></svg></button></div></div>
+      <div class="content" style="padding:0 22px 22px">
+        <div style="text-align:center;margin:14px 0"><p class="eyebrow">Hangisi senin için?</p><h1 class="h1" style="font-size:28px">Sana uygun <em>sistemi seç.</em></h1></div>
+        <div class="grid-2">
+          <article class="sys-card feat"><div style="display:flex;justify-content:space-between;align-items:center"><span class="icon-chip lg"><svg><use href="#i-sun"/></svg></span><span class="chip is-active">EN POPÜLER</span></div><h3>On-Grid</h3><p>Şebekeye bağlı, mahsuplaşma.</p><ul class="sys-features"><li>Sıfır fatura</li><li>5–7 yıl ödeme</li></ul><button class="pill sm"><svg><use href="#i-arr"/></svg> İncele</button></article>
+          <article class="sys-card"><span class="icon-chip lg"><svg><use href="#i-bat"/></svg></span><h3>Hibrit</h3><p>Akülü + şebekeli sistem.</p><ul class="sys-features"><li>Yedekleme</li><li>Premium</li></ul><button class="pill ghost sm">Detay</button></article>
+          <article class="sys-card" style="grid-column:span 2"><div style="display:flex;align-items:center;gap:12px"><span class="icon-chip lg gold"><svg><use href="#i-zap"/></svg></span><div style="flex:1"><h3 style="margin:0">Off-Grid</h3><p style="margin:2px 0 0">Tam bağımsız, uzak yapılar için.</p></div><button class="pill ghost sm">Detay</button></div></article>
+        </div>
+        <div style="height:90px"></div>
+      </div>
+      <nav class="bnav"><button class="bn-item"><svg><use href="#i-home"/></svg><span>Ana</span></button><button class="bn-item is-active"><svg><use href="#i-grid"/></svg><span>Sistem</span></button><button class="bn-fab"><svg><use href="#i-calc"/></svg></button><button class="bn-item"><svg><use href="#i-help"/></svg><span>SSS</span></button><button class="bn-item"><svg><use href="#i-msg"/></svg><span>Mesaj</span></button></nav>
+    </div></div></div><div class="device-label">Tablet portrait</div></div>
+
+    <div><div class="device tab-land"><div class="screen"><div class="app">
+      <div class="mtb" style="padding:14px 26px"><button class="mtb-icon-btn"><svg><use href="#i-back"/></svg></button><span class="mtb-title" style="font-size:16px">Sistemler</span><div class="mtb-actions"><button class="mtb-icon-btn"><svg><use href="#i-search"/></svg></button><button class="mtb-icon-btn"><svg><use href="#i-menu"/></svg></button></div></div>
+      <div class="content" style="padding:0 26px 22px">
+        <div style="text-align:center;margin:10px 0"><p class="eyebrow">Hangisi senin için?</p><h1 class="h1" style="font-size:24px">Sana uygun <em>sistemi seç.</em></h1></div>
+        <div class="grid-3">
+          <article class="sys-card feat"><div style="display:flex;justify-content:space-between"><span class="icon-chip"><svg><use href="#i-sun"/></svg></span><span class="chip is-active" style="font-size:9px">★ POPÜLER</span></div><h3 style="font-size:14px">On-Grid</h3><p>Şebekeli, mahsuplaşma.</p><ul class="sys-features"><li>Sıfır fatura</li><li>5–7 yıl</li></ul><button class="pill sm">İncele</button></article>
+          <article class="sys-card"><span class="icon-chip"><svg><use href="#i-bat"/></svg></span><h3 style="font-size:14px">Hibrit</h3><p>Akülü + şebekeli.</p><ul class="sys-features"><li>Yedekleme</li><li>Premium</li></ul><button class="pill ghost sm">Detay</button></article>
+          <article class="sys-card"><span class="icon-chip gold"><svg><use href="#i-zap"/></svg></span><h3 style="font-size:14px">Off-Grid</h3><p>Tam bağımsız.</p><ul class="sys-features"><li>Bağımsız</li><li>Uzak yapı</li></ul><button class="pill ghost sm">Detay</button></article>
+        </div>
+        <div style="height:80px"></div>
+      </div>
+      <nav class="bnav"><button class="bn-item"><svg><use href="#i-home"/></svg><span>Ana</span></button><button class="bn-item is-active"><svg><use href="#i-grid"/></svg><span>Sistem</span></button><button class="bn-fab"><svg><use href="#i-calc"/></svg></button><button class="bn-item"><svg><use href="#i-help"/></svg><span>SSS</span></button><button class="bn-item"><svg><use href="#i-msg"/></svg><span>Mesaj</span></button></nav>
+    </div></div></div><div class="device-label">Tablet landscape</div></div>
+
+  </div>
+</section>
+
+<!-- ════════════════════ P03 placeholder marker — gerçek P03 üstte zaten ════ -->
+
+<!-- ════════════════════ P04 · KARŞILAŞTIRMA ════════════════════ -->
+<section class="section">
+  <p class="sec-label">P04 · Sistem Farkları</p>
+  <h2 class="sec-name">Karşılaştırma matrisi</h2>
+  <div class="devices">
+
+    <div><div class="device"><div class="screen"><div class="app">
+      <div class="mtb"><button class="mtb-icon-btn"><svg><use href="#i-back"/></svg></button><span class="mtb-title">Karşılaştır</span><button class="mtb-icon-btn"><svg><use href="#i-set"/></svg></button></div>
+      <div class="content">
+        <p class="eyebrow">Karar rehberi</p>
+        <h1 class="h1">3 sistem,<br><em>net farklar.</em></h1>
+        <p class="lead">5 kriter yan yana, objektif.</p>
+        <div class="card" style="margin-bottom:8px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span class="icon-chip"><svg><use href="#i-money"/></svg></span><strong style="font-family:var(--f-display);font-size:13px">Maliyet</strong></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px"><div style="text-align:center;padding:8px 4px;background:var(--surface-2);border-radius:8px"><div style="font-size:9px;color:var(--muted)">On-Grid</div><strong style="color:var(--accent);font-family:var(--f-display);font-size:14px">₺</strong></div><div style="text-align:center;padding:8px 4px;background:var(--surface-2);border-radius:8px"><div style="font-size:9px;color:var(--muted)">Hibrit</div><strong style="font-family:var(--f-display);font-size:14px">₺₺</strong></div><div style="text-align:center;padding:8px 4px;background:var(--surface-2);border-radius:8px"><div style="font-size:9px;color:var(--muted)">Off-Grid</div><strong style="font-family:var(--f-display);font-size:14px">₺₺₺</strong></div></div>
+        </div>
+        <div class="card" style="margin-bottom:8px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span class="icon-chip"><svg><use href="#i-clock"/></svg></span><strong style="font-family:var(--f-display);font-size:13px">Geri ödeme</strong></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px"><div style="text-align:center;padding:8px 4px;background:var(--surface-2);border-radius:8px"><div style="font-size:9px;color:var(--muted)">On-Grid</div><strong style="color:var(--accent);font-size:12px">5–7y</strong></div><div style="text-align:center;padding:8px 4px;background:var(--surface-2);border-radius:8px"><div style="font-size:9px;color:var(--muted)">Hibrit</div><strong style="font-size:12px">7–9y</strong></div><div style="text-align:center;padding:8px 4px;background:var(--surface-2);border-radius:8px"><div style="font-size:9px;color:var(--muted)">Off-Grid</div><strong style="font-size:12px">9–12y</strong></div></div>
+        </div>
+        <div class="card" style="margin-bottom:8px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span class="icon-chip"><svg><use href="#i-shield"/></svg></span><strong style="font-family:var(--f-display);font-size:13px">Kesinti dayanımı</strong></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px"><div style="text-align:center;padding:8px 4px;background:var(--surface-2);border-radius:8px"><div style="font-size:9px;color:var(--muted)">On-Grid</div><strong style="font-size:14px;color:#aaa">✕</strong></div><div style="text-align:center;padding:8px 4px;background:var(--surface-2);border-radius:8px"><div style="font-size:9px;color:var(--muted)">Hibrit</div><strong style="font-size:14px;color:#10A36C">✓</strong></div><div style="text-align:center;padding:8px 4px;background:var(--surface-2);border-radius:8px"><div style="font-size:9px;color:var(--muted)">Off-Grid</div><strong style="font-size:14px;color:#10A36C">✓✓</strong></div></div>
+        </div>
+        <button class="pill" style="width:100%;justify-content:center;margin-top:8px"><svg><use href="#i-help"/></svg> Quiz: hangisi bana uygun?</button>
+        <div style="height:80px"></div>
+      </div>
+      <nav class="bnav"><button class="bn-item"><svg><use href="#i-home"/></svg></button><button class="bn-item is-active"><svg><use href="#i-grid"/></svg></button><button class="bn-fab"><svg><use href="#i-calc"/></svg></button><button class="bn-item"><svg><use href="#i-help"/></svg></button><button class="bn-item"><svg><use href="#i-msg"/></svg></button></nav>
+    </div></div></div><div class="device-label">Phone</div></div>
+
+    <div><div class="device tab-port"><div class="screen"><div class="app">
+      <div class="mtb" style="padding:14px 22px"><button class="mtb-icon-btn"><svg><use href="#i-back"/></svg></button><span class="mtb-title" style="font-size:16px">Karşılaştır</span><button class="mtb-icon-btn"><svg><use href="#i-help"/></svg></button></div>
+      <div class="content" style="padding:0 22px 22px">
+        <div style="text-align:center;margin:14px 0"><p class="eyebrow">Karar rehberi</p><h1 class="h1" style="font-size:28px">3 sistem, <em>net farklar.</em></h1></div>
+        <div class="card" style="padding:18px">
+          <table style="width:100%;border-collapse:collapse;font-size:12px">
+            <thead><tr><th style="text-align:left;padding:8px 6px;font-family:var(--f-display);font-weight:600">Kriter</th><th style="padding:8px 6px;font-family:var(--f-display);font-weight:600;color:var(--accent)">On-Grid</th><th style="padding:8px 6px;font-family:var(--f-display);font-weight:600">Hibrit</th><th style="padding:8px 6px;font-family:var(--f-display);font-weight:600">Off-Grid</th></tr></thead>
+            <tbody style="color:var(--muted)">
+              <tr style="border-top:1px solid var(--line-soft)"><td style="padding:10px 6px;color:var(--text);display:flex;align-items:center;gap:6px"><svg style="width:13px;height:13px;color:var(--accent);stroke:currentColor;fill:none;stroke-width:2"><use href="#i-money"/></svg> Maliyet</td><td style="padding:10px 6px;text-align:center;color:var(--accent);font-weight:700">₺</td><td style="padding:10px 6px;text-align:center;font-weight:700">₺₺</td><td style="padding:10px 6px;text-align:center;font-weight:700">₺₺₺</td></tr>
+              <tr style="border-top:1px solid var(--line-soft)"><td style="padding:10px 6px;color:var(--text);display:flex;align-items:center;gap:6px"><svg style="width:13px;height:13px;color:var(--accent);stroke:currentColor;fill:none;stroke-width:2"><use href="#i-clock"/></svg> Geri ödeme</td><td style="padding:10px 6px;text-align:center;font-weight:600">5–7y</td><td style="padding:10px 6px;text-align:center;font-weight:600">7–9y</td><td style="padding:10px 6px;text-align:center;font-weight:600">9–12y</td></tr>
+              <tr style="border-top:1px solid var(--line-soft)"><td style="padding:10px 6px;color:var(--text);display:flex;align-items:center;gap:6px"><svg style="width:13px;height:13px;color:var(--accent);stroke:currentColor;fill:none;stroke-width:2"><use href="#i-shield"/></svg> Kesinti</td><td style="padding:10px 6px;text-align:center;color:#aaa">✕</td><td style="padding:10px 6px;text-align:center;color:#10A36C">✓</td><td style="padding:10px 6px;text-align:center;color:#10A36C">✓✓</td></tr>
+              <tr style="border-top:1px solid var(--line-soft)"><td style="padding:10px 6px;color:var(--text);display:flex;align-items:center;gap:6px"><svg style="width:13px;height:13px;color:var(--accent);stroke:currentColor;fill:none;stroke-width:2"><use href="#i-bat"/></svg> Akü</td><td style="padding:10px 6px;text-align:center;color:#aaa">✕</td><td style="padding:10px 6px;text-align:center;color:#10A36C">✓</td><td style="padding:10px 6px;text-align:center;color:#10A36C">✓</td></tr>
+              <tr style="border-top:1px solid var(--line-soft)"><td style="padding:10px 6px;color:var(--text);display:flex;align-items:center;gap:6px"><svg style="width:13px;height:13px;color:var(--accent);stroke:currentColor;fill:none;stroke-width:2"><use href="#i-bldg"/></svg> İdeal</td><td style="padding:10px 6px;text-align:center;font-size:10px">Şehir konut</td><td style="padding:10px 6px;text-align:center;font-size:10px">Premium</td><td style="padding:10px 6px;text-align:center;font-size:10px">Uzak yapı</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="height:80px"></div>
+      </div>
+      <nav class="bnav"><button class="bn-item"><svg><use href="#i-home"/></svg><span>Ana</span></button><button class="bn-item is-active"><svg><use href="#i-grid"/></svg><span>Sistem</span></button><button class="bn-fab"><svg><use href="#i-calc"/></svg></button><button class="bn-item"><svg><use href="#i-help"/></svg><span>SSS</span></button><button class="bn-item"><svg><use href="#i-msg"/></svg><span>Mesaj</span></button></nav>
+    </div></div></div><div class="device-label">Tablet portrait</div></div>
+
+    <div><div class="device tab-land"><div class="screen"><div class="app">
+      <div class="mtb" style="padding:12px 26px"><button class="mtb-icon-btn"><svg><use href="#i-back"/></svg></button><span class="mtb-title" style="font-size:15px">Sistem karşılaştırma</span><button class="mtb-icon-btn"><svg><use href="#i-help"/></svg></button></div>
+      <div class="content" style="padding:0 26px 22px">
+        <div style="text-align:center;margin:8px 0"><p class="eyebrow">Karar rehberi</p><h1 class="h1" style="font-size:24px">3 sistem, <em>net farklar.</em></h1></div>
+        <div class="card" style="padding:16px">
+          <table style="width:100%;border-collapse:collapse;font-size:11px">
+            <thead><tr><th style="text-align:left;padding:7px 6px;font-family:var(--f-display);font-weight:600;font-size:11px">KRİTER</th><th style="padding:7px 6px;font-family:var(--f-display);font-weight:600;color:var(--accent);font-size:11px">On-Grid ★</th><th style="padding:7px 6px;font-family:var(--f-display);font-weight:600;font-size:11px">Hibrit</th><th style="padding:7px 6px;font-family:var(--f-display);font-weight:600;font-size:11px">Off-Grid</th><th style="padding:7px 6px;font-family:var(--f-display);font-weight:600;font-size:11px">Önerilir</th></tr></thead>
+            <tbody style="color:var(--muted)">
+              <tr style="border-top:1px solid var(--line-soft)"><td style="padding:9px 6px;color:var(--text)">Maliyet</td><td style="text-align:center;color:var(--accent);font-weight:700">₺</td><td style="text-align:center;font-weight:700">₺₺</td><td style="text-align:center;font-weight:700">₺₺₺</td><td style="text-align:center;font-size:10px">On-Grid</td></tr>
+              <tr style="border-top:1px solid var(--line-soft)"><td style="padding:9px 6px;color:var(--text)">Geri ödeme</td><td style="text-align:center;font-weight:600">5–7y</td><td style="text-align:center;font-weight:600">7–9y</td><td style="text-align:center;font-weight:600">9–12y</td><td style="text-align:center;font-size:10px">On-Grid</td></tr>
+              <tr style="border-top:1px solid var(--line-soft)"><td style="padding:9px 6px;color:var(--text)">Kesintiye dayanır</td><td style="text-align:center;color:#aaa">✕</td><td style="text-align:center;color:#10A36C">✓</td><td style="text-align:center;color:#10A36C">✓✓</td><td style="text-align:center;font-size:10px">Hibrit/Off</td></tr>
+              <tr style="border-top:1px solid var(--line-soft)"><td style="padding:9px 6px;color:var(--text)">Akü içerir</td><td style="text-align:center;color:#aaa">✕</td><td style="text-align:center;color:#10A36C">✓</td><td style="text-align:center;color:#10A36C">✓</td><td style="text-align:center;font-size:10px">—</td></tr>
+              <tr style="border-top:1px solid var(--line-soft)"><td style="padding:9px 6px;color:var(--text)">İdeal kullanım</td><td style="text-align:center;font-size:10px">Şehir konut</td><td style="text-align:center;font-size:10px">Premium</td><td style="text-align:center;font-size:10px">Uzak yapı</td><td style="text-align:center;font-size:10px">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <button class="pill" style="margin-top:10px"><svg><use href="#i-help"/></svg> Quiz başlat</button>
+        <div style="height:70px"></div>
+      </div>
+      <nav class="bnav"><button class="bn-item"><svg><use href="#i-home"/></svg><span>Ana</span></button><button class="bn-item is-active"><svg><use href="#i-grid"/></svg><span>Sistem</span></button><button class="bn-fab"><svg><use href="#i-calc"/></svg></button><button class="bn-item"><svg><use href="#i-help"/></svg><span>SSS</span></button><button class="bn-item"><svg><use href="#i-msg"/></svg><span>Mesaj</span></button></nav>
+    </div></div></div><div class="device-label">Tablet landscape</div></div>
+
+  </div>
+</section>
+
+<!-- ════════════════════ P05 · REFERANSLAR ════════════════════ -->
+<section class="section">
+  <p class="sec-label">P05 · Referanslar</p>
+  <h2 class="sec-name">Proje galerisi</h2>
+  <div class="devices">
+
+    <div><div class="device"><div class="screen"><div class="app">
+      <div class="mtb"><span class="mtb-frame"><svg><use href="#i-bldg"/></svg></span><span class="mtb-title">Referanslar</span><div class="mtb-actions"><button class="mtb-icon-btn"><svg><use href="#i-search"/></svg></button></div></div>
+      <div class="content">
+        <p class="eyebrow">500+ tamamlanmış</p>
+        <h1 class="h1">Kurduğumuz <em>sistemler.</em></h1>
+        <p class="lead">İl, sektör ve güç oranına göre filtrele.</p>
+        <div style="display:flex;gap:6px;overflow-x:auto;margin-bottom:10px;padding-bottom:4px">
+          <span class="chip is-active"><svg><use href="#i-list"/></svg> Tümü <span class="count">500+</span></span>
+          <span class="chip"><svg><use href="#i-bldg"/></svg> Konut</span>
+          <span class="chip"><svg><use href="#i-set"/></svg> Sanayi</span>
+          <span class="chip"><svg><use href="#i-leaf"/></svg> Tarım</span>
+        </div>
+        <article class="card" style="padding:0;overflow:hidden;margin-bottom:8px">
+          <div class="hero-img" style="height:120px;border-radius:0;margin-bottom:0"></div>
+          <div style="padding:12px"><div style="display:flex;justify-content:space-between;align-items:center"><strong style="font-family:var(--f-display);font-size:13px">Bayraktepe Çiftliği</strong><span class="chip is-active" style="font-size:9px">75 kW</span></div><div style="display:flex;align-items:center;gap:6px;margin-top:6px;font-size:10px;color:var(--muted)"><svg style="width:11px;height:11px;color:var(--accent);stroke:currentColor;fill:none;stroke-width:2"><use href="#i-pin"/></svg> Konya · Tarımsal · 2025</div></div>
+        </article>
+        <article class="card" style="padding:0;overflow:hidden;margin-bottom:8px">
+          <div class="hero-img" style="height:120px;border-radius:0;margin-bottom:0;background:linear-gradient(135deg,#A4C4D6,#3F6B8C)"></div>
+          <div style="padding:12px"><div style="display:flex;justify-content:space-between;align-items:center"><strong style="font-family:var(--f-display);font-size:13px">Kayalar Plaza</strong><span class="chip is-active" style="font-size:9px">120 kW</span></div><div style="display:flex;align-items:center;gap:6px;margin-top:6px;font-size:10px;color:var(--muted)"><svg style="width:11px;height:11px;color:var(--accent);stroke:currentColor;fill:none;stroke-width:2"><use href="#i-pin"/></svg> Ankara · Ofis · 2024</div></div>
+        </article>
+        <article class="card" style="padding:0;overflow:hidden;margin-bottom:8px">
+          <div class="hero-img" style="height:120px;border-radius:0;margin-bottom:0;background:linear-gradient(135deg,#D4B896,#8C6D43)"></div>
+          <div style="padding:12px"><div style="display:flex;justify-content:space-between;align-items:center"><strong style="font-family:var(--f-display);font-size:13px">İzmir OSB</strong><span class="chip is-active" style="font-size:9px">450 kW</span></div><div style="display:flex;align-items:center;gap:6px;margin-top:6px;font-size:10px;color:var(--muted)"><svg style="width:11px;height:11px;color:var(--accent);stroke:currentColor;fill:none;stroke-width:2"><use href="#i-pin"/></svg> İzmir · Sanayi · 2024</div></div>
+        </article>
+        <div style="height:80px"></div>
+      </div>
+      <nav class="bnav"><button class="bn-item"><svg><use href="#i-home"/></svg></button><button class="bn-item"><svg><use href="#i-grid"/></svg></button><button class="bn-fab"><svg><use href="#i-calc"/></svg></button><button class="bn-item is-active"><svg><use href="#i-bldg"/></svg></button><button class="bn-item"><svg><use href="#i-msg"/></svg></button></nav>
+    </div></div></div><div class="device-label">Phone</div></div>
+
+    <div><div class="device tab-port"><div class="screen"><div class="app">
+      <div class="mtb" style="padding:14px 22px"><span class="mtb-frame"><svg><use href="#i-bldg"/></svg></span><span class="mtb-title" style="font-size:16px">Referanslar</span><div class="mtb-actions"><button class="mtb-icon-btn"><svg><use href="#i-search"/></svg></button><button class="mtb-icon-btn"><svg><use href="#i-set"/></svg></button></div></div>
+      <div class="content" style="padding:0 22px 22px">
+        <p class="eyebrow" style="margin-top:10px">500+ tamamlanmış</p>
+        <h1 class="h1" style="font-size:28px">Kurduğumuz <em>sistemler.</em></h1>
+        <div style="display:flex;gap:6px;margin:10px 0;flex-wrap:wrap">
+          <span class="chip is-active"><svg><use href="#i-list"/></svg> Tümü <span class="count">500</span></span>
+          <span class="chip"><svg><use href="#i-bldg"/></svg> Konut <span class="count">240</span></span>
+          <span class="chip"><svg><use href="#i-set"/></svg> Sanayi <span class="count">90</span></span>
+          <span class="chip"><svg><use href="#i-leaf"/></svg> Tarım <span class="count">110</span></span>
+          <span class="chip"><svg><use href="#i-zap"/></svg> OSB <span class="count">60</span></span>
+        </div>
+        <div class="grid-2">
+          <article class="card" style="padding:0;overflow:hidden"><div class="hero-img" style="height:100px;border-radius:0;margin-bottom:0"></div><div style="padding:10px"><div style="display:flex;justify-content:space-between"><strong style="font-family:var(--f-display);font-size:12px">Bayraktepe</strong><span class="chip is-active" style="font-size:8px">75 kW</span></div><div style="font-size:9px;color:var(--muted);margin-top:4px">Konya · Tarımsal</div></div></article>
+          <article class="card" style="padding:0;overflow:hidden"><div class="hero-img" style="height:100px;border-radius:0;margin-bottom:0;background:linear-gradient(135deg,#A4C4D6,#3F6B8C)"></div><div style="padding:10px"><div style="display:flex;justify-content:space-between"><strong style="font-family:var(--f-display);font-size:12px">Kayalar Plaza</strong><span class="chip is-active" style="font-size:8px">120 kW</span></div><div style="font-size:9px;color:var(--muted);margin-top:4px">Ankara · Ofis</div></div></article>
+          <article class="card" style="padding:0;overflow:hidden"><div class="hero-img" style="height:100px;border-radius:0;margin-bottom:0;background:linear-gradient(135deg,#D4B896,#8C6D43)"></div><div style="padding:10px"><div style="display:flex;justify-content:space-between"><strong style="font-family:var(--f-display);font-size:12px">İzmir OSB</strong><span class="chip is-active" style="font-size:8px">450 kW</span></div><div style="font-size:9px;color:var(--muted);margin-top:4px">İzmir · Sanayi</div></div></article>
+          <article class="card" style="padding:0;overflow:hidden"><div class="hero-img" style="height:100px;border-radius:0;margin-bottom:0;background:linear-gradient(135deg,#B8C8A4,#5A8A45)"></div><div style="padding:10px"><div style="display:flex;justify-content:space-between"><strong style="font-family:var(--f-display);font-size:12px">Yeşil Sera</strong><span class="chip is-active" style="font-size:8px">95 kW</span></div><div style="font-size:9px;color:var(--muted);margin-top:4px">Antalya · Tarım</div></div></article>
+        </div>
+        <div style="height:80px"></div>
+      </div>
+      <nav class="bnav"><button class="bn-item"><svg><use href="#i-home"/></svg><span>Ana</span></button><button class="bn-item"><svg><use href="#i-grid"/></svg><span>Sistem</span></button><button class="bn-fab"><svg><use href="#i-calc"/></svg></button><button class="bn-item is-active"><svg><use href="#i-bldg"/></svg><span>Proje</span></button><button class="bn-item"><svg><use href="#i-msg"/></svg><span>Mesaj</span></button></nav>
+    </div></div></div><div class="device-label">Tablet portrait</div></div>
+
+    <div><div class="device tab-land"><div class="screen"><div class="app">
+      <div class="mtb" style="padding:12px 26px"><span class="mtb-frame"><svg><use href="#i-bldg"/></svg></span><span class="mtb-title" style="font-size:15px">Referanslar</span><div class="mtb-actions"><button class="mtb-icon-btn"><svg><use href="#i-search"/></svg></button><button class="mtb-icon-btn"><svg><use href="#i-set"/></svg></button></div></div>
+      <div class="content" style="padding:0 26px 22px">
+        <p class="eyebrow" style="margin-top:10px">500+ tamamlanmış</p>
+        <h1 class="h1" style="font-size:24px">Kurduğumuz <em>sistemler.</em></h1>
+        <div style="display:flex;gap:6px;margin:8px 0;flex-wrap:wrap"><span class="chip is-active"><svg><use href="#i-list"/></svg> Tümü</span><span class="chip"><svg><use href="#i-bldg"/></svg> Konut</span><span class="chip"><svg><use href="#i-set"/></svg> Sanayi</span><span class="chip"><svg><use href="#i-leaf"/></svg> Tarım</span><span class="chip"><svg><use href="#i-zap"/></svg> OSB</span></div>
+        <div class="grid-3">
+          <article class="card" style="padding:0;overflow:hidden"><div class="hero-img" style="height:90px;border-radius:0;margin-bottom:0"></div><div style="padding:8px"><div style="display:flex;justify-content:space-between"><strong style="font-family:var(--f-display);font-size:11px">Bayraktepe</strong><span class="chip is-active" style="font-size:8px">75kW</span></div><div style="font-size:9px;color:var(--muted);margin-top:3px">Konya · Tarım</div></div></article>
+          <article class="card" style="padding:0;overflow:hidden"><div class="hero-img" style="height:90px;border-radius:0;margin-bottom:0;background:linear-gradient(135deg,#A4C4D6,#3F6B8C)"></div><div style="padding:8px"><div style="display:flex;justify-content:space-between"><strong style="font-family:var(--f-display);font-size:11px">Kayalar Plaza</strong><span class="chip is-active" style="font-size:8px">120kW</span></div><div style="font-size:9px;color:var(--muted);margin-top:3px">Ankara · Ofis</div></div></article>
+          <article class="card" style="padding:0;overflow:hidden"><div class="hero-img" style="height:90px;border-radius:0;margin-bottom:0;background:linear-gradient(135deg,#D4B896,#8C6D43)"></div><div style="padding:8px"><div style="display:flex;justify-content:space-between"><strong style="font-family:var(--f-display);font-size:11px">İzmir OSB</strong><span class="chip is-active" style="font-size:8px">450kW</span></div><div style="font-size:9px;color:var(--muted);margin-top:3px">İzmir · Sanayi</div></div></article>
+          <article class="card" style="padding:0;overflow:hidden"><div class="hero-img" style="height:90px;border-radius:0;margin-bottom:0;background:linear-gradient(135deg,#B8C8A4,#5A8A45)"></div><div style="padding:8px"><div style="display:flex;justify-content:space-between"><strong style="font-family:var(--f-display);font-size:11px">Yeşil Sera</strong><span class="chip is-active" style="font-size:8px">95kW</span></div><div style="font-size:9px;color:var(--muted);margin-top:3px">Antalya · Tarım</div></div></article>
+          <article class="card" style="padding:0;overflow:hidden"><div class="hero-img" style="height:90px;border-radius:0;margin-bottom:0;background:linear-gradient(135deg,#E8C5A8,#A86D3A)"></div><div style="padding:8px"><div style="display:flex;justify-content:space-between"><strong style="font-family:var(--f-display);font-size:11px">Akdoğan Villa</strong><span class="chip is-active" style="font-size:8px">15kW</span></div><div style="font-size:9px;color:var(--muted);margin-top:3px">Bursa · Konut</div></div></article>
+          <article class="card" style="padding:0;overflow:hidden"><div class="hero-img" style="height:90px;border-radius:0;margin-bottom:0;background:linear-gradient(135deg,#C8A8D4,#5A3A8A)"></div><div style="padding:8px"><div style="display:flex;justify-content:space-between"><strong style="font-family:var(--f-display);font-size:11px">Mavi OSB</strong><span class="chip is-active" style="font-size:8px">280kW</span></div><div style="font-size:9px;color:var(--muted);margin-top:3px">Tekirdağ · Sanayi</div></div></article>
+        </div>
+        <div style="height:70px"></div>
+      </div>
+      <nav class="bnav"><button class="bn-item"><svg><use href="#i-home"/></svg><span>Ana</span></button><button class="bn-item"><svg><use href="#i-grid"/></svg><span>Sistem</span></button><button class="bn-fab"><svg><use href="#i-calc"/></svg></button><button class="bn-item is-active"><svg><use href="#i-bldg"/></svg><span>Proje</span></button><button class="bn-item"><svg><use href="#i-msg"/></svg><span>Mesaj</span></button></nav>
+    </div></div></div><div class="device-label">Tablet landscape</div></div>
+
+  </div>
+</section>
+
+<!-- ════════════════════ P06 · REFERANS DETAY ════════════════════ -->
+<section class="section">
+  <p class="sec-label">P06 · Referans detay</p>
+  <h2 class="sec-name">Bayraktepe Çiftliği case</h2>
+  <div class="devices">
+
+    <div><div class="device"><div class="screen"><div class="app">
+      <div class="mtb"><button class="mtb-icon-btn"><svg><use href="#i-back"/></svg></button><span class="mtb-title">Proje detay</span><button class="mtb-icon-btn"><svg><use href="#i-share"/></svg></button></div>
+      <div class="content">
+        <p class="breadcrumb"><a>Referanslar</a> · Konya</p>
+        <div class="det-hero" style="height:160px"></div>
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span class="chip"><svg><use href="#i-leaf"/></svg> Tarımsal</span><span class="chip is-active">75 kW</span><span class="chip">2025</span></div>
+        <h1 class="h1">Bayraktepe <em>Çiftliği</em></h1>
+        <p class="lead">Konya, sulama pompası enerji tedariki için 75 kW On-Grid sistem.</p>
+        <div class="stat-row">
+          <div class="stat"><span class="stat-num">75</span><span class="stat-lbl">kW GÜÇ</span></div>
+          <div class="stat"><span class="stat-num">132K</span><span class="stat-lbl">kWh/YIL</span></div>
+          <div class="stat"><span class="stat-num">5.4</span><span class="stat-lbl">YIL ÖDEME</span></div>
+        </div>
+        <div class="prose"><h3>Proje özeti</h3><p>Konya Merkez ovasında <b>2.4 hektarlık</b> tarım arazisinin sulama pompası elektriği için tasarlandı. <b>180 panelli</b> sistem, sera dahil 4 dağıtım noktasına enerji veriyor.</p></div>
+        <div class="prose"><h3>Kurulum süreci</h3><ul><li><b>Ön keşif</b> · 1 hafta</li><li><b>Mühendislik</b> · 2 hafta</li><li><b>Şebeke izni</b> · 4 hafta</li><li><b>Fiziksel kurulum</b> · 4 gün</li></ul></div>
+        <div style="margin-top:10px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="icon-chip"><svg><use href="#i-pin"/></svg></span><div><strong style="font-family:var(--f-display);font-size:12px">Konum</strong><div style="font-size:10px;color:var(--muted)">Konya Merkez · Cihanbeyli yolu km 8</div></div></div></div>
+        <div style="height:80px"></div>
+      </div>
+      <nav class="bnav"><button class="bn-item"><svg><use href="#i-home"/></svg></button><button class="bn-item"><svg><use href="#i-grid"/></svg></button><button class="bn-fab"><svg><use href="#i-calc"/></svg></button><button class="bn-item is-active"><svg><use href="#i-bldg"/></svg></button><button class="bn-item"><svg><use href="#i-msg"/></svg></button></nav>
+    </div></div></div><div class="device-label">Phone</div></div>
+
+    <div><div class="device tab-port"><div class="screen"><div class="app">
+      <div class="mtb" style="padding:14px 22px"><button class="mtb-icon-btn"><svg><use href="#i-back"/></svg></button><span class="mtb-title" style="font-size:16px">Bayraktepe Çiftliği</span><div class="mtb-actions"><button class="mtb-icon-btn"><svg><use href="#i-share"/></svg></button><button class="mtb-icon-btn"><svg><use href="#i-bookmark"/></svg></button></div></div>
+      <div class="content" style="padding:0 22px 22px">
+        <p class="breadcrumb" style="margin-top:10px"><a>Referanslar</a> · Konya · 75 kW</p>
+        <div class="det-hero" style="height:200px"></div>
+        <div style="display:flex;gap:6px;margin-bottom:8px"><span class="chip"><svg><use href="#i-leaf"/></svg> Tarımsal</span><span class="chip is-active">75 kW</span><span class="chip">2025</span></div>
+        <h1 class="h1" style="font-size:28px">Bayraktepe <em>Çiftliği</em></h1>
+        <p class="lead">Konya, 2.4 hektarlık tarım arazisi sulama pompası enerji tedariki.</p>
+        <div class="stat-row"><div class="stat"><span class="stat-num">75 kW</span><span class="stat-lbl">Kurulu güç</span></div><div class="stat"><span class="stat-num">132K</span><span class="stat-lbl">kWh/yıl</span></div><div class="stat"><span class="stat-num">5.4 yıl</span><span class="stat-lbl">Geri ödeme</span></div></div>
+        <div class="grid-2" style="margin-top:14px">
+          <div class="prose"><h3>Proje özeti</h3><p>180 panelli sistem, sera dahil 4 dağıtım noktasına enerji veriyor.</p></div>
+          <div class="prose"><h3>Süreç</h3><ul><li>Ön keşif · 1 hafta</li><li>Mühendislik · 2 hafta</li><li>Şebeke · 4 hafta</li><li>Kurulum · 4 gün</li></ul></div>
+        </div>
+        <div class="card" style="margin-top:10px;display:flex;align-items:center;gap:10px"><span class="icon-chip"><svg><use href="#i-pin"/></svg></span><div><strong style="font-family:var(--f-display);font-size:13px">Konum</strong><div style="font-size:11px;color:var(--muted)">Konya Merkez · Cihanbeyli yolu km 8</div></div></div>
+        <div style="height:80px"></div>
+      </div>
+      <nav class="bnav"><button class="bn-item"><svg><use href="#i-home"/></svg><span>Ana</span></button><button class="bn-item"><svg><use href="#i-grid"/></svg><span>Sistem</span></button><button class="bn-fab"><svg><use href="#i-calc"/></svg></button><button class="bn-item is-active"><svg><use href="#i-bldg"/></svg><span>Proje</span></button><button class="bn-item"><svg><use href="#i-msg"/></svg><span>Mesaj</span></button></nav>
+    </div></div></div><div class="device-label">Tablet portrait</div></div>
+
+    <div><div class="device tab-land"><div class="screen"><div class="app">
+      <div class="mtb" style="padding:12px 26px"><button class="mtb-icon-btn"><svg><use href="#i-back"/></svg></button><span class="mtb-title" style="font-size:15px">Bayraktepe Çiftliği · Konya</span><div class="mtb-actions"><button class="mtb-icon-btn"><svg><use href="#i-share"/></svg></button><button class="mtb-icon-btn"><svg><use href="#i-bookmark"/></svg></button></div></div>
+      <div class="content" style="padding:0 26px 22px">
+        <div style="display:grid;grid-template-columns:1fr 1.1fr;gap:18px;margin-top:10px;align-items:start">
+          <div class="det-hero" style="height:280px;margin:0"></div>
+          <div>
+            <p class="breadcrumb"><a>Referanslar</a> · Konya · 75 kW</p>
+            <div style="display:flex;gap:6px;margin:4px 0"><span class="chip"><svg><use href="#i-leaf"/></svg> Tarımsal</span><span class="chip is-active">75 kW</span></div>
+            <h1 class="h1" style="font-size:24px">Bayraktepe <em>Çiftliği</em></h1>
+            <p class="lead">2.4 hektarlık sulama pompası enerji tedariki — On-Grid 180 panel.</p>
+            <div class="stat-row"><div class="stat"><span class="stat-num" style="font-size:14px">75 kW</span><span class="stat-lbl">Güç</span></div><div class="stat"><span class="stat-num" style="font-size:14px">132K</span><span class="stat-lbl">kWh/yıl</span></div><div class="stat"><span class="stat-num" style="font-size:14px">5.4y</span><span class="stat-lbl">Ödeme</span></div></div>
+          </div>
+        </div>
+        <div class="prose" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:10px"><div><h3>Özet</h3><p>180 panel · 4 dağıtım noktası · sera dahil.</p></div><div><h3>Süreç</h3><ul><li>Keşif · 1h</li><li>Mühendislik · 2h</li><li>Kurulum · 4g</li></ul></div><div><h3>Konum</h3><p>Konya Merkez · Cihanbeyli yolu</p></div></div>
+        <div style="height:60px"></div>
+      </div>
+      <nav class="bnav"><button class="bn-item"><svg><use href="#i-home"/></svg><span>Ana</span></button><button class="bn-item"><svg><use href="#i-grid"/></svg><span>Sistem</span></button><button class="bn-fab"><svg><use href="#i-calc"/></svg></button><button class="bn-item is-active"><svg><use href="#i-bldg"/></svg><span>Proje</span></button><button class="bn-item"><svg><use href="#i-msg"/></svg><span>Mesaj</span></button></nav>
+    </div></div></div><div class="device-label">Tablet landscape</div></div>
+
+  </div>
+</section>
+<section class="section">
+  <p class="sec-label">P03 · Sistem detay</p>
+  <h2 class="sec-name">On-Grid spec sayfası</h2>
+  <div class="devices">
+
+    <div><div class="device"><div class="screen"><div class="app">
+      <div class="mtb"><button class="mtb-icon-btn"><svg><use href="#i-back"/></svg></button><span class="mtb-title">On-Grid</span><button class="mtb-icon-btn"><svg><use href="#i-share"/></svg></button></div>
+      <div class="content">
+        <p class="breadcrumb"><a>Sistemler</a> · <span>On-Grid</span></p>
+        <div class="det-hero"></div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="icon-chip"><svg><use href="#i-sun"/></svg></span><span class="chip is-active">EN POPÜLER</span></div>
+        <h1 class="h1">On-Grid <em>solar.</em></h1>
+        <p class="lead">Şebekeye bağlı, ürettiğin enerjiyi şebekeye verir, fatura mahsuplaşması ile sıfırlarsın.</p>
+        <div class="stat-row">
+          <div class="stat"><span class="stat-num">5–7</span><span class="stat-lbl">YIL ÖDEME</span></div>
+          <div class="stat"><span class="stat-num">25</span><span class="stat-lbl">YIL GARANTİ</span></div>
+          <div class="stat"><span class="stat-num">%92</span><span class="stat-lbl">VERİM</span></div>
+        </div>
+        <div class="prose"><h3>Avantajlar</h3><ul><li><b>Sıfır fatura hedefi</b> — yıllık tüketimini karşıla</li><li><b>Düşük başlangıç</b> — akü maliyeti yok</li><li><b>Bakım minimum</b> — yılda 1 kontrol yeterli</li><li><b>EPDK uyumlu</b> — tüm prosedürü biz yönetiriz</li></ul></div>
+        <div class="prose"><h3>İçeriği</h3><ul><li>A-tier güneş paneli (üretim garantisi 25-30 yıl)</li><li>Hibrit invertör (şebeke + grid-tied)</li><li>Akıllı sayaç + mahsuplaşma kurulumu</li><li>5 yıl montaj işçilik garantisi</li></ul></div>
+        <button class="pill" style="width:100%;justify-content:center;margin-top:8px"><svg><use href="#i-calc"/></svg> Bu sistemde hesapla</button>
+        <button class="pill ghost" style="width:100%;justify-content:center;margin-top:6px"><svg><use href="#i-msg"/></svg> Mühendise sor</button>
+        <div style="height:80px"></div>
+      </div>
+      <nav class="bnav"><button class="bn-item"><svg><use href="#i-home"/></svg></button><button class="bn-item is-active"><svg><use href="#i-grid"/></svg></button><button class="bn-fab"><svg><use href="#i-calc"/></svg></button><button class="bn-item"><svg><use href="#i-help"/></svg></button><button class="bn-item"><svg><use href="#i-msg"/></svg></button></nav>
+    </div></div></div><div class="device-label">Phone</div></div>
+
+    <div><div class="device tab-port"><div class="screen"><div class="app">
+      <div class="mtb" style="padding:14px 22px"><button class="mtb-icon-btn"><svg><use href="#i-back"/></svg></button><span class="mtb-title" style="font-size:16px">On-Grid sistem</span><div class="mtb-actions"><button class="mtb-icon-btn"><svg><use href="#i-share"/></svg></button><button class="mtb-icon-btn"><svg><use href="#i-bookmark"/></svg></button></div></div>
+      <div class="content" style="padding:0 22px 22px">
+        <p class="breadcrumb" style="margin-top:10px"><a>Sistemler</a> · <span>On-Grid</span></p>
+        <div class="det-hero" style="height:200px"></div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="icon-chip lg"><svg><use href="#i-sun"/></svg></span><span class="chip is-active">EN POPÜLER</span><span class="chip">On-Grid</span></div>
+        <h1 class="h1" style="font-size:30px">On-Grid <em>solar.</em></h1>
+        <p class="lead">Şebekeye bağlı, ürettiğin enerjiyi şebekeye verir, fatura mahsuplaşması ile sıfırlarsın.</p>
+        <div class="grid-2">
+          <div class="prose"><h3>Avantajlar</h3><ul><li><b>Sıfır fatura</b></li><li><b>Düşük başlangıç</b></li><li><b>Az bakım</b></li><li><b>EPDK uyumlu</b></li></ul></div>
+          <div class="prose"><h3>İçeriği</h3><ul><li>A-tier panel</li><li>Hibrit invertör</li><li>Akıllı sayaç</li><li>5 yıl montaj garanti</li></ul></div>
+        </div>
+        <div class="stat-row" style="margin-top:14px"><div class="stat"><span class="stat-num">5–7 yıl</span><span class="stat-lbl">Geri ödeme</span></div><div class="stat"><span class="stat-num">25 yıl</span><span class="stat-lbl">Garanti</span></div><div class="stat"><span class="stat-num">%92</span><span class="stat-lbl">Verim</span></div></div>
+        <div style="display:flex;gap:8px;margin-top:14px"><button class="pill" style="flex:1;justify-content:center"><svg><use href="#i-calc"/></svg> Bu sistemde hesapla</button><button class="pill ghost" style="flex:1;justify-content:center"><svg><use href="#i-msg"/></svg> Mühendis</button></div>
+        <div style="height:80px"></div>
+      </div>
+      <nav class="bnav"><button class="bn-item"><svg><use href="#i-home"/></svg><span>Ana</span></button><button class="bn-item is-active"><svg><use href="#i-grid"/></svg><span>Sistem</span></button><button class="bn-fab"><svg><use href="#i-calc"/></svg></button><button class="bn-item"><svg><use href="#i-help"/></svg><span>SSS</span></button><button class="bn-item"><svg><use href="#i-msg"/></svg><span>Mesaj</span></button></nav>
+    </div></div></div><div class="device-label">Tablet portrait</div></div>
+
+    <div><div class="device tab-land"><div class="screen"><div class="app">
+      <div class="mtb" style="padding:12px 26px"><button class="mtb-icon-btn"><svg><use href="#i-back"/></svg></button><span class="mtb-title" style="font-size:15px">On-Grid sistem</span><div class="mtb-actions"><button class="mtb-icon-btn"><svg><use href="#i-share"/></svg></button><button class="mtb-icon-btn"><svg><use href="#i-bookmark"/></svg></button></div></div>
+      <div class="content" style="padding:0 26px 22px">
+        <div style="display:grid;grid-template-columns:1fr 1.1fr;gap:18px;margin-top:10px">
+          <div class="det-hero" style="height:280px;margin:0"></div>
+          <div>
+            <p class="breadcrumb"><a>Sistemler</a> · On-Grid</p>
+            <div style="display:flex;align-items:center;gap:6px;margin:4px 0"><span class="icon-chip"><svg><use href="#i-sun"/></svg></span><span class="chip is-active">★ POPÜLER</span></div>
+            <h1 class="h1" style="font-size:26px">On-Grid <em>solar.</em></h1>
+            <p class="lead">Şebekeli sistem · sıfır fatura · 5-7 yıl ödeme.</p>
+            <div class="stat-row"><div class="stat"><span class="stat-num" style="font-size:14px">5-7</span><span class="stat-lbl">Yıl</span></div><div class="stat"><span class="stat-num" style="font-size:14px">25</span><span class="stat-lbl">Garanti</span></div><div class="stat"><span class="stat-num" style="font-size:14px">%92</span><span class="stat-lbl">Verim</span></div></div>
+            <div style="display:flex;gap:6px;margin-top:8px"><button class="pill sm"><svg><use href="#i-calc"/></svg> Hesapla</button><button class="pill ghost sm"><svg><use href="#i-msg"/></svg> Sor</button></div>
+          </div>
+        </div>
+        <div class="prose" style="margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:14px"><div><h3>Avantajlar</h3><ul><li>Sıfır fatura · düşük başlangıç</li><li>Az bakım · EPDK uyumlu</li></ul></div><div><h3>İçeriği</h3><ul><li>A-tier panel · hibrit invertör</li><li>Akıllı sayaç · montaj garanti</li></ul></div></div>
+        <div style="height:70px"></div>
+      </div>
+      <nav class="bnav"><button class="bn-item"><svg><use href="#i-home"/></svg><span>Ana</span></button><button class="bn-item is-active"><svg><use href="#i-grid"/></svg><span>Sistem</span></button><button class="bn-fab"><svg><use href="#i-calc"/></svg></button><button class="bn-item"><svg><use href="#i-help"/></svg><span>SSS</span></button><button class="bn-item"><svg><use href="#i-msg"/></svg><span>Mesaj</span></button></nav>
+    </div></div></div><div class="device-label">Tablet landscape</div></div>
+
+  </div>
+</section>

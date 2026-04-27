@@ -1,0 +1,38 @@
+/**
+ * Spacing design tokens
+ */
+:root {
+  --space-0: 0;
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+
+  /* Component-specific */
+  --ui-card-gap: 0.44rem;
+  --ui-card-gap-lg: 16px;
+  --shell-padding-y: var(--space-4);
+
+  /* ── Tek yatay şerit (SiteHeader px-[clamp(12px,2vw,28px)] ile birebir) ──
+     Paralel token kırılması önlenir: .cd-left / --shell-padding-x / --container-padding / --desktop-pad-inline hepsi aynı kaynak. */
+  --header-inline-pad: clamp(12px, 2vw, 28px);
+  --shell-padding-x: var(--header-inline-pad);
+
+  /* Container Token'ları — yatay padding = header şeridi (iç/ dış optik hiza) */
+  --container-max: 100%;
+  --container-padding: var(--header-inline-pad);
+  --container-padding-wide: var(--header-inline-pad);
+  /* Legacy alias — sistemlerimiz-b.css compat */
+  --space-container: var(--container-padding);
+
+  --desktop-pad-inline-start: var(--header-inline-pad);
+  --desktop-pad-inline-end: var(--header-inline-pad);
+}

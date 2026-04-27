@@ -1,0 +1,61 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js
+.next/
+out/
+build/
+dist/
+
+# Testing
+coverage/
+test-results/
+playwright-report/
+
+# Production
+*.tsbuildinfo
+next-env.d.ts
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+devserver.log
+devserver.err.log
+dev-server.log
+dev-server.err.log
+
+# Local env
+.env*
+.env*.local
+.env
+
+# OS files
+.DS_Store
+._.DS_Store
+._*
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temp
+tmp/
+.tmp_*/
+*.bak
+*.old
+*_old
+*_copy
+
+# Cache
+.eslintcache
+.cache/
+
+# Deploy artifacts
+*-deploy-package-*.zip

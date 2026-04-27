@@ -1,0 +1,14 @@
+/**
+ * Border radius design tokens — Anayasa Madde 20.2
+ * Kart iç radius: 8–16px (varsayılan 12px).
+ */
+:root {
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-card: 12px; /* MD3 varsayılan kart radius — Anayasa Madde 20.2 */
+  --radius-lg: 14px;
+  --radius-xl: 20px; /* DESIGN-LOCK K3 / M1 / E1 — yumuşak kart köşesi */
+  --radius-2xl: 24px;
+  --radius-3xl: 30px;
+  --radius-full: 9999px;
+}

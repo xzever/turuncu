@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SSS — V4 Knowledge Base</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1A1C1E; --surface:#2A2D31; --surface-hi:#333537;
+    --text:#F4F4F6; --muted:rgba(244,244,246,0.72); --dim:rgba(244,244,246,0.55);
+    --primary:#E6391A; --primary-hover:#ff4a2a; --primary-soft:rgba(230,57,26,0.12); --primary-glow:rgba(230,57,26,0.3);
+    --border:#3A3D42; --border-soft:rgba(244,244,246,0.08);
+    --r-md:10px; --r-lg:14px; --r-xl:20px; --r-2xl:24px; --r-full:9999px;
+    --pad-x:clamp(16px, 4vw, 48px);
+    --safe-bottom:env(safe-area-inset-bottom, 0px);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{background:var(--bg);color:var(--text)}
+  body{font-family:'Inter',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden}
+  h1,h2,h3{font-family:'Manrope',sans-serif;font-weight:600;line-height:1.15;letter-spacing:-0.02em}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  ul{padding-left:18px;margin:8px 0}
+  li{margin-bottom:4px;color:var(--muted)}
+  b{color:var(--text);font-weight:600}
+
+  /* TOPBAR */
+  .topbar{position:sticky;top:0;z-index:30;background:rgba(26,28,30,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border-soft);padding:12px var(--pad-x);display:flex;align-items:center;gap:16px}
+  .menu-btn{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:var(--r-md);font-size:20px}
+  @media (min-width:1280px){.menu-btn{display:none}}
+  .logo{font-family:'Manrope',sans-serif;font-weight:700;color:var(--primary);font-size:18px;flex-shrink:0}
+  .breadcrumb{display:none;align-items:center;gap:8px;font-size:13px;color:var(--dim);margin-left:8px}
+  .breadcrumb .sep{color:var(--border)}
+  .breadcrumb a{color:var(--muted)}
+  .breadcrumb .current{color:var(--text);font-weight:500}
+  @media (min-width:768px){.breadcrumb{display:flex}}
+  .topbar-search{margin-left:auto;display:none;position:relative}
+  .topbar-search input{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:8px 14px 8px 38px;border-radius:var(--r-md);font-size:13px;font-family:inherit;outline:none;width:280px}
+  .topbar-search input:focus{border-color:var(--primary)}
+  .topbar-search .ic{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--dim);font-size:14px}
+  .topbar-search .kbd{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:var(--bg);border:1px solid var(--border);padding:2px 6px;border-radius:4px;font-size:10px;color:var(--dim);font-family:monospace}
+  @media (min-width:1024px){.topbar-search{display:block}.topbar-cta{margin-left:0}}
+  .topbar-cta{margin-left:auto;background:var(--primary);color:var(--text);padding:8px 16px;border-radius:var(--r-full);font-size:12px;font-weight:600;flex-shrink:0}
+
+  /* LAYOUT WRAPPER */
+  .layout{display:grid;grid-template-columns:1fr;max-width:1440px;margin:0 auto;min-height:calc(100vh - 64px)}
+  @media (min-width:1280px){
+    .layout{grid-template-columns:280px 1fr 240px}
+  }
+  @media (min-width:1024px) and (max-width:1279px){
+    .layout{grid-template-columns:240px 1fr}
+  }
+
+  /* SIDEBAR */
+  .sidebar{display:none;background:var(--surface);border-right:1px solid var(--border-soft);padding:24px 16px;position:sticky;top:64px;height:calc(100vh - 64px);overflow-y:auto}
+  @media (min-width:1024px){.sidebar{display:block}}
+  .sb-section{margin-bottom:24px}
+  .sb-title{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:0.12em;font-weight:700;margin-bottom:10px;padding:0 12px}
+  .sb-list{display:flex;flex-direction:column;gap:1px}
+  .sb-item{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border-radius:var(--r-md);font-size:13px;color:var(--muted);cursor:pointer;font-weight:500;transition:all .15s;border-left:3px solid transparent}
+  .sb-item:hover{background:var(--surface-hi);color:var(--text)}
+  .sb-item.is-active{background:var(--primary-soft);color:var(--primary);border-left-color:var(--primary)}
+  .sb-num{font-size:11px;background:var(--bg);color:var(--dim);padding:1px 7px;border-radius:var(--r-full);font-weight:700}
+  .sb-item.is-active .sb-num{background:var(--primary);color:var(--text)}
+  .sb-divider{height:1px;background:var(--border-soft);margin:16px 8px}
+
+  /* MAIN CONTENT */
+  .main{padding:24px var(--pad-x) 80px;min-width:0;max-width:920px}
+  @media (min-width:1024px){.main{padding-top:32px}}
+
+  /* MOBILE SEARCH */
+  .mobile-search{margin-bottom:24px;position:relative}
+  .mobile-search input{width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:14px 18px 14px 48px;border-radius:var(--r-lg);font-size:16px;font-family:inherit;outline:none}
+  .mobile-search input:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-soft)}
+  .mobile-search .ic{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--dim);font-size:18px}
+  @media (min-width:1024px){.mobile-search{display:none}}
+
+  /* PAGE HEADER */
+  .page-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;color:var(--primary);text-transform:uppercase;letter-spacing:0.12em;font-weight:700;margin-bottom:12px}
+  .page-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--primary)}
+  .page-title{font-size:clamp(28px, 5vw, 40px);margin-bottom:12px}
+  .page-desc{font-size:16px;color:var(--muted);max-width:640px;margin-bottom:32px}
+
+  /* MOBILE CATEGORY DROPDOWN (visible only mobile) */
+  .mobile-cats{display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:24px;padding-bottom:4px;margin-left:calc(-1 * var(--pad-x));margin-right:calc(-1 * var(--pad-x));padding-left:var(--pad-x);padding-right:var(--pad-x)}
+  .mobile-cats::-webkit-scrollbar{display:none}
+  .mobile-cats{scrollbar-width:none}
+  .m-cat{padding:8px 16px;border:1px solid var(--border);border-radius:var(--r-full);font-size:13px;color:var(--muted);font-weight:500;flex-shrink:0;background:var(--surface);min-height:40px;display:flex;align-items:center;gap:6px}
+  .m-cat.is-active{background:var(--primary);border-color:var(--primary);color:var(--text)}
+  .m-cat .num{font-size:10px;background:rgba(0,0,0,0.25);padding:1px 6px;border-radius:var(--r-full);font-weight:700}
+  @media (min-width:1024px){.mobile-cats{display:none}}
+
+  /* DOCS CONTENT */
+  .doc-section{margin-bottom:48px;scroll-margin-top:80px}
+  .doc-h2{font-size:24px;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+  .doc-h2::before{content:"";width:4px;height:22px;background:var(--primary);border-radius:2px}
+  .doc-sub{color:var(--dim);font-size:14px;margin-bottom:20px}
+
+  /* QA BLOCK */
+  .qa{margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border-soft)}
+  .qa:last-child{border-bottom:none}
+  .qa-meta{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+  .qa-num{font-family:'Manrope',sans-serif;font-size:11px;font-weight:700;color:var(--dim);background:var(--surface);padding:3px 10px;border-radius:var(--r-md)}
+  .qa-tag{font-size:10px;color:var(--primary);background:var(--primary-soft);padding:3px 10px;border-radius:var(--r-full);text-transform:uppercase;letter-spacing:0.08em;font-weight:700}
+  .qa-title{font-family:'Manrope',sans-serif;font-size:18px;font-weight:600;margin-bottom:12px;color:var(--text)}
+  .qa-body{color:var(--muted);font-size:15px;line-height:1.7}
+  .qa-body p{margin-bottom:12px}
+  .qa-body ul{margin:12px 0}
+  .qa-body li{margin-bottom:6px}
+  .qa-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+  .qa-tag-chip{font-size:11px;background:var(--bg);color:var(--dim);padding:4px 10px;border-radius:var(--r-full);border:1px solid var(--border-soft)}
+
+  /* TOC (right sidebar - desktop only) */
+  .toc{display:none;padding:32px 24px;position:sticky;top:64px;height:calc(100vh - 64px);overflow-y:auto;border-left:1px solid var(--border-soft)}
+  @media (min-width:1280px){.toc{display:block}}
+  .toc-title{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:0.12em;font-weight:700;margin-bottom:12px}
+  .toc-list{display:flex;flex-direction:column;gap:6px;border-left:1px solid var(--border-soft);padding-left:14px}
+  .toc-item{font-size:13px;color:var(--muted);padding:4px 0;cursor:pointer;line-height:1.4}
+  .toc-item:hover{color:var(--text)}
+  .toc-item.is-active{color:var(--primary);font-weight:500}
+
+  /* FEEDBACK BLOCK */
+  .feedback{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--r-xl);padding:24px;margin-top:48px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .fb-text{flex:1;min-width:200px}
+  .fb-text h3{font-size:16px;margin-bottom:4px}
+  .fb-text p{font-size:13px;color:var(--muted)}
+  .fb-actions{display:flex;gap:8px}
+  .fb-btn{padding:10px 18px;border:1px solid var(--border);border-radius:var(--r-full);font-size:13px;font-weight:600;color:var(--text);background:transparent;display:flex;align-items:center;gap:6px;min-height:40px}
+  .fb-btn:hover{background:var(--surface-hi);border-color:var(--primary)}
+
+  /* SUPPORT */
+  .support{margin-top:32px;background:linear-gradient(135deg,#7a1f0e,var(--primary));border-radius:var(--r-2xl);padding:28px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .support-ic{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+  .support-content{flex:1;min-width:200px;color:var(--text)}
+  .support h3{font-size:16px;margin-bottom:4px}
+  .support p{font-size:13px;color:rgba(255,255,255,0.85)}
+  .support-cta{background:var(--text);color:var(--primary);padding:12px 20px;border-radius:var(--r-full);font-size:13px;font-weight:700}
+
+  .vtag{position:fixed;bottom:14px;right:14px;background:var(--primary);color:var(--text);padding:4px 10px;border-radius:var(--r-full);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;z-index:100;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="vtag">V4 · Knowledge base</div>
+
+<header class="topbar">
+  <button class="menu-btn" aria-label="Menü">≡</button>
+  <a href="#" class="logo">Turuncu Solar</a>
+  <nav class="breadcrumb">
+    <a href="#">Yardım</a>
+    <span class="sep">/</span>
+    <span class="current">SSS</span>
+  </nav>
+  <div class="topbar-search">
+    <span class="ic">⌕</span>
+    <input type="text" placeholder="Soru veya kelime ara...">
+    <span class="kbd">⌘K</span>
+  </div>
+  <a href="#" class="topbar-cta">Keşif</a>
+</header>
+
+<div class="layout">
+  <!-- LEFT SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sb-section">
+      <p class="sb-title">Kategoriler</p>
+      <div class="sb-list">
+        <a class="sb-item is-active"><span>Tümü</span><span class="sb-num">10</span></a>
+        <a class="sb-item"><span>Kurulum</span><span class="sb-num">3</span></a>
+        <a class="sb-item"><span>Maliyet</span><span class="sb-num">2</span></a>
+        <a class="sb-item"><span>Bakım</span><span class="sb-num">1</span></a>
+        <a class="sb-item"><span>Teknik</span><span class="sb-num">2</span></a>
+        <a class="sb-item"><span>İzinler</span><span class="sb-num">1</span></a>
+        <a class="sb-item"><span>Garanti</span><span class="sb-num">1</span></a>
+      </div>
+    </div>
+
+    <div class="sb-divider"></div>
+
+    <div class="sb-section">
+      <p class="sb-title">Kaynaklar</p>
+      <div class="sb-list">
+        <a class="sb-item"><span>📄 PDF rehber</span></a>
+        <a class="sb-item"><span>🎥 Video açıklamalar</span></a>
+        <a class="sb-item"><span>📊 ROI hesaplayıcı</span></a>
+      </div>
+    </div>
+
+    <div class="sb-divider"></div>
+
+    <div class="sb-section">
+      <p class="sb-title">Yardım</p>
+      <div class="sb-list">
+        <a class="sb-item"><span>💬 Mühendisle sohbet</span></a>
+        <a class="sb-item"><span>📞 Telefonla ara</span></a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="mobile-search">
+      <span class="ic">⌕</span>
+      <input type="text" placeholder="Soru ara...">
+    </div>
+
+    <p class="page-eyebrow"><span class="dot"></span>Yardım Merkezi</p>
+    <h1 class="page-title">Sıkça Sorulan Sorular</h1>
+    <p class="page-desc">Güneş enerjisi sistemleri, kurulum, maliyet ve garanti hakkında en çok merak edilen 10 soru. Soldaki kategorilerden filtrele veya doğrudan oku.</p>
+
+    <div class="mobile-cats">
+      <button class="m-cat is-active">Tümü <span class="num">10</span></button>
+      <button class="m-cat">Kurulum <span class="num">3</span></button>
+      <button class="m-cat">Maliyet <span class="num">2</span></button>
+      <button class="m-cat">Bakım <span class="num">1</span></button>
+      <button class="m-cat">Teknik <span class="num">2</span></button>
+      <button class="m-cat">İzinler <span class="num">1</span></button>
+      <button class="m-cat">Garanti <span class="num">1</span></button>
+    </div>
+
+    <!-- KURULUM -->
+    <section class="doc-section" id="kurulum">
+      <h2 class="doc-h2">Kurulum</h2>
+      <p class="doc-sub">Süreç, çatı tipi, ekipman, devreye alma adımları</p>
+
+      <div class="qa">
+        <div class="qa-meta"><span class="qa-num">01</span><span class="qa-tag">Kurulum</span></div>
+        <h3 class="qa-title">Güneş enerjisi sistemi kurulumu ne kadar sürer?</h3>
+        <div class="qa-body">
+          <p>Ortalama bir konut için <b>fiziksel kurulum 2–4 gün</b> sürer. Toplam proje süreci:</p>
+          <ul>
+            <li><b>Ön keşif &amp; ölçüm</b> — 1 hafta</li>
+            <li><b>Mühendislik &amp; tasarım</b> — 1–2 hafta</li>
+            <li><b>Şebeke başvurusu &amp; izinler</b> — 3–4 hafta</li>
+            <li><b>Fiziksel kurulum</b> — 2–4 gün</li>
+            <li><b>Test ve devreye alma</b> — 1 gün</li>
+          </ul>
+          <p>Toplam süre ortalama <b>5–7 haftadır</b>; izin süresi şehirden şehire değişir.</p>
+        </div>
+        <div class="qa-tags"><span class="qa-tag-chip">Süreç</span><span class="qa-tag-chip">Zaman</span><span class="qa-tag-chip">Planlama</span></div>
+      </div>
+
+      <div class="qa">
+        <div class="qa-meta"><span class="qa-num">03</span><span class="qa-tag">Kurulum</span></div>
+        <h3 class="qa-title">Kurulum çatımı zarar verir mi, sızıntı yapar mı?</h3>
+        <div class="qa-body">
+          <p>Profesyonel montaj sızıntı riskini ortadan kaldırır. Çatı tipinizle uyumlu ankraj sistemi (kiremit kancası, U-clamp, sandwich panel sabitleyicisi) kullanılır.</p>
+          <p>Kurulum sonrası <b>su izolasyonu testi</b> yapılır. Garanti kapsamında çatı sızıntısı oluşursa onarım masrafı bizdedir.</p>
+        </div>
+        <div class="qa-tags"><span class="qa-tag-chip">Çatı</span><span class="qa-tag-chip">Güvenlik</span></div>
+      </div>
+
+      <div class="qa">
+        <div class="qa-meta"><span class="qa-num">10</span><span class="qa-tag">Kurulum</span></div>
+        <h3 class="qa-title">Mevcut çatıma kurulum mümkün mü?</h3>
+        <div class="qa-body">
+          <p>Çoğu çatı tipi uygundur: kiremit, metal, beton, sandwich panel. Ön keşif ile yapı statiği değerlendirilir.</p>
+          <p>Çatı yaşı <b>20 yıl altında</b> ise direkt kurulum, üzerinde ise yenileme önerisiyle birlikte plan yapılır.</p>
+        </div>
+        <div class="qa-tags"><span class="qa-tag-chip">Çatı</span><span class="qa-tag-chip">Uyumluluk</span></div>
+      </div>
+    </section>
+
+    <!-- MALİYET -->
+    <section class="doc-section" id="maliyet">
+      <h2 class="doc-h2">Maliyet</h2>
+      <p class="doc-sub">Geri ödeme, teşvik, finansman seçenekleri</p>
+
+      <div class="qa">
+        <div class="qa-meta"><span class="qa-num">02</span><span class="qa-tag">Maliyet</span></div>
+        <h3 class="qa-title">Yatırımın geri dönüş süresi ne kadar?</h3>
+        <div class="qa-body">
+          <p>Konutlarda tipik geri ödeme süresi <b>4–6 yıl</b>. Üç değişken belirler: sistem büyüklüğü, aylık tüketim profili ve elektrik tarifenin kademesi.</p>
+          <p>25 yıl panel ömrüyle, sistem kendini ödedikten sonra <b>18–20 yıl net getiri</b> üretir.</p>
+        </div>
+        <div class="qa-tags"><span class="qa-tag-chip">Geri ödeme</span><span class="qa-tag-chip">Amortisman</span></div>
+      </div>
+
+      <div class="qa">
+        <div class="qa-meta"><span class="qa-num">09</span><span class="qa-tag">Maliyet</span></div>
+        <h3 class="qa-title">Devlet teşviği veya hibe var mı?</h3>
+        <div class="qa-body">
+          <p>Konut tarifesinde <b>mahsuplaşma</b> sistemi (üretilen elektrik faturadan düşülür), ticari sistemlerde <b>Y.E.K.D.E.M</b>, OSB'lerde <b>KOSGEB</b> destek programları mevcut.</p>
+          <p>Krediler için Ziraat, Halk, İş Bankası özel "Yenilenebilir Enerji Kredisi" sunuyor (yıllık %1.99 sabit faizden başlayan oranlar).</p>
+        </div>
+        <div class="qa-tags"><span class="qa-tag-chip">Teşvik</span><span class="qa-tag-chip">Hibe</span></div>
+      </div>
+    </section>
+
+    <!-- TEKNIK -->
+    <section class="doc-section" id="teknik">
+      <h2 class="doc-h2">Teknik</h2>
+      <p class="doc-sub">Verim, üretim, sistem mimarisi</p>
+
+      <div class="qa">
+        <div class="qa-meta"><span class="qa-num">04</span><span class="qa-tag">Teknik</span></div>
+        <h3 class="qa-title">Sistem bulutlu havalarda çalışır mı?</h3>
+        <div class="qa-body">
+          <p>Evet, paneller difüz ışıkla da üretim yapar. Verim ortalama <b>%20-30</b>'a düşer ama sıfır olmaz. Yıllık ortalama hesabında bu zaten dikkate alınır.</p>
+        </div>
+        <div class="qa-tags"><span class="qa-tag-chip">Verim</span><span class="qa-tag-chip">Hava</span></div>
+      </div>
+
+      <div class="qa">
+        <div class="qa-meta"><span class="qa-num">08</span><span class="qa-tag">Teknik</span></div>
+        <h3 class="qa-title">Sistem büyüklüğü nasıl belirleniyor?</h3>
+        <div class="qa-body">
+          <p>Aylık tüketim profili (kWh), çatı alanı ve yönü, gölge analizi, bütçe — bu <b>dört değişken</b> sistem boyutunu belirler.</p>
+          <p>Tipik konut: <b>5-10 kW</b>, ticari: <b>30-100 kW</b>, sanayi: <b>100 kW+</b>.</p>
+        </div>
+        <div class="qa-tags"><span class="qa-tag-chip">Tasarım</span><span class="qa-tag-chip">kW</span></div>
+      </div>
+    </section>
+
+    <!-- BAKIM -->
+    <section class="doc-section" id="bakim">
+      <h2 class="doc-h2">Bakım</h2>
+      <p class="doc-sub">Periyodik kontrol, temizlik</p>
+
+      <div class="qa">
+        <div class="qa-meta"><span class="qa-num">05</span><span class="qa-tag">Bakım</span></div>
+        <h3 class="qa-title">Bakım ne sıklıkta yapılmalı?</h3>
+        <div class="qa-body">
+          <p><b>Yılda 1-2 kez</b> görsel inspeksiyon ve panel temizliği yeterlidir. Toz oranı yüksek bölgelerde (Ankara, İç Anadolu, Güneydoğu) 3 ayda bir temizlik önerilir.</p>
+          <p>Servis paketimiz uzaktan izleme + yıllık ziyaret içerir.</p>
+        </div>
+        <div class="qa-tags"><span class="qa-tag-chip">Bakım</span><span class="qa-tag-chip">Temizlik</span></div>
+      </div>
+    </section>
+
+    <!-- İZİNLER -->
+    <section class="doc-section" id="izinler">
+      <h2 class="doc-h2">İzinler</h2>
+      <p class="doc-sub">EPDK, dağıtım şirketi, OSB başvuruları</p>
+
+      <div class="qa">
+        <div class="qa-meta"><span class="qa-num">06</span><span class="qa-tag">İzinler</span></div>
+        <h3 class="qa-title">Hangi izinler gerekli, başvuruları siz mi yapıyorsunuz?</h3>
+        <div class="qa-body">
+          <p>Tüm izin ve başvuru süreçlerini ekibimiz yönetir:</p>
+          <ul>
+            <li>Dağıtım şirketi <b>bağlantı anlaşması</b></li>
+            <li>EPDK <b>çağrı mektubu</b> (>10 kW projeler)</li>
+            <li>OSB içindeyse <b>OSB onayı</b></li>
+            <li>Belediye <b>statik raporu</b></li>
+          </ul>
+        </div>
+        <div class="qa-tags"><span class="qa-tag-chip">EPDK</span><span class="qa-tag-chip">Bürokrasi</span></div>
+      </div>
+    </section>
+
+    <!-- GARANTİ -->
+    <section class="doc-section" id="garanti">
+      <h2 class="doc-h2">Garanti</h2>
+      <p class="doc-sub">Panel, invertör, montaj</p>
+
+      <div class="qa">
+        <div class="qa-meta"><span class="qa-num">07</span><span class="qa-tag">Garanti</span></div>
+        <h3 class="qa-title">Panellerin garantisi nedir?</h3>
+        <div class="qa-body">
+          <ul>
+            <li>Panel <b>üretim garantisi</b>: 25-30 yıl (verim %80'in üstünde garantili)</li>
+            <li>Panel <b>ürün garantisi</b>: 12-15 yıl</li>
+            <li><b>İnvertör garantisi</b>: 10 yıl</li>
+            <li><b>Montaj işçilik garantisi</b>: 5 yıl</li>
+          </ul>
+        </div>
+        <div class="qa-tags"><span class="qa-tag-chip">Garanti</span><span class="qa-tag-chip">Servis</span></div>
+      </div>
+    </section>
+
+    <!-- FEEDBACK -->
+    <div class="feedback">
+      <div class="fb-text">
+        <h3>Bu sayfa faydalı mıydı?</h3>
+        <p>Geri bildiriminizle SSS'i geliştiririz.</p>
+      </div>
+      <div class="fb-actions">
+        <button class="fb-btn">👍 Evet</button>
+        <button class="fb-btn">👎 Hayır</button>
+      </div>
+    </div>
+
+    <!-- SUPPORT -->
+    <div class="support">
+      <div class="support-ic">☀</div>
+      <div class="support-content">
+        <h3>Mühendis Mehmet ile sohbet</h3>
+        <p>8 yıl saha tecrübesi · Ortalama 2-4 dakika yanıt</p>
+      </div>
+      <button class="support-cta">Başla →</button>
+    </div>
+  </main>
+
+  <!-- TOC (right sidebar - desktop only) -->
+  <aside class="toc">
+    <p class="toc-title">Bu sayfada</p>
+    <div class="toc-list">
+      <a class="toc-item is-active">Kurulum</a>
+      <a class="toc-item">Maliyet</a>
+      <a class="toc-item">Teknik</a>
+      <a class="toc-item">Bakım</a>
+      <a class="toc-item">İzinler</a>
+      <a class="toc-item">Garanti</a>
+    </div>
+  </aside>
+</div>
+</body>
+</html>

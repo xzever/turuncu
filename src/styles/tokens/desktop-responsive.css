@@ -1,0 +1,92 @@
+/**
+ * Unified desktop scaling (min-width only). App shell “masaüstü” ≥1280px (~13") ile hizalı.
+ * Interior pages use --desktop-stage-max / --desktop-content-max for centered caps.
+ *
+ * Tiers: 1280 laptop | 1440+ geniş | 1920 FHD | 2560 ultra-wide
+ */
+:root {
+  --desktop-stage-max: min(calc(100% - 1.25rem), 1560px);
+  --desktop-content-max: min(calc(100% - 1.5rem), 1366px);
+
+  /* ─────────────────────────────────────────────────────────────
+     GLOBAL FLUID SCALING UNIT (--sbu)
+     Tam ekran diyagram/HUD yüzeyleri bu birime bağlanır. 13" ve kısa
+     desktop viewport'larında 1px altına düşmez; aksi halde içerik
+     tüm sayfada tarayıcı zoom'u küçülmüş gibi görünür.
+     Kullanım: padding: calc(var(--sbu) * 16); font-size: calc(var(--sbu) * 14);
+     ───────────────────────────────────────────────────────────── */
+  --sbu: clamp(1px, calc(0.08vh + 0.32px), 1.45px);
+
+  /* Tek viewport sayfa yüksekliği (topbar düşülmüş net alan) */
+  --sb-page-h: calc(100dvh - var(--topbar-clearance, 66px));
+}
+
+/* Handheld shell — scale daha rahat olsun (`MQ.maxMd`) */
+@media (max-width: 1279px) {
+  :root { --sbu: clamp(0.85px, calc(0.16vh + 0.05vw), 1.6px); }
+}
+
+/* Tek viewport yardımcı sınıfı — top-level page wrapper'a eklenebilir */
+.sb-fit-viewport {
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.sb-fit-viewport__inner {
+  height: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding-top: var(--topbar-clearance, 66px);
+}
+
+/* Laptop masaüstü (1280+) — önceki 1440 katmanıyla aynı üst sınırlar (13" ile büyük ekran tutarlılığı) */
+@media (min-width: 1280px) {
+  :root {
+    --desktop-stage-max: min(calc(100% - 2rem), 1760px);
+    --desktop-content-max: min(calc(100% - 2.25rem), 1520px);
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --desktop-stage-max: min(calc(100% - 2.5rem), 1880px);
+    --desktop-content-max: min(calc(100% - 3rem), 1680px);
+  }
+}
+
+@media (min-width: 2560px) {
+  :root {
+    --desktop-stage-max: min(calc(100% - 4rem), 2200px);
+    --desktop-content-max: min(calc(100% - 4rem), 1920px);
+  }
+}
+
+/* ── Sahne / diyagram metin boyutları (viewport --sbu ile kilitli)
+   Gövde metni --text-* kullanır; bu alias’lar yalnızca tam ekran diyagramlarda font-size için.
+   Sayfa CSS’inde font-size: calc(var(--sbu) * N) yazılmaz — yalnızca var(--text-sbu-…). ── */
+:root {
+  --text-sbu-10: calc(var(--sbu) * 10);
+  --text-sbu-10-5: calc(var(--sbu) * 10.5);
+  --text-sbu-11: calc(var(--sbu) * 11);
+  --text-sbu-11-5: calc(var(--sbu) * 11.5);
+  --text-sbu-12: calc(var(--sbu) * 12);
+  --text-sbu-13: calc(var(--sbu) * 13);
+  --text-sbu-14: calc(var(--sbu) * 14);
+  --text-sbu-16: calc(var(--sbu) * 16);
+  --text-sbu-18: calc(var(--sbu) * 18);
+  --text-sbu-19: calc(var(--sbu) * 19);
+  --text-sbu-28: calc(var(--sbu) * 28);
+  --text-sbu-30: calc(var(--sbu) * 30);
+  --text-sbu-32: calc(var(--sbu) * 32);
+  --text-sbu-36: calc(var(--sbu) * 36);
+  --text-sbu-38: calc(var(--sbu) * 38);
+  --text-sbu-44: calc(var(--sbu) * 44);
+  --text-sbu-56: calc(var(--sbu) * 56);
+  --text-sbu-62: calc(var(--sbu) * 62);
+  --text-sbu-68: calc(var(--sbu) * 68);
+  --text-sbu-78: calc(var(--sbu) * 78);
+  --text-sbu-130: calc(var(--sbu) * 130);
+}

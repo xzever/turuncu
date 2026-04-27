@@ -1,0 +1,262 @@
+/**
+ * Telefon + tablet bottom nav — Minimal glass strip.
+ * Tüm sayfalarda kenardan kenara, alta yapışık, düşük opaklık.
+ * Aktif sekme: glow noktası + yumuşak halo. Label sadece aktifte görünür.
+ */
+.handheld-dock {
+  --handheld-dock-brand: var(--color-primary);
+  --handheld-dock-border: rgba(255, 255, 255, 0.10);
+  --handheld-dock-muted: rgba(255, 255, 255, 0.55);
+  --handheld-dock-active-text: #fff;
+  --handheld-dock-active-dot: #FFD2A0;
+  --handheld-dock-icon-size: var(--space-5);
+
+  pointer-events: none;
+  position: fixed !important;
+  inset-inline: 0;
+  left: 0;
+  right: 0;
+  bottom: 0 !important;
+  top: auto !important;
+  z-index: var(--z-nav, 50);
+  display: flex;
+  justify-content: stretch;
+  padding: 0;
+  background: transparent;
+  will-change: transform;
+}
+
+.handheld-dock__track {
+  pointer-events: auto;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  flex: 1 1 100%;
+}
+
+.handheld-dock__halo {
+  display: none;
+}
+
+.handheld-dock__blob {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  min-height: calc(64px + env(safe-area-inset-bottom, 0px));
+  padding:
+    8px
+    max(12px, env(safe-area-inset-right, 0px))
+    calc(env(safe-area-inset-bottom, 0px) + 8px)
+    max(12px, env(safe-area-inset-left, 0px));
+  border: none;
+  border-top: 1px solid var(--handheld-dock-border);
+  border-radius: 0;
+  background: rgba(15, 8, 5, 0.78);
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.40);
+  overflow: visible;
+}
+
+.handheld-dock__cell {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-width: 44px;
+  min-height: 44px;
+  height: 100%;
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  color: var(--handheld-dock-muted);
+  font-weight: var(--weight-semibold);
+  background: transparent;
+  transition:
+    transform var(--duration-fast) var(--ease-base),
+    color var(--duration-fast) var(--ease-base),
+    background var(--duration-fast) var(--ease-base),
+    opacity var(--duration-fast) var(--ease-base);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.handheld-dock__cell:active {
+  transform: scale(0.97);
+}
+
+.handheld-dock__cell:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.handheld-dock__cell.is-active:not(.handheld-dock__cell--fab) {
+  min-width: 0;
+  color: var(--handheld-dock-active-text);
+  background: transparent;
+  box-shadow: none;
+}
+
+.handheld-dock__cell.is-active:not(.handheld-dock__cell--fab)::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 4px;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--handheld-dock-active-dot);
+  box-shadow: 0 0 10px rgba(255, 210, 160, 0.55);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .handheld-dock__cell:hover {
+    color: var(--color-white);
+  }
+}
+
+.handheld-dock__icon-slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-5);
+  height: var(--space-5);
+  color: currentColor;
+  flex-shrink: 0;
+}
+
+.handheld-dock__icon {
+  width: var(--handheld-dock-icon-size);
+  height: var(--handheld-dock-icon-size);
+  flex-shrink: 0;
+  color: currentColor;
+  stroke: currentColor;
+}
+
+.handheld-dock__cell svg,
+.handheld-dock__cell svg path,
+.handheld-dock__cell svg circle,
+.handheld-dock__cell svg line,
+.handheld-dock__cell svg polyline,
+.handheld-dock__cell svg rect {
+  color: currentColor;
+  stroke: currentColor;
+}
+
+.handheld-dock__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.handheld-dock__cell.is-active:not(.handheld-dock__cell--fab) .handheld-dock__label {
+  font-weight: var(--weight-bold);
+}
+
+.handheld-dock__cell--fab {
+  padding: 0;
+  transform: none;
+  z-index: var(--z-base);
+}
+
+.handheld-dock__cell--fab:active {
+  transform: scale(0.97);
+}
+
+.handheld-dock__cell--fab .handheld-dock__icon-slot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  background: #fff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  color: #1A0907;
+}
+
+.handheld-dock__cell--fab:hover .handheld-dock__icon-slot {
+  opacity: 0.94;
+}
+
+.handheld-dock__cell--fab .handheld-dock__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.handheld-dock__icon--fab {
+  width: var(--space-5);
+  height: var(--space-5);
+}
+
+@media (max-width: 380px) {
+  .handheld-dock__cell {
+    gap: 0;
+    padding-inline: 4px;
+  }
+}
+
+@media (max-width: 479px) {
+  .handheld-dock__blob {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 480px) and (max-width: 1279px) {
+  .handheld-dock__track {
+    width: 100%;
+  }
+
+  .handheld-dock__blob {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  .handheld-dock__track {
+    width: 100%;
+  }
+
+  .handheld-dock__blob {
+    min-height: calc(64px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .handheld-dock__cell {
+    min-height: 48px;
+  }
+
+  .handheld-dock__cell--fab .handheld-dock__icon-slot {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .handheld-dock__cell,
+  .handheld-dock__cell:active,
+  .handheld-dock__cell--fab,
+  .handheld-dock__cell--fab:active {
+    transition: none;
+    transform: none;
+  }
+}
+
+@media (min-width: 1280px) {
+  .handheld-dock,
+  .ui-bottom-nav {
+    display: none;
+  }
+}

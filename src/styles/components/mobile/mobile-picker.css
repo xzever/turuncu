@@ -1,0 +1,184 @@
+/**
+ * MobilePicker — native <select> yerine kullanılan app-içi picker.
+ * AGENTS.md uyumlu: token-bazlı, beyaz focus ring, ≥44px touch hedef,
+ * Kinetic dark palet ile uyumlu, hover-only davranış yok.
+ */
+
+.mobile-picker {
+  position: relative;
+  width: 100%;
+}
+
+.mobile-picker__visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ─── Trigger button (input görünümünde) ─────────────────────── */
+
+.mobile-picker__trigger {
+  width: 100%;
+  min-height: 48px;
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  background: var(--color-kinetic-surface);
+  border: 1.5px solid var(--color-kinetic-border);
+  border-radius: var(--radius-md);
+  color: var(--color-kinetic-text);
+  font-family: inherit;
+  font-size: 16px; /* iOS zoom önleme — AGENTS.md §3 tek istisna */
+  font-weight: var(--weight-medium);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color var(--duration-fast) var(--ease-base),
+    background-color var(--duration-fast) var(--ease-base);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-picker__trigger:active {
+  background: var(--color-kinetic-surface-high);
+}
+
+.mobile-picker__trigger:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+  border-color: var(--color-focus-ring);
+}
+
+.mobile-picker__trigger.is-disabled,
+.mobile-picker__trigger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.mobile-picker__value {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+  /* AGENTS.md §3.3 — uzun metin sarmalanır, ellipsis ile bilgi kaybı yapılmaz.
+     Tek satırda kalması için container yeterince geniş, ihtiyaç halinde sarar. */
+  word-break: break-word;
+  line-height: 1.3;
+}
+
+.mobile-picker__value.is-placeholder {
+  color: var(--color-kinetic-text-dim);
+  font-weight: var(--weight-regular);
+}
+
+.mobile-picker__chevron {
+  flex-shrink: 0;
+  color: var(--color-kinetic-text-muted);
+  transition: transform var(--duration-fast) var(--ease-base);
+}
+
+.mobile-picker__trigger[aria-expanded="true"] .mobile-picker__chevron {
+  transform: rotate(180deg);
+  color: var(--color-primary);
+}
+
+/* ─── Sheet içindeki options listbox ─────────────────────────── */
+
+.mobile-picker__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.mobile-picker__list:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+  border-radius: var(--radius-md);
+}
+
+.mobile-picker__option {
+  width: 100%;
+  min-height: 48px;
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  color: var(--color-kinetic-text);
+  font-family: inherit;
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-base);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-picker__option:hover {
+  background: var(--color-kinetic-surface-high);
+}
+
+.mobile-picker__option:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+  border-color: var(--color-focus-ring);
+}
+
+.mobile-picker__option:active {
+  background: var(--color-kinetic-surface-high);
+  transform: scale(0.99);
+}
+
+.mobile-picker__option.is-selected {
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.mobile-picker__option-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.mobile-picker__option-label {
+  word-break: break-word;
+  line-height: 1.3;
+}
+
+.mobile-picker__option-hint {
+  font-size: var(--text-xs);
+  color: var(--color-kinetic-text-dim);
+  font-weight: var(--weight-regular);
+}
+
+.mobile-picker__option.is-selected .mobile-picker__option-hint {
+  color: var(--color-primary);
+  opacity: 0.85;
+}
+
+.mobile-picker__option-check {
+  flex-shrink: 0;
+  color: var(--color-primary);
+}
+
+.mobile-picker__empty {
+  margin: 0;
+  padding: var(--space-6) var(--space-4);
+  text-align: center;
+  color: var(--color-kinetic-text-dim);
+  font-size: var(--text-sm);
+}

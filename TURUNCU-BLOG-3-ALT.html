@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Turuncu Solar · Blog · 3 Alternatif (Desktop + Mobil)</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --o-deep:#B83A0E; --o-base:#D4621A; --o-bright:#FF8C3A; --o-warm:#FFA060; --o-glow:#FFD2A0;
+    --bg-page:#1A0907;
+    --ink:#FFF8F0; --muted:rgba(255,248,240,0.62); --dim:rgba(255,248,240,0.40);
+    --line:rgba(255,248,240,0.10); --line-soft:rgba(255,248,240,0.06);
+    --f:'Manrope',system-ui,sans-serif; --mono:'JetBrains Mono',monospace; --serif:'Fraunces',Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{min-height:100%;background:radial-gradient(ellipse at 50% 25%, #FFB060 0%, #FF8C3A 30%, #C25218 65%, #2A1008 100%) fixed}
+  body{font-family:var(--f);color:var(--ink);-webkit-font-smoothing:antialiased;letter-spacing:-0.005em;line-height:1.5;min-height:100vh}
+
+  /* HERO */
+  .hero{padding:64px 24px 36px;text-align:center;background:radial-gradient(ellipse at 50% 30%,var(--o-bright) 0%,var(--o-base) 35%,var(--o-deep) 70%,#1A0907 100%);border-bottom:1px solid var(--line)}
+  .hero .tag{display:inline-block;background:rgba(0,0,0,0.30);backdrop-filter:blur(12px);padding:6px 16px;border-radius:999px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;margin-bottom:14px;border:1px solid rgba(255,255,255,0.15)}
+  .hero h1{font-size:48px;font-weight:800;letter-spacing:-0.025em;line-height:1.05;color:#fff}
+  .hero h1 em{font-style:italic;color:var(--o-glow)}
+  .hero p{font-size:14px;color:rgba(255,255,255,0.80);max-width:600px;margin:14px auto 0;line-height:1.55}
+
+  /* TOC */
+  .toc{position:sticky;top:0;background:rgba(26,9,7,0.92);backdrop-filter:blur(20px);padding:14px 24px;border-bottom:1px solid var(--line);z-index:60;display:flex;gap:6px;overflow-x:auto;font-size:11px;font-weight:600;justify-content:center}
+  .toc::-webkit-scrollbar{display:none}
+  .toc a{color:var(--muted);text-decoration:none;white-space:nowrap;padding:8px 14px;border-radius:999px}
+  .toc a:hover{color:var(--ink);background:rgba(255,255,255,0.06)}
+  .toc strong{color:var(--o-glow);padding:8px 12px;font-family:var(--mono);font-size:10px;letter-spacing:0.18em}
+
+  /* Section */
+  .wrap{max-width:1500px;margin:0 auto;padding:0 24px}
+  .pg{padding:56px 0;border-bottom:1px solid var(--line);scroll-margin-top:60px}
+  .pg-h{margin-bottom:28px;text-align:center}
+  .pg-key{display:inline-block;font-family:var(--mono);font-size:11px;color:var(--o-glow);letter-spacing:0.22em;text-transform:uppercase;font-weight:700;margin-bottom:8px;padding:5px 14px;background:rgba(255,210,160,0.10);border:1px solid rgba(255,210,160,0.22);border-radius:999px}
+  .pg-name{font-size:36px;font-weight:800;letter-spacing:-0.025em;line-height:1.1}
+  .pg-name em{font-style:italic;color:var(--o-glow)}
+  .pg-desc{font-size:14px;color:var(--muted);max-width:680px;margin:8px auto 0}
+
+  /* Sub-section heads */
+  .sub-h{display:flex;align-items:baseline;gap:10px;margin:32px 0 16px;padding:0 4px}
+  .sub-h .num{font-family:var(--mono);font-size:11px;color:var(--o-glow);letter-spacing:0.18em;font-weight:700}
+  .sub-h h3{font-size:20px;font-weight:700;color:#fff;letter-spacing:-0.015em}
+  .sub-h .meta{margin-left:auto;font-size:11px;color:var(--dim);font-family:var(--mono);letter-spacing:0.1em}
+
+  /* Phone frame */
+  .row{display:flex;gap:36px;flex-wrap:wrap;justify-content:center;align-items:flex-start}
+  .item{display:flex;flex-direction:column;align-items:center;gap:12px}
+  .item .lbl-d{font-size:11px;color:var(--dim);letter-spacing:0.16em;text-transform:uppercase;font-weight:600}
+  .item .lbl-name{font-size:14px;color:#fff;font-weight:700;letter-spacing:-0.01em}
+  .device{background:#000;padding:6px;border-radius:48px;box-shadow:0 50px 100px -25px rgba(0,0,0,0.7),0 25px 50px -12px rgba(0,0,0,0.5)}
+  .screen{border-radius:42px;overflow:hidden;width:340px;height:740px;position:relative;display:flex;flex-direction:column;background:radial-gradient(ellipse at 50% 25%, #FFB060 0%, #FF8C3A 30%, #C25218 65%, #2A1008 100%)}
+  .screen::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 75%,rgba(0,0,0,0.20) 0%,transparent 50%);pointer-events:none}
+
+  /* Desktop frame */
+  .deskframe{background:#0A0604;border:1px solid rgba(255,255,255,0.10);border-radius:14px;overflow:hidden;box-shadow:0 50px 100px -25px rgba(0,0,0,0.7)}
+  .deskbar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:rgba(0,0,0,0.50);border-bottom:1px solid rgba(255,255,255,0.10)}
+  .deskbar .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.20)}
+  .deskbar .url{flex:1;background:rgba(255,255,255,0.06);border-radius:999px;padding:5px 12px;font-family:var(--mono);font-size:11px;color:rgba(255,255,255,0.65);text-align:center}
+  .deskscreen{position:relative;background:radial-gradient(ellipse at 50% 25%,#FFB060 0%,#FF8C3A 30%,#C25218 65%,#2A1008 100%);min-height:760px;overflow:hidden}
+  .desk-pad{padding:32px clamp(28px,3.5vw,56px)}
+
+  /* Status bar */
+  .sbar{display:flex;justify-content:space-between;padding:14px 26px 0;font-size:12px;font-weight:600;color:#fff;position:relative;z-index:1}
+  .sbar svg{width:13px;height:13px;fill:currentColor}
+
+  /* Topbar pill (mobile) */
+  .topbar{position:relative;z-index:2;padding:14px 14px 0}
+  .pill{display:flex;align-items:center;gap:8px;padding:6px 8px 6px 10px;background:rgba(0,0,0,0.32);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.12);border-radius:999px}
+  .pill .brand{width:32px;height:32px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#fff}
+  .pill .brand svg{width:18px;height:18px;fill:currentColor}
+  .pill .actions{display:flex;align-items:center;gap:2px;margin-left:auto}
+  .pill .ic-btn{width:32px;height:32px;border-radius:999px;background:transparent;border:none;color:#fff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+  .pill .ic-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+  .pill .back{width:32px;height:32px;border-radius:999px;background:transparent;border:none;color:#fff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+  .pill .back svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+  .pill .crumb{font-size:12px;font-weight:700;color:#fff;flex:1}
+
+  .content{flex:1;overflow-y:auto;padding:14px 16px 22px;display:flex;flex-direction:column;gap:12px}
+  .content::-webkit-scrollbar{display:none}
+  .content.flush{padding:0 0 22px}
+
+  /* Site header (desktop) */
+  .siteheader{display:flex;align-items:center;gap:24px;padding:14px clamp(28px,3.5vw,56px);background:rgba(15,8,5,0.55);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.08)}
+  .siteheader .brand{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:800;color:#fff;letter-spacing:0.04em}
+  .siteheader .brand-mark{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.10);display:inline-flex;align-items:center;justify-content:center;color:#fff}
+  .siteheader .brand-mark svg{width:18px;height:18px;fill:currentColor}
+  .siteheader nav{display:flex;align-items:center;gap:4px;flex:1;justify-content:center}
+  .siteheader nav a{padding:8px 14px;border-radius:999px;color:rgba(255,255,255,0.75);text-decoration:none;font-size:13px;font-weight:600}
+  .siteheader nav a:hover{background:rgba(255,255,255,0.06);color:#fff}
+  .siteheader nav a.is-active{background:rgba(255,255,255,0.10);color:#fff}
+  .siteheader .actions{display:flex;align-items:center;gap:8px}
+  .siteheader .lang{display:inline-flex;background:rgba(255,255,255,0.06);border-radius:999px;padding:3px;gap:2px}
+  .siteheader .lang button{padding:5px 10px;border-radius:999px;background:transparent;border:none;color:rgba(255,255,255,0.65);font-size:11px;font-weight:700;cursor:pointer}
+  .siteheader .lang button.is-active{background:#fff;color:#1A0907}
+
+  /* Type */
+  .h-page{font-size:32px;font-weight:800;letter-spacing:-0.025em;line-height:1.05;color:#fff;margin-top:6px}
+  .h-page em{font-style:italic;color:var(--o-glow)}
+  .lead{font-size:13px;color:rgba(255,255,255,0.78);line-height:1.55}
+  .eyebrow{font-size:10px;color:var(--o-glow);text-transform:uppercase;letter-spacing:0.18em;font-weight:600}
+
+  /* Search */
+  .search{position:relative}
+  .search input{width:100%;background:rgba(0,0,0,0.30);backdrop-filter:blur(18px);border:none;border-radius:14px;padding:13px 16px 13px 42px;font-size:14px;color:#fff;font-family:inherit;outline:none}
+  .search input::placeholder{color:rgba(255,255,255,0.40)}
+  .search > svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:14px;height:14px;color:rgba(255,255,255,0.55);stroke:currentColor;fill:none;stroke-width:2}
+
+  /* Chips */
+  .chips-wrap{margin:0 -16px;padding:2px 0}
+  .chips{display:flex;gap:8px;overflow-x:auto;padding:6px 16px}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{display:inline-flex;align-items:center;gap:7px;min-height:42px;padding:10px 14px;border-radius:999px;background:rgba(0,0,0,0.32);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.10);color:#fff;font-size:12.5px;font-weight:700;white-space:nowrap;flex-shrink:0;cursor:pointer;font-family:inherit}
+  .chip svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+  .chip small{font-size:10.5px;color:rgba(255,255,255,0.55);font-weight:600;background:rgba(255,255,255,0.10);padding:1px 7px;border-radius:999px}
+  .chip.is-active{background:#fff;color:#1A0907;border-color:#fff;box-shadow:0 6px 16px rgba(255,210,160,0.30)}
+  .chip.is-active small{color:#1A0907;background:rgba(26,9,7,0.10)}
+
+  /* Buton */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#fff;color:#1A0907;padding:12px 18px;border-radius:999px;font-size:13px;font-weight:700;border:none;text-decoration:none;cursor:pointer;font-family:inherit}
+  .btn.glass{background:rgba(0,0,0,0.30);backdrop-filter:blur(20px);color:#fff;border:1px solid rgba(255,255,255,0.14)}
+  .btn.full{width:100%}
+  .btn.sm{padding:8px 14px;font-size:12px}
+  .btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.2}
+
+  /* Dock (mobile) */
+  .dock{position:absolute;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(4,1fr);min-height:64px;padding:8px 12px;background:rgba(15,8,5,0.78);backdrop-filter:blur(28px) saturate(160%);border-top:1px solid rgba(255,255,255,0.10);z-index:5}
+  .dock-cell{display:inline-flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.55);position:relative;text-decoration:none}
+  .dock-cell svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2}
+  .dock-cell.is-active{color:#fff}
+  .dock-cell.is-active::after{content:"";position:absolute;left:50%;bottom:4px;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:var(--o-glow);box-shadow:0 0 10px rgba(255,210,160,0.55)}
+  .dock-fab .icon-slot{width:36px;height:36px;border-radius:50%;background:#fff;color:#1A0907;display:inline-flex;align-items:center;justify-content:center}
+  .dock-fab .icon-slot svg{width:16px;height:16px}
+
+  /* Generic blog meta tools */
+  .badge-cat{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;background:rgba(255,210,160,0.18);border:1px solid rgba(255,210,160,0.32);color:var(--o-glow);font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;border-radius:999px;backdrop-filter:blur(8px)}
+  .badge-cat svg{width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:2.2}
+  .badge-pin{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;background:rgba(0,0,0,0.42);border:1px solid rgba(255,255,255,0.14);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;border-radius:999px;backdrop-filter:blur(8px)}
+  .badge-pin svg{width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:2.2}
+  .meta-thin{display:flex;align-items:center;gap:8px;font-size:11px;color:rgba(255,255,255,0.65);font-weight:500}
+  .meta-thin .dot{width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,0.40)}
+
+  /* Photo placeholders (gradients) */
+  .ph{position:relative;isolation:isolate}
+  .ph::before{content:"";position:absolute;inset:0;z-index:-1}
+  .ph.t1::before{background:linear-gradient(135deg,#FF8C3A 0%,#B83A0E 100%)}
+  .ph.t2::before{background:linear-gradient(135deg,#FFD2A0 0%,#D4621A 100%)}
+  .ph.t3::before{background:linear-gradient(135deg,#2A1008 0%,#B83A0E 60%,#FFA060 100%)}
+  .ph.t4::before{background:linear-gradient(135deg,#FFA060 0%,#1A0907 100%)}
+  .ph.t5::before{background:radial-gradient(circle at 30% 30%,#FFD2A0 0%,#D4621A 50%,#1A0907 100%)}
+  .ph.t6::before{background:linear-gradient(135deg,#B83A0E 0%,#D4621A 35%,#FF8C3A 70%,#FFD2A0 100%)}
+  .ph.t7::before{background:radial-gradient(circle at 70% 30%,#FFA060,#B83A0E 60%,#1A0907)}
+  .ph.t8::before{background:linear-gradient(45deg,#1A0907 0%,#B83A0E 50%,#FFA060 100%)}
+  .ph .glyph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.30)}
+  .ph .glyph svg{width:32px;height:32px;stroke:currentColor;fill:none;stroke-width:1.6}
+  .ph .glyph.lg svg{width:48px;height:48px}
+
+  /* ═══════════════════════════════════════════════════
+     A · EDITORIAL — Sade, görsel öncelikli
+     ═══════════════════════════════════════════════════ */
+
+  /* Editorial desktop list */
+  .ed-hero{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;padding:36px clamp(28px,3.5vw,56px)}
+  .ed-hero .img{position:relative;border-radius:18px;overflow:hidden;min-height:440px}
+  .ed-hero .img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(0,0,0,0.50));pointer-events:none}
+  .ed-hero .copy{display:flex;flex-direction:column;justify-content:center;gap:18px;padding:8px 0}
+  .ed-hero .copy .crumbs{font-size:11px;color:var(--o-glow);letter-spacing:0.16em;font-weight:700;text-transform:uppercase}
+  .ed-hero .copy h2{font-family:var(--serif);font-size:46px;line-height:1.05;letter-spacing:-0.025em;color:#fff;font-weight:600}
+  .ed-hero .copy h2 em{font-style:italic;color:var(--o-glow)}
+  .ed-hero .copy p{font-size:15px;color:rgba(255,255,255,0.78);line-height:1.55;max-width:520px}
+  .ed-hero .copy .author-row{display:flex;align-items:center;gap:12px;padding-top:8px}
+  .ed-hero .copy .av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#FFD2A0,#D4621A);color:#1A0907;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;border:1px solid rgba(255,255,255,0.18)}
+  .ed-hero .copy .nm{font-size:13px;color:#fff;font-weight:700}
+  .ed-hero .copy .role{font-size:11px;color:var(--dim);font-weight:500;margin-top:1px}
+
+  .ed-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:0 clamp(28px,3.5vw,56px) 36px}
+  .ed-card{display:flex;flex-direction:column;gap:14px;text-decoration:none;color:inherit}
+  .ed-card .img{position:relative;border-radius:14px;overflow:hidden;height:200px}
+  .ed-card .body{display:flex;flex-direction:column;gap:8px;padding:0 2px}
+  .ed-card .cat{font-size:10px;color:var(--o-glow);letter-spacing:0.16em;font-weight:700;text-transform:uppercase}
+  .ed-card h4{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:-0.015em;line-height:1.2;color:#fff}
+  .ed-card .meta{font-size:11px;color:var(--dim);font-weight:500}
+
+  /* Editorial detail */
+  .ed-cover{position:relative;height:480px;overflow:hidden}
+  .ed-cover .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,8,5,0.40) 0%,transparent 30%,transparent 70%,rgba(15,8,5,0.85))}
+  .ed-cover .meta{position:absolute;left:50%;bottom:36px;transform:translateX(-50%);text-align:center;z-index:2;display:flex;flex-direction:column;gap:14px;align-items:center;padding:0 24px;max-width:880px}
+  .ed-cover .meta .badge-cat{font-size:11px}
+  .ed-cover .meta h1{font-family:var(--serif);font-size:54px;font-weight:700;letter-spacing:-0.03em;line-height:1.05;color:#fff}
+  .ed-cover .meta h1 em{font-style:italic;color:var(--o-glow)}
+  .ed-cover .meta .sub{font-size:14px;color:rgba(255,255,255,0.85);line-height:1.5;max-width:680px;font-weight:500}
+  .ed-cover .meta .row-a{display:flex;align-items:center;gap:14px;color:rgba(255,255,255,0.85);font-size:12px;font-weight:600}
+  .ed-cover .meta .row-a .av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#FFD2A0,#D4621A);color:#1A0907;font-weight:700;font-size:11px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.20)}
+  .ed-cover .meta .row-a .dot{width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,0.40)}
+
+  .ed-article{max-width:720px;margin:48px auto;padding:0 24px;font-family:var(--serif)}
+  .ed-article .lede{font-size:22px;line-height:1.45;color:#fff;font-weight:400;margin-bottom:32px;letter-spacing:-0.01em}
+  .ed-article p{font-size:17px;line-height:1.7;color:rgba(255,255,255,0.85);margin-bottom:20px;font-weight:400}
+  .ed-article p strong{color:#fff;font-weight:600}
+  .ed-article p em{color:var(--o-glow)}
+  .ed-article h2{font-family:var(--serif);font-size:28px;font-weight:600;color:#fff;letter-spacing:-0.02em;margin:36px 0 16px;line-height:1.2}
+  .ed-article .pull{margin:36px 0;padding:0 0 0 24px;border-left:3px solid var(--o-glow);font-size:24px;line-height:1.4;font-style:italic;color:#fff;font-weight:400}
+  .ed-article .pull cite{display:block;margin-top:10px;font-size:12px;color:var(--o-glow);font-style:normal;letter-spacing:0.16em;text-transform:uppercase;font-weight:700;font-family:var(--f)}
+  .ed-article figure{margin:32px -60px}
+  .ed-article figure .img{position:relative;border-radius:16px;overflow:hidden;height:340px}
+  .ed-article figure figcaption{font-size:12px;color:var(--dim);text-align:center;margin-top:10px;font-style:italic;font-family:var(--f)}
+
+  .ed-rel{padding:48px clamp(28px,3.5vw,56px) 56px;border-top:1px solid var(--line);background:rgba(15,8,5,0.20)}
+  .ed-rel h3{font-family:var(--serif);font-size:24px;font-weight:600;color:#fff;letter-spacing:-0.02em;margin-bottom:24px}
+
+  /* ═══════════════════════════════════════════════════
+     B · MAGAZINE/BENTO — Asimetrik grid, dinamik
+     ═══════════════════════════════════════════════════ */
+
+  .mg-cats{display:flex;align-items:center;gap:8px;padding:24px clamp(28px,3.5vw,56px) 0;flex-wrap:wrap}
+  .mg-cats .lbl{font-size:11px;color:var(--o-glow);letter-spacing:0.18em;text-transform:uppercase;font-weight:700;margin-right:6px}
+  .mg-cats .c{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(0,0,0,0.30);border:1px solid rgba(255,255,255,0.10);border-radius:999px;color:#fff;font-size:12px;font-weight:600;text-decoration:none}
+  .mg-cats .c.is-active{background:#fff;color:#1A0907;border-color:#fff}
+  .mg-cats .c svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2}
+
+  .bento{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:180px;gap:14px;padding:28px clamp(28px,3.5vw,56px) 36px}
+  .bento .b{position:relative;border-radius:16px;overflow:hidden;text-decoration:none;color:inherit;display:flex;flex-direction:column;justify-content:flex-end;padding:14px;border:1px solid rgba(255,255,255,0.10)}
+  .bento .b::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.78));pointer-events:none}
+  .bento .b > *{position:relative;z-index:1}
+  .bento .b .cat{font-size:10px;color:var(--o-glow);letter-spacing:0.16em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+  .bento .b h4{font-size:15px;font-weight:700;line-height:1.2;color:#fff;letter-spacing:-0.015em}
+  .bento .b .meta{font-size:10px;color:rgba(255,255,255,0.75);margin-top:6px;font-weight:500}
+  .bento .big{grid-column:span 4;grid-row:span 2}
+  .bento .big h4{font-size:30px;font-weight:800;letter-spacing:-0.02em;line-height:1.05}
+  .bento .big h4 em{font-style:italic;color:var(--o-glow)}
+  .bento .big .meta{font-size:12px;margin-top:10px}
+  .bento .med{grid-column:span 2;grid-row:span 1}
+  .bento .med h4{font-size:18px;line-height:1.2}
+  .bento .tall{grid-column:span 2;grid-row:span 2}
+  .bento .tall h4{font-size:18px;line-height:1.2}
+  .bento .wide{grid-column:span 4;grid-row:span 1}
+  .bento .wide h4{font-size:18px;line-height:1.2}
+  .bento .sm{grid-column:span 2;grid-row:span 1}
+
+  /* Magazine detail - 2-col with sticky sidebar */
+  .mg-cover{position:relative;height:400px;overflow:hidden}
+  .mg-cover .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,8,5,0.30) 0%,transparent 40%,rgba(15,8,5,0.70))}
+  .mg-cover .badge-row{position:absolute;left:clamp(28px,3.5vw,56px);top:36px;display:flex;gap:8px;z-index:2}
+  .mg-cover .title-block{position:absolute;left:clamp(28px,3.5vw,56px);right:clamp(28px,3.5vw,56px);bottom:32px;z-index:2}
+  .mg-cover .title-block h1{font-size:46px;font-weight:800;letter-spacing:-0.025em;line-height:1.05;color:#fff;max-width:780px}
+  .mg-cover .title-block h1 em{font-style:italic;color:var(--o-glow)}
+
+  .mg-detail{display:grid;grid-template-columns:1fr 280px;gap:48px;padding:36px clamp(28px,3.5vw,56px) 56px}
+  .mg-art .lede{font-size:18px;line-height:1.55;color:#fff;font-weight:500;margin-bottom:24px;letter-spacing:-0.005em}
+  .mg-art p{font-size:15px;line-height:1.7;color:rgba(255,255,255,0.82);margin-bottom:18px}
+  .mg-art p strong{color:#fff}
+  .mg-art p em{color:var(--o-glow)}
+  .mg-art h2{font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.02em;margin:32px 0 14px;line-height:1.2;display:flex;align-items:center;gap:10px}
+  .mg-art h2::before{content:"";width:24px;height:3px;border-radius:3px;background:var(--o-glow)}
+  .mg-art .stat-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:8px 0 24px}
+  .mg-art .si{background:rgba(0,0,0,0.30);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px;text-align:center}
+  .mg-art .si .v{font-size:24px;font-weight:800;color:var(--o-glow);letter-spacing:-0.02em;line-height:1}
+  .mg-art .si .l{font-size:9px;color:rgba(255,255,255,0.55);letter-spacing:0.14em;text-transform:uppercase;font-weight:700;margin-top:6px}
+  .mg-art .pull{margin:24px 0;padding:18px 22px;background:rgba(255,210,160,0.06);border:1px solid rgba(255,210,160,0.20);border-left:3px solid var(--o-glow);border-radius:14px;font-size:18px;line-height:1.45;color:#fff;font-weight:500;font-style:italic}
+
+  .mg-side{position:sticky;top:24px;align-self:start;display:flex;flex-direction:column;gap:18px}
+  .mg-side .author{display:flex;align-items:center;gap:12px;padding:14px;background:rgba(0,0,0,0.30);border:1px solid rgba(255,255,255,0.10);border-radius:14px}
+  .mg-side .author .av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#FFD2A0,#D4621A);color:#1A0907;font-weight:700;font-size:14px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.20)}
+  .mg-side .author .nm{font-size:13px;color:#fff;font-weight:700}
+  .mg-side .author .role{font-size:10px;color:var(--o-glow);letter-spacing:0.14em;text-transform:uppercase;font-weight:700;margin-top:1px}
+  .mg-side .toc{padding:16px;background:rgba(0,0,0,0.30);border:1px solid rgba(255,255,255,0.10);border-radius:14px}
+  .mg-side .toc .h{font-size:10px;color:var(--o-glow);letter-spacing:0.18em;text-transform:uppercase;font-weight:700;margin-bottom:12px}
+  .mg-side .toc a{display:block;padding:8px 12px;border-radius:8px;color:rgba(255,255,255,0.70);font-size:12px;font-weight:600;text-decoration:none;line-height:1.4;border-left:2px solid transparent}
+  .mg-side .toc a:hover{background:rgba(255,255,255,0.04);color:#fff}
+  .mg-side .toc a.is-active{color:var(--o-glow);border-left-color:var(--o-glow);background:rgba(255,210,160,0.06)}
+  .mg-side .share{display:flex;gap:8px;justify-content:center;padding:14px;background:rgba(0,0,0,0.30);border:1px solid rgba(255,255,255,0.10);border-radius:14px}
+  .mg-side .share button{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.10);color:#fff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+  .mg-side .share button svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+  .mg-side .share button.primary{background:#fff;color:#1A0907}
+
+  /* Mobile bento for B */
+  .mb-feat{position:relative;border-radius:18px;overflow:hidden;height:240px;display:flex;flex-direction:column;justify-content:flex-end;padding:14px;text-decoration:none;color:inherit}
+  .mb-feat::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,0.78))}
+  .mb-feat > *{position:relative;z-index:1}
+  .mb-feat h4{font-size:20px;font-weight:800;line-height:1.15;color:#fff;letter-spacing:-0.02em;margin-top:8px}
+  .mb-feat h4 em{font-style:italic;color:var(--o-glow)}
+
+  .mb-grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .mb-tile{position:relative;border-radius:14px;overflow:hidden;height:160px;padding:10px;display:flex;flex-direction:column;justify-content:flex-end;text-decoration:none;color:inherit}
+  .mb-tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.78))}
+  .mb-tile > *{position:relative;z-index:1}
+  .mb-tile .cat{font-size:9px;color:var(--o-glow);letter-spacing:0.14em;text-transform:uppercase;font-weight:700}
+  .mb-tile h5{font-size:13px;font-weight:700;line-height:1.2;color:#fff;letter-spacing:-0.01em;margin-top:4px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+
+  /* ═══════════════════════════════════════════════════
+     C · DENSE NEWS — Bilgi yoğun, sidebar'lı
+     ═══════════════════════════════════════════════════ */
+
+  .nw-layout{display:grid;grid-template-columns:200px 1fr 280px;gap:24px;padding:28px clamp(28px,3.5vw,56px) 56px}
+  .nw-side{display:flex;flex-direction:column;gap:20px}
+  .nw-side .block{padding:14px;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.08);border-radius:12px}
+  .nw-side .h{font-size:10px;color:var(--o-glow);letter-spacing:0.18em;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+  .nw-side .cats a{display:flex;align-items:center;justify-content:space-between;padding:7px 0;font-size:12px;color:rgba(255,255,255,0.78);font-weight:600;text-decoration:none;border-top:1px solid rgba(255,255,255,0.05)}
+  .nw-side .cats a:first-child{border-top:none}
+  .nw-side .cats a.is-active{color:var(--o-glow)}
+  .nw-side .cats a span{font-size:10px;color:rgba(255,255,255,0.40);font-weight:600;font-family:var(--mono)}
+  .nw-side .tags{display:flex;flex-wrap:wrap;gap:6px}
+  .nw-side .tags a{display:inline-flex;padding:5px 10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.10);border-radius:999px;color:#fff;font-size:11px;font-weight:600;text-decoration:none}
+  .nw-side .tags a::before{content:"#";color:var(--o-glow);margin-right:3px}
+
+  .nw-main{display:flex;flex-direction:column;gap:0}
+  .nw-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:16px}
+  .nw-bar .ttl{font-size:24px;font-weight:800;letter-spacing:-0.02em;color:#fff}
+  .nw-bar .ttl em{font-style:italic;color:var(--o-glow)}
+  .nw-bar .filt{display:flex;align-items:center;gap:8px}
+  .nw-bar .filt .sort{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;background:rgba(0,0,0,0.30);border:1px solid rgba(255,255,255,0.10);border-radius:999px;color:#fff;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit}
+
+  .nw-row{display:grid;grid-template-columns:160px 1fr auto;gap:18px;align-items:center;padding:18px 0;border-bottom:1px solid var(--line);text-decoration:none;color:inherit}
+  .nw-row .img{position:relative;border-radius:10px;overflow:hidden;height:110px}
+  .nw-row .body{display:flex;flex-direction:column;gap:6px;min-width:0}
+  .nw-row .cat{font-size:10px;color:var(--o-glow);letter-spacing:0.16em;text-transform:uppercase;font-weight:700}
+  .nw-row h4{font-size:18px;font-weight:700;color:#fff;letter-spacing:-0.015em;line-height:1.25}
+  .nw-row .ex{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .nw-row .meta{font-size:11px;color:var(--dim);font-weight:500}
+  .nw-row .num{font-family:var(--mono);font-size:32px;color:rgba(255,210,160,0.30);font-weight:600;letter-spacing:-0.02em;align-self:flex-start}
+
+  .nw-popular{display:flex;flex-direction:column;gap:0}
+  .nw-popular .item{display:grid;grid-template-columns:24px 1fr;gap:12px;padding:10px 0;border-top:1px solid rgba(255,255,255,0.06);text-decoration:none;color:inherit}
+  .nw-popular .item:first-child{border-top:none}
+  .nw-popular .item .num{font-family:var(--mono);font-size:14px;color:var(--o-glow);font-weight:700;line-height:1.3}
+  .nw-popular .item h5{font-size:12px;color:#fff;font-weight:600;line-height:1.35}
+  .nw-popular .item .meta{font-size:10px;color:var(--dim);margin-top:2px}
+
+  .nw-news{padding:18px;background:linear-gradient(135deg,rgba(255,210,160,0.10) 0%,rgba(184,58,14,0.10) 100%);border:1px solid rgba(255,210,160,0.20);border-radius:14px;text-align:center;display:flex;flex-direction:column;gap:8px;align-items:center}
+  .nw-news .ic{width:38px;height:38px;border-radius:10px;background:rgba(255,210,160,0.18);color:var(--o-glow);display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,210,160,0.30)}
+  .nw-news .ic svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2}
+  .nw-news h4{font-size:14px;font-weight:700;color:#fff}
+  .nw-news p{font-size:11px;color:rgba(255,255,255,0.65);line-height:1.4}
+  .nw-news input{width:100%;background:rgba(0,0,0,0.40);border:1px solid rgba(255,255,255,0.10);border-radius:999px;padding:9px 14px;font-size:12px;color:#fff;font-family:inherit;outline:none;margin-top:4px}
+  .nw-news button{width:100%;background:#fff;color:#1A0907;border:none;border-radius:999px;padding:9px 14px;font-size:12px;font-weight:700;font-family:inherit;cursor:pointer}
+
+  /* News detail */
+  .nw-detail{display:grid;grid-template-columns:220px 1fr 260px;gap:36px;padding:32px clamp(28px,3.5vw,56px) 56px}
+  .nw-toc{position:sticky;top:24px;align-self:start;padding:16px;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.08);border-radius:12px}
+  .nw-toc .h{font-size:10px;color:var(--o-glow);letter-spacing:0.18em;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+  .nw-toc a{display:flex;gap:8px;align-items:flex-start;padding:7px 0;font-size:11.5px;color:rgba(255,255,255,0.65);text-decoration:none;line-height:1.4}
+  .nw-toc a .n{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,0.40);min-width:18px;font-weight:700}
+  .nw-toc a.is-active{color:var(--o-glow)}
+  .nw-toc a.is-active .n{color:var(--o-glow)}
+
+  .nw-art h1{font-size:34px;font-weight:800;color:#fff;letter-spacing:-0.025em;line-height:1.1;margin-bottom:14px}
+  .nw-art h1 em{font-style:italic;color:var(--o-glow)}
+  .nw-art .meta-row{display:flex;align-items:center;gap:12px;font-size:12px;color:rgba(255,255,255,0.65);font-weight:500;margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+  .nw-art .meta-row .av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#FFD2A0,#D4621A);color:#1A0907;font-weight:700;font-size:11px;display:inline-flex;align-items:center;justify-content:center}
+  .nw-art .meta-row .nm{color:#fff;font-weight:700;font-size:13px}
+  .nw-art .cover{position:relative;border-radius:14px;overflow:hidden;height:300px;margin-bottom:24px}
+  .nw-art .lede{font-size:17px;line-height:1.6;color:#fff;font-weight:500;margin-bottom:20px}
+  .nw-art p{font-size:14.5px;line-height:1.7;color:rgba(255,255,255,0.82);margin-bottom:16px}
+  .nw-art p strong{color:#fff}
+  .nw-art p em{color:var(--o-glow)}
+  .nw-art h2{font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.02em;margin:28px 0 12px;line-height:1.2}
+  .nw-art h2 .n{font-family:var(--mono);font-size:13px;color:var(--o-glow);margin-right:10px;font-weight:600}
+  .nw-art .pull{margin:24px 0;padding:14px 18px;background:rgba(255,210,160,0.06);border-left:3px solid var(--o-glow);border-radius:0 10px 10px 0;font-size:15px;line-height:1.5;color:#fff;font-style:italic}
+
+  .nw-rel{padding:14px;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.08);border-radius:12px;display:flex;flex-direction:column;gap:14px;position:sticky;top:24px;align-self:start}
+  .nw-rel .h{font-size:10px;color:var(--o-glow);letter-spacing:0.18em;text-transform:uppercase;font-weight:700}
+  .nw-rel .ri{display:flex;flex-direction:column;gap:8px;text-decoration:none;color:inherit}
+  .nw-rel .ri .img{position:relative;border-radius:8px;overflow:hidden;height:90px}
+  .nw-rel .ri .cat{font-size:9px;color:var(--o-glow);letter-spacing:0.14em;text-transform:uppercase;font-weight:700}
+  .nw-rel .ri h5{font-size:12px;color:#fff;font-weight:700;line-height:1.3}
+
+  /* MOBIL ekranlardaki paylaşım için utility */
+  .blog-feat-m{position:relative;border-radius:18px;overflow:hidden;min-height:220px;display:flex;flex-direction:column;justify-content:flex-end;padding:14px;text-decoration:none;color:inherit;border:1px solid rgba(255,255,255,0.10)}
+  .blog-feat-m::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(10,6,4,0.78));pointer-events:none}
+  .blog-feat-m > *{position:relative;z-index:1}
+  .blog-feat-m h3{font-size:20px;font-weight:800;line-height:1.15;color:#fff;letter-spacing:-0.015em;margin-top:8px}
+  .blog-feat-m h3 em{font-style:italic;color:var(--o-glow)}
+
+  .blog-list-m{display:flex;flex-direction:column;gap:10px}
+  .blog-card-m{display:grid;grid-template-columns:90px 1fr;gap:12px;padding:10px;background:rgba(0,0,0,0.22);border:1px solid rgba(255,255,255,0.08);border-radius:14px;text-decoration:none;color:inherit}
+  .blog-card-m .img{position:relative;border-radius:10px;overflow:hidden;height:90px}
+  .blog-card-m .body{display:flex;flex-direction:column;justify-content:center;gap:5px;min-width:0}
+  .blog-card-m .cat{font-size:9px;color:var(--o-glow);font-weight:700;letter-spacing:0.14em;text-transform:uppercase}
+  .blog-card-m h4{font-size:13px;font-weight:700;color:#fff;line-height:1.3;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .blog-card-m .meta{font-size:10px;color:rgba(255,255,255,0.55);font-weight:500;margin-top:2px}
+
+  /* Mobile cover for detail */
+  .cover-m{position:relative;height:320px;overflow:hidden;isolation:isolate}
+  .cover-m .ph{position:absolute;inset:0;z-index:-1}
+  .cover-m .scrim-bot{position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(10,6,4,0.85))}
+  .cover-m .badges{position:absolute;left:14px;right:14px;bottom:18px;display:flex;gap:6px;flex-wrap:wrap;z-index:2}
+
+  .article-m{padding:18px;display:flex;flex-direction:column;gap:14px;background:linear-gradient(180deg,rgba(15,8,5,0.55) 0%,rgba(15,8,5,0.92) 18%,rgba(15,8,5,0.95) 100%);backdrop-filter:blur(8px);margin-top:-22px;border-radius:24px 24px 0 0;position:relative;z-index:2}
+  .article-m h1{font-size:22px;font-weight:800;color:#fff;letter-spacing:-0.02em;line-height:1.18}
+  .article-m h1 em{font-style:italic;color:var(--o-glow)}
+  .article-m .lede-m{font-size:14px;color:#fff;font-weight:500;line-height:1.55}
+  .article-m p{font-size:13.5px;color:rgba(255,255,255,0.82);line-height:1.65}
+  .article-m p strong{color:#fff;font-weight:700}
+  .article-m p em{color:var(--o-glow);font-style:italic}
+  .article-m h2{font-size:16px;font-weight:700;color:#fff;letter-spacing:-0.015em;margin-top:4px;display:flex;align-items:center;gap:8px}
+  .article-m h2::before{content:"";width:18px;height:2px;border-radius:2px;background:var(--o-glow)}
+  .article-m .author-m{display:flex;align-items:center;gap:10px;padding:10px;background:rgba(0,0,0,0.30);border:1px solid rgba(255,255,255,0.08);border-radius:12px}
+  .article-m .author-m .av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#FFD2A0,#D4621A);color:#1A0907;font-weight:700;font-size:13px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.18)}
+  .article-m .author-m .nm{font-size:13px;color:#fff;font-weight:700}
+  .article-m .author-m .role{font-size:10px;color:var(--o-glow);letter-spacing:0.12em;text-transform:uppercase;font-weight:700;margin-top:1px}
+  .article-m .author-m .meta{margin-left:auto;font-size:10px;color:rgba(255,255,255,0.55);font-weight:500;text-align:right}
+  .article-m .pull-m{padding:14px 16px;background:rgba(255,210,160,0.06);border:1px solid rgba(255,210,160,0.20);border-left:3px solid var(--o-glow);border-radius:12px;font-size:13.5px;color:#fff;font-style:italic;font-weight:500;line-height:1.5}
+  .article-m .pull-m cite{display:block;margin-top:8px;font-size:9px;color:var(--o-glow);font-style:normal;letter-spacing:0.16em;text-transform:uppercase;font-weight:700}
+
+  /* Reading progress */
+  .progress-bar{position:absolute;left:14px;right:14px;top:54px;height:2px;border-radius:2px;background:rgba(255,255,255,0.12);overflow:hidden;z-index:3}
+  .progress-bar .fill{display:block;height:100%;width:42%;background:linear-gradient(90deg,var(--o-glow),var(--o-bright));border-radius:2px;box-shadow:0 0 8px rgba(255,210,160,0.6)}
+
+  /* Mobile compact list (for C variant) */
+  .compact-list{display:flex;flex-direction:column;gap:0}
+  .compact-list .ci{display:grid;grid-template-columns:auto 1fr;gap:12px;padding:14px 0;border-top:1px solid rgba(255,255,255,0.08);text-decoration:none;color:inherit}
+  .compact-list .ci:first-child{border-top:none}
+  .compact-list .ci .num{font-family:var(--mono);font-size:13px;color:var(--o-glow);font-weight:700;align-self:flex-start;width:18px}
+  .compact-list .ci .b{display:flex;flex-direction:column;gap:4px;min-width:0}
+  .compact-list .ci .cat{font-size:9px;color:var(--o-glow);letter-spacing:0.14em;text-transform:uppercase;font-weight:700}
+  .compact-list .ci h4{font-size:13px;color:#fff;font-weight:700;line-height:1.3}
+  .compact-list .ci .meta{font-size:10px;color:var(--dim);font-weight:500}
+
+  /* Mobile tab switch */
+  .tab-switch{display:flex;background:rgba(0,0,0,0.30);border:1px solid rgba(255,255,255,0.10);border-radius:999px;padding:4px}
+  .tab-switch button{flex:1;background:transparent;border:none;color:rgba(255,255,255,0.65);font-family:inherit;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:8px 12px;border-radius:999px;cursor:pointer}
+  .tab-switch button.is-active{background:#fff;color:#1A0907}
+
+  /* Notes */
+  .note{background:rgba(255,255,255,0.04);border:1px solid var(--line-soft);border-radius:14px;padding:18px;font-size:13px;line-height:1.55;margin-top:24px}
+  .note h4{font-size:13px;font-weight:700;margin-bottom:10px;color:var(--o-glow);letter-spacing:0.04em}
+  .note ul{list-style:none}
+  .note li{padding:5px 0;color:var(--muted)}
+  .note li b{color:var(--ink);font-weight:700;display:inline-block;min-width:90px;margin-right:8px}
+</style>
+
+<defs style="display:none">
+<svg xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-back" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="20" y1="20" x2="16.5" y2="16.5"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/></symbol>
+  <symbol id="i-arr" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10a2 2 0 01-2 2h-4v-7h-6v7H5a2 2 0 01-2-2z"/></symbol>
+  <symbol id="i-calc" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="4" y1="10" x2="20" y2="10"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></symbol>
+  <symbol id="i-money" viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2l9 4v7c0 5-4 9-9 11-5-2-9-6-9-11V6l9-4z"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9 17 14 19 22 12 18 5 22 7 14 2 9 9 9 12 2"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M11 4H5a2 2 0 00-2 2v12a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M19 3l3 3-9 9h-3v-3z"/></symbol>
+  <symbol id="i-r" viewBox="0 0 24 24"><path d="M5 4 L5 20 L9 20 L9 14 L13 14 L17 20 L21 20 L16.5 13.5 C18.4 13 20 11 20 9 C20 6 18 4 15 4 L5 4 Z M9 7 L14 7 C15.5 7 16.5 8 16.5 9.5 C16.5 11 15.5 12 14 12 L9 12 Z"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></symbol>
+  <symbol id="i-msg" viewBox="0 0 24 24"><path d="M21 12a8 8 0 01-12 7l-5 1 1.5-4.5A8 8 0 1121 12z"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 014 13V5a2 2 0 012-2h7a7 7 0 010 14h-2"/><line x1="6" y1="3" x2="20" y2="17"/></symbol>
+  <symbol id="i-tool" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 010 5.66L7 19.66 4.34 17 12 9.34a4 4 0 012.7-3.04z"/><circle cx="17.5" cy="6.5" r="2.5"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v3m0 16v3M4.2 4.2l2.1 2.1m11.4 11.4l2.1 2.1M1 12h3m16 0h3M4.2 19.8l2.1-2.1m11.4-11.4l2.1-2.1"/></symbol>
+</svg>
+</defs>
+</head>
+
+<body>
+
+<!-- ════════════ HERO ════════════ -->
+<section class="hero">
+  <div class="tag">Turuncu Solar · Blog · 3 Yön</div>
+  <h1>Üç farklı <em>blog dili.</em></h1>
+  <p>Her biri için desktop liste + desktop detay + mobil liste + mobil detay. Aynı sıcak sahne, aynı renk tokenları — değişen tek şey kompozisyon dili.</p>
+</section>
+
+<nav class="toc">
+  <a href="#alt-a">A · Editorial</a>
+  <a href="#alt-b">B · Magazine / Bento</a>
+  <a href="#alt-c">C · Dense News</a>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════
+     ALT A · EDITORIAL
+     ═══════════════════════════════════════════════════ -->
+<section class="pg" id="alt-a">
+  <div class="wrap">
+    <div class="pg-h">
+      <span class="pg-key">A · Editorial</span>
+      <div class="pg-name">Sade & <em>görsel öncelikli.</em></div>
+      <p class="pg-desc">New York Times / The Verge dilinde. Geniş hero görseli, serif başlıklar (Fraunces), nefes alan boşluklar, merkezi makale kolonu (max 720px). Az ama özlü içerik.</p>
+    </div>
+
+    <!-- A1 · Desktop Liste -->
+    <div class="sub-h"><span class="num">A.1</span><h3>Desktop · Liste</h3><span class="meta">≥1280px</span></div>
+    <div class="deskframe">
+      <div class="deskbar"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="url">turuncusolar.com/blog</div></div>
+      <div class="deskscreen">
+        <div class="siteheader">
+          <a href="#" class="brand"><span class="brand-mark"><svg><use href="#i-r"/></svg></span>TURUNCUSOLAR</a>
+          <nav><a href="#">Ana</a><a href="#">Kurumsal</a><a href="#">Sistemler</a><a href="#">Referans</a><a href="#" class="is-active">Blog</a><a href="#">SSS</a><a href="#">İletişim</a></nav>
+          <div class="actions"><div class="lang"><button class="is-active">TR</button><button>EN</button></div></div>
+        </div>
+
+        <div class="ed-hero">
+          <div class="img ph t6"><div class="glyph lg"><svg><use href="#i-trend"/></svg></div></div>
+          <div class="copy">
+            <div class="crumbs">BLOG · ÖNE ÇIKAN · SEKTÖR</div>
+            <h2>2026'da güneş enerjisi: <em>5 büyük kırılma.</em></h2>
+            <p>Panel verimliliği %24'ü aştı, hücre maliyeti son 24 ayda %38 düştü. 2026, sahada hesabı tutturmanın en kolay olduğu yıl olmaya aday — sektörün dönüm noktası 5 başlıkta.</p>
+            <div class="author-row">
+              <div class="av">MY</div>
+              <div><div class="nm">Mert Yıldız</div><div class="role">Kıdemli Mühendis · 22 Nis 2026 · 8 dk okuma</div></div>
+              <a class="btn sm" href="#" style="margin-left:auto">Devamı <svg><use href="#i-arr"/></svg></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-h" style="padding:0 clamp(28px,3.5vw,56px);margin-top:0;margin-bottom:0"><span class="num">—</span><h3 style="font-family:var(--serif);font-weight:600">Tüm yazılar</h3><span class="meta">42 makale · 5 kategori</span></div>
+
+        <div class="ed-grid">
+          <a class="ed-card" href="#">
+            <div class="img ph t1"><div class="glyph"><svg><use href="#i-tool"/></svg></div></div>
+            <div class="body">
+              <span class="cat">TEKNİK</span>
+              <h4>Hibrit sistem mi off-grid mi? Çatınıza göre karar şeması</h4>
+              <span class="meta">Ayşe Demir · 18 Nis · 6 dk</span>
+            </div>
+          </a>
+          <a class="ed-card" href="#">
+            <div class="img ph t2"><div class="glyph"><svg><use href="#i-money"/></svg></div></div>
+            <div class="body">
+              <span class="cat">MALİYET</span>
+              <h4>10 kW kurulum 2026 fiyat tablosu — KDV dahil</h4>
+              <span class="meta">Can Aksoy · 14 Nis · 5 dk</span>
+            </div>
+          </a>
+          <a class="ed-card" href="#">
+            <div class="img ph t3"><div class="glyph"><svg><use href="#i-leaf"/></svg></div></div>
+            <div class="body">
+              <span class="cat">YEŞİL</span>
+              <h4>1 MW GES yılda kaç ton CO₂ karşılıyor?</h4>
+              <span class="meta">Selin Türk · 10 Nis · 4 dk</span>
+            </div>
+          </a>
+          <a class="ed-card" href="#">
+            <div class="img ph t4"><div class="glyph"><svg><use href="#i-shield"/></svg></div></div>
+            <div class="body">
+              <span class="cat">KURULUM</span>
+              <h4>Çatı statik raporu nasıl okunur? Sahadan 7 ipucu</h4>
+              <span class="meta">Mert Yıldız · 03 Nis · 7 dk</span>
+            </div>
+          </a>
+          <a class="ed-card" href="#">
+            <div class="img ph t5"><div class="glyph"><svg><use href="#i-sun"/></svg></div></div>
+            <div class="body">
+              <span class="cat">TEKNİK</span>
+              <h4>TOPCon vs PERC: 12 aylık saha karşılaştırması</h4>
+              <span class="meta">Ayşe Demir · 28 Mar · 5 dk</span>
+            </div>
+          </a>
+          <a class="ed-card" href="#">
+            <div class="img ph t7"><div class="glyph"><svg><use href="#i-trend"/></svg></div></div>
+            <div class="body">
+              <span class="cat">SEKTÖR</span>
+              <h4>Yenilenebilir enerji teşvik sistemi: 2026 değişiklikleri</h4>
+              <span class="meta">Can Aksoy · 22 Mar · 6 dk</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- A2 · Desktop Detay -->
+    <div class="sub-h"><span class="num">A.2</span><h3>Desktop · Detay</h3><span class="meta">≥1280px</span></div>
+    <div class="deskframe">
+      <div class="deskbar"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="url">turuncusolar.com/blog/2026-gunes-kirilma</div></div>
+      <div class="deskscreen">
+        <div class="siteheader">
+          <a href="#" class="brand"><span class="brand-mark"><svg><use href="#i-r"/></svg></span>TURUNCUSOLAR</a>
+          <nav><a href="#">Ana</a><a href="#">Kurumsal</a><a href="#">Sistemler</a><a href="#">Referans</a><a href="#" class="is-active">Blog</a><a href="#">SSS</a><a href="#">İletişim</a></nav>
+          <div class="actions"><div class="lang"><button class="is-active">TR</button><button>EN</button></div></div>
+        </div>
+
+        <div class="ed-cover ph t6">
+          <div class="scrim"></div>
+          <div class="meta">
+            <span class="badge-cat"><svg><use href="#i-trend"/></svg>Sektör</span>
+            <h1>2026'da güneş enerjisi: <em>5 büyük kırılma.</em></h1>
+            <p class="sub">Panel verimliliği %24'ü aştı, hücre maliyeti son 24 ayda %38 düştü. Yıl 2026, sahada hesabı tutturmanın en kolay olduğu yıl olmaya aday.</p>
+            <div class="row-a">
+              <div class="av">MY</div>
+              <span>Mert Yıldız</span>
+              <span class="dot"></span>
+              <span>22 Nis 2026</span>
+              <span class="dot"></span>
+              <span>8 dk okuma</span>
+            </div>
+          </div>
+        </div>
+
+        <article class="ed-article">
+          <p class="lede">Sektör, son on yılın en hızlı yenilenme dönemini yaşıyor. Hücre teknolojileri, depolama maliyeti ve düzenleyici çerçeve — üçü birden 2026'da hizalandı.</p>
+
+          <h2>Modüllerde TOPCon dönemi</h2>
+          <p>PERC modülleri yerini hızla TOPCon hücrelere bırakıyor. Aynı çatı alanında <em>%6–8 daha fazla üretim</em>, sıcak iklim performansında belirgin avantaj. Sahadaki ilk veriler beklentilerin üzerinde geldi.</p>
+          <p>Inverter tarafında ise <strong>hibrit topolojiler standartlaşıyor;</strong> depolama opsiyonu artık opsiyon değil, baz tasarım.</p>
+
+          <blockquote class="pull">
+            "2026 fiyatlarıyla bir lojistik depo, 4 yıl içinde kendi enerjisini geri kazanıyor — bu cümleyi 5 yıl önce kuramazdık."
+            <cite>— Mert Yıldız, sahadan</cite>
+          </blockquote>
+
+          <h2>Depolamanın geri dönüşü</h2>
+          <p>LFP hücrelerin döngü ömrü 6.000+ seviyesine çıktı. Ticari kullanıcı için gece tarifesinden gündüz yüklenmiş depolama, faturayı %30'a kadar aşağı çekiyor.</p>
+
+          <figure>
+            <div class="img ph t8"><div class="glyph lg"><svg><use href="#i-image"/></svg></div></div>
+            <figcaption>Şek. 1 — Tipik bir 250 kW kurulumda yıllık üretim eğrisi.</figcaption>
+          </figure>
+
+          <h2>Tarımsal entegrasyon</h2>
+          <p>Agri-PV sistemleri Türkiye'de pilot fazından çıkıyor. Yarı-saydam paneller, alttaki bitki örtüsünü koruyor; aynı parsel hem enerji hem ürün veriyor.</p>
+        </article>
+
+        <div class="ed-rel">
+          <h3>İlgili yazılar</h3>
+          <div class="ed-grid" style="padding:0">
+            <a class="ed-card" href="#"><div class="img ph t5" style="height:160px"><div class="glyph"><svg><use href="#i-sun"/></svg></div></div><div class="body"><span class="cat">TEKNİK</span><h4 style="font-size:18px">TOPCon vs PERC saha karşılaştırması</h4><span class="meta">Ayşe Demir · 5 dk</span></div></a>
+            <a class="ed-card" href="#"><div class="img ph t2" style="height:160px"><div class="glyph"><svg><use href="#i-money"/></svg></div></div><div class="body"><span class="cat">MALİYET</span><h4 style="font-size:18px">Depolamalı hibrit kurulumun gerçek geri ödemesi</h4><span class="meta">Can Aksoy · 6 dk</span></div></a>
+            <a class="ed-card" href="#"><div class="img ph t3" style="height:160px"><div class="glyph"><svg><use href="#i-leaf"/></svg></div></div><div class="body"><span class="cat">YEŞİL</span><h4 style="font-size:18px">Agri-PV: tarım ile enerjinin kesişimi</h4><span class="meta">Selin Türk · 4 dk</span></div></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- A3 + A4 · Mobil -->
+    <div class="sub-h"><span class="num">A.3 + A.4</span><h3>Mobil · Liste &amp; Detay</h3><span class="meta">340 px</span></div>
+    <div class="row">
+      <!-- A3 Mobil Liste -->
+      <div class="item">
+        <div class="lbl-d">A.3 · MOBIL</div>
+        <div class="lbl-name">Editorial · Liste</div>
+        <div class="device"><div class="screen">
+          <div class="sbar"><span>10:36</span><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="3" stroke="currentColor" stroke-width="1.6" fill="none"/><rect x="4" y="8" width="13" height="8" rx="1.5" fill="currentColor"/></svg></div>
+          <div class="topbar"><div class="pill"><div class="brand"><svg><use href="#i-r"/></svg></div><div class="actions"><button class="ic-btn"><svg><use href="#i-globe"/></svg></button><button class="ic-btn"><svg><use href="#i-menu"/></svg></button></div></div></div>
+          <div class="content" style="padding-bottom:74px">
+            <span class="eyebrow">TURUNCU SOLAR BLOG</span>
+            <h2 style="font-family:var(--serif);font-size:30px;font-weight:600;color:#fff;line-height:1.1;letter-spacing:-0.02em;margin-top:6px">Güneşin <em style="color:var(--o-glow);font-style:italic">günlüğü.</em></h2>
+            <p class="lead">Sahadan teknik notlar, maliyet analizleri ve sektör güncellemeleri.</p>
+
+            <a class="blog-feat-m ph t6" href="#" style="min-height:260px;margin-top:6px">
+              <div style="display:flex;gap:6px"><span class="badge-cat"><svg><use href="#i-trend"/></svg>Sektör</span></div>
+              <h3 style="font-family:var(--serif);font-weight:600">2026'da güneş enerjisi: <em>5 büyük kırılma.</em></h3>
+              <div class="meta-thin" style="margin-top:6px"><span>Mert Yıldız</span><span class="dot"></span><span>22 Nis</span><span class="dot"></span><span>8 dk</span></div>
+            </a>
+
+            <div class="blog-list-m" style="margin-top:6px">
+              <a class="blog-card-m" href="#"><div class="img ph t1"><div class="glyph"><svg><use href="#i-tool"/></svg></div></div><div class="body"><span class="cat">TEKNİK</span><h4 style="font-family:var(--serif);font-weight:600">Hibrit mi off-grid mi? Karar şeması</h4><span class="meta">18 Nis · 6 dk</span></div></a>
+              <a class="blog-card-m" href="#"><div class="img ph t2"><div class="glyph"><svg><use href="#i-money"/></svg></div></div><div class="body"><span class="cat">MALİYET</span><h4 style="font-family:var(--serif);font-weight:600">10 kW kurulum 2026 fiyat tablosu</h4><span class="meta">14 Nis · 5 dk</span></div></a>
+              <a class="blog-card-m" href="#"><div class="img ph t3"><div class="glyph"><svg><use href="#i-leaf"/></svg></div></div><div class="body"><span class="cat">YEŞİL</span><h4 style="font-family:var(--serif);font-weight:600">1 MW GES yılda kaç ton CO₂?</h4><span class="meta">10 Nis · 4 dk</span></div></a>
+            </div>
+          </div>
+          <div class="dock">
+            <a class="dock-cell" href="#"><svg><use href="#i-home"/></svg></a>
+            <a class="dock-cell" href="#"><svg><use href="#i-star"/></svg></a>
+            <a class="dock-cell dock-fab" href="#"><span class="icon-slot"><svg><use href="#i-calc"/></svg></span></a>
+            <a class="dock-cell is-active" href="#"><svg><use href="#i-edit"/></svg></a>
+          </div>
+        </div></div>
+      </div>
+
+      <!-- A4 Mobil Detay -->
+      <div class="item">
+        <div class="lbl-d">A.4 · MOBIL</div>
+        <div class="lbl-name">Editorial · Detay</div>
+        <div class="device"><div class="screen">
+          <div class="sbar" style="position:absolute;left:0;right:0;top:0;z-index:4"><span>10:36</span><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="3" stroke="currentColor" stroke-width="1.6" fill="none"/><rect x="4" y="8" width="13" height="8" rx="1.5" fill="currentColor"/></svg></div>
+          <div class="content flush" style="padding-bottom:74px">
+            <div class="cover-m">
+              <div class="ph t6"></div>
+              <div class="scrim-bot"></div>
+              <div class="topbar" style="padding-top:38px;position:relative;z-index:3"><div class="pill"><button class="back"><svg><use href="#i-back"/></svg></button><span class="crumb">Blog</span><div class="actions"><button class="ic-btn"><svg><use href="#i-bookmark"/></svg></button><button class="ic-btn"><svg><use href="#i-share"/></svg></button></div></div><div class="progress-bar"><span class="fill"></span></div></div>
+              <div class="badges"><span class="badge-cat"><svg><use href="#i-trend"/></svg>Sektör</span><span class="badge-pin"><svg><use href="#i-clock"/></svg>8 dk</span></div>
+            </div>
+            <div class="article-m">
+              <h1 style="font-family:var(--serif);font-weight:600">2026'da güneş enerjisi: <em>5 büyük kırılma.</em></h1>
+              <div class="author-m"><div class="av">MY</div><div><div class="nm">Mert Yıldız</div><div class="role">KIDEMLİ MÜHENDİS</div></div><div class="meta">22 Nis 2026</div></div>
+              <p class="lede-m" style="font-family:var(--serif);font-size:16px">Sektör, son on yılın en hızlı yenilenme dönemini yaşıyor. <strong>Üç başlık</strong> 2026'da hizalandı.</p>
+              <h2 style="font-family:var(--serif);font-weight:600">Modüllerde TOPCon dönemi</h2>
+              <p style="font-family:var(--serif)">PERC modülleri yerini hızla TOPCon hücrelere bırakıyor. <em>%6–8 daha fazla üretim,</em> sıcak iklim avantajı belirgin.</p>
+              <div class="pull-m" style="font-family:var(--serif)">"4 yıl içinde lojistik depo kendi enerjisini geri kazanıyor."<cite>— Mert Yıldız</cite></div>
+              <h2 style="font-family:var(--serif);font-weight:600">Depolamanın geri dönüşü</h2>
+              <p style="font-family:var(--serif)">LFP hücrelerin döngü ömrü <strong>6.000+</strong> seviyesine çıktı. Faturayı %30'a kadar düşürüyor.</p>
+            </div>
+          </div>
+          <div class="dock">
+            <a class="dock-cell" href="#"><svg><use href="#i-home"/></svg></a>
+            <a class="dock-cell" href="#"><svg><use href="#i-star"/></svg></a>
+            <a class="dock-cell dock-fab" href="#"><span class="icon-slot"><svg><use href="#i-calc"/></svg></span></a>
+            <a class="dock-cell is-active" href="#"><svg><use href="#i-edit"/></svg></a>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="note"><h4>Editorial özellikleri</h4><ul>
+      <li><b>Tipografi</b> Başlıklar Fraunces (serif, 600 weight, italic accent), gövde Manrope</li>
+      <li><b>Hero</b> Split (görsel + metin) — geniş 480px görsel, sağda merkezi metin bloğu</li>
+      <li><b>Article</b> Merkezi 720px max kolon, 17/1.7 serif gövde, 28px serif h2, full-bleed figure</li>
+      <li><b>His</b> Sade, prestijli, "okumalık" — magazine/newspaper hibridi</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     ALT B · MAGAZINE / BENTO
+     ═══════════════════════════════════════════════════ -->
+<section class="pg" id="alt-b">
+  <div class="wrap">
+    <div class="pg-h">
+      <span class="pg-key">B · Magazine / Bento</span>
+      <div class="pg-name">Asimetrik <em>bento grid.</em></div>
+      <p class="pg-desc">The Verge / Apple News dilinde — değişken kart boyları, dinamik kompozisyon. Detayda sticky sidebar (yazar + TOC + share). Görsel ve içerik yoğunluğu birlikte.</p>
+    </div>
+
+    <!-- B1 · Desktop Liste -->
+    <div class="sub-h"><span class="num">B.1</span><h3>Desktop · Liste</h3><span class="meta">≥1280px</span></div>
+    <div class="deskframe">
+      <div class="deskbar"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="url">turuncusolar.com/blog</div></div>
+      <div class="deskscreen">
+        <div class="siteheader">
+          <a href="#" class="brand"><span class="brand-mark"><svg><use href="#i-r"/></svg></span>TURUNCUSOLAR</a>
+          <nav><a href="#">Ana</a><a href="#">Kurumsal</a><a href="#">Sistemler</a><a href="#">Referans</a><a href="#" class="is-active">Blog</a><a href="#">SSS</a><a href="#">İletişim</a></nav>
+          <div class="actions"><div class="lang"><button class="is-active">TR</button><button>EN</button></div></div>
+        </div>
+
+        <div style="padding:32px clamp(28px,3.5vw,56px) 0;display:flex;align-items:flex-end;justify-content:space-between;gap:16px">
+          <div>
+            <span class="eyebrow">TURUNCU SOLAR BLOG</span>
+            <h2 style="font-size:42px;font-weight:800;color:#fff;letter-spacing:-0.025em;line-height:1.05;margin-top:6px">Güneşin <em style="font-style:italic;color:var(--o-glow)">günlüğü.</em></h2>
+          </div>
+          <div class="search" style="max-width:320px;flex:1"><svg><use href="#i-search"/></svg><input type="search" placeholder="Yazı ara..."/></div>
+        </div>
+
+        <div class="mg-cats">
+          <span class="lbl">KATEGORİ</span>
+          <a class="c is-active" href="#"><svg><use href="#i-list"/></svg>Tümü</a>
+          <a class="c" href="#"><svg><use href="#i-tool"/></svg>Teknik</a>
+          <a class="c" href="#"><svg><use href="#i-money"/></svg>Maliyet</a>
+          <a class="c" href="#"><svg><use href="#i-leaf"/></svg>Yeşil</a>
+          <a class="c" href="#"><svg><use href="#i-trend"/></svg>Sektör</a>
+          <a class="c" href="#"><svg><use href="#i-shield"/></svg>Kurulum</a>
+        </div>
+
+        <div class="bento">
+          <a class="b big ph t6" href="#"><div class="cat">SEKTÖR · ÖNE ÇIKAN</div><h4>2026'da güneş enerjisi: <em>5 büyük kırılma.</em></h4><div class="meta">Mert Yıldız · 22 Nis · 8 dk okuma</div></a>
+          <a class="b tall ph t1" href="#"><div class="cat">TEKNİK</div><h4>Hibrit mi off-grid mi? Karar şeması</h4><div class="meta">18 Nis · 6 dk</div></a>
+          <a class="b med ph t2" href="#"><div class="cat">MALİYET</div><h4>10 kW kurulum fiyat tablosu</h4></a>
+          <a class="b med ph t3" href="#"><div class="cat">YEŞİL</div><h4>1 MW GES yılda CO₂ etkisi</h4></a>
+          <a class="b wide ph t8" href="#"><div class="cat">KURULUM</div><h4>Çatı statik raporu nasıl okunur? Sahadan 7 ipucu</h4><div class="meta">Mert Yıldız · 7 dk</div></a>
+          <a class="b sm ph t5" href="#"><div class="cat">TEKNİK</div><h4>TOPCon vs PERC</h4></a>
+          <a class="b sm ph t7" href="#"><div class="cat">SEKTÖR</div><h4>Teşvik 2026 değişiklikleri</h4></a>
+          <a class="b sm ph t4" href="#"><div class="cat">MALİYET</div><h4>Net amorti formülü</h4></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- B2 · Desktop Detay -->
+    <div class="sub-h"><span class="num">B.2</span><h3>Desktop · Detay</h3><span class="meta">≥1280px</span></div>
+    <div class="deskframe">
+      <div class="deskbar"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="url">turuncusolar.com/blog/2026-gunes-kirilma</div></div>
+      <div class="deskscreen">
+        <div class="siteheader">
+          <a href="#" class="brand"><span class="brand-mark"><svg><use href="#i-r"/></svg></span>TURUNCUSOLAR</a>
+          <nav><a href="#">Ana</a><a href="#">Kurumsal</a><a href="#">Sistemler</a><a href="#">Referans</a><a href="#" class="is-active">Blog</a><a href="#">SSS</a><a href="#">İletişim</a></nav>
+          <div class="actions"><div class="lang"><button class="is-active">TR</button><button>EN</button></div></div>
+        </div>
+
+        <div class="mg-cover ph t6">
+          <div class="scrim"></div>
+          <div class="badge-row"><span class="badge-cat"><svg><use href="#i-trend"/></svg>Sektör</span><span class="badge-pin"><svg><use href="#i-clock"/></svg>8 dk okuma</span><span class="badge-pin"><svg><use href="#i-eye"/></svg>2.4k</span></div>
+          <div class="title-block"><h1>2026'da güneş enerjisi: <em>5 büyük kırılma.</em></h1></div>
+        </div>
+
+        <div class="mg-detail">
+          <article class="mg-art">
+            <p class="lede">Panel verimliliği <strong>%24'ü</strong> aştı, hücre maliyeti son 24 ayda <strong>%38</strong> düştü. 2026, sahada hesabı tutturmanın en kolay olduğu yıl olmaya aday.</p>
+
+            <h2 id="topcon">Modüllerde TOPCon dönemi</h2>
+            <p>PERC modülleri yerini hızla TOPCon hücrelere bırakıyor. Aynı çatı alanında <em>%6–8 daha fazla üretim</em>, sıcak iklim performansında belirgin avantaj. Sahadaki ilk veriler beklentilerin üzerinde geldi.</p>
+
+            <div class="stat-strip">
+              <div class="si"><div class="v">%24.5</div><div class="l">VERİM</div></div>
+              <div class="si"><div class="v">−38%</div><div class="l">HÜCRE</div></div>
+              <div class="si"><div class="v">3.4 yıl</div><div class="l">AMORTİ</div></div>
+            </div>
+
+            <p>Inverter tarafında <strong>hibrit topolojiler</strong> standartlaşıyor; depolama opsiyonu artık opsiyon değil, baz tasarım.</p>
+
+            <div class="pull">"2026 fiyatlarıyla bir lojistik depo, 4 yıl içinde kendi enerjisini geri kazanıyor — bu cümleyi 5 yıl önce kuramazdık."</div>
+
+            <h2 id="depolama">Depolamanın geri dönüşü</h2>
+            <p>LFP hücrelerin döngü ömrü <strong>6.000+</strong> seviyesine çıktı. Ticari kullanıcı için gece tarifesinden gündüz yüklenmiş depolama, faturayı <em>%30'a kadar</em> aşağı çekiyor.</p>
+
+            <h2 id="agri">Tarımsal entegrasyon</h2>
+            <p>Agri-PV sistemleri Türkiye'de pilot fazından çıkıyor. Yarı-saydam paneller, alttaki bitki örtüsünü koruyor; aynı parsel hem enerji hem ürün veriyor.</p>
+          </article>
+
+          <aside class="mg-side">
+            <div class="author"><div class="av">MY</div><div><div class="nm">Mert Yıldız</div><div class="role">KIDEMLİ MÜHENDİS</div></div></div>
+            <div class="toc">
+              <div class="h">İÇİNDEKİLER</div>
+              <a class="is-active" href="#topcon">1. Modüllerde TOPCon dönemi</a>
+              <a href="#depolama">2. Depolamanın geri dönüşü</a>
+              <a href="#agri">3. Tarımsal entegrasyon</a>
+              <a href="#">4. İnverter mimarisi</a>
+              <a href="#">5. Sonuç ve öngörü</a>
+            </div>
+            <div class="share">
+              <button><svg><use href="#i-bookmark"/></svg></button>
+              <button><svg><use href="#i-heart"/></svg></button>
+              <button class="primary"><svg><use href="#i-share"/></svg></button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+    <!-- B3 + B4 · Mobil -->
+    <div class="sub-h"><span class="num">B.3 + B.4</span><h3>Mobil · Liste &amp; Detay</h3><span class="meta">340 px</span></div>
+    <div class="row">
+      <!-- B3 Mobil Liste -->
+      <div class="item">
+        <div class="lbl-d">B.3 · MOBIL</div>
+        <div class="lbl-name">Bento · Liste</div>
+        <div class="device"><div class="screen">
+          <div class="sbar"><span>10:36</span><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="3" stroke="currentColor" stroke-width="1.6" fill="none"/><rect x="4" y="8" width="13" height="8" rx="1.5" fill="currentColor"/></svg></div>
+          <div class="topbar"><div class="pill"><div class="brand"><svg><use href="#i-r"/></svg></div><div class="actions"><button class="ic-btn"><svg><use href="#i-globe"/></svg></button><button class="ic-btn"><svg><use href="#i-menu"/></svg></button></div></div></div>
+          <div class="content" style="padding-bottom:74px">
+            <span class="eyebrow">TURUNCU SOLAR BLOG</span>
+            <h2 class="h-page">Güneşin <em>günlüğü.</em></h2>
+            <div class="search"><svg><use href="#i-search"/></svg><input type="search" placeholder="Yazı ara..."/></div>
+            <div class="chips-wrap"><div class="chips">
+              <button class="chip is-active"><svg><use href="#i-list"/></svg>Tümü</button>
+              <button class="chip"><svg><use href="#i-tool"/></svg>Teknik</button>
+              <button class="chip"><svg><use href="#i-money"/></svg>Maliyet</button>
+              <button class="chip"><svg><use href="#i-leaf"/></svg>Yeşil</button>
+              <button class="chip"><svg><use href="#i-trend"/></svg>Sektör</button>
+            </div></div>
+
+            <a class="mb-feat ph t6" href="#" style="margin-top:4px">
+              <span class="badge-cat"><svg><use href="#i-trend"/></svg>SEKTÖR · ÖNE ÇIKAN</span>
+              <h4>2026 güneş enerjisi: <em>5 kırılma.</em></h4>
+              <div class="meta-thin" style="margin-top:6px"><span>Mert Yıldız</span><span class="dot"></span><span>8 dk</span></div>
+            </a>
+
+            <div class="mb-grid2">
+              <a class="mb-tile ph t1" href="#"><span class="cat">TEKNİK</span><h5>Hibrit mi off-grid mi?</h5></a>
+              <a class="mb-tile ph t2" href="#"><span class="cat">MALİYET</span><h5>10 kW fiyat tablosu</h5></a>
+              <a class="mb-tile ph t3" href="#"><span class="cat">YEŞİL</span><h5>CO₂ etki hesabı</h5></a>
+              <a class="mb-tile ph t4" href="#"><span class="cat">KURULUM</span><h5>Çatı statik raporu</h5></a>
+            </div>
+
+            <div class="blog-list-m" style="margin-top:4px">
+              <a class="blog-card-m" href="#"><div class="img ph t5"><div class="glyph"><svg><use href="#i-sun"/></svg></div></div><div class="body"><span class="cat">TEKNİK</span><h4>TOPCon vs PERC: 12 aylık saha verisi</h4><span class="meta">28 Mar · 5 dk</span></div></a>
+              <a class="blog-card-m" href="#"><div class="img ph t7"><div class="glyph"><svg><use href="#i-trend"/></svg></div></div><div class="body"><span class="cat">SEKTÖR</span><h4>Teşvik sistemi 2026 değişiklikleri</h4><span class="meta">22 Mar · 6 dk</span></div></a>
+            </div>
+          </div>
+          <div class="dock">
+            <a class="dock-cell" href="#"><svg><use href="#i-home"/></svg></a>
+            <a class="dock-cell" href="#"><svg><use href="#i-star"/></svg></a>
+            <a class="dock-cell dock-fab" href="#"><span class="icon-slot"><svg><use href="#i-calc"/></svg></span></a>
+            <a class="dock-cell is-active" href="#"><svg><use href="#i-edit"/></svg></a>
+          </div>
+        </div></div>
+      </div>
+
+      <!-- B4 Mobil Detay -->
+      <div class="item">
+        <div class="lbl-d">B.4 · MOBIL</div>
+        <div class="lbl-name">Bento · Detay</div>
+        <div class="device"><div class="screen">
+          <div class="sbar" style="position:absolute;left:0;right:0;top:0;z-index:4"><span>10:36</span><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="3" stroke="currentColor" stroke-width="1.6" fill="none"/><rect x="4" y="8" width="13" height="8" rx="1.5" fill="currentColor"/></svg></div>
+          <div class="content flush" style="padding-bottom:74px">
+            <div class="cover-m">
+              <div class="ph t6"></div>
+              <div class="scrim-bot"></div>
+              <div class="topbar" style="padding-top:38px;position:relative;z-index:3"><div class="pill"><button class="back"><svg><use href="#i-back"/></svg></button><span class="crumb">Blog</span><div class="actions"><button class="ic-btn"><svg><use href="#i-bookmark"/></svg></button><button class="ic-btn"><svg><use href="#i-share"/></svg></button></div></div><div class="progress-bar"><span class="fill"></span></div></div>
+              <div class="badges"><span class="badge-cat"><svg><use href="#i-trend"/></svg>Sektör</span><span class="badge-pin"><svg><use href="#i-clock"/></svg>8 dk</span><span class="badge-pin"><svg><use href="#i-eye"/></svg>2.4k</span></div>
+            </div>
+            <div class="article-m">
+              <h1>2026'da güneş enerjisi: <em>5 büyük kırılma.</em></h1>
+              <div class="author-m"><div class="av">MY</div><div><div class="nm">Mert Yıldız</div><div class="role">KIDEMLİ MÜHENDİS</div></div><div class="meta">22 Nis</div></div>
+              <p class="lede-m">Panel verimliliği <strong>%24'ü</strong> aştı, hücre maliyeti %38 düştü. 2026, hesap tutturmanın en kolay olduğu yıl.</p>
+              <h2>Modüllerde TOPCon dönemi</h2>
+              <p>PERC yerine TOPCon. <em>%6–8 daha fazla üretim,</em> sıcak iklim avantajı.</p>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+                <div style="background:rgba(0,0,0,0.30);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px;text-align:center"><div style="font-size:16px;font-weight:800;color:var(--o-glow)">%24.5</div><div style="font-size:8px;color:rgba(255,255,255,0.55);letter-spacing:0.12em;text-transform:uppercase;font-weight:700;margin-top:4px">VERİM</div></div>
+                <div style="background:rgba(0,0,0,0.30);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px;text-align:center"><div style="font-size:16px;font-weight:800;color:var(--o-glow)">−38%</div><div style="font-size:8px;color:rgba(255,255,255,0.55);letter-spacing:0.12em;text-transform:uppercase;font-weight:700;margin-top:4px">HÜCRE</div></div>
+                <div style="background:rgba(0,0,0,0.30);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px;text-align:center"><div style="font-size:16px;font-weight:800;color:var(--o-glow)">3.4 yıl</div><div style="font-size:8px;color:rgba(255,255,255,0.55);letter-spacing:0.12em;text-transform:uppercase;font-weight:700;margin-top:4px">AMORTİ</div></div>
+              </div>
+              <div class="pull-m">"4 yıl içinde lojistik depo kendi enerjisini geri kazanıyor."<cite>— Mert Yıldız</cite></div>
+              <h2>Depolamanın geri dönüşü</h2>
+              <p>LFP hücreler <strong>6.000+</strong> döngü, fatura <em>%30 aşağı.</em></p>
+            </div>
+          </div>
+          <div class="dock">
+            <a class="dock-cell" href="#"><svg><use href="#i-home"/></svg></a>
+            <a class="dock-cell" href="#"><svg><use href="#i-star"/></svg></a>
+            <a class="dock-cell dock-fab" href="#"><span class="icon-slot"><svg><use href="#i-calc"/></svg></span></a>
+            <a class="dock-cell is-active" href="#"><svg><use href="#i-edit"/></svg></a>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="note"><h4>Bento özellikleri</h4><ul>
+      <li><b>Grid</b> 6 kolon, asimetrik (big 4×2, tall 2×2, med 2×1, wide 4×1, sm 2×1) — dinamik kompozisyon</li>
+      <li><b>Detay</b> 2 kolon: makale + sticky sidebar (yazar + TOC + share). TOC aktif item glow border</li>
+      <li><b>Mobil</b> Hero + 2-kolon küçük tile grid + tek kolon liste — değişken ritim</li>
+      <li><b>His</b> Modern, dinamik, içerik yoğun — Apple News / Pinterest karışımı</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     ALT C · DENSE NEWS
+     ═══════════════════════════════════════════════════ -->
+<section class="pg" id="alt-c">
+  <div class="wrap">
+    <div class="pg-h">
+      <span class="pg-key">C · Dense News</span>
+      <div class="pg-name">Bilgi yoğun & <em>sidebar'lı.</em></div>
+      <p class="pg-desc">TechCrunch / The Information dilinde — sol kategori sidebar, orta kompakt liste, sağ popüler + newsletter. Detayda 3 kolon: TOC + makale + ilgili. Çok içerik, az dekorasyon.</p>
+    </div>
+
+    <!-- C1 · Desktop Liste -->
+    <div class="sub-h"><span class="num">C.1</span><h3>Desktop · Liste</h3><span class="meta">≥1280px</span></div>
+    <div class="deskframe">
+      <div class="deskbar"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="url">turuncusolar.com/blog</div></div>
+      <div class="deskscreen">
+        <div class="siteheader">
+          <a href="#" class="brand"><span class="brand-mark"><svg><use href="#i-r"/></svg></span>TURUNCUSOLAR</a>
+          <nav><a href="#">Ana</a><a href="#">Kurumsal</a><a href="#">Sistemler</a><a href="#">Referans</a><a href="#" class="is-active">Blog</a><a href="#">SSS</a><a href="#">İletişim</a></nav>
+          <div class="actions"><div class="lang"><button class="is-active">TR</button><button>EN</button></div></div>
+        </div>
+
+        <div class="nw-layout">
+          <!-- LEFT SIDEBAR -->
+          <aside class="nw-side">
+            <div class="block">
+              <div class="h">KATEGORİ</div>
+              <div class="cats">
+                <a class="is-active" href="#">Tümü <span>42</span></a>
+                <a href="#">Teknik <span>14</span></a>
+                <a href="#">Maliyet <span>9</span></a>
+                <a href="#">Yeşil <span>8</span></a>
+                <a href="#">Sektör <span>11</span></a>
+                <a href="#">Kurulum <span>6</span></a>
+              </div>
+            </div>
+            <div class="block">
+              <div class="h">POPÜLER ETİKET</div>
+              <div class="tags">
+                <a href="#">topcon</a><a href="#">depolama</a><a href="#">2026</a><a href="#">agri-pv</a><a href="#">amorti</a><a href="#">teşvik</a><a href="#">lfp</a><a href="#">çatı</a>
+              </div>
+            </div>
+          </aside>
+
+          <!-- MAIN -->
+          <main class="nw-main">
+            <div class="nw-bar">
+              <div class="ttl">Güneşin <em>günlüğü.</em></div>
+              <div class="filt">
+                <button class="sort">En yeni <svg width="11" height="11" stroke="currentColor" fill="none" stroke-width="2.2"><use href="#i-down"/></svg></button>
+                <div class="search" style="max-width:200px"><svg><use href="#i-search"/></svg><input type="search" placeholder="Ara..." style="padding:9px 14px 9px 36px;font-size:12px"/></div>
+              </div>
+            </div>
+
+            <a class="nw-row" href="#">
+              <span class="num">01</span>
+              <div class="img ph t6"><div class="glyph"><svg><use href="#i-trend"/></svg></div></div>
+              <div class="body">
+                <span class="cat">SEKTÖR · ÖNE ÇIKAN</span>
+                <h4>2026'da güneş enerjisi: 5 büyük kırılma</h4>
+                <p class="ex">Panel verimliliği %24'ü aştı, hücre maliyeti son 24 ayda %38 düştü. 2026, sahada hesabı tutturmanın en kolay olduğu yıl olmaya aday.</p>
+                <span class="meta">Mert Yıldız · 22 Nis · 8 dk · 2.4k görüntülenme</span>
+              </div>
+            </a>
+            <a class="nw-row" href="#">
+              <span class="num">02</span>
+              <div class="img ph t1"><div class="glyph"><svg><use href="#i-tool"/></svg></div></div>
+              <div class="body">
+                <span class="cat">TEKNİK</span>
+                <h4>Hibrit sistem mi off-grid mi? Çatınıza göre karar şeması</h4>
+                <p class="ex">İki sistem topolojisi arasındaki kritik farklar, sahada karar vermenizi sağlayacak adım adım flowchart.</p>
+                <span class="meta">Ayşe Demir · 18 Nis · 6 dk · 1.8k görüntülenme</span>
+              </div>
+            </a>
+            <a class="nw-row" href="#">
+              <span class="num">03</span>
+              <div class="img ph t2"><div class="glyph"><svg><use href="#i-money"/></svg></div></div>
+              <div class="body">
+                <span class="cat">MALİYET</span>
+                <h4>10 kW kurulum 2026 fiyat tablosu — KDV dahil net rakamlar</h4>
+                <p class="ex">Panel, inverter, montaj ve mühendislik — kalem kalem güncel fiyatlar. Türkiye geneli ortalamalar.</p>
+                <span class="meta">Can Aksoy · 14 Nis · 5 dk · 1.5k görüntülenme</span>
+              </div>
+            </a>
+            <a class="nw-row" href="#">
+              <span class="num">04</span>
+              <div class="img ph t3"><div class="glyph"><svg><use href="#i-leaf"/></svg></div></div>
+              <div class="body">
+                <span class="cat">YEŞİL</span>
+                <h4>1 MW GES yılda kaç ton CO₂ karşılıyor?</h4>
+                <p class="ex">Sera gazı denkliği hesabı, EPDK karbon verisi referansları ve 5 örnek proje karşılaştırması.</p>
+                <span class="meta">Selin Türk · 10 Nis · 4 dk · 1.1k görüntülenme</span>
+              </div>
+            </a>
+            <a class="nw-row" href="#">
+              <span class="num">05</span>
+              <div class="img ph t4"><div class="glyph"><svg><use href="#i-shield"/></svg></div></div>
+              <div class="body">
+                <span class="cat">KURULUM</span>
+                <h4>Çatı statik raporu nasıl okunur? Sahadan 7 ipucu</h4>
+                <p class="ex">Statik mühendisinin verdiği rapordaki kritik kalemler ve güneş projesine etkileri.</p>
+                <span class="meta">Mert Yıldız · 03 Nis · 7 dk · 980 görüntülenme</span>
+              </div>
+            </a>
+          </main>
+
+          <!-- RIGHT SIDEBAR -->
+          <aside class="nw-side">
+            <div class="block">
+              <div class="h">EN ÇOK OKUNANLAR</div>
+              <div class="nw-popular">
+                <a class="item" href="#"><span class="num">01</span><div><h5>2026'da güneş enerjisi: 5 büyük kırılma</h5><div class="meta">2.4k · 22 Nis</div></div></a>
+                <a class="item" href="#"><span class="num">02</span><div><h5>Hibrit sistem mi off-grid mi?</h5><div class="meta">1.8k · 18 Nis</div></div></a>
+                <a class="item" href="#"><span class="num">03</span><div><h5>10 kW kurulum fiyat tablosu</h5><div class="meta">1.5k · 14 Nis</div></div></a>
+                <a class="item" href="#"><span class="num">04</span><div><h5>1 MW GES'in CO₂ karşılığı</h5><div class="meta">1.1k · 10 Nis</div></div></a>
+              </div>
+            </div>
+            <div class="nw-news">
+              <div class="ic"><svg><use href="#i-mail"/></svg></div>
+              <h4>Aylık güneş bülteni</h4>
+              <p>Haftada 2 yeni yazı, ayda 1 sektör özeti.</p>
+              <input type="email" placeholder="ornek@email.com"/>
+              <button>Abone Ol</button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+    <!-- C2 · Desktop Detay -->
+    <div class="sub-h"><span class="num">C.2</span><h3>Desktop · Detay</h3><span class="meta">≥1280px</span></div>
+    <div class="deskframe">
+      <div class="deskbar"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="url">turuncusolar.com/blog/2026-gunes-kirilma</div></div>
+      <div class="deskscreen">
+        <div class="siteheader">
+          <a href="#" class="brand"><span class="brand-mark"><svg><use href="#i-r"/></svg></span>TURUNCUSOLAR</a>
+          <nav><a href="#">Ana</a><a href="#">Kurumsal</a><a href="#">Sistemler</a><a href="#">Referans</a><a href="#" class="is-active">Blog</a><a href="#">SSS</a><a href="#">İletişim</a></nav>
+          <div class="actions"><div class="lang"><button class="is-active">TR</button><button>EN</button></div></div>
+        </div>
+
+        <div class="nw-detail">
+          <aside class="nw-toc">
+            <div class="h">İÇİNDEKİLER</div>
+            <a class="is-active" href="#"><span class="n">01</span>Modüllerde TOPCon dönemi</a>
+            <a href="#"><span class="n">02</span>Depolamanın geri dönüşü</a>
+            <a href="#"><span class="n">03</span>Tarımsal entegrasyon</a>
+            <a href="#"><span class="n">04</span>İnverter mimarisi</a>
+            <a href="#"><span class="n">05</span>Sonuç ve öngörü</a>
+          </aside>
+
+          <article class="nw-art">
+            <span class="badge-cat"><svg><use href="#i-trend"/></svg>Sektör</span>
+            <h1 style="margin-top:14px">2026'da güneş enerjisi: <em>5 büyük kırılma.</em></h1>
+            <div class="meta-row">
+              <div class="av">MY</div>
+              <span class="nm">Mert Yıldız</span>
+              <span>·</span><span>Kıdemli Mühendis</span>
+              <span>·</span><span>22 Nis 2026</span>
+              <span>·</span><span>8 dk okuma</span>
+              <span style="margin-left:auto">2.4k görüntülenme</span>
+            </div>
+            <div class="cover ph t6"><div class="glyph lg"><svg><use href="#i-image"/></svg></div></div>
+            <p class="lede">Panel verimliliği <strong>%24'ü</strong> aştı, hücre maliyeti son 24 ayda <strong>%38</strong> düştü. 2026, sahada hesabı tutturmanın en kolay olduğu yıl olmaya aday.</p>
+
+            <h2><span class="n">01.</span>Modüllerde TOPCon dönemi</h2>
+            <p>PERC modülleri yerini hızla TOPCon hücrelere bırakıyor. Aynı çatı alanında <em>%6–8 daha fazla üretim</em>, sıcak iklim performansında belirgin avantaj.</p>
+            <p>Inverter tarafında <strong>hibrit topolojiler</strong> standartlaşıyor; depolama opsiyonu artık opsiyon değil, baz tasarım.</p>
+
+            <div class="pull">"2026 fiyatlarıyla bir lojistik depo, 4 yıl içinde kendi enerjisini geri kazanıyor."</div>
+
+            <h2><span class="n">02.</span>Depolamanın geri dönüşü</h2>
+            <p>LFP hücrelerin döngü ömrü <strong>6.000+</strong> seviyesine çıktı. Ticari kullanıcı için faturayı <em>%30'a kadar</em> aşağı çekiyor.</p>
+
+            <h2><span class="n">03.</span>Tarımsal entegrasyon</h2>
+            <p>Agri-PV sistemleri Türkiye'de pilot fazından çıkıyor. Yarı-saydam paneller, alttaki bitki örtüsünü koruyor.</p>
+          </article>
+
+          <aside class="nw-rel">
+            <div class="h">İLGİLİ YAZILAR</div>
+            <a class="ri" href="#"><div class="img ph t5"><div class="glyph"><svg><use href="#i-sun"/></svg></div></div><span class="cat">TEKNİK</span><h5>TOPCon vs PERC saha karşılaştırması</h5></a>
+            <a class="ri" href="#"><div class="img ph t2"><div class="glyph"><svg><use href="#i-money"/></svg></div></div><span class="cat">MALİYET</span><h5>Depolamalı hibrit kurulumun gerçek geri ödemesi</h5></a>
+            <a class="ri" href="#"><div class="img ph t3"><div class="glyph"><svg><use href="#i-leaf"/></svg></div></div><span class="cat">YEŞİL</span><h5>Agri-PV pilotları</h5></a>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+    <!-- C3 + C4 · Mobil -->
+    <div class="sub-h"><span class="num">C.3 + C.4</span><h3>Mobil · Liste &amp; Detay</h3><span class="meta">340 px</span></div>
+    <div class="row">
+      <!-- C3 Mobil Liste -->
+      <div class="item">
+        <div class="lbl-d">C.3 · MOBIL</div>
+        <div class="lbl-name">Dense · Liste</div>
+        <div class="device"><div class="screen">
+          <div class="sbar"><span>10:36</span><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="3" stroke="currentColor" stroke-width="1.6" fill="none"/><rect x="4" y="8" width="13" height="8" rx="1.5" fill="currentColor"/></svg></div>
+          <div class="topbar"><div class="pill"><div class="brand"><svg><use href="#i-r"/></svg></div><div class="actions"><button class="ic-btn"><svg><use href="#i-search"/></svg></button><button class="ic-btn"><svg><use href="#i-menu"/></svg></button></div></div></div>
+          <div class="content" style="padding-bottom:74px">
+            <span class="eyebrow">TURUNCU SOLAR BLOG</span>
+            <h2 class="h-page" style="font-size:26px">Güneşin <em>günlüğü.</em></h2>
+
+            <div class="tab-switch"><button class="is-active">EN YENİ</button><button>POPÜLER</button><button>KAYITLI</button></div>
+
+            <div class="chips-wrap"><div class="chips" style="padding:6px 16px">
+              <button class="chip is-active" style="min-height:36px;padding:8px 12px;font-size:11px"><svg><use href="#i-list"/></svg>Tümü <small>42</small></button>
+              <button class="chip" style="min-height:36px;padding:8px 12px;font-size:11px"><svg><use href="#i-tool"/></svg>Teknik</button>
+              <button class="chip" style="min-height:36px;padding:8px 12px;font-size:11px"><svg><use href="#i-money"/></svg>Maliyet</button>
+              <button class="chip" style="min-height:36px;padding:8px 12px;font-size:11px"><svg><use href="#i-leaf"/></svg>Yeşil</button>
+              <button class="chip" style="min-height:36px;padding:8px 12px;font-size:11px"><svg><use href="#i-trend"/></svg>Sektör</button>
+            </div></div>
+
+            <div class="compact-list">
+              <a class="ci" href="#"><span class="num">01</span><div class="b"><span class="cat">SEKTÖR · ÖNE ÇIKAN</span><h4>2026'da güneş enerjisi: 5 büyük kırılma</h4><span class="meta">Mert Yıldız · 22 Nis · 8 dk · 2.4k</span></div></a>
+              <a class="ci" href="#"><span class="num">02</span><div class="b"><span class="cat">TEKNİK</span><h4>Hibrit sistem mi off-grid mi? Karar şeması</h4><span class="meta">Ayşe Demir · 18 Nis · 6 dk · 1.8k</span></div></a>
+              <a class="ci" href="#"><span class="num">03</span><div class="b"><span class="cat">MALİYET</span><h4>10 kW kurulum 2026 fiyat tablosu</h4><span class="meta">Can Aksoy · 14 Nis · 5 dk · 1.5k</span></div></a>
+              <a class="ci" href="#"><span class="num">04</span><div class="b"><span class="cat">YEŞİL</span><h4>1 MW GES yılda kaç ton CO₂?</h4><span class="meta">Selin Türk · 10 Nis · 4 dk · 1.1k</span></div></a>
+              <a class="ci" href="#"><span class="num">05</span><div class="b"><span class="cat">KURULUM</span><h4>Çatı statik raporu nasıl okunur?</h4><span class="meta">Mert Yıldız · 03 Nis · 7 dk · 980</span></div></a>
+              <a class="ci" href="#"><span class="num">06</span><div class="b"><span class="cat">TEKNİK</span><h4>TOPCon vs PERC: 12 aylık saha verisi</h4><span class="meta">Ayşe Demir · 28 Mar · 5 dk · 870</span></div></a>
+              <a class="ci" href="#"><span class="num">07</span><div class="b"><span class="cat">SEKTÖR</span><h4>Teşvik sistemi 2026 değişiklikleri</h4><span class="meta">Can Aksoy · 22 Mar · 6 dk · 750</span></div></a>
+            </div>
+          </div>
+          <div class="dock">
+            <a class="dock-cell" href="#"><svg><use href="#i-home"/></svg></a>
+            <a class="dock-cell" href="#"><svg><use href="#i-star"/></svg></a>
+            <a class="dock-cell dock-fab" href="#"><span class="icon-slot"><svg><use href="#i-calc"/></svg></span></a>
+            <a class="dock-cell is-active" href="#"><svg><use href="#i-edit"/></svg></a>
+          </div>
+        </div></div>
+      </div>
+
+      <!-- C4 Mobil Detay -->
+      <div class="item">
+        <div class="lbl-d">C.4 · MOBIL</div>
+        <div class="lbl-name">Dense · Detay</div>
+        <div class="device"><div class="screen">
+          <div class="sbar" style="position:absolute;left:0;right:0;top:0;z-index:4"><span>10:36</span><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="3" stroke="currentColor" stroke-width="1.6" fill="none"/><rect x="4" y="8" width="13" height="8" rx="1.5" fill="currentColor"/></svg></div>
+          <div class="topbar" style="padding-top:38px"><div class="pill"><button class="back"><svg><use href="#i-back"/></svg></button><span class="crumb">Blog</span><div class="actions"><button class="ic-btn"><svg><use href="#i-bookmark"/></svg></button><button class="ic-btn"><svg><use href="#i-share"/></svg></button></div></div><div class="progress-bar" style="position:relative;left:0;right:0;top:8px;margin:0 14px"><span class="fill"></span></div></div>
+          <div class="content" style="padding-bottom:74px;gap:10px">
+            <span class="badge-cat" style="align-self:flex-start"><svg><use href="#i-trend"/></svg>Sektör</span>
+            <h1 style="font-size:22px;font-weight:800;color:#fff;letter-spacing:-0.02em;line-height:1.18">2026'da güneş enerjisi: <em style="font-style:italic;color:var(--o-glow)">5 büyük kırılma.</em></h1>
+            <div style="display:flex;align-items:center;gap:10px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.10)">
+              <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#FFD2A0,#D4621A);color:#1A0907;font-weight:700;font-size:11px;display:inline-flex;align-items:center;justify-content:center">MY</div>
+              <div style="flex:1"><div style="font-size:12px;color:#fff;font-weight:700">Mert Yıldız</div><div style="font-size:10px;color:rgba(255,255,255,0.55);margin-top:1px">22 Nis · 8 dk · 2.4k</div></div>
+            </div>
+
+            <!-- Compact TOC -->
+            <div style="padding:10px 12px;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.08);border-radius:10px">
+              <div style="font-size:9px;color:var(--o-glow);letter-spacing:0.16em;text-transform:uppercase;font-weight:700;margin-bottom:6px">İÇİNDEKİLER</div>
+              <div style="display:flex;flex-direction:column;gap:4px">
+                <a href="#" style="font-size:11px;color:var(--o-glow);font-weight:700;text-decoration:none">01 · Modüllerde TOPCon dönemi</a>
+                <a href="#" style="font-size:11px;color:rgba(255,255,255,0.65);text-decoration:none">02 · Depolamanın geri dönüşü</a>
+                <a href="#" style="font-size:11px;color:rgba(255,255,255,0.65);text-decoration:none">03 · Tarımsal entegrasyon</a>
+              </div>
+            </div>
+
+            <div class="cover-m" style="height:160px;border-radius:12px"><div class="ph t6"></div></div>
+
+            <p style="font-size:14px;line-height:1.6;color:#fff;font-weight:500">Panel verimliliği <strong>%24'ü</strong> aştı, hücre maliyeti %38 düştü. 2026, sahada hesabı tutturmanın en kolay olduğu yıl.</p>
+
+            <h2 style="font-size:15px;font-weight:700;color:#fff;letter-spacing:-0.015em;margin-top:4px"><span style="font-family:var(--mono);font-size:11px;color:var(--o-glow);margin-right:8px;font-weight:600">01.</span>Modüllerde TOPCon dönemi</h2>
+            <p style="font-size:13px;line-height:1.6;color:rgba(255,255,255,0.82)">PERC modülleri yerini TOPCon hücrelere bırakıyor. <em style="color:var(--o-glow)">%6–8 daha fazla üretim,</em> sıcak iklim avantajı belirgin.</p>
+
+            <div style="padding:12px 14px;background:rgba(255,210,160,0.06);border-left:3px solid var(--o-glow);border-radius:0 10px 10px 0;font-size:12.5px;line-height:1.5;color:#fff;font-style:italic">"4 yıl içinde lojistik depo kendi enerjisini geri kazanıyor."</div>
+
+            <h2 style="font-size:15px;font-weight:700;color:#fff;letter-spacing:-0.015em;margin-top:4px"><span style="font-family:var(--mono);font-size:11px;color:var(--o-glow);margin-right:8px;font-weight:600">02.</span>Depolamanın geri dönüşü</h2>
+            <p style="font-size:13px;line-height:1.6;color:rgba(255,255,255,0.82)">LFP hücreler <strong>6.000+</strong> döngü, fatura <em style="color:var(--o-glow)">%30 aşağı.</em></p>
+          </div>
+          <div class="dock">
+            <a class="dock-cell" href="#"><svg><use href="#i-home"/></svg></a>
+            <a class="dock-cell" href="#"><svg><use href="#i-star"/></svg></a>
+            <a class="dock-cell dock-fab" href="#"><span class="icon-slot"><svg><use href="#i-calc"/></svg></span></a>
+            <a class="dock-cell is-active" href="#"><svg><use href="#i-edit"/></svg></a>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="note"><h4>Dense News özellikleri</h4><ul>
+      <li><b>Layout</b> 3 kolon: sol kategori sidebar (200px) + orta liste + sağ popüler/newsletter (280px)</li>
+      <li><b>Liste row</b> Numaralandırılmış (01–07), thumb 160×110, başlık + 2-satır excerpt + 5 alanlı meta</li>
+      <li><b>Detay</b> Sol TOC sticky + orta makale + sağ ilgili (3 kolon, sticky aside'lar)</li>
+      <li><b>Mobil</b> Tab switch (Yeni/Popüler/Kayıtlı) + kompakt numaralı liste, görselsiz, başlık öncelikli</li>
+      <li><b>His</b> News portal, hızlı tarama, içerik öncelikli — "okumak için geldim" tipi</li>
+    </ul></div>
+  </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+/**
+ * Color Tokens — KILITLI (Faz 10 sonu, 2026-04-24 kullanıcı onayı)
+ * ================================================================
+ * Bu dosyadaki değerler onaylanmış sabit paletin tamamıdır.
+ * Tasarım fazında bu değerler AŞILMAZ, değişmez, genişletilmez.
+ * Her mobil component, her sayfa bu token'ları tüketmek zorundadır.
+ * Hardcoded hex YASAK — yeni renk gerekirse önce buraya eklenir.
+ */
+
+:root {
+  /* ── Mutlak referans (değişmez) ─────────────────────────── */
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* ── Marka rengi — Turuncu Solar ─────────────────────────── */
+  /* Primary buton, aktif chip, vurgu ikonları, brand linkler */
+  --color-primary: #ff6a00;
+  --color-primary-hover: #ff8533;
+  --color-primary-soft: rgba(255, 106, 0, 0.16); /* ghost pill, ikon chip, accordion-open */
+  --color-primary-softer: rgba(255, 106, 0, 0.08); /* B3 secondary hover */
+
+  /* Marka gradient — sadece CTA banner'larda */
+  --color-gradient-start: #ff6a00;
+  --color-gradient-end: #ff6a00;
+
+  /* Legacy marka token'ları (desktop/eski bileşenler) */
+  --color-neutral-dark: #4d4d4d;
+  --color-panel: #0e2a47;
+
+  /* ── Arka plan katmanları (mobil açık tema) ─────────────── */
+  --color-bg-cream: #100e0b;          /* Sayfa zemini (Solstice dark) */
+  --color-bg-app: #100e0b;            /* Desktop legacy */
+  --color-bg-surface: #1b1714; /* Kart / TopBar / BottomSheet */
+  --color-bg-subtle: rgba(245, 241, 232, 0.04); /* List hover, alt zemin */
+
+  /* Overlay katmanları (backdrop blur ile kullanılır) */
+  --color-bg-layer-a: rgba(255, 255, 255, 0.62);
+  --color-bg-layer-b: rgba(238, 246, 255, 0.86);
+
+  --color-placeholder: #d4956a;
+
+  /* ── Yazı renkleri (4 katman) ────────────────────────────── */
+  --color-text-primary: #f5f1e8;                    /* Başlık, önemli metin */
+  --color-text-secondary: rgba(245, 241, 232, 0.72);   /* Paragraf, açıklama */
+  --color-text-muted: rgba(245, 241, 232, 0.45);        /* Meta, tarih, ikincil */
+  --color-text-hint: rgba(245, 241, 232, 0.30);        /* Placeholder, disclaimer */
+  --color-text-brown: #f5f1e8;                      /* Legacy */
+
+  /* ── Çizgi, çerçeve, ayırıcı ─────────────────────────────── */
+  --color-line: rgba(245, 241, 232, 0.10);       /* Input border, belirgin kart kenarı */
+  --color-line-soft: rgba(245, 241, 232, 0.05);  /* Divider, subtle kart kenarı */
+
+  /* ── Glass efekti (backdrop blur) ────────────────────────── */
+  --color-glass-light: rgba(255, 255, 255, 0.15);
+  --color-glass-dark: rgba(0, 0, 0, 0.25);
+  --color-glass-border: rgba(255, 255, 255, 0.58);
+  --color-glass-highlight: rgba(255, 255, 255, 0.66);
+
+  /* ── Semantik (form, alert) ──────────────────────────────── */
+  --color-success: #15803d;
+  --color-success-soft: rgba(21, 128, 61, 0.08);
+  --color-success-border: rgba(21, 128, 61, 0.2);
+
+  --color-error: #b91c1c;
+  --color-error-soft: rgba(185, 28, 28, 0.08);
+  --color-error-border: rgba(185, 28, 28, 0.2);
+
+  --color-warning: #b45309;
+  --color-warning-soft: rgba(180, 83, 9, 0.08);
+  --color-warning-border: rgba(180, 83, 9, 0.2);
+
+  --color-info: #1e40af;
+  --color-info-soft: rgba(30, 64, 175, 0.08);
+  --color-info-border: rgba(30, 64, 175, 0.2);
+
+  /* ── Focus & selection ───────────────────────────────────── */
+  --color-focus-ring: rgba(255, 255, 255, 0.85);
+  --color-selection-bg: rgba(255, 122, 0, 0.25);
+
+  /* ── Status — proje/iş akışı (legacy admin/dashboard) ───── */
+  --color-status-done: #4ade80;
+  --color-status-doing: #60a5fa;
+  --color-status-warn: #facc15;
+
+  /* Ana sayfa istatistik / şerit vurguları (Tailwind-uyumlu accent — tek kaynak) */
+  --color-data-purple: #a78bfa;
+  --color-data-teal: #2dd4bf;
+
+  /* ── Kinetic Enterprise (Dark) — /iletisim desktop demo (2026-04-24) ─
+   * Kullanıcı onayı ile eklendi. Şu an SADECE `.contact-desktop-page`
+   * scope'unda tüketilir. Onaylanırsa site geneline yayılabilir.
+   * Kaynak: kullanıcı tarafından sağlanan DESIGN.md (Kinetic Enterprise).
+   */
+  --color-kinetic-bg: #1A1C1E;                 /* Secondary — sayfa zemini */
+  --color-kinetic-surface: #2A2D31;            /* Tertiary — kart zemini */
+  --color-kinetic-surface-high: #333537;       /* Yükseltilmiş kart */
+  --color-kinetic-text: #F4F4F6;               /* Neutral — başlık/body */
+  --color-kinetic-text-muted: rgba(244, 244, 246, 0.72);  /* İkincil metin */
+  --color-kinetic-text-dim: rgba(244, 244, 246, 0.55);    /* Meta, hint */
+  --color-kinetic-primary: #E6391A;            /* CTA, marka, accent */
+  --color-kinetic-primary-hover: #ff4a2a;      /* Hover / active */
+  --color-kinetic-primary-soft: rgba(230, 57, 26, 0.12);  /* Ghost, ikon chip */
+  --color-kinetic-primary-glow: rgba(230, 57, 26, 0.3);   /* CTA shadow */
+  --color-kinetic-border: #3A3D42;             /* Kart kenarı, divider */
+  --color-kinetic-border-soft: rgba(244, 244, 246, 0.08); /* Hafif kenar */
+  /* Mobile dark derin zemin varyantları */
+  --color-kinetic-bg-deep: #0a0a0b;
+  --color-kinetic-bg-deepest: #050506;
+  --color-kinetic-bg-solid: #060606;
+}

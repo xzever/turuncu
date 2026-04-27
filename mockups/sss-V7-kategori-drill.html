@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SSS — V7 Kategori İkon Grid (drill)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1A1C1E; --surface:#2A2D31; --surface-hi:#333537;
+    --text:#F4F4F6; --muted:rgba(244,244,246,0.72); --dim:rgba(244,244,246,0.55);
+    --primary:#E6391A; --primary-soft:rgba(230,57,26,0.12); --primary-glow:rgba(230,57,26,0.3);
+    --border:#3A3D42; --border-soft:rgba(244,244,246,0.08);
+    --r-md:10px; --r-lg:14px; --r-xl:20px; --r-2xl:24px; --r-full:9999px;
+    --pad-x:clamp(16px, 4vw, 32px);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{background:var(--bg);color:var(--text)}
+  body{font-family:'Inter',sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden}
+  h1,h2,h3{font-family:'Manrope',sans-serif;font-weight:600;line-height:1.2}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  ul{padding-left:18px;margin:6px 0}
+  li{margin-bottom:3px;color:var(--muted)}
+  b{color:var(--text);font-weight:600}
+
+  /* MTB */
+  .mtb{background:var(--bg);padding:env(safe-area-inset-top, 0px) var(--pad-x) 0;border-bottom:1px solid var(--border-soft)}
+  .mtb-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;min-height:60px}
+  .mtb-frame,.mtb-icon-btn{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:var(--r-lg);border:1px solid var(--primary-glow);background:var(--primary-soft);color:var(--primary)}
+  .mtb-frame svg{width:22px;height:22px}
+  .mtb-icon-btn svg{width:18px;height:18px;stroke:currentColor}
+  .mtb-actions{display:flex;gap:8px}
+
+  /* PAGE */
+  .page{padding:20px var(--pad-x) 64px;max-width:1080px;margin:0 auto}
+  .eyebrow{font-size:11px;color:var(--primary);text-transform:uppercase;letter-spacing:0.12em;font-weight:700;margin-bottom:8px}
+  h1{font-size:clamp(24px, 5vw, 36px);margin-bottom:6px}
+  .lead{font-size:14px;color:var(--muted);margin-bottom:24px;max-width:480px}
+
+  /* SEARCH */
+  .search{position:relative;margin-bottom:24px;max-width:420px}
+  .search input{width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:12px 16px 12px 42px;border-radius:var(--r-md);font-size:16px;font-family:inherit;outline:none}
+  .search input:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-soft)}
+  .search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--dim)}
+
+  /* KATEGORI GRID — 2 kolon mobil, 3 tablet, 4 desktop */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:32px}
+  @media (min-width:640px){.grid{grid-template-columns:repeat(3,1fr);gap:12px}}
+  @media (min-width:1024px){.grid{grid-template-columns:repeat(4,1fr);gap:14px}}
+
+  .cat-card{background:linear-gradient(180deg,var(--surface-hi),var(--surface));border:1px solid var(--border-soft);border-radius:var(--r-xl);padding:16px;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;gap:10px;min-height:120px;position:relative;overflow:hidden;text-align:left}
+  .cat-card:hover,.cat-card:active{border-color:var(--primary);transform:translateY(-2px)}
+  .cat-card.is-active{border-color:var(--primary);background:var(--primary-soft)}
+  .cat-card::after{content:"";position:absolute;top:-30px;right:-30px;width:80px;height:80px;background:radial-gradient(circle,var(--primary-soft) 0%,transparent 70%);opacity:0;transition:opacity .2s;pointer-events:none}
+  .cat-card:hover::after,.cat-card.is-active::after{opacity:1}
+  .cat-icon{width:40px;height:40px;border-radius:var(--r-md);background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;z-index:1}
+  .cat-icon svg{width:20px;height:20px}
+  .cat-card.is-active .cat-icon{background:var(--primary);color:var(--text)}
+  .cat-name{font-family:'Manrope',sans-serif;font-size:14px;font-weight:700;color:var(--text);line-height:1.2;position:relative}
+  .cat-meta{display:flex;align-items:center;justify-content:space-between;margin-top:auto;font-size:11px;color:var(--dim);position:relative}
+  .cat-meta .num{background:var(--bg);color:var(--text);padding:2px 8px;border-radius:var(--r-full);font-weight:700;font-size:10px}
+  .cat-card.is-active .cat-meta .num{background:var(--primary);color:var(--text)}
+  .cat-arrow{color:var(--primary);font-weight:700}
+
+  /* SECTION HEADER */
+  .sec-h{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border-soft)}
+  .sec-h h2{font-size:18px}
+  .sec-back{font-size:12px;color:var(--muted);background:var(--surface);border:1px solid var(--border);padding:6px 12px;border-radius:var(--r-full);min-height:32px;display:inline-flex;align-items:center;gap:4px}
+  .sec-back:hover{color:var(--text)}
+  .sec-count{margin-left:auto;font-size:11px;color:var(--dim);background:var(--surface);padding:3px 10px;border-radius:var(--r-full);font-weight:700}
+
+  /* QUESTION LIST */
+  .qlist{display:flex;flex-direction:column;gap:8px}
+  .q-row{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--r-md);padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:border-color .15s;text-align:left;width:100%}
+  .q-row:hover{border-color:var(--primary)}
+  .q-num{font-family:'Manrope',sans-serif;font-size:11px;font-weight:700;color:var(--dim);min-width:20px}
+  .q-text{flex:1;font-size:13px;font-weight:500;color:var(--text);line-height:1.4}
+  .q-arrow{color:var(--dim);font-size:14px;flex-shrink:0}
+  .q-row:hover .q-arrow{color:var(--primary)}
+
+  /* HELP */
+  .help{margin-top:32px;padding:18px;border:1px solid var(--primary-glow);background:var(--primary-soft);border-radius:var(--r-md);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .help-text{flex:1;min-width:160px}
+  .help-text strong{display:block;font-size:14px;color:var(--text);font-weight:600;margin-bottom:2px}
+  .help-text span{font-size:12px;color:var(--muted)}
+  .help-cta{background:var(--primary);color:var(--text);padding:10px 18px;border-radius:var(--r-full);font-size:12px;font-weight:600;min-height:36px;display:inline-flex;align-items:center}
+
+  .vtag{position:fixed;top:14px;right:14px;background:var(--primary);color:var(--text);padding:4px 10px;border-radius:var(--r-full);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;z-index:100;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="vtag">V7 · Kategori grid</div>
+
+<header class="mtb">
+  <div class="mtb-row">
+    <span class="mtb-frame"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg></span>
+    <div class="mtb-actions">
+      <button class="mtb-icon-btn" aria-label="Dil"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></button>
+      <button class="mtb-icon-btn" aria-label="Menü"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+  <p class="eyebrow">Yardım Merkezi</p>
+  <h1>Konunu seç</h1>
+  <p class="lead">Hangi konuda merak ettiğin var? Kart seçince o kategorinin tüm soruları açılır.</p>
+
+  <div class="search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    <input type="search" placeholder="Soru ara...">
+  </div>
+
+  <div class="grid">
+    <button class="cat-card is-active">
+      <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg></div>
+      <div class="cat-name">Kurulum</div>
+      <div class="cat-meta"><span>3 soru</span><span class="num">3</span></div>
+    </button>
+    <button class="cat-card">
+      <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+      <div class="cat-name">Maliyet</div>
+      <div class="cat-meta"><span>2 soru</span><span class="num">2</span></div>
+    </button>
+    <button class="cat-card">
+      <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M5 19l3-3M16 8l3-3"/></svg></div>
+      <div class="cat-name">Teknik</div>
+      <div class="cat-meta"><span>2 soru</span><span class="num">2</span></div>
+    </button>
+    <button class="cat-card">
+      <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h12"/></svg></div>
+      <div class="cat-name">Bakım</div>
+      <div class="cat-meta"><span>1 soru</span><span class="num">1</span></div>
+    </button>
+    <button class="cat-card">
+      <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l9 4v6c0 5-4 9-9 10-5-1-9-5-9-10V6l9-4z"/></svg></div>
+      <div class="cat-name">Garanti</div>
+      <div class="cat-meta"><span>1 soru</span><span class="num">1</span></div>
+    </button>
+    <button class="cat-card">
+      <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></div>
+      <div class="cat-name">İzinler</div>
+      <div class="cat-meta"><span>1 soru</span><span class="num">1</span></div>
+    </button>
+  </div>
+
+  <!-- SEÇİLİ KATEGORİ AÇIK -->
+  <div class="sec-h">
+    <button class="sec-back">← Geri</button>
+    <h2>Kurulum</h2>
+    <span class="sec-count">3</span>
+  </div>
+
+  <div class="qlist">
+    <button class="q-row"><span class="q-num">01</span><span class="q-text">Güneş enerjisi sistemi kurulumu ne kadar sürer?</span><span class="q-arrow">→</span></button>
+    <button class="q-row"><span class="q-num">03</span><span class="q-text">Kurulum çatımı zarar verir mi, sızıntı yapar mı?</span><span class="q-arrow">→</span></button>
+    <button class="q-row"><span class="q-num">10</span><span class="q-text">Mevcut çatıma kurulum mümkün mü?</span><span class="q-arrow">→</span></button>
+  </div>
+
+  <div class="help">
+    <div class="help-text">
+      <strong>Aradığını bulamadın mı?</strong>
+      <span>Mühendis ekibi 24 saat içinde döner.</span>
+    </div>
+    <a href="#" class="help-cta">İletişime geç →</a>
+  </div>
+</main>
+</body>
+</html>

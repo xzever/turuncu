@@ -1,0 +1,98 @@
+﻿/**
+ * Mobile Foundation — Site geneli mobil taban kuralları
+ * MOBILE-DESIGN-SYSTEM.md Madde 2 + 6 uyumu
+ */
+
+/* ── 1. Mobile shell detection utility classes ──────────────── */
+/* Uygulama kodu bunları component'lerde doğrudan kullanmaz;
+ * sadece emin olma / debug için tanımlı.
+ */
+@media (max-width: 1279px) {
+  :root {
+    --is-mobile: 1;
+  }
+}
+@media (min-width: 1280px) {
+  :root {
+    --is-desktop: 1;
+  }
+}
+
+/* ── 2. iOS güvenli viewport kuralları ──────────────────────── */
+html {
+  /* YASAK: overflow-x: hidden (Madde 6). Sadece clip güvenli. */
+  overflow-x: clip;
+  /* safe-area için viewport-fit gerekli — meta'da da olsun */
+}
+
+html,
+body {
+  /* YASAK: width: 100vw — iOS'ta kırılır (Madde 6). */
+  /* YASAK: height: 100vh — iOS'ta adres çubuğu problemi (Madde 6). */
+  max-width: 100%;
+}
+
+/* ── 3. Dokunmatik / touch iyileştirmeler ───────────────────── */
+@media (pointer: coarse) {
+  /* Tap highlight kapalı — custom :active state kullanırız */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Native scroll momentum */
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Double-tap zoom problemini azalt — buton'larda touch-action */
+  button,
+  a,
+  [role="button"] {
+    touch-action: manipulation;
+  }
+}
+
+/* ── 4. Reduced motion — AGENTS.md Madde 13 ─────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── 5. Focus ring — MDS Madde 5.2 ──────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+  box-shadow: var(--shadow-focus);
+}
+
+/* Outline none YASAK — ama bazen element-specific override olsa bile focus-visible üst alır */
+[data-no-outline]:focus-visible {
+  outline: 2px solid var(--color-focus-ring) !important;
+}
+
+/* ── 6. Landscape orientation iskeleti ──────────────────────── */
+@media (max-width: 896px) and (orientation: landscape) {
+  /* Telefon yatay — TopBar küçülür, hero küçülür */
+  :root {
+    --topbar-content-height: 48px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1366px) and (orientation: landscape) {
+  /* Tablet yatay — mobil davranış korunur; grid sayfa CSS'inde */
+  :root {
+    --mds-tablet-landscape-coarse: 1;
+  }
+}
+
+/* ── 7. Safe-area site çapında uygulama ─────────────────────── */
+body {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}

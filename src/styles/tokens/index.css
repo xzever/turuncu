@@ -1,0 +1,15 @@
+/**
+ * Design tokens – single entry; import order matters.
+ * Worktree tabanı + main'deki desktop-responsive katmanı korunur.
+ */
+@import "./colors.css";
+@import "./spacing.css";
+@import "./typography.css";
+@import "./radius.css";
+@import "./pill-buttons.css";
+@import "./shadows.css";
+@import "./motion.css";
+@import "./z-index.css";
+@import "./breakpoints.css";
+@import "./desktop-responsive.css";
+@import "./safe-area.css";

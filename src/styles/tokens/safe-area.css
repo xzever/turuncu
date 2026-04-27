@@ -1,0 +1,150 @@
+﻿/**
+ * Safe area and viewport tokens for app-like mobile/tablet behavior
+ */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+
+  /* Anayasa Madde 32.2 — 100vh iOS adres çubuğunda kırılır, svh/dvh zorunlu */
+  --viewport-height-dynamic: 100dvh;
+  --viewport-height-stable: 100svh;
+}
+
+/* Fallback: svh/dvh desteklenmeyen eski browser'lar için stable viewport */
+@supports not (height: 100dvh) {
+  :root {
+    --viewport-height-dynamic: 100svh;
+    --viewport-height-stable: 100svh;
+  }
+}
+
+/* ═══ MOBILE TOPBAR — standard measurements ═══
+ * Layout: [safe-top + pad-top] → single row (logo + search + icons) → [pad-bottom]
+ * Measured content height: 66px (12 pad-top + 44 row-height + 10 pad-bottom)
+ * All pages consistently use safe-top + 66px — DO NOT change without measuring.
+ */
+:root {
+  --topbar-pad-top: 12px;
+  --topbar-pad-bottom: 10px;
+  /* Gerçek desktop header'ı (pad 20+44+12 ≈ 76) + header-içerik ayrımı için
+     zorunlu boşluk (24). Tüm sayfalarda tek kural: içerik asla header altına girmez.
+     Mobil topbar 66px ise safe-top + 66 yeterli; ama desktop için ≥100 gerekli. */
+  --topbar-content-height: 66px;
+  --topbar-gap: 24px;
+  --topbar-clearance: calc(var(--safe-top) + var(--topbar-content-height) + var(--topbar-gap));
+}
+
+/* ═══ BOTTOM NAV — devre dışı (handheld dock yok) ═══
+ * Ana içerik alt boşluğu: yalnızca safe-area + nefes payı (iPhone home indicator vb.).
+ */
+:root {
+  --bottomnav-height: 0px;
+  --bottomnav-bubble-overflow: 0px;
+  --bottomnav-breathing: 0px;
+  --bottomnav-clearance: calc(var(--safe-bottom) + var(--space-6));
+
+  --app-frame-inline-padding: var(--space-4);
+  --app-frame-inline-padding-tablet: var(--tablet-pad-x, var(--space-8));
+  --app-frame-gap: var(--space-4);
+}
+
+/* ═══ TABLET FLUID SPACING ═══
+ * Content padding scales from ~24px at 768px to ~40px at 1024px.
+ * Font scale multiplier: 1.0 at 768, ~1.15 at 1024.
+ */
+@media (min-width: 768px) and (max-width: 1279px) {
+  :root {
+    --tablet-pad-x: clamp(24px, 4vw, 42px);
+    --tablet-gap: clamp(14px, 2.2vw, 22px);
+    --tablet-font-scale: clamp(1rem, 0.85rem + 0.4vw, 1.15rem);
+  }
+}
+
+/* ═══ DOCK (OrbitalNav / systems-tabs) — separate from BottomNav ═══ */
+:root {
+  --dock-bottom-offset: max(0.62rem, var(--safe-bottom));
+  --dock-height: clamp(2.75rem, 6vw, 3.45rem);
+  --dock-clearance: calc(var(--dock-height) + var(--dock-bottom-offset) + 0.95rem);
+}
+
+/* ═══ SITE HEADER (Desktop ≥1280px) — fixed/floating pill ═══
+ * Header `position: fixed` ve top: max(safe-top, 8) + 16. İçerik üst sınırı
+ * y=0'da başladığında header altına gizlenir. Aşağıdaki token desktop
+ * modunda main-content'e padding-top olarak verilir; mobilde 0 kalır. */
+:root {
+  --site-header-content-height: clamp(3.5rem, 6vw, 4.25rem);   /* logo+ikon satırı */
+  --site-header-top-offset: calc(max(var(--safe-top), 0.5rem) + 1rem);
+  --site-header-breathing: clamp(1rem, 1.6vh, 1.5rem);
+  --site-header-clearance: calc(
+    var(--site-header-top-offset)
+    + var(--site-header-content-height)
+    + var(--site-header-breathing)
+  );
+}
+
+/* AppChrome ana içerik — VARSAYILAN davranış (TÜM SAYFALAR için):
+ * SiteHeader fixed; main-content doğal akışta y=0'dan başlar. Sayfa kendi
+ * scroll'unu yönetir; main-content içerik yüksekliğine göre büyür. Aksi
+ * halde anasayfa/sistemler gibi uzun sayfalar 100dvh'de kesilir.
+ *
+ * UYARI: max-height/overflow bu seviyede VERİLMEZ. Tek-viewport davranışı
+ * sadece app-frame sayfaları için aşağıda :has() ile uygulanır.
+ *
+ * Mobilde BottomNav fixed → son içerik nav altında kalmasın diye
+ * padding-bottom verilir; app-frame mobil sayfalar
+ * kendi clearance'ını yönettiği için aşağıda :has() ile sıfırlanır. */
+#main-content.app-chrome-main {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: var(--bottomnav-clearance);
+}
+
+/* Desktop SiteHeader (≥1280px) fixed/floating; içerik altına geçmemek için
+ * padding-top — bu TÜM sayfalar için geçerli (header her sayfada var).
+ * Desktop'ta BottomNav yok → padding-bottom sıfır. */
+@media (min-width: 1280px) {
+  #main-content.app-chrome-main {
+    padding-top: var(--site-header-clearance);
+    padding-bottom: 0;
+  }
+}
+
+/* ═══ APP-FRAME SAYFA ÖZEL DAVRANIŞI ═══
+ * Sadece iletişim/SSS gibi tek-viewport sayfalarında aktif olur. Diğer
+ * sayfalar (anasayfa, hakkımızda, sistemlerimiz, blog, vb.) varsayılan
+ * doğal-scroll davranışına bağlı kalır.
+ *
+ * Madde 6.1 (TEK VIEWPORT): App-frame sayfada body 100dvh'de kilitli;
+ * document scroll YOK; sayfa wrapper'ın kendisi tek scroll alanıdır. */
+
+/* 1) Body kilidi — sadece app-frame sayfada. */
+body:has(.app-frame-mobile),
+body:has(.contact-desktop-page),
+body:has(.iletisim-m) {
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: clip;
+}
+
+/* 2) main-content app-frame sayfada 100dvh'i geçemez. */
+body:has(.app-frame-mobile) #main-content.app-chrome-main,
+body:has(.contact-desktop-page) #main-content.app-chrome-main,
+body:has(.iletisim-m) #main-content.app-chrome-main {
+  height: 100dvh;
+  max-height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* 3) App-frame mobil sayfa kendi --topbar-clearance ve --bottomnav-clearance
+ * padding'ini yönetiyor → main-content padding'lerini sıfırla. */
+body:has(.app-frame-mobile) #main-content.app-chrome-main,
+body:has(.iletisim-m) #main-content.app-chrome-main {
+  padding-top: 0;
+  padding-bottom: 0;
+}

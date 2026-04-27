@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SSS — V10 Glass / Luxe</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0F0F11;
+    --surface:rgba(255,255,255,0.03);
+    --surface-hi:rgba(255,255,255,0.06);
+    --text:#F4F4F6; --muted:rgba(244,244,246,0.72); --dim:rgba(244,244,246,0.45);
+    --primary:#FF6B3D; --primary-deep:#E6391A;
+    --primary-soft:rgba(255,107,61,0.12); --primary-glow:rgba(255,107,61,0.35);
+    --line:rgba(255,255,255,0.08); --line-soft:rgba(255,255,255,0.04);
+    --pad-x:clamp(20px, 5vw, 40px);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{background:var(--bg);color:var(--text)}
+  body{
+    font-family:'Inter',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden;
+    background:
+      radial-gradient(ellipse 60% 50% at 20% 0%, rgba(255,107,61,0.18) 0%, transparent 50%),
+      radial-gradient(ellipse 50% 40% at 80% 30%, rgba(120,30,180,0.12) 0%, transparent 50%),
+      var(--bg);
+    background-attachment:fixed;
+  }
+  h1,h2,h3{font-family:'Manrope',sans-serif;font-weight:600;line-height:1.15;letter-spacing:-0.02em}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  ul{padding-left:18px;margin:8px 0}
+  li{margin-bottom:4px;color:var(--muted)}
+  b{color:var(--text);font-weight:600}
+
+  /* MTB - glass */
+  .mtb{padding:env(safe-area-inset-top, 0px) var(--pad-x) 0;backdrop-filter:blur(20px);background:rgba(15,15,17,0.6);border-bottom:1px solid var(--line-soft);position:sticky;top:0;z-index:10}
+  .mtb-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;min-height:60px}
+  .mtb-frame,.mtb-icon-btn{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:14px;border:1px solid var(--primary-glow);background:var(--primary-soft);color:var(--primary);backdrop-filter:blur(10px)}
+  .mtb-frame svg{width:22px;height:22px}
+  .mtb-icon-btn svg{width:18px;height:18px;stroke:currentColor}
+  .mtb-actions{display:flex;gap:8px}
+
+  /* PAGE */
+  .page{padding:48px var(--pad-x) 96px;max-width:760px;margin:0 auto}
+
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--surface);backdrop-filter:blur(20px);border:1px solid var(--line);padding:7px 16px;border-radius:999px;font-size:11px;color:var(--text);text-transform:uppercase;letter-spacing:0.16em;font-weight:600;margin-bottom:24px}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--primary);box-shadow:0 0 12px var(--primary-glow)}
+  h1{font-size:clamp(36px, 7vw, 56px);background:linear-gradient(180deg,#fff 0%,rgba(255,255,255,0.7) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:14px;font-weight:700}
+  .lead{font-size:clamp(15px, 2vw, 17px);color:var(--muted);margin-bottom:36px;max-width:520px;line-height:1.65}
+
+  /* Search - floating glass */
+  .search{position:relative;margin-bottom:36px;padding:6px;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));backdrop-filter:blur(24px);border:1px solid var(--line)}
+  .search-inner{position:relative;background:rgba(0,0,0,0.25);border-radius:14px;display:flex;align-items:center}
+  .search input{flex:1;background:transparent;border:none;color:var(--text);padding:14px 18px 14px 48px;font-size:16px;font-family:inherit;outline:none;font-weight:500}
+  .search input::placeholder{color:var(--dim)}
+  .search svg{position:absolute;left:18px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--primary)}
+
+  /* Categories - pill cluster */
+  .cats{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:32px}
+  .cat{padding:8px 14px;border-radius:999px;background:var(--surface);backdrop-filter:blur(20px);border:1px solid var(--line);color:var(--muted);font-size:12px;font-weight:600;letter-spacing:0.02em;display:inline-flex;align-items:center;gap:6px;min-height:36px;transition:all .2s}
+  .cat:hover{border-color:var(--primary-glow);color:var(--text)}
+  .cat.is-active{background:linear-gradient(135deg, var(--primary), var(--primary-deep));border-color:transparent;color:var(--text);box-shadow:0 8px 24px var(--primary-glow)}
+  .cat .count{opacity:0.6;font-size:10px}
+  .cat.is-active .count{opacity:0.8}
+
+  /* Items - glass cards */
+  .item{margin-bottom:8px;padding:6px;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));backdrop-filter:blur(24px);border:1px solid var(--line);transition:border-color .2s, transform .2s}
+  .item:hover{border-color:rgba(255,255,255,0.16)}
+  .item.is-open{border-color:var(--primary-glow);background:linear-gradient(180deg, rgba(255,107,61,0.08), rgba(255,107,61,0.02))}
+  .item-inner{background:rgba(0,0,0,0.2);border-radius:14px;overflow:hidden}
+  .item-q{display:flex;align-items:center;gap:14px;padding:18px 20px;width:100%;text-align:left;min-height:60px;background:transparent;border:none;color:inherit;font:inherit;cursor:pointer}
+  .item-num{font-family:'Manrope',sans-serif;font-size:13px;font-weight:700;color:var(--primary);min-width:24px;letter-spacing:0.04em}
+  .item-title{flex:1;font-size:15px;font-weight:500;line-height:1.4;color:var(--text)}
+  .item-cat{font-size:10px;color:var(--primary);background:var(--primary-soft);padding:4px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;flex-shrink:0;border:1px solid var(--primary-glow)}
+  .item-chev{width:32px;height:32px;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;color:var(--muted);transition:transform .25s, background .15s;flex-shrink:0;font-size:14px}
+  .item.is-open .item-chev{background:var(--primary);color:var(--text);transform:rotate(180deg)}
+  .item-a{padding:0 20px 20px 58px;color:var(--muted);font-size:14px;line-height:1.7}
+  .item-a p{margin-bottom:10px}
+  .item:not(.is-open) .item-a{display:none}
+  @media (max-width:480px){
+    .item-cat{display:none}
+    .item-a{padding-left:20px}
+  }
+
+  /* Footer - shiny CTA */
+  .contact{display:block;margin-top:40px;padding:20px 24px;border-radius:18px;background:linear-gradient(135deg, var(--primary), var(--primary-deep));color:var(--text);font-size:15px;font-weight:600;text-align:center;box-shadow:0 16px 40px var(--primary-glow), inset 0 1px 0 rgba(255,255,255,0.2);position:relative;overflow:hidden}
+  .contact::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.12) 50%, transparent 70%);transform:translateX(-100%);transition:transform .6s}
+  .contact:hover::before{transform:translateX(100%)}
+
+  .vtag{position:fixed;top:14px;right:14px;background:linear-gradient(135deg, var(--primary), var(--primary-deep));color:var(--text);padding:5px 12px;border-radius:999px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;z-index:100;pointer-events:none;box-shadow:0 4px 12px var(--primary-glow)}
+</style>
+</head>
+<body>
+<div class="vtag">V10 · Glass</div>
+
+<header class="mtb">
+  <div class="mtb-row">
+    <span class="mtb-frame"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg></span>
+    <div class="mtb-actions">
+      <button class="mtb-icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg></button>
+      <button class="mtb-icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+  <p class="eyebrow"><span class="dot"></span>Yardım Merkezi</p>
+  <h1>Sık sorulan sorular</h1>
+  <p class="lead">Kurulum, maliyet, bakım, izin ve garanti hakkında en çok merak edilenler — net cevaplarla.</p>
+
+  <div class="search">
+    <div class="search-inner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="search" placeholder="Soru ara...">
+    </div>
+  </div>
+
+  <div class="cats">
+    <button class="cat is-active">Tümü <span class="count">10</span></button>
+    <button class="cat">Kurulum <span class="count">3</span></button>
+    <button class="cat">Maliyet <span class="count">2</span></button>
+    <button class="cat">Teknik <span class="count">2</span></button>
+    <button class="cat">Bakım <span class="count">1</span></button>
+    <button class="cat">İzinler <span class="count">1</span></button>
+    <button class="cat">Garanti <span class="count">1</span></button>
+  </div>
+
+  <article class="item is-open">
+    <div class="item-inner">
+      <button class="item-q">
+        <span class="item-num">01</span>
+        <span class="item-title">Güneş enerjisi sistemi kurulumu ne kadar sürer?</span>
+        <span class="item-cat">Kurulum</span>
+        <span class="item-chev">⌄</span>
+      </button>
+      <div class="item-a">
+        <p>Ortalama bir konut için <b>fiziksel kurulum 2–4 gün</b> sürer. Toplam proje süreci:</p>
+        <ul>
+          <li><b>Ön keşif &amp; ölçüm</b> — 1 hafta</li>
+          <li><b>Mühendislik &amp; tasarım</b> — 1–2 hafta</li>
+          <li><b>Şebeke başvurusu &amp; izinler</b> — 3–4 hafta</li>
+          <li><b>Fiziksel kurulum</b> — 2–4 gün</li>
+        </ul>
+        <p>Toplam ortalama <b>5–7 hafta</b>; izin süresi şehirden şehire değişir.</p>
+      </div>
+    </div>
+  </article>
+
+  <article class="item"><div class="item-inner"><button class="item-q"><span class="item-num">02</span><span class="item-title">Yatırımın geri dönüş süresi ne kadar?</span><span class="item-cat">Maliyet</span><span class="item-chev">⌄</span></button></div></article>
+  <article class="item"><div class="item-inner"><button class="item-q"><span class="item-num">03</span><span class="item-title">Kurulum çatımı zarar verir mi, sızıntı yapar mı?</span><span class="item-cat">Kurulum</span><span class="item-chev">⌄</span></button></div></article>
+  <article class="item"><div class="item-inner"><button class="item-q"><span class="item-num">04</span><span class="item-title">Sistem bulutlu havalarda çalışır mı?</span><span class="item-cat">Teknik</span><span class="item-chev">⌄</span></button></div></article>
+  <article class="item"><div class="item-inner"><button class="item-q"><span class="item-num">05</span><span class="item-title">Bakım ne sıklıkta yapılmalı?</span><span class="item-cat">Bakım</span><span class="item-chev">⌄</span></button></div></article>
+  <article class="item"><div class="item-inner"><button class="item-q"><span class="item-num">06</span><span class="item-title">Hangi izinler gerekli, başvuruları siz mi yapıyorsunuz?</span><span class="item-cat">İzinler</span><span class="item-chev">⌄</span></button></div></article>
+  <article class="item"><div class="item-inner"><button class="item-q"><span class="item-num">07</span><span class="item-title">Panellerin garantisi nedir?</span><span class="item-cat">Garanti</span><span class="item-chev">⌄</span></button></div></article>
+
+  <a href="#" class="contact">Sorun listede yoksa iletişime geç →</a>
+</main>
+</body>
+</html>

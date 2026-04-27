@@ -1,0 +1,14 @@
+/**
+ * Z-index design tokens — Anayasa Madde 15.1
+ *
+ * Bu dosya z-index katmanlarının TEK KAYNAĞIDIR.
+ * Keyfi z-index değerleri (999, 9999 vb.) YASAKTIR (Madde 15.2).
+ */
+:root {
+  --z-base: 10;       /* Temel float, küçük overlay */
+  --z-dropdown: 20;   /* Dropdown menü, tooltip */
+  --z-sticky: 30;     /* Sticky header, sticky sidebar */
+  --z-modal: 40;      /* Modal, sheet, dialog */
+  --z-nav: 50;        /* Bottom bar, top navbar */
+  --z-alert: 60;      /* Toast, notification, GDPR banner */
+}

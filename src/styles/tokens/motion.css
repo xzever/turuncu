@@ -1,0 +1,19 @@
+/**
+ * Motion / transition design tokens — Anayasa Madde 17
+ */
+:root {
+  --ease-base: cubic-bezier(0.2, 0.9, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --duration-instant: 0ms;
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 350ms;
+
+  --stagger-step: 100ms;
+
+  --transition-fast: var(--duration-fast) var(--ease-base);
+  --transition-normal: var(--duration-base) var(--ease-base);
+  --transition-slow: var(--duration-slow) var(--ease-base);
+}

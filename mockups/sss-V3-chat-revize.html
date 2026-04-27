@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SSS — V3 Chat (revize · gerçek MobileTopbar)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --color-black:#1A1C1E;
+    --bg:#1A1C1E; --surface:#2A2D31; --surface-hi:#333537;
+    --text:#F4F4F6; --muted:rgba(244,244,246,0.72); --dim:rgba(244,244,246,0.55);
+    --primary:#E6391A; --primary-hover:#ff4a2a;
+    --primary-soft:rgba(230,57,26,0.12); --primary-glow:rgba(230,57,26,0.3);
+    --kinetic-primary-soft:rgba(230,57,26,0.12); --kinetic-primary-glow:rgba(230,57,26,0.3);
+    --border:#3A3D42; --border-soft:rgba(244,244,246,0.08);
+    --wa:#25d366;
+    --r-md:10px; --r-lg:14px; --r-xl:20px; --r-2xl:24px; --r-full:9999px;
+    --pad-x:clamp(12px, 3vw, 24px);
+    --safe-bottom:env(safe-area-inset-bottom, 0px);
+    --safe-top:env(safe-area-inset-top, 0px);
+    --topbar-h:68px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{background:var(--bg);color:var(--text);height:100%;overflow:hidden}
+  body{font-family:'Inter',sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
+  h1,h2,h3{font-family:'Manrope',sans-serif;font-weight:600;line-height:1.15;letter-spacing:-0.02em}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  ul{padding-left:18px;margin:8px 0}
+  li{margin-bottom:4px}
+  b{color:var(--text);font-weight:600}
+
+  /* ─── MOBILE TOPBAR (gerçek MobileTopbar yapısının HTML mock'u) ─── */
+  .mtb{
+    flex-shrink:0;
+    position:relative;
+    width:100%;
+    background:var(--color-black);
+    padding:calc(var(--safe-top) + 12px) var(--pad-x) 12px;
+    z-index:30;
+  }
+  .mtb-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    min-height:44px;
+  }
+  .mtb-brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-shrink:0;
+  }
+  .mtb-brand-frame{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:44px;
+    height:44px;
+    border-radius:var(--r-lg);
+    border:1px solid var(--kinetic-primary-glow);
+    background:var(--kinetic-primary-soft);
+    box-sizing:border-box;
+  }
+  .mtb-mark{
+    width:22px;
+    height:22px;
+    color:var(--primary);
+    display:block;
+  }
+  .mtb-actions{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .mtb-icon-btn{
+    width:44px;
+    height:44px;
+    padding:0;
+    border:1px solid var(--kinetic-primary-glow);
+    border-radius:var(--r-lg);
+    background:var(--kinetic-primary-soft);
+    color:var(--primary);
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    box-sizing:border-box;
+    transition:background .15s ease, border-color .15s ease;
+  }
+  .mtb-icon-btn:hover,
+  .mtb-icon-btn.is-active{
+    background:rgba(230,57,26,0.20);
+  }
+  .mtb-icon-btn svg{
+    width:18px;
+    height:18px;
+    color:var(--primary);
+    stroke:var(--primary);
+  }
+
+  /* Desktop'ta MobileTopbar'ı sidebar lehine sakla; brand sidebar'da görünür */
+  @media (min-width:1024px){
+    .mtb{display:none}
+  }
+
+  /* ─── CHAT HEADER (Mehmet) ─── */
+  .chat-header{flex-shrink:0;background:var(--surface);border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft);padding:12px var(--pad-x);display:flex;align-items:center;gap:12px}
+  .ch-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#7a1f0e);color:var(--text);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;position:relative}
+  .ch-avatar::after{content:"";position:absolute;bottom:0;right:0;width:12px;height:12px;border-radius:50%;background:#7bf0b6;border:2px solid var(--surface)}
+  .ch-info{flex:1;min-width:0}
+  .ch-name{font-family:'Manrope',sans-serif;font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ch-status{font-size:12px;color:var(--dim);display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ch-status .live{color:#7bf0b6;font-weight:600}
+  .ch-meta{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:0.06em;font-weight:700;background:var(--bg);padding:5px 10px;border-radius:var(--r-full);flex-shrink:0;display:none;border:1px solid var(--border-soft)}
+  @media (min-width:640px){.ch-meta{display:block}}
+  .ch-actions{display:flex;gap:6px;margin-left:auto}
+  .ch-action{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:50%;color:var(--muted);font-size:16px;background:var(--bg);border:1px solid var(--border-soft)}
+  .ch-action:hover{color:var(--text);border-color:var(--primary)}
+
+  /* ─── TOPIC PILLS ─── */
+  .topic-bar{flex-shrink:0;background:var(--bg);border-bottom:1px solid var(--border-soft);padding:10px 0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .topic-bar::-webkit-scrollbar{display:none}
+  .topic-bar{scrollbar-width:none}
+  .topic-row{display:flex;gap:6px;padding:0 var(--pad-x);min-width:max-content}
+  .topic{padding:7px 14px;border:1px solid var(--border);border-radius:var(--r-full);font-size:12px;color:var(--muted);font-weight:500;flex-shrink:0;display:flex;align-items:center;gap:6px;min-height:36px;background:var(--surface)}
+  .topic.is-active{background:var(--primary-soft);border-color:var(--primary);color:var(--primary)}
+  .topic .num{font-size:10px;background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:var(--r-full);font-weight:700}
+  .topic.is-active .num{background:rgba(230,57,26,0.2)}
+
+  /* ─── CHAT BODY ─── */
+  .chat-body{flex:1;overflow-y:auto;padding:16px var(--pad-x);display:flex;flex-direction:column;gap:14px;-webkit-overflow-scrolling:touch}
+  .day-divider{text-align:center;font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:0.12em;font-weight:700;padding:8px 0;display:flex;align-items:center;gap:12px}
+  .day-divider::before,.day-divider::after{content:"";flex:1;height:1px;background:var(--border-soft)}
+
+  .msg-row{display:flex;gap:10px;max-width:min(680px, 88%)}
+  .msg-row.user{align-self:flex-end;flex-direction:row-reverse}
+  .msg-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#7a1f0e);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+  .msg-row.user .msg-avatar{background:var(--surface-hi);color:var(--text)}
+  .msg-content{display:flex;flex-direction:column;min-width:0;flex:1}
+  .msg-bubble{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--r-xl);padding:14px 16px;font-size:14px;color:var(--text);word-break:break-word;line-height:1.6}
+  .msg-row.user .msg-bubble{background:var(--primary);color:var(--text);border-color:var(--primary);border-radius:var(--r-xl) var(--r-xl) var(--r-md) var(--r-xl)}
+  .msg-row.bot .msg-bubble{border-radius:var(--r-xl) var(--r-xl) var(--r-xl) var(--r-md)}
+  .msg-bubble p{margin-bottom:8px}
+  .msg-bubble p:last-child{margin-bottom:0}
+  .msg-bubble.highlight{background:var(--primary-soft);border-color:var(--primary)}
+  .msg-time{font-size:10px;color:var(--dim);margin-top:4px;padding:0 4px}
+  .msg-row.user .msg-time{text-align:right}
+
+  /* ─── SUGGESTED ─── */
+  .quick-band{flex-shrink:0;background:var(--bg);border-top:1px solid var(--border-soft);padding:10px 0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .quick-band::-webkit-scrollbar{display:none}
+  .quick-band{scrollbar-width:none}
+  .quick-row{display:flex;gap:6px;padding:0 var(--pad-x);min-width:max-content}
+  .quick-chip{padding:8px 14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-full);font-size:12px;color:var(--muted);font-weight:500;flex-shrink:0;min-height:36px;display:flex;align-items:center;white-space:nowrap}
+  .quick-chip:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-soft)}
+
+  /* ─── INPUT ─── */
+  .chat-input{flex-shrink:0;padding:12px var(--pad-x);padding-bottom:calc(12px + var(--safe-bottom));background:var(--surface);border-top:1px solid var(--border);display:flex;gap:10px;align-items:flex-end}
+  .chat-input-wrap{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-xl);padding:4px;display:flex;align-items:flex-end;gap:4px;transition:border-color .15s, box-shadow .15s}
+  .chat-input-wrap:focus-within{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-soft)}
+  .chat-input textarea{flex:1;background:transparent;border:none;color:var(--text);padding:10px 12px;font-size:16px;font-family:inherit;outline:none;resize:none;min-height:40px;max-height:120px;line-height:1.4}
+  .chat-input textarea::placeholder{color:var(--dim)}
+  .chat-action{padding:10px;color:var(--dim);font-size:18px;border-radius:var(--r-md);min-width:40px;min-height:40px;display:flex;align-items:center;justify-content:center}
+  .chat-action:hover{color:var(--text);background:var(--surface)}
+  .chat-send{background:var(--primary);color:var(--text);width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;box-shadow:0 4px 12px var(--primary-glow)}
+  .chat-send:hover{background:var(--primary-hover)}
+
+  /* ─── DESKTOP LAYOUT ─── */
+  @media (min-width:1024px){
+    body{flex-direction:row}
+    .sidebar{width:300px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--border-soft);display:flex;flex-direction:column;overflow:hidden}
+    .sb-header{padding:18px 20px;border-bottom:1px solid var(--border-soft);display:flex;align-items:center;gap:12px}
+    .sb-brand-frame{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:var(--r-lg);border:1px solid var(--kinetic-primary-glow);background:var(--kinetic-primary-soft);flex-shrink:0}
+    .sb-brand-frame svg{width:20px;height:20px;color:var(--primary)}
+    .sb-brand-text{flex:1;min-width:0}
+    .sb-logo-name{font-family:'Manrope',sans-serif;font-weight:700;color:var(--text);font-size:14px;line-height:1.2}
+    .sb-logo-sub{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin-top:2px}
+    .sb-list{flex:1;overflow-y:auto;padding:8px}
+    .sb-list-title{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:0.12em;font-weight:700;padding:12px;margin-bottom:4px}
+    .sb-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--r-md);font-size:13px;color:var(--muted);cursor:pointer;margin-bottom:2px}
+    .sb-item:hover{background:var(--surface-hi);color:var(--text)}
+    .sb-item.is-active{background:var(--primary-soft);color:var(--primary)}
+    .sb-num{margin-left:auto;font-size:11px;background:var(--bg);color:var(--dim);padding:2px 8px;border-radius:var(--r-full);font-weight:700}
+    .sb-item.is-active .sb-num{background:var(--primary);color:var(--text)}
+    .chat-main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+  }
+  @media (max-width:1023px){.sidebar{display:none}}
+
+  .vtag{position:fixed;top:14px;right:14px;background:var(--primary);color:var(--text);padding:4px 10px;border-radius:var(--r-full);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;z-index:100;pointer-events:none}
+  @media (max-width:1023px){.vtag{display:none}}
+</style>
+</head>
+<body>
+<div class="vtag">V3 · Chat (revize)</div>
+
+<!-- DESKTOP SIDEBAR -->
+<aside class="sidebar">
+  <div class="sb-header">
+    <span class="sb-brand-frame">
+      <!-- LogoMarkIcon mock — basit güneş işareti -->
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+    </span>
+    <div class="sb-brand-text">
+      <div class="sb-logo-name">Turuncu Solar</div>
+      <div class="sb-logo-sub">SSS · Sohbet</div>
+    </div>
+  </div>
+  <div class="sb-list">
+    <div class="sb-list-title">Kategoriler</div>
+    <div class="sb-item is-active"><span>Tümü</span><span class="sb-num">10</span></div>
+    <div class="sb-item"><span>Kurulum</span><span class="sb-num">3</span></div>
+    <div class="sb-item"><span>Maliyet</span><span class="sb-num">2</span></div>
+    <div class="sb-item"><span>Bakım</span><span class="sb-num">1</span></div>
+    <div class="sb-item"><span>Teknik</span><span class="sb-num">2</span></div>
+    <div class="sb-item"><span>İzinler</span><span class="sb-num">1</span></div>
+    <div class="sb-item"><span>Garanti</span><span class="sb-num">1</span></div>
+  </div>
+</aside>
+
+<!-- MAIN CHAT (mobile = full screen) -->
+<div class="chat-main" style="display:flex;flex-direction:column;flex:1;overflow:hidden;min-width:0;height:100%">
+
+  <!-- ─── GERÇEK MOBILE TOPBAR (sadece mobile/tablet) ─── -->
+  <header class="mtb">
+    <div class="mtb-row">
+      <a href="#" class="mtb-brand" aria-label="Turuncu Solar anasayfa">
+        <span class="mtb-brand-frame">
+          <!-- LogoMarkIcon mock -->
+          <svg class="mtb-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </svg>
+        </span>
+      </a>
+      <div class="mtb-actions">
+        <!-- Globe (dil) -->
+        <button class="mtb-icon-btn" aria-label="Dil seçimi" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </button>
+        <!-- Menu (hamburger) -->
+        <button class="mtb-icon-btn" aria-label="Menüyü aç" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ─── CHAT HEADER ─── -->
+  <header class="chat-header">
+    <div class="ch-avatar">☀</div>
+    <div class="ch-info">
+      <div class="ch-name">Mehmet · Mühendis</div>
+      <div class="ch-status"><span class="live">● Çevrimiçi</span> · 8 yıl tecrübe</div>
+    </div>
+    <span class="ch-meta">Ort. 2-4 dk yanıt</span>
+    <div class="ch-actions">
+      <button class="ch-action" aria-label="Telefon">📞</button>
+      <button class="ch-action" aria-label="Daha fazla">⋮</button>
+    </div>
+  </header>
+
+  <!-- ─── TOPIC PILLS ─── -->
+  <div class="topic-bar">
+    <div class="topic-row">
+      <button class="topic is-active">Tümü <span class="num">10</span></button>
+      <button class="topic">Kurulum <span class="num">3</span></button>
+      <button class="topic">Maliyet <span class="num">2</span></button>
+      <button class="topic">Bakım <span class="num">1</span></button>
+      <button class="topic">Teknik <span class="num">2</span></button>
+      <button class="topic">İzinler <span class="num">1</span></button>
+      <button class="topic">Garanti <span class="num">1</span></button>
+    </div>
+  </div>
+
+  <!-- ─── CHAT BODY ─── -->
+  <div class="chat-body">
+    <div class="day-divider">Bugün · 14:22</div>
+
+    <div class="msg-row bot">
+      <div class="msg-avatar">☀</div>
+      <div class="msg-content">
+        <div class="msg-bubble">
+          <p>Merhaba! Turuncu Solar mühendisi Mehmet ben.</p>
+          <p>Aşağıda sıkça sorulan sorulara hazır yanıtlar var, istediğine tıkla. Sorun listede yoksa altta direkt yazabilirsin.</p>
+        </div>
+        <div class="msg-time">14:22</div>
+      </div>
+    </div>
+
+    <div class="msg-row user">
+      <div class="msg-avatar">S</div>
+      <div class="msg-content">
+        <div class="msg-bubble">Güneş enerjisi sistemi kurulumu ne kadar sürer?</div>
+        <div class="msg-time">14:23 · ✓✓</div>
+      </div>
+    </div>
+
+    <div class="msg-row bot">
+      <div class="msg-avatar">☀</div>
+      <div class="msg-content">
+        <div class="msg-bubble">
+          <p>Ortalama bir konut için <b>fiziksel kurulum 2–4 gün</b> sürer. Toplam proje süreci şu adımlardan oluşuyor:</p>
+          <ul>
+            <li><b>Ön keşif &amp; ölçüm</b> — 1 hafta</li>
+            <li><b>Mühendislik &amp; tasarım</b> — 1–2 hafta</li>
+            <li><b>Şebeke başvurusu &amp; izinler</b> — 3–4 hafta</li>
+            <li><b>Fiziksel kurulum</b> — 2–4 gün</li>
+            <li><b>Test ve devreye alma</b> — 1 gün</li>
+          </ul>
+          <p>Toplam süre ortalama <b>5–7 haftadır</b>; izin süresi şehirden şehire değişir.</p>
+        </div>
+        <div class="msg-time">14:23</div>
+      </div>
+    </div>
+
+    <div class="msg-row user">
+      <div class="msg-avatar">S</div>
+      <div class="msg-content">
+        <div class="msg-bubble">Yatırımın geri dönüş süresi ne kadar?</div>
+        <div class="msg-time">14:25 · ✓✓</div>
+      </div>
+    </div>
+
+    <div class="msg-row bot">
+      <div class="msg-avatar">☀</div>
+      <div class="msg-content">
+        <div class="msg-bubble">
+          <p>Konutlarda tipik geri ödeme süresi <b>4–6 yıl</b>. Üç değişken belirler: sistem büyüklüğü, aylık tüketim profili ve elektrik tarifenin kademesi.</p>
+          <p>25 yıl panel ömrüyle, sistem kendini ödedikten sonra <b>18–20 yıl net getiri</b> üretir.</p>
+        </div>
+        <div class="msg-time">14:25</div>
+      </div>
+    </div>
+
+    <div class="msg-row bot">
+      <div class="msg-avatar">☀</div>
+      <div class="msg-content">
+        <div class="msg-bubble highlight">
+          <p style="margin:0">💡 <b>Hesaplamak ister misin?</b> Çatı m² ve aylık elektrik faturanı söyle, sana özel hesap çıkarayım.</p>
+        </div>
+        <div class="msg-time">14:25</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── SUGGESTED ─── -->
+  <div class="quick-band">
+    <div class="quick-row">
+      <button class="quick-chip">Bulutlu havada çalışır mı?</button>
+      <button class="quick-chip">Çatıya zarar verir mi?</button>
+      <button class="quick-chip">Bakım nasıl?</button>
+      <button class="quick-chip">Garanti süresi?</button>
+      <button class="quick-chip">Devlet teşviği?</button>
+      <button class="quick-chip">Hangi izinler?</button>
+      <button class="quick-chip">Sistem büyüklüğü?</button>
+    </div>
+  </div>
+
+  <!-- ─── INPUT ─── -->
+  <div class="chat-input">
+    <div class="chat-input-wrap">
+      <button class="chat-action" aria-label="Dosya">📎</button>
+      <textarea placeholder="Sorunu yaz..." rows="1"></textarea>
+    </div>
+    <button class="chat-send" aria-label="Gönder">↑</button>
+  </div>
+</div>
+</body>
+</html>

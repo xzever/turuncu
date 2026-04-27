@@ -1,0 +1,448 @@
+html:has(main.iletisim-m),
+body:has(main.iletisim-m) {
+  background:
+    radial-gradient(ellipse at 50% 70%, #FF8C3A 0%, #D4621A 35%, #B83A0E 70%, #1A0907 100%) !important;
+  background-color: #1A0907 !important;
+  background-attachment: fixed !important;
+}
+
+body:has(main.iletisim-m) > div {
+  background: transparent !important;
+}
+
+body:has(main.iletisim-m) #main-content.app-chrome-main {
+  background:
+    radial-gradient(ellipse at 50% 70%, #FF8C3A 0%, #D4621A 35%, #B83A0E 70%, #1A0907 100%) !important;
+}
+
+.iletisim-m {
+  --topbar-clearance: calc(56px + env(safe-area-inset-top, 0px) + var(--space-4));
+  --bottomnav-clearance: calc(72px + env(safe-area-inset-bottom, 0px) + var(--space-4));
+
+  width: 100%;
+  height: 100dvh;
+  max-height: 100dvh;
+  padding: var(--topbar-clearance) var(--space-4) var(--bottomnav-clearance);
+  box-sizing: border-box;
+  color: #fff;
+  font-family: "Roboto", "Inter", system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  background:
+    radial-gradient(ellipse at 50% 70%, #FF8C3A 0%, #D4621A 35%, #B83A0E 70%, #1A0907 100%);
+}
+
+.iletisim-m__hero {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.iletisim-m .h-page {
+  margin: 0;
+  color: #fff;
+  font-size: var(--text-3xl);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+}
+
+.iletisim-m .lead {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+}
+
+.iletisim-m .seg {
+  width: 100%;
+  display: flex;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(18px);
+}
+
+.iletisim-m .seg button {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.72);
+  font: inherit;
+  font-size: var(--text-xs);
+  font-weight: 800;
+}
+
+.iletisim-m .seg button.is-active {
+  background: #fff;
+  color: #1A0907;
+}
+
+.iletisim-m .map-card {
+  position: relative;
+  width: 100%;
+  min-height: 188px;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--space-4);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.28);
+  box-shadow: 0 20px 40px -24px rgba(0, 0, 0, 0.55);
+}
+
+.iletisim-m .map-card iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  filter: grayscale(0.35) brightness(0.82) contrast(0.95) saturate(0.9);
+}
+
+.iletisim-m .map-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.22));
+  pointer-events: none;
+}
+
+.iletisim-m .map-card__actions {
+  position: absolute;
+  left: var(--space-3);
+  right: var(--space-3);
+  bottom: var(--space-3);
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+
+.iletisim-m .map-btn {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-3);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(26, 9, 7, 0.8);
+  color: #fff;
+  font-size: var(--text-xs);
+  font-weight: 900;
+  text-decoration: none;
+  backdrop-filter: blur(16px);
+}
+
+.iletisim-m .info-card,
+.iletisim-m form,
+.iletisim-m__success {
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: var(--space-4);
+  background: rgba(26, 9, 7, 0.48);
+  backdrop-filter: blur(22px) saturate(145%);
+  box-shadow: 0 20px 40px -26px rgba(0, 0, 0, 0.58);
+}
+
+.iletisim-m .info-card,
+.iletisim-m form {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.iletisim-m .info-card__header {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  align-items: start;
+}
+
+.iletisim-m .info-card__header h2 {
+  margin: 0;
+  color: #fff;
+  font-size: var(--text-xl);
+  line-height: var(--leading-tight);
+}
+
+.iletisim-m .info-card__header p {
+  margin: var(--space-1) 0 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: var(--text-sm);
+}
+
+.iletisim-m .badge {
+  flex: 0 0 auto;
+  padding: var(--space-1) var(--space-3);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 210, 160, 0.28);
+  color: #FFD2A0;
+  background: rgba(255, 210, 160, 0.12);
+  font-size: var(--text-2xs);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.iletisim-m .info-grid {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.iletisim-m .info-row {
+  min-height: 64px;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: center;
+  padding: var(--space-3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--space-3);
+  background: rgba(255, 255, 255, 0.055);
+  color: #fff;
+  text-decoration: none;
+}
+
+.iletisim-m .info-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--space-3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 210, 160, 0.13);
+  color: #FFD2A0;
+}
+
+.iletisim-m .info-content {
+  min-width: 0;
+  display: grid;
+  gap: var(--space-1);
+}
+
+.iletisim-m .info-label,
+.iletisim-m .hours-day,
+.iletisim-m .rail-head,
+.iletisim-m .lbl-r,
+.iletisim-m .contact-radio-group legend {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: var(--text-2xs);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.iletisim-m .info-value {
+  color: #fff;
+  font-size: var(--text-base);
+  font-weight: 750;
+  line-height: var(--leading-normal);
+  overflow-wrap: anywhere;
+}
+
+.iletisim-m .hours-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+
+.iletisim-m .hours-row {
+  padding: var(--space-3);
+  border-radius: var(--space-3);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.iletisim-m .hours-time {
+  display: block;
+  margin-top: var(--space-1);
+  color: #fff;
+  font-size: var(--text-base);
+  font-weight: 800;
+}
+
+.iletisim-m .hours-row--closed .hours-time {
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.iletisim-m .rail-head {
+  margin: 0;
+}
+
+.iletisim-m .rail {
+  overflow: hidden;
+  border-radius: var(--space-4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.24);
+}
+
+.iletisim-m .rail-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.iletisim-m .rail-row:first-child {
+  border-top: 0;
+}
+
+.iletisim-m .rail-row--textarea {
+  align-items: start;
+}
+
+.iletisim-m .ic-mini {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--space-3);
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.iletisim-m .lbl-r {
+  min-width: 76px;
+}
+
+.iletisim-m .val {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.iletisim-m .val input,
+.iletisim-m .val textarea {
+  width: 100%;
+  min-height: 44px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: 16px;
+}
+
+.iletisim-m .val textarea {
+  min-height: 104px;
+  line-height: var(--leading-normal);
+  resize: none;
+}
+
+.iletisim-m .val input::placeholder,
+.iletisim-m .val textarea::placeholder {
+  color: rgba(255, 255, 255, 0.34);
+}
+
+.iletisim-m .contact-radio-group {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.iletisim-m .contact-radio-group__options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.iletisim-m .contact-radio-option {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-3);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: var(--text-xs);
+  font-weight: 800;
+}
+
+.iletisim-m .contact-radio-option input {
+  width: 20px;
+  height: 20px;
+  accent-color: #E06016;
+}
+
+.iletisim-m .btn {
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border: 0;
+  border-radius: 999px;
+  background: #E06016;
+  color: #fff;
+  font: inherit;
+  font-size: var(--text-base);
+  font-weight: 900;
+}
+
+.iletisim-m .btn.full {
+  width: 100%;
+}
+
+.iletisim-m .btn:disabled {
+  opacity: 0.58;
+}
+
+.iletisim-m__error {
+  margin: 0;
+  padding: var(--space-3);
+  border-radius: var(--space-3);
+  border: 1px solid rgba(239, 68, 68, 0.38);
+  background: rgba(239, 68, 68, 0.16);
+  color: #FCA5A5;
+  font-size: var(--text-sm);
+  font-weight: 800;
+}
+
+.iletisim-m__success {
+  padding: var(--space-5);
+  color: #B7F7C8;
+  font-size: var(--text-base);
+  font-weight: 800;
+}
+
+.iletisim-m .map-btn:focus-visible,
+.iletisim-m .info-row:focus-visible,
+.iletisim-m .seg button:focus-visible,
+.iletisim-m .contact-radio-option:focus-within,
+.iletisim-m .btn:focus-visible,
+.iletisim-m .val input:focus-visible,
+.iletisim-m .val textarea:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.88);
+  outline-offset: 2px;
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  .iletisim-m {
+    padding-inline: clamp(var(--space-6), 5vw, var(--space-16));
+  }
+
+  .iletisim-m .map-card {
+    aspect-ratio: 21 / 9;
+    min-height: 260px;
+  }
+
+  .iletisim-m .info-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .iletisim-m .info-row--full {
+    grid-column: 1 / -1;
+  }
+}

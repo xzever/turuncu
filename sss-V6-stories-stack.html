@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SSS — V6 Stories / Kart Stack</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1A1C1E; --surface:#2A2D31; --surface-hi:#333537;
+    --text:#F4F4F6; --muted:rgba(244,244,246,0.72); --dim:rgba(244,244,246,0.55);
+    --primary:#E6391A; --primary-soft:rgba(230,57,26,0.12); --primary-glow:rgba(230,57,26,0.3);
+    --border:#3A3D42; --border-soft:rgba(244,244,246,0.08);
+    --r-md:10px; --r-lg:14px; --r-xl:20px; --r-2xl:24px; --r-full:9999px;
+    --pad-x:clamp(16px, 4vw, 32px);
+    --safe-bottom:env(safe-area-inset-bottom, 0px);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{background:var(--bg);color:var(--text);height:100%;overflow:hidden}
+  body{font-family:'Inter',sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
+  h1,h2,h3{font-family:'Manrope',sans-serif;font-weight:600;line-height:1.2}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  ul{padding-left:18px;margin:6px 0}
+  li{margin-bottom:3px;color:var(--muted)}
+  b{color:var(--text);font-weight:600}
+
+  /* MTB */
+  .mtb{flex-shrink:0;background:var(--bg);padding:env(safe-area-inset-top, 0px) var(--pad-x) 0;border-bottom:1px solid var(--border-soft)}
+  .mtb-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;min-height:60px}
+  .mtb-frame,.mtb-icon-btn{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:var(--r-lg);border:1px solid var(--primary-glow);background:var(--primary-soft);color:var(--primary)}
+  .mtb-frame svg{width:22px;height:22px}
+  .mtb-icon-btn svg{width:18px;height:18px;stroke:currentColor}
+  .mtb-actions{display:flex;gap:8px}
+
+  /* PROGRESS BAR (stories style) */
+  .progress{flex-shrink:0;display:flex;gap:3px;padding:10px var(--pad-x);background:var(--bg)}
+  .progress-bar{flex:1;height:3px;background:var(--surface-hi);border-radius:2px;overflow:hidden}
+  .progress-bar.is-done{background:var(--primary)}
+  .progress-bar.is-active{background:var(--surface-hi);position:relative}
+  .progress-bar.is-active::after{content:"";position:absolute;left:0;top:0;height:100%;width:50%;background:var(--primary);border-radius:2px}
+
+  /* TOPIC BADGE */
+  .topic-band{flex-shrink:0;padding:8px var(--pad-x);background:var(--bg);display:flex;align-items:center;gap:10px}
+  .topic-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:var(--r-full);background:var(--primary-soft);color:var(--primary);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;border:1px solid var(--primary-glow)}
+  .position{margin-left:auto;font-size:12px;color:var(--dim);font-weight:600}
+  .position b{color:var(--text)}
+
+  /* CARD AREA */
+  .card-area{flex:1;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:16px var(--pad-x);position:relative}
+  .card{width:100%;max-width:560px;height:100%;max-height:600px;background:linear-gradient(180deg,var(--surface-hi),var(--surface));border:1px solid var(--border);border-radius:var(--r-2xl);padding:24px;display:flex;flex-direction:column;gap:16px;overflow-y:auto;position:relative;box-shadow:0 12px 32px rgba(0,0,0,0.3)}
+  .card::before{content:"";position:absolute;top:-40px;right:-40px;width:140px;height:140px;background:radial-gradient(circle,var(--primary-soft) 0%,transparent 70%);pointer-events:none;border-radius:50%}
+
+  .card-num{font-family:'Manrope',sans-serif;font-size:64px;font-weight:800;color:var(--surface-hi);line-height:1;letter-spacing:-0.03em;position:relative}
+  .card-q{font-family:'Manrope',sans-serif;font-size:clamp(20px, 4vw, 26px);font-weight:700;line-height:1.25;color:var(--text);margin-top:-32px;position:relative}
+  .card-a{font-size:14px;color:var(--muted);line-height:1.65;flex:1;position:relative}
+  .card-a p{margin-bottom:10px}
+
+  .card-tags{display:flex;gap:6px;flex-wrap:wrap;padding-top:14px;border-top:1px solid var(--border-soft);position:relative}
+  .card-tag{font-size:10px;color:var(--dim);background:var(--bg);padding:3px 10px;border-radius:var(--r-full);border:1px solid var(--border-soft)}
+
+  /* NAV CONTROLS */
+  .nav{flex-shrink:0;display:flex;align-items:center;gap:12px;padding:12px var(--pad-x);padding-bottom:calc(12px + var(--safe-bottom));background:var(--bg);border-top:1px solid var(--border-soft)}
+  .nav-btn{flex:1;min-height:48px;display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:var(--r-full);font-size:13px;font-weight:600;background:var(--surface);border:1px solid var(--border);color:var(--text)}
+  .nav-btn:disabled{opacity:0.4;cursor:not-allowed}
+  .nav-btn.is-primary{background:var(--primary);border-color:var(--primary);color:var(--text)}
+  .nav-fab{width:48px;height:48px;border-radius:50%;background:var(--surface);border:1px solid var(--border);color:var(--text);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+
+  /* DESKTOP */
+  @media (min-width: 1024px){
+    .card{max-width:680px;max-height:660px;padding:36px}
+    .nav{max-width:680px;margin:0 auto;width:100%}
+    .progress{max-width:680px;margin:0 auto;width:100%}
+    .topic-band{max-width:680px;margin:0 auto;width:100%}
+  }
+
+  .vtag{position:fixed;top:14px;right:14px;background:var(--primary);color:var(--text);padding:4px 10px;border-radius:var(--r-full);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;z-index:100;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="vtag">V6 · Stories</div>
+
+<header class="mtb">
+  <div class="mtb-row">
+    <span class="mtb-frame"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg></span>
+    <div class="mtb-actions">
+      <button class="mtb-icon-btn" aria-label="Dil"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></button>
+      <button class="mtb-icon-btn" aria-label="Menü"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<!-- Progress (10 bars, current = 1st) -->
+<div class="progress">
+  <div class="progress-bar is-active"></div>
+  <div class="progress-bar"></div>
+  <div class="progress-bar"></div>
+  <div class="progress-bar"></div>
+  <div class="progress-bar"></div>
+  <div class="progress-bar"></div>
+  <div class="progress-bar"></div>
+  <div class="progress-bar"></div>
+  <div class="progress-bar"></div>
+  <div class="progress-bar"></div>
+</div>
+
+<div class="topic-band">
+  <span class="topic-pill">Kurulum</span>
+  <span class="position"><b>1</b> / 10</span>
+</div>
+
+<div class="card-area">
+  <article class="card">
+    <span class="card-num">01</span>
+    <h2 class="card-q">Güneş enerjisi sistemi kurulumu ne kadar sürer?</h2>
+    <div class="card-a">
+      <p>Ortalama bir konut için <b>fiziksel kurulum 2–4 gün</b> sürer. Toplam proje süreci:</p>
+      <ul>
+        <li><b>Ön keşif &amp; ölçüm</b> — 1 hafta</li>
+        <li><b>Mühendislik &amp; tasarım</b> — 1–2 hafta</li>
+        <li><b>Şebeke başvurusu &amp; izinler</b> — 3–4 hafta</li>
+        <li><b>Fiziksel kurulum</b> — 2–4 gün</li>
+        <li><b>Test ve devreye alma</b> — 1 gün</li>
+      </ul>
+      <p>Toplam ortalama <b>5–7 hafta</b>; izin süresi şehirden şehire değişir.</p>
+    </div>
+    <div class="card-tags">
+      <span class="card-tag">Süreç</span>
+      <span class="card-tag">Zaman</span>
+      <span class="card-tag">Planlama</span>
+    </div>
+  </article>
+</div>
+
+<nav class="nav">
+  <button class="nav-fab" aria-label="Liste">≡</button>
+  <button class="nav-btn" disabled>← Önceki</button>
+  <button class="nav-btn is-primary">Sonraki →</button>
+</nav>
+</body>
+</html>

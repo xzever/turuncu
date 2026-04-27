@@ -1,0 +1,131 @@
+/**
+ * Typography design tokens
+ * Google SEO mobile-friendly: body min 16px; fluid clamp scaling
+ * Breakpoints: phone ≤767, tablet 768-1023, desktop ≥1024
+ *
+ * Site sözleşmesi (küçük çok sayfalı site — tek ölçek):
+ * - Gövde / paragraf: --text-base + --leading-normal
+ * - İkincil / küçük UI: --text-sm veya --text-xs
+ * - Meta / overline: --text-2xs
+ * - Bölüm başlığı: --text-h2 veya --text-2xl
+ * - Kart / alt başlık: --text-h3 / --text-h4 veya --text-xl
+ * - Sayfa ana başlığı (hero): çoğu vitrin --text-4xl; çok nadir tam ekran --text-5xl (--text-h1 = --text-4xl)
+ *
+ * Tailwind `text-xs` … `text-5xl` (tailwind.config.js fontSize) bu değişkenlere bağlıdır;
+ * TW adı `text-sm` → CSS `--text-xs` (fluid; isim farkı normal).
+ *
+ * Tam ekran diyagram / sahne metni (--sbu ile geometriye kilitli): `desktop-responsive.css` içindeki
+ * `--text-sbu-*` — font-size için doğrudan `calc(var(--sbu) * N)` yazılmaz.
+ *
+ * Site karakteri — ağırlık (tüm sayfalarda aynı dil):
+ * - Başlık / hero / kart ana başlığı: `var(--weight-bold)` veya `var(--weight-semibold)` (hiyerarşiye göre).
+ * - Paragraf, açıklama, uzun metin: `var(--weight-regular)` — 100–300 “ince display” kullanılmaz.
+ * - Üst etiket (overline), filtre: `var(--weight-semibold)` / `var(--weight-bold)` kabul edilir.
+ * - `font-weight:` ve `font: …` kısayolunda ağırlık yalnızca `--weight-regular` … `--weight-heavy` ile (sayı yazılmaz).
+ */
+:root {
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "SF Mono", "Menlo", "Monaco", "Consolas", monospace;
+
+  /* ── Fluid text scale (phone → tablet → desktop) ──
+     clamp(min_phone, fluid, max_desktop)
+     vw katsayıları: küçük ölçeklerde az, büyük ölçeklerde daha fazla scale */
+  --text-2xs:  clamp(0.75rem,  0.22vw + 0.69rem, 0.8125rem);  /* 12-13px — sadece overline/meta */
+  --text-xs:   clamp(0.875rem, 0.30vw + 0.80rem, 0.9375rem);  /* 14-15px — ikincil bilgi */
+  --text-sm:   clamp(0.9375rem,0.35vw + 0.86rem, 1rem);        /* 15-16px — küçük body */
+  --text-base: clamp(1rem,     0.40vw + 0.90rem, 1.125rem);    /* 16-18px — BODY default (SEO min) */
+  --text-lg:   clamp(1.125rem, 0.50vw + 1rem,    1.25rem);     /* 18-20px — lead paragraph */
+  --text-xl:   clamp(1.25rem,  0.70vw + 1.08rem, 1.5rem);      /* 20-24px — alt başlık */
+  --text-2xl:  clamp(1.5rem,   1.00vw + 1.25rem, 1.875rem);    /* 24-30px — section başlık */
+  --text-3xl:  clamp(1.875rem, 1.40vw + 1.52rem, 2.5rem);      /* 30-40px — H2 */
+  --text-4xl:  clamp(2.25rem,  2.00vw + 1.75rem, 3.5rem);      /* 36-56px — H1 */
+  --text-5xl:  clamp(2.75rem,  2.80vw + 2.05rem, 4.5rem);      /* 44-72px — hero display */
+
+  /* ── Semantic aliases (h1–h4 ile aynı; küçük sitede tek tip başlık ölçeği) ── */
+  --text-h1: var(--text-4xl);
+  --text-h2: var(--text-3xl);
+  --text-h3: var(--text-2xl);
+  --text-h4: var(--text-xl);
+
+  /* ── Line-height (SEO readability ≥1.5) ── */
+  --leading-tight:   1.2;   /* Büyük başlık */
+  --leading-snug:    1.35;  /* Kısa başlık */
+  --leading-normal:  1.55;  /* Body (SEO okunabilirlik) */
+  --leading-relaxed: 1.7;   /* Uzun paragraf */
+
+  /* ── Letter spacing ── */
+  --tracking-tight:  -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide:   0.02em;
+  --tracking-wider:  0.08em;  /* uppercase overline */
+
+  /* ── Font weight (tüm CSS’te sayı yerine yalnızca bunlar) ── */
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+  --weight-black:    800;
+  /* Variable font / display vurgu — nadir kullanım */
+  --weight-extrabold: 850;
+  --weight-heavy:     900;
+}
+
+/* ═══ SEO-friendly base ═══
+   Google Search Console mobile usability: body text ≥16px, line-height ≥1.5, iOS input 16px (zoom önleme) */
+body {
+  font-size: var(--text-base) !important;
+  line-height: var(--leading-normal) !important;
+  font-weight: var(--weight-regular) !important;
+}
+
+input, textarea, select, button {
+  font-size: max(16px, var(--text-sm)) !important;  /* iOS zoom-in önleme: min 16px */
+  line-height: var(--leading-snug) !important;
+}
+
+/* Başlık hiyerarşisi (H1 > H2 > H3 ...) — tüm sayfalarda tutarlı, SEO heading-order uyumu */
+h1 {
+  font-size: var(--text-4xl) !important;
+  line-height: var(--leading-tight) !important;
+  font-weight: var(--weight-bold) !important;
+  letter-spacing: var(--tracking-tight) !important;
+}
+
+h2 {
+  font-size: var(--text-3xl) !important;
+  line-height: var(--leading-tight) !important;
+  font-weight: var(--weight-bold) !important;
+  letter-spacing: var(--tracking-tight) !important;
+}
+
+h3 {
+  font-size: var(--text-2xl) !important;
+  line-height: var(--leading-snug) !important;
+  font-weight: var(--weight-semibold) !important;
+}
+
+h4 {
+  font-size: var(--text-xl) !important;
+  line-height: var(--leading-snug) !important;
+  font-weight: var(--weight-semibold) !important;
+}
+
+h5 {
+  font-size: var(--text-lg) !important;
+  line-height: var(--leading-snug) !important;
+  font-weight: var(--weight-semibold) !important;
+}
+
+h6 {
+  font-size: var(--text-base) !important;
+  line-height: var(--leading-snug) !important;
+  font-weight: var(--weight-semibold) !important;
+}
+
+p {
+  line-height: var(--leading-normal) !important;
+}
+
+small {
+  font-size: var(--text-xs) !important;
+}

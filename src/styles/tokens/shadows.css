@@ -1,0 +1,9 @@
+/**
+ * Shadow design tokens
+ */
+:root {
+  --shadow-soft: 0 20px 45px rgba(19, 45, 83, 0.15);
+  --shadow-deep: 0 26px 58px rgba(9, 24, 45, 0.2);
+  --shadow-focus: 0 0 0 1px var(--color-focus-ring), 0 0 24px rgba(255, 122, 0, 0.28);
+  --shadow-dock: 0 16px 30px rgba(66, 107, 147, 0.16);
+}

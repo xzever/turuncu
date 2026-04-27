@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SSS — V8 Editorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1A1C1E; --surface:#2A2D31;
+    --text:#F4F4F6; --muted:rgba(244,244,246,0.78); --dim:rgba(244,244,246,0.5);
+    --primary:#E6391A; --primary-soft:rgba(230,57,26,0.12); --primary-glow:rgba(230,57,26,0.3);
+    --line:rgba(244,244,246,0.12); --line-soft:rgba(244,244,246,0.06);
+    --pad-x:clamp(20px, 5vw, 40px);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{background:var(--bg);color:var(--text)}
+  body{font-family:'Inter',sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden}
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;line-height:1.15;letter-spacing:-0.015em}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  ul{padding-left:18px;margin:8px 0}
+  li{margin-bottom:4px;color:var(--muted)}
+  b{color:var(--text);font-weight:600}
+
+  /* MTB minimal */
+  .mtb{padding:env(safe-area-inset-top, 0px) var(--pad-x) 0;border-bottom:1px solid var(--line-soft)}
+  .mtb-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;min-height:60px}
+  .mtb-frame,.mtb-icon-btn{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;border:1px solid var(--primary-glow);background:var(--primary-soft);color:var(--primary)}
+  .mtb-frame svg{width:22px;height:22px}
+  .mtb-icon-btn svg{width:18px;height:18px;stroke:currentColor}
+  .mtb-actions{display:flex;gap:8px}
+
+  /* PAGE - geniş okuma sütunu */
+  .page{padding:48px var(--pad-x) 96px;max-width:680px;margin:0 auto}
+
+  .eyebrow{font-size:11px;color:var(--primary);text-transform:uppercase;letter-spacing:0.18em;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+  .eyebrow::after{content:"";flex:1;max-width:60px;height:1px;background:var(--primary)}
+  h1{font-size:clamp(36px, 7vw, 56px);font-weight:700;margin-bottom:18px}
+  .lead{font-family:'Fraunces',serif;font-style:italic;font-size:clamp(16px, 2.5vw, 19px);color:var(--muted);margin-bottom:40px;font-weight:400;line-height:1.5}
+
+  /* Search - underline only */
+  .search{position:relative;margin-bottom:48px;border-bottom:1px solid var(--line)}
+  .search input{width:100%;background:transparent;border:none;color:var(--text);padding:14px 0 14px 32px;font-size:18px;font-family:'Fraunces',serif;font-style:italic;outline:none}
+  .search input::placeholder{color:var(--dim);font-style:italic}
+  .search:focus-within{border-bottom-color:var(--primary)}
+  .search svg{position:absolute;left:0;top:50%;transform:translateY(-50%);width:20px;height:20px;color:var(--dim)}
+
+  /* Categories - inline text divider */
+  .cats{display:flex;flex-wrap:wrap;gap:18px;padding-bottom:32px;margin-bottom:48px;border-bottom:1px solid var(--line);font-size:13px;text-transform:uppercase;letter-spacing:0.12em;font-weight:600}
+  .cat{padding:6px 0;border:none;color:var(--dim)}
+  .cat:hover{color:var(--text)}
+  .cat.is-active{color:var(--primary);border-bottom:2px solid var(--primary);padding-bottom:4px}
+
+  /* Articles */
+  .item{padding:32px 0;border-bottom:1px solid var(--line-soft);position:relative}
+  .item:last-child{border-bottom:none}
+  .item-num{font-family:'Fraunces',serif;font-size:64px;font-weight:300;line-height:1;color:var(--primary);opacity:0.5;letter-spacing:-0.04em;margin-bottom:8px;font-style:italic}
+  .item-cat{font-size:11px;text-transform:uppercase;letter-spacing:0.18em;font-weight:700;color:var(--primary);margin-bottom:10px}
+  .item-q{font-family:'Fraunces',serif;font-size:clamp(22px, 3.5vw, 28px);font-weight:600;line-height:1.25;margin-bottom:16px;cursor:pointer;color:var(--text)}
+  .item-q:hover{color:var(--primary)}
+  .item.is-open .item-q{color:var(--primary)}
+  .item-a{font-size:17px;color:var(--muted);line-height:1.75;font-weight:400}
+  .item-a p{margin-bottom:12px}
+  .item-a p:first-of-type::first-letter{font-family:'Fraunces',serif;font-size:48px;font-weight:600;float:left;line-height:1;margin-right:8px;margin-top:6px;color:var(--primary)}
+  .item:not(.is-open) .item-a{display:none}
+
+  /* Footer link */
+  .contact{display:block;margin-top:64px;padding:24px 0;text-align:center;font-family:'Fraunces',serif;font-style:italic;font-size:18px;color:var(--primary);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .contact:hover{background:var(--primary-soft)}
+
+  .vtag{position:fixed;top:14px;right:14px;background:var(--primary);color:var(--text);padding:4px 10px;border-radius:999px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;z-index:100;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="vtag">V8 · Editorial</div>
+
+<header class="mtb">
+  <div class="mtb-row">
+    <span class="mtb-frame"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg></span>
+    <div class="mtb-actions">
+      <button class="mtb-icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg></button>
+      <button class="mtb-icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+  <p class="eyebrow">Turuncu Solar SSS</p>
+  <h1>Sık sorulan sorular</h1>
+  <p class="lead">Kurulum, maliyet, bakım, izin ve garanti hakkında en çok merak edilenleri uzun-form yanıtlarla derledik.</p>
+
+  <div class="search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    <input type="search" placeholder="Sorunu yaz...">
+  </div>
+
+  <nav class="cats">
+    <button class="cat is-active">Tümü</button>
+    <button class="cat">Kurulum</button>
+    <button class="cat">Maliyet</button>
+    <button class="cat">Teknik</button>
+    <button class="cat">Bakım</button>
+    <button class="cat">İzinler</button>
+    <button class="cat">Garanti</button>
+  </nav>
+
+  <article class="item is-open">
+    <div class="item-num">01</div>
+    <p class="item-cat">Kurulum</p>
+    <h2 class="item-q">Güneş enerjisi sistemi kurulumu ne kadar sürer?</h2>
+    <div class="item-a">
+      <p>Ortalama bir konut için fiziksel kurulum 2–4 gün sürer. Toplam proje süreci ise birkaç adımdan oluşur: önce ön keşif ve ölçüm yapılır (bir hafta), ardından mühendislik tasarımı (1-2 hafta), şebeke başvurusu ve izinler (3-4 hafta), fiziksel kurulum (2-4 gün), test ve devreye alma (1 gün).</p>
+      <p>Toplam süre ortalama <b>5–7 haftadır</b>; izin süresi şehirden şehire değişir.</p>
+    </div>
+  </article>
+
+  <article class="item">
+    <div class="item-num">02</div>
+    <p class="item-cat">Maliyet</p>
+    <h2 class="item-q">Yatırımın geri dönüş süresi ne kadar?</h2>
+  </article>
+
+  <article class="item">
+    <div class="item-num">03</div>
+    <p class="item-cat">Kurulum</p>
+    <h2 class="item-q">Kurulum çatımı zarar verir mi, sızıntı yapar mı?</h2>
+  </article>
+
+  <article class="item">
+    <div class="item-num">04</div>
+    <p class="item-cat">Teknik</p>
+    <h2 class="item-q">Sistem bulutlu havalarda çalışır mı?</h2>
+  </article>
+
+  <article class="item">
+    <div class="item-num">05</div>
+    <p class="item-cat">Bakım</p>
+    <h2 class="item-q">Bakım ne sıklıkta yapılmalı?</h2>
+  </article>
+
+  <a href="#" class="contact">Sorun listede yoksa iletişime geç →</a>
+</main>
+</body>
+</html>

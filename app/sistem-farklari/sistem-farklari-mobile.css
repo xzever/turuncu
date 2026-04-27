@@ -1,0 +1,320 @@
+/**
+ * Sistem Farkları — Mobil (MDS 8.5) — Faz 08.
+ * Pill tab + panel + iki katmanlı karşılaştırma (aktif sistem detay + tüm sistemler yan yana).
+ * Tüm ölçüler token'a bağlı.
+ */
+
+.diff-mobile {
+  padding-top: var(--space-4);
+  padding-bottom: var(--space-20);
+  padding-inline: var(--space-4);
+  max-width: 1000px;
+  margin-inline: auto;
+  box-sizing: border-box;
+}
+
+/* ── Hero ───────────────────────────────────────────────────── */
+.diff-mobile__hero {
+  padding-block: var(--space-5) var(--space-4);
+}
+
+.diff-mobile__title {
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-bold, 700);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--color-text-primary, #0b1b2c);
+}
+
+.diff-mobile__lead {
+  font-size: var(--text-lg);
+  line-height: 1.55;
+  color: var(--color-text-secondary, rgba(11, 27, 44, 0.68));
+  margin: var(--space-3) 0 0 0;
+  max-width: 66ch;
+}
+
+/* ── Sistem seçici tab'ları ─────────────────────────────────── */
+.diff-mobile__tabs {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding-block: var(--space-3);
+  margin-top: var(--space-2);
+  margin-inline: calc(-1 * var(--space-4));
+  padding-inline: var(--space-4);
+  scrollbar-width: none;
+}
+
+.diff-mobile__tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.diff-mobile__tabs > * {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+/* ── Aktif sistem paneli ────────────────────────────────────── */
+.diff-mobile__panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  border-radius: var(--radius-2xl);
+  background: var(--color-bg-layer-a, rgba(255, 255, 255, 0.62));
+  border: 1px solid rgba(11, 27, 44, 0.08);
+  margin-top: var(--space-3);
+}
+
+.diff-mobile__panel-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 106, 0, 0.12);
+  color: var(--color-primary, #ff6a00);
+  font-size: var(--text-2xl);
+}
+
+.diff-mobile__panel-title {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold, 700);
+  line-height: 1.2;
+  margin: 0;
+  color: var(--color-text-primary, #0b1b2c);
+}
+
+.diff-mobile__panel-detail {
+  font-size: var(--text-base);
+  line-height: 1.55;
+  color: var(--color-text-secondary, rgba(11, 27, 44, 0.72));
+  margin: 0;
+}
+
+.diff-mobile__panel-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  background: var(--color-primary, #ff6a00);
+  color: var(--color-white, #ffffff);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold, 600);
+  text-decoration: none;
+  margin-top: var(--space-2);
+  transition: transform var(--duration-fast, 150ms) ease, background-color var(--duration-fast, 150ms) ease;
+}
+
+.diff-mobile__panel-cta:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .diff-mobile__panel-cta:hover {
+    background: var(--color-primary-hover, #ff8520);
+  }
+}
+
+/* ── Aktif sistem kriter kartları ───────────────────────────── */
+.diff-mobile__criteria-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.diff-mobile__criterion-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-layer-a, rgba(255, 255, 255, 0.62));
+  border: 1px solid rgba(11, 27, 44, 0.06);
+}
+
+.diff-mobile__criterion-head {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.diff-mobile__criterion-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 106, 0, 0.1);
+  color: var(--color-primary, #ff6a00);
+  font-size: var(--text-lg);
+}
+
+.diff-mobile__criterion-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.diff-mobile__criterion-title {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-text-primary, #0b1b2c);
+  margin: 0;
+  line-height: 1.35;
+}
+
+.diff-mobile__criterion-meta {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted, rgba(11, 27, 44, 0.55));
+  margin: var(--space-1) 0 0 0;
+  line-height: 1.45;
+}
+
+.diff-mobile__criterion-value {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-primary, #ff6a00);
+  padding-top: var(--space-2);
+  border-top: 1px dashed rgba(11, 27, 44, 0.12);
+}
+
+/* ── Yan yana karşılaştırma ─────────────────────────────────── */
+.diff-mobile__compare {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.diff-mobile__compare-row {
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-layer-a, rgba(255, 255, 255, 0.62));
+  border: 1px solid rgba(11, 27, 44, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.diff-mobile__compare-row-title {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-text-primary, #0b1b2c);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.diff-mobile__compare-cells {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+}
+
+.diff-mobile__compare-cell {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-3);
+  align-items: baseline;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  background: transparent;
+  border: 1px solid transparent;
+  transition: background-color var(--duration-fast, 150ms) ease;
+}
+
+.diff-mobile__compare-cell.is-active {
+  background: rgba(255, 106, 0, 0.08);
+  border-color: rgba(255, 106, 0, 0.24);
+}
+
+.diff-mobile__compare-system {
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold, 600);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted, rgba(11, 27, 44, 0.55));
+  min-width: 72px;
+}
+
+.diff-mobile__compare-cell.is-active .diff-mobile__compare-system {
+  color: var(--color-primary, #ff6a00);
+}
+
+.diff-mobile__compare-value {
+  font-size: var(--text-sm);
+  color: var(--color-text-primary, #0b1b2c);
+  line-height: 1.4;
+}
+
+.diff-mobile__compare-cell.is-active .diff-mobile__compare-value {
+  font-weight: var(--weight-semibold, 600);
+}
+
+/* ── Yardım kartı ───────────────────────────────────────────── */
+.diff-mobile__help-card {
+  margin-top: var(--space-6);
+  padding: 0;
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-layer-a, rgba(255, 255, 255, 0.62));
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .diff-mobile__compare-cells {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .diff-mobile__compare-cell {
+    grid-template-columns: 1fr;
+    gap: var(--space-1);
+  }
+
+  .diff-mobile__criteria-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) and (pointer: coarse) {
+  .diff-mobile__compare-cells {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .diff-mobile__compare-cell {
+    grid-template-columns: 1fr;
+    gap: var(--space-1);
+  }
+
+  .diff-mobile__criteria-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 896px) and (orientation: landscape) {
+  .diff-mobile__hero {
+    padding-block: var(--space-4) var(--space-3);
+  }
+
+  .diff-mobile__title {
+    font-size: var(--text-2xl);
+  }
+
+  .diff-mobile__compare-cells {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .diff-mobile__compare-cell {
+    grid-template-columns: 1fr;
+    gap: var(--space-1);
+  }
+}

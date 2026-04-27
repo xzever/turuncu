@@ -1,0 +1,24 @@
+/**
+ * Site geneli “kapsül” (pill) kontroller — hayalet çerçeve + tam yuvarlak köşe.
+ * İletişim quick actions, filtre chip’leri, sekmeler: aynı border/radius dilini kullanır.
+ */
+:root {
+  --pill-shape-radius: var(--radius-full);
+
+  /* Hayalet (outline) pill — Ara / WhatsApp / filtre (pasif) */
+  --pill-ghost-border: 1px solid rgba(255, 255, 255, 0.52);
+  --pill-ghost-bg: transparent;
+  --pill-ghost-color: #ffffff;
+  --pill-ghost-padding-y: clamp(8px, 0.8vh, 12px);
+  --pill-ghost-padding-x: clamp(12px, 1.2vw, 22px);
+  --pill-ghost-font-size: var(--text-sm);
+  --pill-ghost-font-weight: var(--weight-semibold);
+  --pill-ghost-min-height: 44px;
+  --pill-ghost-hover-bg: rgba(255, 255, 255, 0.08);
+  --pill-ghost-hover-border: rgba(255, 255, 255, 0.72);
+
+  /* Dolu seçili (ör. filtre .is-on) — ayrı katman */
+  --pill-solid-bg: #ffffff;
+  --pill-solid-fg: #1a0a00;
+  --pill-solid-border: #ffffff;
+}

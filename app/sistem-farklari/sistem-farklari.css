@@ -1,0 +1,632 @@
+﻿/*
+  Sistem Farkları — /sistemlerimiz grid sistemi ile aynı görsel dil.
+  AGENTS.md: tokenize (§3/§4/§5/§13/§14), §0.2 desktop=mobil eşdeğerlik,
+  §6 container yönetimi (body/html overflow yok; sadece .sf-page container).
+  Tek ekran (100dvh), full-width, grid sistem arka plan şeması.
+*/
+
+.sf-page {
+  /*
+    Arka plan: site-wide bizkimizbackround.jpg (globals.css'de tanımlı).
+    Bu sayfa zemini ezmez — şeffaf kalır, site bg görünür.
+    Çerçeve yok: sadece zemin + yazı.
+    Üstte fixed header'dan nefes alanı; altta orbital dock için clearance.
+  */
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  height: 100dvh;
+  min-height: 100dvh;
+  max-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: clamp(8rem, 16vh, 12rem) clamp(1.5rem, 4vw, 3rem) clamp(7rem, 11vh, 9rem);
+  isolation: isolate;
+  color: var(--color-white);
+  background: transparent;
+  overflow: hidden;
+}
+
+.sf-section {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.sf-head {
+  text-align: center;
+  max-width: 68ch;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  align-items: center;
+}
+
+.sf-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-widest, 0.22em);
+  color: var(--color-white);
+  text-transform: uppercase;
+  font-weight: var(--weight-bold);
+}
+
+.sf-title {
+  margin: 0;
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: var(--space-3);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-black);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+  color: var(--color-white);
+  flex-wrap: wrap;
+}
+
+.sf-title .sf-icon {
+  color: var(--color-white);
+}
+
+.sf-sub {
+  margin: 0 auto;
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.88);
+  line-height: var(--leading-normal);
+}
+
+/*
+  Tüm ikonlar her bağlamda pür beyaz + ince line stroke.
+  currentColor'ın greyed-small rgba'ya düşmesini engeller.
+*/
+.sf-icon,
+.sf-page .sf-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  background: transparent;
+  border: 0;
+  flex: 0 0 auto;
+}
+
+.sf-icon svg,
+.sf-page .sf-icon svg {
+  width: 1em;
+  height: 1em;
+  color: var(--color-white);
+  stroke: currentColor;
+  stroke-width: 1.3;
+  fill: none;
+}
+
+/* Filtre chip'leri */
+.sf-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.sf-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  min-height: 44px;
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-white);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background var(--duration-base) var(--ease-base),
+              border-color var(--duration-base) var(--ease-base),
+              color var(--duration-base) var(--ease-base);
+}
+
+@media (hover: hover) {
+  .sf-filter:hover {
+    border-color: rgba(255, 255, 255, 0.72);
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-white);
+  }
+}
+
+.sf-filter:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 3px;
+}
+
+.sf-filter.is-active {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.85);
+  color: var(--color-white);
+}
+
+.sf-filter-mark {
+  font-family: var(--font-mono);
+  opacity: 0.7;
+}
+
+.sf-hint {
+  margin: 0;
+  text-align: center;
+  font-size: var(--text-2xs);
+  color: rgba(255, 255, 255, 0.72);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  font-weight: var(--weight-bold);
+}
+
+/* Tablo — çerçevesiz, sadece zemin üzerinde yazı akışı */
+.sf-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.sf-table::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sf-table::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-full);
+}
+
+.sf-row {
+  display: grid;
+  grid-template-columns: minmax(180px, 1.05fr) repeat(var(--compare-cols), minmax(0, 1fr));
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  animation: sf-row-rise 560ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--delay, 0ms);
+  min-width: 0;
+}
+
+.sf-row > * {
+  min-width: 0;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+}
+
+.sf-row:last-child {
+  border-bottom: 0;
+}
+
+@keyframes sf-row-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+.sf-row--head {
+  background: linear-gradient(180deg, rgba(144, 34, 4, 0.94), rgba(144, 34, 4, 0.9));
+  border-radius: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+  animation: none;
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky, 30);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.sf-head-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+}
+
+.sf-head-cell strong {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+  letter-spacing: var(--tracking-tight);
+}
+
+.sf-head-cell small {
+  display: block;
+  font-size: var(--text-2xs);
+  color: rgba(255, 255, 255, 0.76);
+  font-weight: var(--weight-regular);
+  margin-top: 2px;
+}
+
+.sf-criterion {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--color-white);
+}
+
+.sf-criterion strong {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+  letter-spacing: var(--tracking-tight);
+}
+
+.sf-criterion small {
+  display: block;
+  font-size: var(--text-2xs);
+  color: rgba(255, 255, 255, 0.76);
+  font-weight: var(--weight-regular);
+  margin-top: 2px;
+}
+
+.sf-cell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--color-white);
+}
+
+.sf-cell-value {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.sf-cell-value strong {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+  letter-spacing: var(--tracking-wide);
+}
+
+.sf-cell small {
+  font-size: var(--text-2xs);
+  color: rgba(255, 255, 255, 0.76);
+  line-height: var(--leading-normal);
+}
+
+@media (min-width: 1280px) and (max-width: 1439px) {
+  .sf-page {
+    padding:
+      clamp(6rem, 12vh, 8rem)
+      clamp(1.25rem, 2vw, 1.75rem)
+      clamp(7rem, 11vh, 8rem);
+  }
+
+  .sf-table {
+    overflow: auto;
+  }
+
+  .sf-row {
+    grid-template-columns: 260px repeat(var(--compare-cols), minmax(260px, 1fr));
+    gap: var(--space-2);
+    min-width: calc(260px + (var(--compare-cols) * 260px));
+  }
+
+  .sf-row--head {
+    top: 0;
+  }
+
+  .sf-head-cell,
+  .sf-criterion,
+  .sf-cell {
+    align-items: flex-start;
+  }
+
+  .sf-head-cell strong,
+  .sf-criterion strong,
+  .sf-cell-value strong {
+    line-height: 1.25;
+  }
+
+  .sf-head-cell small,
+  .sf-criterion small,
+  .sf-cell small {
+    line-height: 1.45;
+  }
+}
+
+/* ==========================================================================
+   MOBİL (≤1279px) — Tam yeniden tasarım
+   §0.2 desktop=mobil içerik eşdeğerliği, §3.2 okunabilirlik üst sınırları,
+   §5 4-multiple spacing, §8 min 44px dokunma hedefi, §6 viewport güvenliği.
+
+   DÜZEN:
+   - Sayfa doğal scroll (100dvh kilidi kaldırıldı).
+   - Header ortalı, tipografi hiyerarşisi net.
+   - Filtre: 3 eşit sütun grid, radius-lg pill.
+   - Karşılaştırma: temiz açık liste. Kriter üstte ikon + başlık, altta sistem
+     değerleri 2-sütun grid (etiket | değer+detay) olarak listelenir.
+   - Hiçbir yerde kart kutu yok; sadece ince 1px ayraçlar — havalı, nefes alan.
+   ========================================================================== */
+@media (max-width: 1279px) {
+  .sf-page {
+    height: auto;
+    min-height: 100dvh;
+    max-height: none;
+    overflow: visible;
+    padding: clamp(5.5rem, 12vh, 7rem) var(--space-4) clamp(6rem, 12vh, 8rem);
+    gap: var(--space-6);
+    background: transparent;
+  }
+
+  .sf-section {
+    gap: var(--space-5);
+    flex: 0 1 auto;
+    min-height: auto;
+  }
+
+  /* ---- Header: ortalı, dengeli ---- */
+  .sf-head {
+    gap: var(--space-2);
+    max-width: 100%;
+    text-align: center;
+    align-items: center;
+  }
+  .sf-eyebrow {
+    font-size: var(--text-2xs);
+    letter-spacing: 0.22em;
+    opacity: 0.85;
+  }
+  .sf-title {
+    font-size: var(--text-xl);
+    gap: var(--space-2);
+    justify-content: center;
+    flex-wrap: nowrap;
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+  }
+  .sf-title .sf-icon {
+    /* Parent başlık size'ı miras alır — token gerekmiyor (icon container) */
+    font-size: inherit;
+  }
+  .sf-sub {
+    font-size: var(--text-xs);
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.82);
+    max-width: 44ch;
+  }
+
+  /* ---- Filtre pill'leri: 3 eşit sütun ---- */
+  .sf-filters {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-2);
+    width: 100%;
+    max-width: 100%;
+  }
+  .sf-filter {
+    min-height: 44px;
+    padding: 0 var(--space-2);
+    font-size: var(--text-2xs);
+    letter-spacing: 0.04em;
+    gap: var(--space-1);
+    min-width: 0;
+    justify-content: center;
+    text-align: center;
+    border-radius: var(--radius-lg);
+  }
+  .sf-filter > span:not(.sf-filter-mark) {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sf-filter-mark {
+    display: none;
+  }
+
+  .sf-hint {
+    font-size: var(--text-2xs);
+    letter-spacing: var(--tracking-wider);
+    opacity: 0.68;
+  }
+
+  /* ---- Tablo: temiz liste, iç padding yok ---- */
+  .sf-table {
+    padding: 0;
+    gap: var(--space-5);
+    overflow: visible;
+    max-height: none;
+  }
+  /* ---- Her kriter: açık düzen, altta 1px ayraç ---- */
+  .sf-row {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: none;
+    gap: var(--space-4);
+    padding: 0 0 var(--space-5);
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 0;
+    background: transparent;
+    animation-delay: var(--delay, 0ms);
+  }
+  .sf-row:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  /* Tablo başlık satırı mobil'de gizli — .sf-row'dan SONRA yazıldı ki cascade'de kazansın */
+  .sf-row--head {
+    display: none !important;
+  }
+
+  /* ---- Kriter başlık satırı: çerçeveli ikon + başlık + meta ---- */
+  .sf-criterion {
+    align-items: center;
+    gap: var(--space-3);
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+  .sf-criterion .sf-icon {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.52);
+    border-radius: var(--radius-lg);
+    flex: 0 0 40px;
+    font-size: var(--text-xl);
+    background: transparent;
+  }
+  .sf-criterion strong {
+    font-size: var(--text-base);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .sf-criterion small {
+    font-size: var(--text-2xs);
+    color: rgba(255, 255, 255, 0.68);
+    line-height: 1.5;
+    margin-top: 2px;
+  }
+
+  /* ---- Cell: iki sütun grid — [kolon etiketi] | [değer + detay] ---- */
+  .sf-cell {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    grid-template-rows: auto auto;
+    align-items: baseline;
+    column-gap: var(--space-3);
+    row-gap: var(--space-1);
+    padding: var(--space-2) 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .sf-cell::before {
+    content: attr(data-column-label);
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+    font-weight: var(--weight-bold);
+    padding-top: 3px;
+    line-height: 1.4;
+  }
+  .sf-cell-value {
+    grid-column: 2;
+    grid-row: 1;
+    gap: var(--space-2);
+    align-items: center;
+  }
+  .sf-cell-value .sf-icon {
+    font-size: var(--text-xs);
+  }
+  .sf-cell-value strong {
+    font-size: var(--text-sm);
+    letter-spacing: -0.005em;
+    line-height: 1.3;
+  }
+  .sf-cell > small {
+    grid-column: 2;
+    grid-row: 2;
+    font-size: var(--text-2xs);
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.5;
+  }
+}
+
+/* ==========================================================================
+   Ultra dar telefonlar (≤360px)
+   ========================================================================== */
+@media (max-width: 360px) {
+  .sf-page {
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+  }
+  .sf-title {
+    font-size: var(--text-lg);
+  }
+  .sf-filter {
+    font-size: var(--text-2xs);
+    padding: 0 var(--space-1);
+    letter-spacing: var(--tracking-wide);
+  }
+  .sf-cell {
+    grid-template-columns: 62px 1fr;
+    column-gap: var(--space-2);
+  }
+  .sf-criterion .sf-icon {
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+    font-size: var(--text-lg);
+  }
+  .sf-criterion strong {
+    font-size: var(--text-sm);
+  }
+}
+
+/* 13" kompakt (1280-1439px) */
+@media (min-width: 1280px) and (max-width: 1439px) {
+  .sf-page {
+    padding: clamp(6.5rem, 13vh, 9rem) clamp(1rem, 2.5vw, 1.5rem) clamp(6rem, 10vh, 8rem);
+    gap: var(--space-4);
+  }
+  .sf-section {
+    gap: var(--space-3);
+  }
+  .sf-table {
+    padding: var(--space-2) var(--space-3);
+  }
+  .sf-row {
+    padding: var(--space-1) var(--space-2);
+  }
+}
+
+/* 4K / ultra-wide (≥1920px) — nefes alanı artar, hâlâ tek ekran */
+@media (min-width: 1920px) {
+  .sf-page {
+    padding: clamp(10rem, 18vh, 15rem) clamp(2rem, 4vw, 4rem) clamp(8rem, 11vh, 11rem);
+    gap: var(--space-6);
+  }
+  .sf-section {
+    gap: var(--space-5);
+  }
+  .sf-table {
+    padding: var(--space-4) var(--space-6);
+  }
+  .sf-row {
+    padding: var(--space-3) var(--space-3);
+  }
+  .sf-title {
+    font-size: var(--text-3xl);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sf-row {
+    animation: none !important;
+  }
+}

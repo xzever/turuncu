@@ -1,0 +1,148 @@
+/**
+ * Pill — UI Kit buton/filter bileşeni (Faz 10+ tasarım güncellemesi).
+ * Seçim:
+ *   - B1 primary: dolu turuncu pill (tam yuvarlak)
+ *   - B3 secondary: çerçeveli turuncu pill (transparent bg + 1.5px border)
+ *   - B5 ghost: yumuşak turuncu (soft tinted bg, turuncu metin)
+ *   - P1 filter-chip: aktif dolu turuncu + pasif beyaz çerçeve
+ *   - size-pill: küçük değer gösterici (mevcut düzenden tokenize)
+ * Açık tema: cream/beyaz arka planlarda yüksek kontrast.
+ */
+
+.ui-pill {
+  appearance: none;
+  font-family: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border-radius: var(--radius-full);
+  font-weight: var(--weight-semibold, 600);
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    transform var(--duration-fast, 150ms) ease,
+    border-color var(--duration-fast, 150ms) ease,
+    background-color var(--duration-fast, 150ms) ease,
+    color var(--duration-fast, 150ms) ease;
+  flex-shrink: 0;
+  border: 1px solid transparent;
+  min-height: 44px;
+  box-sizing: border-box;
+}
+
+.ui-pill:active {
+  transform: scale(0.97);
+}
+
+.ui-pill:focus-visible {
+  outline: 2px solid var(--color-focus-ring, rgba(255, 255, 255, 0.85));
+  outline-offset: 2px;
+}
+
+/* Disabled */
+.ui-pill--disabled,
+.ui-pill:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ── Boyutlar ──────────────────────────────────────────────── */
+.ui-pill--md {
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--text-sm);
+}
+
+.ui-pill--sm {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-xs);
+  min-height: 36px;
+}
+
+/* ── B1 — PRIMARY (Dolu turuncu pill) ──────────────────────── */
+.ui-pill--primary {
+  color: var(--color-white, #ffffff);
+  background: var(--color-primary, #ff6a00);
+  border-color: var(--color-primary, #ff6a00);
+}
+@media (hover: hover) and (pointer: fine) {
+  .ui-pill--primary:hover {
+    background: var(--color-primary-hover, #ff8520);
+    border-color: var(--color-primary-hover, #ff8520);
+  }
+}
+.ui-pill--primary.ui-pill--active {
+  background: var(--color-primary-hover, #ff8520);
+  border-color: var(--color-primary-hover, #ff8520);
+}
+
+/* ── B3 — SECONDARY (Çerçeveli turuncu pill) ───────────────── */
+.ui-pill--secondary {
+  color: var(--color-primary, #ff6a00);
+  background: transparent;
+  border: 1.5px solid var(--color-primary, #ff6a00);
+}
+@media (hover: hover) and (pointer: fine) {
+  .ui-pill--secondary:hover {
+    background: rgba(255, 106, 0, 0.06);
+  }
+}
+.ui-pill--secondary.ui-pill--active {
+  background: rgba(255, 106, 0, 0.1);
+}
+
+/* ── B5 — GHOST (Yumuşak turuncu tinted) ───────────────────── */
+.ui-pill--ghost {
+  color: var(--color-primary, #ff6a00);
+  background: rgba(255, 106, 0, 0.12);
+  border-color: transparent;
+}
+@media (hover: hover) and (pointer: fine) {
+  .ui-pill--ghost:hover {
+    background: rgba(255, 106, 0, 0.18);
+  }
+}
+.ui-pill--ghost.ui-pill--active {
+  background: rgba(255, 106, 0, 0.2);
+  color: var(--color-primary, #ff6a00);
+}
+
+/* ── P1 — FILTER CHIP (Aktif dolu, pasif beyaz çerçeveli) ──── */
+.ui-pill--filter-chip {
+  color: var(--color-text-primary, #0b1b2c);
+  background: var(--color-white, #ffffff);
+  border: 1px solid var(--color-line, rgba(11, 27, 44, 0.12));
+}
+@media (hover: hover) and (pointer: fine) {
+  .ui-pill--filter-chip:hover {
+    border-color: var(--color-primary, #ff6a00);
+  }
+}
+.ui-pill--filter-chip.ui-pill--active {
+  background: var(--color-primary, #ff6a00);
+  border-color: var(--color-primary, #ff6a00);
+  color: var(--color-white, #ffffff);
+}
+
+/* ── SIZE PILL (küçük değer göstericisi) ───────────────────── */
+.ui-pill--size-pill {
+  color: var(--color-text-secondary, rgba(11, 27, 44, 0.68));
+  background: rgba(11, 27, 44, 0.05);
+  border-color: transparent;
+}
+@media (hover: hover) and (pointer: fine) {
+  .ui-pill--size-pill:hover {
+    background: rgba(11, 27, 44, 0.08);
+  }
+}
+.ui-pill--size-pill.ui-pill--active {
+  background: var(--color-primary, #ff6a00);
+  color: var(--color-white, #ffffff);
+}
+
+.ui-pill__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

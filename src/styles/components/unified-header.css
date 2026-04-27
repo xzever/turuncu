@@ -1,0 +1,497 @@
+/**
+ * unified-header.css
+ * AGENTS.md (Anayasa) uyumlu UnifiedHeader stilleri — tüm pixel'ler design token.
+ *
+ * Breakpoint sistemi (Anayasa §1):
+ *   mobil:   ?1279px   › Bottom bar
+ *   desktop: ?1280px   › Sticky header
+ *
+ * Not: Bu bileşen eski projeden taşındı. 1080px değeri legacy; güncel eşik 1280px (MQ.lg).
+ */
+
+/* ===================================================
+   CSS Custom Properties
+   =================================================== */
+
+:root {
+  /* Header yükseklikleri */
+  --uh-header-h: 64px;
+  --uh-header-h-2xl: 72px;
+
+  /* Bottom bar */
+  --uh-bottom-h: 56px;
+
+  /* z-index — Anayasa §12 (tek kaynak: src/styles/tokens/z-index.css) */
+  --uh-z-header: var(--z-sticky);
+  --uh-z-dropdown: var(--z-dropdown);
+  --uh-z-bottom: var(--z-nav);
+  --uh-z-modal: var(--z-modal);
+  --uh-z-toast: var(--z-alert);
+
+  /* Renkler — Anayasa §4 (tek kaynak: src/styles/tokens/colors.css) */
+  --uh-bg: rgba(11, 18, 32, 0.85);
+  --uh-bg-bottom: rgba(11, 18, 32, 0.95);
+  --uh-text: rgba(255, 255, 255, 0.9);
+  --uh-text-hover: #ffffff;
+  --uh-accent: var(--color-primary, #f97316);
+  --uh-focus: rgba(255, 255, 255, 0.85); /* Anayasa §4: focus ring BEYAZ */
+  --uh-border: rgba(255, 255, 255, 0.1);
+
+  /* Tipografi — Anayasa §3 (tek kaynak: src/styles/tokens/typography.css) */
+  --uh-font-nav: var(--text-xs);
+  --uh-font-icon-label: var(--text-2xs);
+  --uh-font-logo: var(--text-lg);
+
+  /* Wrapper */
+  --uh-wrapper-max: 1920px;
+  --uh-wrapper-px: var(--header-inline-pad);
+}
+
+/* ===================================================
+   Erişilebilirlik: Focus — Anayasa §9
+   =================================================== */
+
+.uh-header a:focus-visible,
+.uh-header button:focus-visible,
+.uh-bottom a:focus-visible,
+.uh-bottom button:focus-visible {
+  outline: 2px solid var(--uh-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ===================================================
+   DESKTOP STICKY HEADER (?1280px)
+   =================================================== */
+
+.uh-header {
+  /* Gizle: mobil */
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  .uh-header {
+    display: block;
+    position: sticky;
+    top: 0;
+    z-index: var(--uh-z-header);
+    height: var(--uh-header-h);
+    background: var(--uh-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--uh-border);
+    /* overflow: hidden YASAK — Anayasa §6 */
+  }
+
+  .uh-header__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    height: 100%;
+    max-width: var(--uh-wrapper-max);
+    margin: 0 auto;
+    padding-inline: var(--uh-wrapper-px);
+  }
+
+  /* ¦¦ Sol: Logo + Nav ¦¦ */
+
+  .uh-header__left {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    min-width: 0;
+  }
+
+  .uh-header__brand {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    text-decoration: none;
+  }
+
+  .uh-header__logo {
+    width: clamp(160px, 14vw, 240px);
+    height: auto;
+    max-height: 36px;
+    object-fit: contain;
+    object-position: left center;
+  }
+
+  /* ¦¦ Nav ¦¦ */
+
+  .uh-header__nav {
+    display: flex;
+    align-items: center;
+  }
+
+  .uh-header__menu {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .uh-header__menu-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    /* Touch target: min 44×44px — Anayasa §8 (a11y) */
+    min-height: 44px;
+    min-width: 44px;
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--uh-font-nav);
+    font-weight: 500;
+    color: var(--uh-text);
+    text-decoration: none;
+    white-space: nowrap;
+    border-radius: var(--radius-md);
+    transition: color var(--duration-base) var(--ease-base),
+                background-color var(--duration-base) var(--ease-base);
+    position: relative;
+  }
+
+  .uh-header__menu-link:hover {
+    color: var(--uh-text-hover);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .uh-header__menu-link.is-active {
+    color: var(--uh-accent);
+  }
+
+  .uh-header__menu-link.is-active::after {
+    content: "";
+    position: absolute;
+    bottom: var(--space-1);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 2px;
+    background: var(--uh-accent);
+    border-radius: calc(var(--radius-sm) / 6);
+  }
+
+  /* Header ikon boyutu: 20px (ikon boyutu sabit, a11y kaynaklı) */
+  .uh-header__menu-icon {
+    width: 20px !important;
+    height: 20px !important;
+    flex-shrink: 0;
+  }
+
+  .uh-header__menu-label {
+    font-size: var(--uh-font-nav);
+    line-height: var(--leading-snug, 1.2);
+  }
+
+  /* ¦¦ Sağ: Sosyal + Dil ¦¦ */
+
+  .uh-header__right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    flex-shrink: 0;
+  }
+
+  /* Sosyal medya ikonları: 24px sabit */
+  .uh-header__social {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .uh-header__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Touch target: 44×44 — Anayasa §8 */
+    width: 44px;
+    height: 44px;
+    color: var(--uh-text);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: color var(--duration-base) var(--ease-base),
+                background-color var(--duration-base) var(--ease-base);
+  }
+
+  .uh-header__social-link:hover {
+    color: var(--uh-text-hover);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .uh-header__social-icon {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  /* ¦¦ Dil Seçici ¦¦ */
+
+  .uh-header__lang {
+    position: relative;
+  }
+
+  .uh-header__lang-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 44px;
+    min-width: 44px;
+    padding: var(--space-2) var(--space-3);
+    background: transparent;
+    border: 1px solid var(--uh-border);
+    border-radius: var(--radius-md);
+    color: var(--uh-text);
+    font-size: var(--uh-font-nav);
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color var(--duration-base) var(--ease-base),
+                color var(--duration-base) var(--ease-base);
+  }
+
+  .uh-header__lang-btn:hover,
+  .uh-header__lang-btn.is-open {
+    border-color: rgba(255, 255, 255, 0.3);
+    color: var(--uh-text-hover);
+  }
+
+  .uh-header__lang-code {
+    font-size: var(--uh-font-nav);
+  }
+
+  .uh-header__lang-panel {
+    position: absolute;
+    top: calc(100% + var(--space-2));
+    right: 0;
+    z-index: var(--uh-z-dropdown);
+    display: flex;
+    flex-direction: column;
+    min-width: 80px;
+    background: rgba(11, 18, 32, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--uh-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-1);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  .uh-header__lang-opt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--uh-font-nav);
+    font-weight: 500;
+    color: var(--uh-text);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: background-color var(--duration-fast) var(--ease-base),
+                color var(--duration-fast) var(--ease-base);
+  }
+
+  .uh-header__lang-opt:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--uh-text-hover);
+  }
+
+  .uh-header__lang-opt.is-active {
+    color: var(--uh-accent);
+    font-weight: 600;
+  }
+}
+
+/* 4K / 2xl: header yüksekliği 72px */
+@media (min-width: 1920px) {
+  .uh-header {
+    height: var(--uh-header-h-2xl);
+  }
+}
+
+/* ===================================================
+   MOBILE BOTTOM BAR (?1279px)
+   =================================================== */
+
+.uh-bottom {
+  display: block;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--uh-z-bottom);
+  /* Yükseklik: 56px + safe area — Anayasa §7 */
+  height: calc(var(--uh-bottom-h) + env(safe-area-inset-bottom, 0px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: var(--uh-bg-bottom);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid var(--uh-border);
+}
+
+/* Gizle: desktop */
+@media (min-width: 1280px) {
+  .uh-bottom {
+    display: none;
+  }
+}
+
+.uh-bottom__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: var(--uh-bottom-h);
+  max-width: 560px;
+  margin: 0 auto;
+  padding-inline: var(--space-2);
+}
+
+/* ¦¦ Bottom bar öğe ¦¦ */
+
+.uh-bottom__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  /* Touch target: min 44×44 — Anayasa §8 */
+  min-width: 44px;
+  min-height: 44px;
+  padding: var(--space-1) var(--space-2);
+  color: var(--uh-text);
+  text-decoration: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: color var(--duration-base) var(--ease-base);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.uh-bottom__item:hover,
+.uh-bottom__item.is-active {
+  color: var(--uh-accent);
+}
+
+.uh-bottom__item.is-active .uh-bottom__icon-wrap::after {
+  content: "";
+  position: absolute;
+  bottom: calc(var(--space-1) * -1);
+  left: 50%;
+  transform: translateX(-50%);
+  width: var(--space-1);
+  height: var(--space-1);
+  border-radius: var(--radius-full);
+  background: var(--uh-accent);
+}
+
+.uh-bottom__icon-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Bottom bar ikon boyutu: 22px sabit (a11y) */
+.uh-bottom__icon {
+  width: 22px !important;
+  height: 22px !important;
+}
+
+.uh-bottom__label {
+  font-size: var(--uh-font-icon-label);
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* ¦¦ "Daha Fazla" Popup ¦¦ */
+
+.uh-bottom__more-wrap {
+  position: relative;
+}
+
+.uh-bottom__item--more.is-open {
+  color: var(--uh-accent);
+}
+
+.uh-bottom__more-panel {
+  position: absolute;
+  bottom: calc(100% + var(--space-3));
+  right: calc(var(--space-4) * -1);
+  z-index: var(--uh-z-bottom);
+  min-width: 200px;
+  background: rgba(11, 18, 32, 0.97);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--uh-border);
+  border-radius: var(--radius-card);
+  padding: var(--space-2);
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.uh-bottom__more-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  min-height: 44px; /* Touch target — Anayasa §8 */
+  color: var(--uh-text);
+  text-decoration: none;
+  font-size: var(--uh-font-nav);
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  transition: background-color var(--duration-fast) var(--ease-base),
+              color var(--duration-fast) var(--ease-base);
+}
+
+.uh-bottom__more-link:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--uh-text-hover);
+}
+
+.uh-bottom__more-icon {
+  width: 20px !important;
+  height: 20px !important;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.uh-bottom__more-social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-2) var(--space-2);
+  margin-top: var(--space-1);
+  border-top: 1px solid var(--uh-border);
+}
+
+.uh-bottom__more-social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px; /* Touch target — Anayasa §8 */
+  height: 44px;
+  color: var(--uh-text);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  font-size: var(--text-xl);
+  transition: color var(--duration-base) var(--ease-base),
+              background-color var(--duration-base) var(--ease-base);
+}
+
+.uh-bottom__more-social-link:hover {
+  color: var(--uh-text-hover);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ===================================================
+   Body padding — bottom bar'ın içeriği örtmesini engelle
+   =================================================== */
+
+@media (max-width: 1279px) {
+  body {
+    padding-bottom: calc(var(--uh-bottom-h) + env(safe-area-inset-bottom, 0px));
+  }
+}

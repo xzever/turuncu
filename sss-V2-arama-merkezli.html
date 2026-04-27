@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>SSS — V2 Arama Merkezli (Command Palette)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1A1C1E; --surface:#2A2D31; --surface-hi:#333537;
+    --text:#F4F4F6; --muted:rgba(244,244,246,0.72); --dim:rgba(244,244,246,0.55);
+    --primary:#E6391A; --primary-hover:#ff4a2a; --primary-soft:rgba(230,57,26,0.12); --primary-glow:rgba(230,57,26,0.3);
+    --border:#3A3D42; --border-soft:rgba(244,244,246,0.08);
+    --r-md:10px; --r-lg:14px; --r-xl:20px; --r-2xl:24px; --r-full:9999px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Manrope',sans-serif;font-weight:600;line-height:1.15;letter-spacing:-0.02em}
+  a{color:inherit;text-decoration:none}
+  b{color:var(--text);font-weight:600}
+  .topbar{position:sticky;top:0;z-index:30;background:rgba(26,28,30,0.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border-soft);padding:14px 32px;display:flex;align-items:center;gap:32px}
+  .topbar-logo{font-family:'Manrope',sans-serif;font-weight:700;color:var(--primary);font-size:18px}
+  .topbar-nav{display:flex;gap:28px;font-size:14px}
+  .topbar-nav a{color:var(--muted)}
+  .topbar-nav a.active{color:var(--text)}
+  .topbar-cta{margin-left:auto;background:var(--primary);color:var(--text);padding:10px 20px;border-radius:var(--r-full);font-size:13px;font-weight:600}
+  /* HERO BAND with HUGE SEARCH */
+  .hero-band{padding:96px 32px 64px;text-align:center;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 0%,rgba(230,57,26,0.08) 0%,transparent 60%)}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);padding:6px 14px;border-radius:var(--r-full);font-size:11px;color:var(--text);text-transform:uppercase;letter-spacing:0.12em;font-weight:600;margin-bottom:24px}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--primary)}
+  .hero-band h1{font-size:56px;margin-bottom:16px;font-weight:700}
+  .hero-band h1 span{color:var(--primary)}
+  .hero-band p{font-size:18px;color:var(--muted);max-width:540px;margin:0 auto 48px}
+  /* Big search */
+  .big-search{max-width:760px;margin:0 auto;background:var(--surface);border:2px solid var(--border);border-radius:var(--r-2xl);padding:8px;display:flex;align-items:center;gap:12px;transition:border-color .15s,box-shadow .15s}
+  .big-search:focus-within{border-color:var(--primary);box-shadow:0 0 0 6px var(--primary-soft)}
+  .big-search-ic{padding:0 16px;font-size:24px;color:var(--dim)}
+  .big-search input{flex:1;background:transparent;border:none;color:var(--text);padding:20px 0;font-size:18px;font-family:inherit;outline:none}
+  .big-search input::placeholder{color:var(--dim)}
+  .big-search-kbd{display:flex;gap:4px;padding:8px 14px}
+  .big-search-kbd kbd{background:var(--bg);border:1px solid var(--border);padding:4px 10px;border-radius:var(--r-md);font-size:11px;color:var(--dim);font-family:monospace}
+  .quick-suggestions{margin-top:24px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;max-width:760px;margin-left:auto;margin-right:auto}
+  .quick-label{font-size:12px;color:var(--dim);text-transform:uppercase;letter-spacing:0.12em;font-weight:700;width:100%;margin-bottom:4px}
+  .quick-chip{background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:8px 16px;border-radius:var(--r-full);font-size:13px;cursor:pointer;font-family:inherit;transition:all .15s}
+  .quick-chip:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-soft)}
+  /* Stats strip */
+  .stats-strip{max-width:1200px;margin:64px auto 0;padding:0 32px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .stat{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--r-xl);padding:24px;text-align:center}
+  .stat-num{font-family:'Manrope',sans-serif;font-size:32px;font-weight:700;color:var(--primary);display:block;margin-bottom:4px}
+  .stat-lbl{font-size:12px;color:var(--dim);text-transform:uppercase;letter-spacing:0.08em}
+  /* Main */
+  .page{max-width:1200px;margin:0 auto;padding:64px 32px 96px}
+  /* Category pills horizontal */
+  .cat-pills{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:48px}
+  .cat-pill{background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:10px 18px;border-radius:var(--r-full);font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:8px}
+  .cat-pill:hover{border-color:var(--text);color:var(--text)}
+  .cat-pill.is-active{background:var(--primary);border-color:var(--primary);color:var(--text);box-shadow:0 0 24px var(--primary-glow)}
+  .cat-pill .badge{background:rgba(0,0,0,0.25);padding:2px 8px;border-radius:var(--r-full);font-size:11px;font-weight:700}
+  .cat-pill:not(.is-active) .badge{background:var(--surface-hi);color:var(--dim)}
+  /* Results section */
+  .results-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+  .results-count{font-size:14px;color:var(--dim)}
+  .results-count b{color:var(--text);font-weight:600}
+  .sort-by{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+  .sort-by select{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:6px 28px 6px 12px;border-radius:var(--r-md);font-size:13px;font-family:inherit;cursor:pointer}
+  /* Result cards */
+  .results-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .result-card{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--r-lg);padding:20px;cursor:pointer;transition:all .15s}
+  .result-card:hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.3)}
+  .rc-meta{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .rc-num{font-family:'Manrope',sans-serif;font-size:11px;font-weight:700;color:var(--dim);background:var(--bg);padding:3px 8px;border-radius:var(--r-md)}
+  .rc-cat{font-size:10px;background:var(--primary-soft);color:var(--primary);padding:3px 10px;border-radius:var(--r-full);text-transform:uppercase;letter-spacing:0.08em;font-weight:700}
+  .rc-pop{margin-left:auto;font-size:11px;color:var(--dim);display:flex;align-items:center;gap:4px}
+  .rc-title{font-family:'Manrope',sans-serif;font-size:17px;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:10px}
+  .rc-preview{font-size:14px;color:var(--muted);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .rc-foot{display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding-top:14px;border-top:1px solid var(--border-soft)}
+  .rc-tags{display:flex;gap:4px}
+  .rc-tag{font-size:10px;color:var(--dim);background:var(--bg);padding:3px 8px;border-radius:var(--r-md)}
+  .rc-link{color:var(--primary);font-size:12px;font-weight:600}
+  /* Bottom support card */
+  .support{margin-top:64px;background:linear-gradient(135deg,var(--surface-hi),var(--surface));border:1px solid var(--border);border-radius:var(--r-2xl);padding:40px;text-align:center}
+  .support-ic{width:72px;height:72px;border-radius:50%;background:var(--primary-soft);color:var(--primary);display:inline-flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:16px}
+  .support h3{font-size:24px;margin-bottom:8px}
+  .support p{font-size:15px;color:var(--muted);max-width:480px;margin:0 auto 20px}
+  .support-actions{display:flex;justify-content:center;gap:12px}
+  .btn-primary{background:var(--primary);color:var(--text);padding:14px 28px;border-radius:var(--r-full);font-size:14px;font-weight:600;border:none;cursor:pointer;font-family:inherit;box-shadow:0 8px 24px var(--primary-glow)}
+  .btn-ghost{background:transparent;color:var(--text);padding:14px 28px;border:1px solid var(--border);border-radius:var(--r-full);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+  .vtag{position:fixed;top:16px;right:16px;background:var(--primary);color:var(--text);padding:6px 14px;border-radius:var(--r-full);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;z-index:100}
+</style>
+</head>
+<body>
+<div class="vtag">SSS V2 · Arama merkezli</div>
+
+<header class="topbar">
+  <a href="#" class="topbar-logo">Turuncu Solar</a>
+  <nav class="topbar-nav">
+    <a href="#">Ana sayfa</a><a href="#">Sistemlerimiz</a><a href="#">Sistem Farkları</a><a href="#">Referanslar</a><a href="#">Blog</a><a href="#" class="active">SSS</a><a href="#">İletişim</a>
+  </nav>
+  <a href="#" class="topbar-cta">Ücretsiz Keşif</a>
+</header>
+
+<section class="hero-band">
+  <p class="eyebrow"><span class="dot"></span>Yardım Merkezi · 10 cevap, 7 kategori</p>
+  <h1>Ne <span>merak ediyorsun?</span></h1>
+  <p>Yazmaya başla, anında ilgili soruları gösterelim. Veya popüler sorulardan başla.</p>
+  <div class="big-search">
+    <span class="big-search-ic">⌕</span>
+    <input type="text" placeholder="Soru yaz... örn. 'kurulum süresi', 'geri ödeme'">
+    <div class="big-search-kbd"><kbd>⌘</kbd><kbd>K</kbd></div>
+  </div>
+  <div class="quick-suggestions">
+    <span class="quick-label">Popüler aramalar</span>
+    <button class="quick-chip">Kurulum süresi</button>
+    <button class="quick-chip">Geri ödeme süresi</button>
+    <button class="quick-chip">Bulutlu havada çalışır mı</button>
+    <button class="quick-chip">Çatıya zarar verir mi</button>
+    <button class="quick-chip">Garanti süresi</button>
+    <button class="quick-chip">Devlet teşviği</button>
+  </div>
+</section>
+
+<div class="stats-strip">
+  <div class="stat"><span class="stat-num">10</span><span class="stat-lbl">Sıkça sorulan</span></div>
+  <div class="stat"><span class="stat-num">7</span><span class="stat-lbl">Kategori</span></div>
+  <div class="stat"><span class="stat-num">2-4 dk</span><span class="stat-lbl">Mühendis yanıt</span></div>
+  <div class="stat"><span class="stat-num">7/24</span><span class="stat-lbl">Destek</span></div>
+</div>
+
+<main class="page">
+  <div class="cat-pills">
+    <button class="cat-pill is-active">Tümü <span class="badge">10</span></button>
+    <button class="cat-pill">Kurulum <span class="badge">3</span></button>
+    <button class="cat-pill">Maliyet <span class="badge">2</span></button>
+    <button class="cat-pill">Bakım <span class="badge">1</span></button>
+    <button class="cat-pill">Teknik <span class="badge">2</span></button>
+    <button class="cat-pill">İzinler <span class="badge">1</span></button>
+    <button class="cat-pill">Garanti <span class="badge">1</span></button>
+  </div>
+
+  <div class="results-header">
+    <div class="results-count"><b>10</b> sonuç gösteriliyor</div>
+    <div class="sort-by">Sırala: <select><option>Popülerlik</option><option>En yeni</option><option>Alfabetik</option></select></div>
+  </div>
+
+  <div class="results-grid">
+    <div class="result-card">
+      <div class="rc-meta"><span class="rc-num">01</span><span class="rc-cat">Kurulum</span><span class="rc-pop">★ 4.9k</span></div>
+      <h3 class="rc-title">Güneş enerjisi sistemi kurulumu ne kadar sürer?</h3>
+      <p class="rc-preview">Ortalama bir konut için fiziksel kurulum 2–4 gün sürer. Toplam proje süreci 5-7 hafta...</p>
+      <div class="rc-foot"><div class="rc-tags"><span class="rc-tag">Süreç</span><span class="rc-tag">Zaman</span></div><span class="rc-link">Devamını oku →</span></div>
+    </div>
+    <div class="result-card">
+      <div class="rc-meta"><span class="rc-num">02</span><span class="rc-cat">Maliyet</span><span class="rc-pop">★ 4.7k</span></div>
+      <h3 class="rc-title">Yatırımın geri dönüş süresi ne kadar?</h3>
+      <p class="rc-preview">Konutlarda tipik geri ödeme süresi 4–6 yıl. 25 yıl panel ömrüyle sistem kendini ödedikten sonra 18-20 yıl net getiri üretir...</p>
+      <div class="rc-foot"><div class="rc-tags"><span class="rc-tag">Geri ödeme</span><span class="rc-tag">Amortisman</span></div><span class="rc-link">Devamını oku →</span></div>
+    </div>
+    <div class="result-card">
+      <div class="rc-meta"><span class="rc-num">03</span><span class="rc-cat">Kurulum</span><span class="rc-pop">★ 3.8k</span></div>
+      <h3 class="rc-title">Kurulum çatımı zarar verir mi, sızıntı yapar mı?</h3>
+      <p class="rc-preview">Profesyonel montaj sızıntı riskini ortadan kaldırır. Çatı tipinizle uyumlu ankraj sistemi kullanılır...</p>
+      <div class="rc-foot"><div class="rc-tags"><span class="rc-tag">Çatı</span><span class="rc-tag">Güvenlik</span></div><span class="rc-link">Devamını oku →</span></div>
+    </div>
+    <div class="result-card">
+      <div class="rc-meta"><span class="rc-num">04</span><span class="rc-cat">Teknik</span><span class="rc-pop">★ 3.4k</span></div>
+      <h3 class="rc-title">Sistem bulutlu havalarda çalışır mı?</h3>
+      <p class="rc-preview">Evet, paneller difüz ışıkla da üretim yapar. Verim ortalama %20-30'a düşer ama sıfır olmaz...</p>
+      <div class="rc-foot"><div class="rc-tags"><span class="rc-tag">Verim</span><span class="rc-tag">Hava</span></div><span class="rc-link">Devamını oku →</span></div>
+    </div>
+    <div class="result-card">
+      <div class="rc-meta"><span class="rc-num">05</span><span class="rc-cat">Bakım</span><span class="rc-pop">★ 2.9k</span></div>
+      <h3 class="rc-title">Bakım ne sıklıkta yapılmalı?</h3>
+      <p class="rc-preview">Yılda 1-2 kez görsel inspeksiyon ve panel temizliği yeterlidir. Ankara ve İç Anadolu'da toz nedeniyle 3 ay olabilir...</p>
+      <div class="rc-foot"><div class="rc-tags"><span class="rc-tag">Bakım</span><span class="rc-tag">Temizlik</span></div><span class="rc-link">Devamını oku →</span></div>
+    </div>
+    <div class="result-card">
+      <div class="rc-meta"><span class="rc-num">06</span><span class="rc-cat">İzinler</span><span class="rc-pop">★ 2.6k</span></div>
+      <h3 class="rc-title">Hangi izinler gerekli, başvuruları siz mi yapıyorsunuz?</h3>
+      <p class="rc-preview">Tüm izin ve başvuru süreçlerini ekibimiz yönetir. EPDK, dağıtım şirketi, OSB onayı dahil...</p>
+      <div class="rc-foot"><div class="rc-tags"><span class="rc-tag">EPDK</span><span class="rc-tag">Bürokrasi</span></div><span class="rc-link">Devamını oku →</span></div>
+    </div>
+    <div class="result-card">
+      <div class="rc-meta"><span class="rc-num">07</span><span class="rc-cat">Garanti</span><span class="rc-pop">★ 2.4k</span></div>
+      <h3 class="rc-title">Panellerin garantisi nedir?</h3>
+      <p class="rc-preview">Üretim garantisi 25-30 yıl, ürün garantisi 12-15 yıl. İnvertör garantisi 10 yıl, montaj işçilik garantisi 5 yıl...</p>
+      <div class="rc-foot"><div class="rc-tags"><span class="rc-tag">Garanti</span><span class="rc-tag">Servis</span></div><span class="rc-link">Devamını oku →</span></div>
+    </div>
+    <div class="result-card">
+      <div class="rc-meta"><span class="rc-num">08</span><span class="rc-cat">Teknik</span><span class="rc-pop">★ 2.2k</span></div>
+      <h3 class="rc-title">Sistem büyüklüğü nasıl belirleniyor?</h3>
+      <p class="rc-preview">Aylık tüketim profili (kWh), çatı alanı ve yönü, gölge analizi, bütçe — bu dört değişken sistem boyutunu belirler...</p>
+      <div class="rc-foot"><div class="rc-tags"><span class="rc-tag">Tasarım</span><span class="rc-tag">kW</span></div><span class="rc-link">Devamını oku →</span></div>
+    </div>
+    <div class="result-card">
+      <div class="rc-meta"><span class="rc-num">09</span><span class="rc-cat">Maliyet</span><span class="rc-pop">★ 2.0k</span></div>
+      <h3 class="rc-title">Devlet teşviği veya hibe var mı?</h3>
+      <p class="rc-preview">Konut tarifesinde mahsuplaşma, ticari sistemlerde Y.E.K.D.E.M, OSB'lerde KOSGEB destek programları mevcut...</p>
+      <div class="rc-foot"><div class="rc-tags"><span class="rc-tag">Teşvik</span><span class="rc-tag">Hibe</span></div><span class="rc-link">Devamını oku →</span></div>
+    </div>
+    <div class="result-card">
+      <div class="rc-meta"><span class="rc-num">10</span><span class="rc-cat">Kurulum</span><span class="rc-pop">★ 1.8k</span></div>
+      <h3 class="rc-title">Mevcut çatıma kurulum mümkün mü?</h3>
+      <p class="rc-preview">Çoğu çatı tipi uygundur (kiremit, metal, beton, sandwich panel). Ön keşif ile yapı statiği değerlendirilir...</p>
+      <div class="rc-foot"><div class="rc-tags"><span class="rc-tag">Çatı</span><span class="rc-tag">Uyumluluk</span></div><span class="rc-link">Devamını oku →</span></div>
+    </div>
+  </div>
+
+  <div class="support">
+    <div class="support-ic">☀</div>
+    <h3>Aradığın cevap burada yok mu?</h3>
+    <p>Mühendis ekibimiz ortalama 2-4 dakika içinde sorularını yanıtlıyor. WhatsApp veya canlı sohbet üzerinden direkt iletişim kur.</p>
+    <div class="support-actions">
+      <button class="btn-primary">WhatsApp ile yaz →</button>
+      <button class="btn-ghost">Canlı sohbet aç</button>
+    </div>
+  </div>
+</main>
+</body>
+</html>

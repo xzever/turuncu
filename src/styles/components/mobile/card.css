@@ -1,0 +1,83 @@
+/**
+ * Card — UI Kit kart bileşeni (Faz 10+ tasarım güncellemesi).
+ * Seçim K3: çok yuvarlak (20px) + çerçevesiz + beyaz arka plan.
+ * flat / elevated / interactive varyantları bu temel üzerinde çalışır.
+ */
+
+.ui-card {
+  display: block;
+  width: 100%;
+  border-radius: var(--radius-xl); /* K3 — 20px yumuşak köşe */
+  text-align: left;
+  background: var(--color-white, #ffffff);
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  margin: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  overflow: hidden;
+}
+
+button.ui-card {
+  appearance: none;
+  cursor: pointer;
+  transition:
+    transform var(--duration-fast, 150ms) ease,
+    background-color var(--duration-fast, 150ms) ease,
+    box-shadow var(--duration-fast, 150ms) ease;
+}
+
+a.ui-card {
+  transition:
+    transform var(--duration-fast, 150ms) ease,
+    background-color var(--duration-fast, 150ms) ease,
+    box-shadow var(--duration-fast, 150ms) ease;
+}
+
+.ui-card:focus-visible {
+  outline: 2px solid var(--color-focus-ring, rgba(255, 255, 255, 0.85));
+  outline-offset: 2px;
+}
+
+/* ── Padding varyantları ───────────────────────────────────── */
+.ui-card--p-sm {
+  padding: var(--space-3);
+}
+
+.ui-card--p-md {
+  padding: var(--space-4);
+}
+
+.ui-card--p-lg {
+  padding: var(--space-5);
+}
+
+/* ── Varyantlar ────────────────────────────────────────────── */
+
+/* Flat — beyaz arka plan, çerçeve yok */
+.ui-card--flat {
+  background: var(--color-white, #ffffff);
+}
+
+/* Elevated — hafif gölge ile yükseltilmiş */
+.ui-card--elevated {
+  background: var(--color-white, #ffffff);
+  box-shadow: 0 1px 2px rgba(11, 27, 44, 0.04), 0 4px 12px rgba(11, 27, 44, 0.06);
+}
+
+/* Interactive — tıklanabilir kart (Link veya Button) */
+.ui-card--interactive {
+  background: var(--color-white, #ffffff);
+  box-shadow: 0 1px 2px rgba(11, 27, 44, 0.04);
+}
+
+.ui-card--interactive:active {
+  transform: scale(0.98);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ui-card--interactive:hover {
+    box-shadow: 0 2px 4px rgba(11, 27, 44, 0.06), 0 8px 20px rgba(11, 27, 44, 0.08);
+  }
+}

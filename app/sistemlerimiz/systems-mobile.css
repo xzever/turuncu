@@ -1,0 +1,512 @@
+/**
+ * Sistemlerimiz — Mobil (MDS 8.5) — Faz 05 UI Kit sayfası.
+ * Pill tab → panel deseni; aktif sistem değiştiğinde panel içeriği swap edilir.
+ * Tüm ölçüler token'a bağlı. Eski `sistemlerimiz-mobile.css` orphandır (Faz 10 silme).
+ */
+
+.systems-mobile {
+  --systems-mobile-bg: var(--color-black);
+  --systems-mobile-surface: color-mix(in srgb, var(--color-kinetic-surface) 86%, transparent);
+  --systems-mobile-surface-high: color-mix(in srgb, var(--color-kinetic-surface-high) 88%, transparent);
+  --systems-mobile-border: var(--color-kinetic-border-soft);
+  --systems-mobile-text: var(--color-kinetic-text);
+  --systems-mobile-muted: var(--color-kinetic-text-muted);
+  --systems-mobile-dim: var(--color-kinetic-text-dim);
+  --systems-mobile-primary: var(--color-primary);
+  --systems-mobile-primary-hover: var(--color-primary-hover);
+  --systems-mobile-primary-soft: var(--color-primary-soft);
+
+  width: 100%;
+  padding-top: calc(56px + env(safe-area-inset-top, 0px) + var(--space-4));
+  padding-bottom: calc(var(--bottomnav-clearance, var(--space-20)) + var(--space-4));
+  padding-inline: var(--space-4);
+  max-width: none;
+  margin-inline: auto;
+  box-sizing: border-box;
+  min-height: 100svh;
+  background: var(--systems-mobile-bg);
+  color: var(--systems-mobile-text);
+}
+
+html:has(.systems-mobile),
+body:has(.systems-mobile),
+body:has(.systems-mobile) > div {
+  background: var(--color-black) !important;
+  background-color: var(--color-black) !important;
+  background-image: none !important;
+}
+
+body:has(.systems-mobile) .mobile-topbar,
+body:has(.systems-mobile) [class*="mobile-topbar__row"],
+body:has(.systems-mobile) .handheld-dock,
+body:has(.systems-mobile) .handheld-dock__track {
+  background: var(--color-black) !important;
+  background-color: var(--color-black) !important;
+  background-image: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+body:has(.systems-mobile) .mobile-topbar__brand-frame,
+body:has(.systems-mobile) .mobile-topbar__icon-btn {
+  color: var(--systems-mobile-primary) !important;
+  border-color: var(--color-primary-soft) !important;
+  background: var(--systems-mobile-primary-soft) !important;
+}
+
+body:has(.systems-mobile) .mobile-topbar__brand-mark,
+body:has(.systems-mobile) .mobile-topbar__icon-btn svg,
+body:has(.systems-mobile) .mobile-topbar__lang-icon {
+  color: var(--systems-mobile-primary) !important;
+  stroke: currentColor !important;
+  opacity: 1 !important;
+}
+
+body:has(.systems-mobile) .mobile-topbar__brand-mark path,
+body:has(.systems-mobile) .mobile-topbar__brand-mark polygon {
+  fill: currentColor !important;
+}
+
+/* ── Hero ───────────────────────────────────────────────────── */
+.systems-mobile__hero {
+  padding-block: var(--space-6) var(--space-4);
+}
+
+.systems-mobile__eyebrow {
+  display: inline-flex;
+  margin-bottom: var(--space-3);
+  color: var(--systems-mobile-primary);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.systems-mobile__title {
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-bold, 700);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--systems-mobile-text);
+}
+
+.systems-mobile__lead {
+  font-size: var(--text-lg);
+  line-height: 1.55;
+  color: var(--systems-mobile-muted);
+  margin: var(--space-3) 0 0 0;
+}
+
+/* ── Kategori pill filter ───────────────────────────────────── */
+.systems-mobile__categories {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding-block: var(--space-3);
+  margin-top: var(--space-2);
+  margin-inline: calc(-1 * var(--space-4));
+  padding-inline: var(--space-4);
+  scrollbar-width: none;
+}
+
+.systems-mobile__categories::-webkit-scrollbar {
+  display: none;
+}
+
+.systems-mobile__categories > * {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+.systems-mobile__system-tab {
+  min-width: min(78vw, 340px);
+  min-height: var(--space-20);
+  display: grid;
+  grid-template-columns: calc(var(--space-10) + var(--space-1)) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--systems-mobile-border);
+  border-radius: var(--radius-xl);
+  background: var(--systems-mobile-surface);
+  color: var(--systems-mobile-text);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  backdrop-filter: blur(16px) saturate(145%);
+  -webkit-backdrop-filter: blur(16px) saturate(145%);
+  box-shadow: var(--shadow-card);
+  transition:
+    transform var(--duration-fast) var(--ease-base),
+    border-color var(--duration-fast) var(--ease-base),
+    background var(--duration-fast) var(--ease-base);
+}
+
+.systems-mobile__system-tab:active {
+  transform: scale(0.98);
+}
+
+.systems-mobile__system-tab:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: var(--space-1);
+}
+
+.systems-mobile__system-tab.is-active {
+  border-color: var(--systems-mobile-primary);
+  background:
+    linear-gradient(
+      135deg,
+      var(--systems-mobile-primary-soft),
+      var(--systems-mobile-surface-high)
+    );
+}
+
+.systems-mobile__system-tab-icon {
+  width: calc(var(--space-10) + var(--space-1));
+  height: calc(var(--space-10) + var(--space-1));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: var(--systems-mobile-primary-soft);
+  color: var(--systems-mobile-primary);
+  font-size: var(--text-xl);
+}
+
+.systems-mobile__system-tab-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.systems-mobile__system-tab-title {
+  color: var(--systems-mobile-text);
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+}
+
+.systems-mobile__system-tab-meta {
+  color: var(--systems-mobile-muted);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.06em;
+  line-height: var(--leading-tight);
+  text-transform: uppercase;
+}
+
+/* ── Panel (aktif sistem) ───────────────────────────────────── */
+.systems-mobile__panel {
+  margin-top: var(--space-4);
+  padding: var(--space-3);
+  border: 1px solid var(--systems-mobile-border);
+  border-radius: var(--radius-2xl);
+  background: color-mix(in srgb, var(--color-kinetic-surface) 48%, transparent);
+  backdrop-filter: blur(18px) saturate(145%);
+  -webkit-backdrop-filter: blur(18px) saturate(145%);
+}
+
+.systems-mobile__panel-hero {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--systems-mobile-surface-high);
+  border: 1px solid var(--systems-mobile-border);
+  box-shadow: var(--shadow-card);
+}
+
+.systems-mobile__panel-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.systems-mobile__summary {
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--systems-mobile-muted);
+  margin: var(--space-4) 0 0 0;
+  max-width: 66ch;
+}
+
+/* ── Bullet özellikler ──────────────────────────────────────── */
+.systems-mobile__features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.systems-mobile__feature {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border-radius: var(--radius-lg);
+  background: var(--systems-mobile-surface);
+  border: 1px solid var(--systems-mobile-border);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+
+.systems-mobile__feature-icon {
+  flex-shrink: 0;
+  color: var(--systems-mobile-primary);
+}
+
+.systems-mobile__feature p {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  color: var(--systems-mobile-text);
+}
+
+/* ── KPI grid ───────────────────────────────────────────────── */
+.systems-mobile__kpis {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.systems-mobile__kpi-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  border-radius: var(--radius-lg);
+  background: var(--systems-mobile-surface);
+  border: 1px solid var(--systems-mobile-border);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+
+.systems-mobile__kpi-label {
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold, 600);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--systems-mobile-dim);
+}
+
+.systems-mobile__kpi-value {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold, 700);
+  color: var(--systems-mobile-primary);
+  line-height: 1.2;
+}
+
+.systems-mobile__kpi-desc {
+  font-size: var(--text-sm);
+  color: var(--systems-mobile-muted);
+  line-height: 1.5;
+}
+
+/* ── CTA ────────────────────────────────────────────────────── */
+.systems-mobile__cta {
+  display: flex;
+  justify-content: center;
+  padding-block: var(--space-6) var(--space-4);
+}
+
+.systems-mobile__cta-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--space-12);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-full);
+  background: var(--systems-mobile-primary);
+  color: var(--color-white);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold, 600);
+  text-decoration: none;
+  transition: transform var(--duration-fast, 150ms) ease, background-color var(--duration-fast, 150ms) ease;
+}
+
+.systems-mobile__cta-link:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .systems-mobile__cta-link:hover {
+    background: var(--systems-mobile-primary-hover);
+  }
+}
+
+/* ── Süreç adımları ─────────────────────────────────────────── */
+.systems-mobile__process {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.systems-mobile__process-card {
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--systems-mobile-surface);
+  border: 1px solid var(--systems-mobile-border);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.systems-mobile__process-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+.systems-mobile__process-step {
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-bold, 700);
+  letter-spacing: 0.1em;
+  color: var(--systems-mobile-primary);
+  text-transform: uppercase;
+}
+
+.systems-mobile__process-duration {
+  font-size: var(--text-2xs);
+  color: var(--systems-mobile-dim);
+}
+
+.systems-mobile__process-body {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.systems-mobile__process-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--space-10);
+  height: var(--space-10);
+  border-radius: var(--radius-full);
+  background: var(--systems-mobile-primary-soft);
+  color: var(--systems-mobile-primary);
+  font-size: var(--text-xl);
+}
+
+.systems-mobile__process-title {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--systems-mobile-text);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.systems-mobile__process-detail {
+  font-size: var(--text-sm);
+  color: var(--systems-mobile-muted);
+  line-height: 1.55;
+  margin: var(--space-1) 0 0 0;
+}
+
+/* ── Karşılaştırma kartı ───────────────────────────────────── */
+.systems-mobile__compare-card {
+  margin-top: var(--space-6);
+  border-radius: var(--radius-xl);
+  background: var(--systems-mobile-surface-high);
+  border: 1px solid var(--systems-mobile-border);
+  padding: 0;
+  backdrop-filter: blur(16px) saturate(145%);
+  -webkit-backdrop-filter: blur(16px) saturate(145%);
+}
+
+.systems-mobile .ui-card {
+  color: var(--systems-mobile-text);
+}
+
+.systems-mobile .ui-card--flat,
+.systems-mobile .ui-card--elevated,
+.systems-mobile .ui-card--interactive {
+  background: var(--systems-mobile-surface) !important;
+  border: 1px solid var(--systems-mobile-border);
+}
+
+.systems-mobile .ui-list-item {
+  color: var(--systems-mobile-text);
+}
+
+.systems-mobile .ui-list-item__leading,
+.systems-mobile .ui-list-item__trailing {
+  color: var(--systems-mobile-primary);
+}
+
+.systems-mobile .ui-list-item__title,
+.systems-mobile .ui-section-header__title {
+  color: var(--systems-mobile-text);
+}
+
+.systems-mobile .ui-list-item__subtitle,
+.systems-mobile .ui-section-header__subtitle {
+  color: var(--systems-mobile-muted);
+}
+
+.systems-mobile .ui-section-header__overline {
+  color: var(--systems-mobile-primary);
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+/* Tablet (768–1366): telefonla ayni davranis, sadece genislik nefes alir. */
+@media (min-width: 768px) and (max-width: 1366px) {
+  .systems-mobile {
+    width: 100%;
+    max-width: none;
+    padding-inline: clamp(var(--space-5), 4vw, var(--space-10));
+  }
+
+  .systems-mobile__categories {
+    margin-inline: calc(clamp(var(--space-5), 4vw, var(--space-10)) * -1);
+    padding-inline: clamp(var(--space-5), 4vw, var(--space-10));
+  }
+
+  .systems-mobile__kpis {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .systems-mobile__features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .systems-mobile__process {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Buyuk tablet (1024–1366) */
+@media (min-width: 1024px) and (max-width: 1366px) {
+  .systems-mobile__process {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Telefon landscape */
+@media (max-width: 896px) and (orientation: landscape) {
+  .systems-mobile__hero {
+    padding-block: var(--space-4) var(--space-3);
+  }
+
+  .systems-mobile__title {
+    font-size: var(--text-2xl);
+  }
+
+  .systems-mobile__panel-hero {
+    aspect-ratio: 21 / 9;
+  }
+
+  .systems-mobile__kpis {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

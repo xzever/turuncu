@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>SSS — V1 Sidebar Kategori (Dokümantasyon)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1A1C1E; --surface:#2A2D31; --surface-hi:#333537;
+    --text:#F4F4F6; --muted:rgba(244,244,246,0.72); --dim:rgba(244,244,246,0.55);
+    --primary:#E6391A; --primary-hover:#ff4a2a; --primary-soft:rgba(230,57,26,0.12); --primary-glow:rgba(230,57,26,0.3);
+    --border:#3A3D42; --border-soft:rgba(244,244,246,0.08);
+    --r-md:10px; --r-lg:14px; --r-xl:20px; --r-2xl:24px; --r-full:9999px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Manrope',sans-serif;font-weight:600;line-height:1.15;letter-spacing:-0.02em}
+  a{color:inherit;text-decoration:none}
+  ul{padding-left:18px;margin:8px 0}
+  li{margin-bottom:4px;color:var(--muted)}
+  b{color:var(--text);font-weight:600}
+  /* Top bar */
+  .topbar{position:sticky;top:0;z-index:30;background:rgba(26,28,30,0.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border-soft);padding:14px 32px;display:flex;align-items:center;gap:32px}
+  .topbar-logo{font-family:'Manrope',sans-serif;font-weight:700;color:var(--primary);font-size:18px}
+  .topbar-nav{display:flex;gap:28px;font-size:14px}
+  .topbar-nav a{color:var(--muted)}
+  .topbar-nav a.active{color:var(--text)}
+  .topbar-cta{margin-left:auto;background:var(--primary);color:var(--text);padding:10px 20px;border-radius:var(--r-full);font-size:13px;font-weight:600}
+  /* Hero */
+  .hero{max-width:1440px;margin:0 auto;padding:64px 32px 32px;text-align:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);padding:6px 14px;border-radius:var(--r-full);font-size:11px;color:var(--text);text-transform:uppercase;letter-spacing:0.12em;font-weight:600;margin-bottom:20px}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--primary)}
+  .hero h1{font-size:48px;margin-bottom:16px}
+  .hero h1 span{color:var(--primary)}
+  .hero-sub{font-size:18px;color:var(--muted);max-width:560px;margin:0 auto}
+  /* Search bar large */
+  .search-band{max-width:680px;margin:32px auto 0;position:relative}
+  .search-band input{width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:18px 24px 18px 56px;border-radius:var(--r-full);font-size:16px;font-family:inherit}
+  .search-band input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 4px var(--primary-soft)}
+  .search-band .ic{position:absolute;left:24px;top:50%;transform:translateY(-50%);color:var(--dim);font-size:20px}
+  .search-kbd{position:absolute;right:16px;top:50%;transform:translateY(-50%);background:var(--bg);border:1px solid var(--border);padding:4px 10px;border-radius:var(--r-md);font-size:11px;color:var(--dim);font-family:monospace}
+  /* Main grid */
+  .page{max-width:1440px;margin:0 auto;padding:48px 32px 96px}
+  .docs-grid{display:grid;grid-template-columns:260px 1fr;gap:48px;align-items:start}
+  /* Sidebar */
+  .sidebar{position:sticky;top:88px;background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--r-xl);padding:20px}
+  .sb-title{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:0.12em;font-weight:700;margin-bottom:14px;padding:0 12px}
+  .cat-list{display:flex;flex-direction:column;gap:2px}
+  .cat-item{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:var(--r-md);cursor:pointer;color:var(--muted);font-size:14px;font-weight:500;transition:all .15s;border-left:3px solid transparent}
+  .cat-item:hover{background:var(--surface-hi);color:var(--text)}
+  .cat-item.is-active{background:var(--primary-soft);color:var(--primary);border-left-color:var(--primary)}
+  .cat-count{font-size:11px;background:var(--surface-hi);color:var(--dim);padding:2px 8px;border-radius:var(--r-full);font-weight:700}
+  .cat-item.is-active .cat-count{background:var(--primary);color:var(--text)}
+  .sb-divider{height:1px;background:var(--border-soft);margin:16px 0}
+  .sb-cta{padding:12px;background:var(--primary-soft);border:1px solid var(--primary);border-radius:var(--r-md);text-align:center}
+  .sb-cta-title{font-size:13px;color:var(--primary);font-weight:600;margin-bottom:4px}
+  .sb-cta-desc{font-size:11px;color:var(--muted);margin-bottom:10px}
+  .sb-cta-btn{background:var(--primary);color:var(--text);padding:8px 14px;border-radius:var(--r-full);font-size:11px;font-weight:600;display:inline-block}
+  /* Content */
+  .content{display:flex;flex-direction:column;gap:14px}
+  .cat-header{padding:0 0 24px;border-bottom:1px solid var(--border-soft);margin-bottom:8px}
+  .cat-header h2{font-size:30px;margin-bottom:8px}
+  .cat-header p{color:var(--muted);font-size:15px}
+  .faq{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--r-lg);overflow:hidden;transition:border-color .15s}
+  .faq:hover{border-color:var(--border)}
+  .faq.is-open{border-color:var(--primary);background:var(--surface-hi)}
+  .faq-q{display:flex;align-items:center;gap:16px;padding:20px 24px;cursor:pointer;width:100%;border:none;background:transparent;color:inherit;font-family:inherit;text-align:left}
+  .faq-num{font-family:'Manrope',sans-serif;font-size:14px;font-weight:700;color:var(--dim);min-width:28px}
+  .faq.is-open .faq-num{color:var(--primary)}
+  .faq-title{flex:1;font-size:16px;font-weight:500;color:var(--text)}
+  .faq-cat{font-size:10px;background:var(--surface-hi);color:var(--muted);padding:4px 10px;border-radius:var(--r-full);text-transform:uppercase;letter-spacing:0.08em;font-weight:700}
+  .faq.is-open .faq-cat{background:var(--primary-soft);color:var(--primary)}
+  .faq-chev{color:var(--dim);transition:transform .25s;font-size:18px}
+  .faq.is-open .faq-chev{transform:rotate(180deg);color:var(--primary)}
+  .faq-a{padding:0 24px 24px 68px;color:var(--muted);font-size:15px}
+  .faq-a p{margin-bottom:10px}
+  .faq-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid var(--border-soft)}
+  .faq-tag{background:var(--bg);border:1px solid var(--border);padding:4px 10px;border-radius:var(--r-full);font-size:11px;color:var(--dim)}
+  .faq:not(.is-open) .faq-a{display:none}
+  /* Bottom bridge */
+  .bridge{margin-top:48px;background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--r-2xl);padding:32px;display:flex;align-items:center;gap:24px}
+  .bridge-ic{width:64px;height:64px;border-radius:50%;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0}
+  .bridge-content{flex:1}
+  .bridge-content h3{font-size:20px;margin-bottom:6px}
+  .bridge-content p{color:var(--muted);font-size:14px}
+  .bridge-btn{background:var(--primary);color:var(--text);padding:14px 28px;border-radius:var(--r-full);font-size:14px;font-weight:600;border:none;cursor:pointer;font-family:inherit;box-shadow:0 8px 24px var(--primary-glow)}
+  .vtag{position:fixed;top:16px;right:16px;background:var(--primary);color:var(--text);padding:6px 14px;border-radius:var(--r-full);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;z-index:100}
+</style>
+</head>
+<body>
+<div class="vtag">SSS V1 · Sidebar</div>
+
+<header class="topbar">
+  <a href="#" class="topbar-logo">Turuncu Solar</a>
+  <nav class="topbar-nav">
+    <a href="#">Ana sayfa</a><a href="#">Sistemlerimiz</a><a href="#">Sistem Farkları</a><a href="#">Referanslar</a><a href="#">Blog</a><a href="#" class="active">SSS</a><a href="#">İletişim</a>
+  </nav>
+  <a href="#" class="topbar-cta">Ücretsiz Keşif</a>
+</header>
+
+<section class="hero">
+  <p class="eyebrow"><span class="dot"></span>Yardım Merkezi · SSS</p>
+  <h1>Sıkça <span>Sorulan Sorular</span></h1>
+  <p class="hero-sub">Güneş enerjisi sistemleri, kurulum, maliyet ve garanti hakkında en çok merak edilenler. 10 soru, 7 kategori.</p>
+  <div class="search-band">
+    <span class="ic">⌕</span>
+    <input type="text" placeholder="Soru, kelime ara... (örn. 'kurulum süresi')">
+    <span class="search-kbd">⌘ K</span>
+  </div>
+</section>
+
+<main class="page">
+  <div class="docs-grid">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <p class="sb-title">Kategoriler</p>
+      <div class="cat-list">
+        <a class="cat-item is-active"><span>Tümü</span><span class="cat-count">10</span></a>
+        <a class="cat-item"><span>Kurulum</span><span class="cat-count">3</span></a>
+        <a class="cat-item"><span>Maliyet</span><span class="cat-count">2</span></a>
+        <a class="cat-item"><span>Bakım</span><span class="cat-count">1</span></a>
+        <a class="cat-item"><span>Teknik</span><span class="cat-count">2</span></a>
+        <a class="cat-item"><span>İzinler</span><span class="cat-count">1</span></a>
+        <a class="cat-item"><span>Garanti</span><span class="cat-count">1</span></a>
+      </div>
+      <div class="sb-divider"></div>
+      <div class="sb-cta">
+        <div class="sb-cta-title">Cevabını bulamadın mı?</div>
+        <div class="sb-cta-desc">Mühendisimizle direkt sohbet et.</div>
+        <a class="sb-cta-btn">Sohbete başla →</a>
+      </div>
+    </aside>
+
+    <!-- CONTENT -->
+    <div class="content">
+      <div class="cat-header">
+        <h2>Tüm sorular</h2>
+        <p>10 soru listeleniyor. Bir kategori seçerek filtreleyebilirsin.</p>
+      </div>
+
+      <div class="faq is-open">
+        <button class="faq-q">
+          <span class="faq-num">01</span>
+          <span class="faq-title">Güneş enerjisi sistemi kurulumu ne kadar sürer?</span>
+          <span class="faq-cat">Kurulum</span>
+          <span class="faq-chev">⌄</span>
+        </button>
+        <div class="faq-a">
+          <p>Ortalama bir konut için <b>fiziksel kurulum 2–4 gün</b> sürer. Toplam proje süreci:</p>
+          <ul>
+            <li><b>Ön keşif &amp; ölçüm</b> — 1 hafta</li>
+            <li><b>Mühendislik &amp; tasarım</b> — 1–2 hafta</li>
+            <li><b>Şebeke başvurusu &amp; izinler</b> — 3–4 hafta</li>
+            <li><b>Fiziksel kurulum</b> — 2–4 gün</li>
+            <li><b>Test ve devreye alma</b> — 1 gün</li>
+          </ul>
+          <p>Toplam süre ortalama <b>5–7 haftadır</b>; izin süresi şehirden şehire değişir.</p>
+          <div class="faq-tags">
+            <span class="faq-tag">Süreç</span><span class="faq-tag">Zaman</span><span class="faq-tag">Planlama</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq">
+        <button class="faq-q"><span class="faq-num">02</span><span class="faq-title">Yatırımın geri dönüş süresi ne kadar?</span><span class="faq-cat">Maliyet</span><span class="faq-chev">⌄</span></button>
+      </div>
+      <div class="faq">
+        <button class="faq-q"><span class="faq-num">03</span><span class="faq-title">Kurulum çatımı zarar verir mi, sızıntı yapar mı?</span><span class="faq-cat">Kurulum</span><span class="faq-chev">⌄</span></button>
+      </div>
+      <div class="faq">
+        <button class="faq-q"><span class="faq-num">04</span><span class="faq-title">Sistem bulutlu havalarda çalışır mı?</span><span class="faq-cat">Teknik</span><span class="faq-chev">⌄</span></button>
+      </div>
+      <div class="faq">
+        <button class="faq-q"><span class="faq-num">05</span><span class="faq-title">Bakım ne sıklıkta yapılmalı?</span><span class="faq-cat">Bakım</span><span class="faq-chev">⌄</span></button>
+      </div>
+      <div class="faq">
+        <button class="faq-q"><span class="faq-num">06</span><span class="faq-title">Hangi izinler gerekli, başvuruları siz mi yapıyorsunuz?</span><span class="faq-cat">İzinler</span><span class="faq-chev">⌄</span></button>
+      </div>
+      <div class="faq">
+        <button class="faq-q"><span class="faq-num">07</span><span class="faq-title">Panellerin garantisi nedir?</span><span class="faq-cat">Garanti</span><span class="faq-chev">⌄</span></button>
+      </div>
+      <div class="faq">
+        <button class="faq-q"><span class="faq-num">08</span><span class="faq-title">Sistem büyüklüğü nasıl belirleniyor?</span><span class="faq-cat">Teknik</span><span class="faq-chev">⌄</span></button>
+      </div>
+      <div class="faq">
+        <button class="faq-q"><span class="faq-num">09</span><span class="faq-title">Devlet teşviği veya hibe var mı?</span><span class="faq-cat">Maliyet</span><span class="faq-chev">⌄</span></button>
+      </div>
+      <div class="faq">
+        <button class="faq-q"><span class="faq-num">10</span><span class="faq-title">Mevcut çatıma kurulum mümkün mü?</span><span class="faq-cat">Kurulum</span><span class="faq-chev">⌄</span></button>
+      </div>
+
+      <div class="bridge">
+        <div class="bridge-ic">☀</div>
+        <div class="bridge-content">
+          <h3>Aradığını bulamadın mı?</h3>
+          <p>Mühendis Mehmet ile WhatsApp üzerinden direkt konuş. Ortalama 2-4 dakika yanıt süresi.</p>
+        </div>
+        <button class="bridge-btn">Sohbete başla →</button>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+</html>

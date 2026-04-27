@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SSS — V9 Brutalist Mono</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0b; --surface:#141416; --surface-hi:#1c1c1f;
+    --text:#F4F4F6; --muted:rgba(244,244,246,0.65); --dim:rgba(244,244,246,0.4);
+    --primary:#E6391A; --primary-soft:rgba(230,57,26,0.15);
+    --line:#3A3D42;
+    --pad-x:clamp(16px, 4vw, 32px);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{background:var(--bg);color:var(--text)}
+  body{font-family:'Inter',sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden}
+  .mono{font-family:'JetBrains Mono',monospace}
+  h1,h2,h3{font-family:'JetBrains Mono',monospace;font-weight:700;line-height:1.1;letter-spacing:-0.01em}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  ul{padding-left:18px;margin:8px 0}
+  li{margin-bottom:4px;color:var(--muted)}
+  b{color:var(--text);font-weight:700}
+
+  /* MTB hard borders */
+  .mtb{padding:env(safe-area-inset-top, 0px) var(--pad-x) 0;border-bottom:2px solid var(--text)}
+  .mtb-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;min-height:60px}
+  .mtb-frame,.mtb-icon-btn{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:2px solid var(--text);background:var(--bg);color:var(--text);border-radius:0}
+  .mtb-frame{background:var(--primary);color:var(--bg);border-color:var(--primary)}
+  .mtb-frame svg{width:20px;height:20px}
+  .mtb-icon-btn svg{width:18px;height:18px;stroke:currentColor}
+  .mtb-actions{display:flex;gap:0;border:2px solid var(--text);border-right:none}
+  .mtb-actions .mtb-icon-btn{border-right:2px solid var(--text);border-top:0;border-bottom:0;border-left:0}
+  .mtb-actions .mtb-icon-btn:last-child{border-right:0}
+
+  /* PAGE */
+  .page{padding:24px var(--pad-x) 80px;max-width:840px;margin:0 auto}
+
+  .breadcrumb{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);margin-bottom:24px;text-transform:uppercase;letter-spacing:0.06em}
+  .breadcrumb b{color:var(--primary)}
+  h1{font-size:clamp(28px, 6vw, 44px);text-transform:uppercase;margin-bottom:8px}
+  .lead{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--muted);margin-bottom:32px;text-transform:uppercase;letter-spacing:0.04em}
+
+  /* Search - terminal style */
+  .search{margin-bottom:24px;border:2px solid var(--text);background:var(--bg);display:flex;align-items:center}
+  .search::before{content:"$";color:var(--primary);font-family:'JetBrains Mono',monospace;font-weight:700;padding:0 16px;font-size:18px}
+  .search input{flex:1;background:transparent;border:none;color:var(--text);padding:14px 14px 14px 0;font-family:'JetBrains Mono',monospace;font-size:14px;outline:none}
+  .search input::placeholder{color:var(--dim);text-transform:uppercase;letter-spacing:0.04em}
+
+  /* Categories - terminal tags */
+  .cats{display:flex;gap:0;margin-bottom:32px;border:2px solid var(--text);overflow-x:auto;scrollbar-width:none;background:var(--bg)}
+  .cats::-webkit-scrollbar{display:none}
+  .cat{flex-shrink:0;padding:12px 18px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;border-right:2px solid var(--text);background:var(--bg);min-height:44px;display:inline-flex;align-items:center}
+  .cat:last-child{border-right:0}
+  .cat:hover{background:var(--surface-hi);color:var(--text)}
+  .cat.is-active{background:var(--primary);color:var(--bg)}
+
+  /* Items - hard blocks */
+  .item{border:2px solid var(--text);margin-bottom:-2px;background:var(--bg)}
+  .item.is-open{background:var(--surface)}
+  .item-head{display:grid;grid-template-columns:auto 1fr auto;align-items:stretch;cursor:pointer;text-align:left;width:100%;background:none;border:none;color:inherit;font:inherit;padding:0}
+  .item-num{font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:700;color:var(--text);background:var(--primary);color:var(--bg);padding:16px 14px;display:flex;align-items:center;border-right:2px solid var(--text);min-width:64px;justify-content:center}
+  .item-body{padding:16px 18px;display:flex;flex-direction:column;justify-content:center;min-width:0}
+  .item-cat{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--primary);text-transform:uppercase;letter-spacing:0.12em;font-weight:700;margin-bottom:4px}
+  .item-q{font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:var(--text);line-height:1.3}
+  .item-toggle{display:flex;align-items:center;justify-content:center;padding:0 18px;border-left:2px solid var(--text);font-family:'JetBrains Mono',monospace;font-size:18px;color:var(--muted);min-width:48px}
+  .item.is-open .item-toggle{background:var(--primary);color:var(--bg)}
+  .item.is-open .item-toggle::before{content:"−"}
+  .item:not(.is-open) .item-toggle::before{content:"+"}
+  .item-a{padding:0 18px 18px 80px;border-top:2px solid var(--text);padding-top:18px;font-size:14px;color:var(--muted);line-height:1.7}
+  .item-a p{margin-bottom:10px}
+  .item:not(.is-open) .item-a{display:none}
+  @media (max-width:480px){
+    .item-a{padding-left:18px}
+    .item-num{min-width:54px;font-size:18px}
+    .item-toggle{min-width:40px;padding:0 14px}
+  }
+
+  /* Footer */
+  .contact{display:flex;align-items:center;justify-content:space-between;margin-top:24px;padding:18px;border:2px solid var(--text);background:var(--primary);color:var(--bg);font-family:'JetBrains Mono',monospace;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;font-size:13px}
+  .contact:hover{background:var(--text);color:var(--primary)}
+
+  .vtag{position:fixed;top:14px;right:14px;background:var(--text);color:var(--bg);padding:4px 10px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;z-index:100;pointer-events:none;font-family:'JetBrains Mono',monospace}
+</style>
+</head>
+<body>
+<div class="vtag">V9 · Brutalist</div>
+
+<header class="mtb">
+  <div class="mtb-row">
+    <span class="mtb-frame"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg></span>
+    <div class="mtb-actions">
+      <button class="mtb-icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg></button>
+      <button class="mtb-icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+  <p class="breadcrumb">/ HELP / <b>SSS</b></p>
+  <h1>Sık sorulan sorular</h1>
+  <p class="lead">[10 SORU // 7 KATEGORİ // CEVAPLAR ÖNCE]</p>
+
+  <div class="search">
+    <input type="search" placeholder="kurulum süresi...">
+  </div>
+
+  <div class="cats">
+    <button class="cat is-active">[Tümü] 10</button>
+    <button class="cat">Kurulum 03</button>
+    <button class="cat">Maliyet 02</button>
+    <button class="cat">Teknik 02</button>
+    <button class="cat">Bakım 01</button>
+    <button class="cat">İzinler 01</button>
+    <button class="cat">Garanti 01</button>
+  </div>
+
+  <div class="list">
+    <article class="item is-open">
+      <button class="item-head">
+        <span class="item-num">01</span>
+        <span class="item-body">
+          <span class="item-cat">Kurulum</span>
+          <span class="item-q">Güneş enerjisi sistemi kurulumu ne kadar sürer?</span>
+        </span>
+        <span class="item-toggle"></span>
+      </button>
+      <div class="item-a">
+        <p>Ortalama bir konut için <b>fiziksel kurulum 2–4 gün</b> sürer. Toplam proje süreci:</p>
+        <ul>
+          <li><b>Ön keşif &amp; ölçüm</b> — 1 hafta</li>
+          <li><b>Mühendislik &amp; tasarım</b> — 1–2 hafta</li>
+          <li><b>Şebeke başvurusu &amp; izinler</b> — 3–4 hafta</li>
+          <li><b>Fiziksel kurulum</b> — 2–4 gün</li>
+        </ul>
+        <p>Toplam ortalama <b>5–7 hafta</b>.</p>
+      </div>
+    </article>
+    <article class="item"><button class="item-head"><span class="item-num">02</span><span class="item-body"><span class="item-cat">Maliyet</span><span class="item-q">Yatırımın geri dönüş süresi ne kadar?</span></span><span class="item-toggle"></span></button></article>
+    <article class="item"><button class="item-head"><span class="item-num">03</span><span class="item-body"><span class="item-cat">Kurulum</span><span class="item-q">Kurulum çatımı zarar verir mi, sızıntı yapar mı?</span></span><span class="item-toggle"></span></button></article>
+    <article class="item"><button class="item-head"><span class="item-num">04</span><span class="item-body"><span class="item-cat">Teknik</span><span class="item-q">Sistem bulutlu havalarda çalışır mı?</span></span><span class="item-toggle"></span></button></article>
+    <article class="item"><button class="item-head"><span class="item-num">05</span><span class="item-body"><span class="item-cat">Bakım</span><span class="item-q">Bakım ne sıklıkta yapılmalı?</span></span><span class="item-toggle"></span></button></article>
+    <article class="item"><button class="item-head"><span class="item-num">06</span><span class="item-body"><span class="item-cat">İzinler</span><span class="item-q">Hangi izinler gerekli, başvuruları siz mi yapıyorsunuz?</span></span><span class="item-toggle"></span></button></article>
+    <article class="item"><button class="item-head"><span class="item-num">07</span><span class="item-body"><span class="item-cat">Garanti</span><span class="item-q">Panellerin garantisi nedir?</span></span><span class="item-toggle"></span></button></article>
+  </div>
+
+  <a href="#" class="contact"><span>&gt; Sorun listede yoksa iletişime geç</span><span>→</span></a>
+</main>
+</body>
+</html>

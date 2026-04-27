@@ -1,0 +1,70 @@
+/* Central mobile/tablet page frame contract.
+ * Pages provide content slots; shell, clearance and scroll behavior stay here.
+ */
+
+.app-frame-mobile {
+  width: 100%;
+  min-height: var(--viewport-height-dynamic, 100dvh);
+  box-sizing: border-box;
+  padding:
+    var(--topbar-clearance)
+    var(--app-frame-inline-padding)
+    var(--bottomnav-clearance);
+  display: flex;
+  flex-direction: column;
+  gap: var(--app-frame-gap);
+  overflow-x: clip;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.app-frame-mobile__header,
+.app-frame-mobile__content,
+.app-frame-mobile__footer {
+  width: 100%;
+  min-width: 0;
+}
+
+.app-frame-mobile__header,
+.app-frame-mobile__footer {
+  flex: 0 0 auto;
+}
+
+.app-frame-mobile__content {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.app-frame-mobile--dense {
+  gap: var(--space-3);
+}
+
+.app-frame-mobile--content-heavy {
+  gap: var(--space-4);
+}
+
+.app-frame-mobile--inner-scroll {
+  overflow: hidden;
+}
+
+.app-frame-mobile--inner-scroll > .app-frame-mobile__content {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  .app-frame-mobile {
+    padding-inline: var(--app-frame-inline-padding-tablet);
+    gap: var(--tablet-gap, var(--app-frame-gap));
+  }
+}
+
+@media (min-width: 1280px) and (hover: hover) and (pointer: fine) {
+  .app-frame-mobile {
+    min-height: auto;
+    padding: 0;
+    overflow: visible;
+  }
+}

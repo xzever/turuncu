@@ -1,0 +1,112 @@
+/**
+ * BottomSheet — UI Kit alt modal (Faz 10+ tasarım güncellemesi).
+ * Seçim M1: yumuşak 20px üst köşe + drag handle + beyaz arka plan.
+ */
+
+.ui-bottom-sheet__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal, 40);
+  background-color: rgba(11, 27, 44, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.ui-bottom-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-modal, 40);
+  background-color: var(--color-white, #ffffff);
+  border-top-left-radius: var(--radius-xl); /* M1 — 20px yumuşak köşe */
+  border-top-right-radius: var(--radius-xl);
+  box-shadow: 0 -4px 24px rgba(11, 27, 44, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(11, 27, 44, 0.06);
+  border-bottom: none;
+}
+
+.ui-bottom-sheet__drag-area {
+  cursor: grab;
+  flex-shrink: 0;
+}
+
+.ui-bottom-sheet__drag-area:active {
+  cursor: grabbing;
+}
+
+.ui-bottom-sheet__handle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 24px;
+  width: 100%;
+}
+
+.ui-bottom-sheet__handle {
+  width: 36px;
+  height: 4px;
+  background-color: rgba(11, 27, 44, 0.2);
+  border-radius: var(--radius-full);
+}
+
+.ui-bottom-sheet__header {
+  padding: 0 var(--space-4) var(--space-3);
+  text-align: center;
+}
+
+.ui-bottom-sheet__title {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-text-primary, #0b1b2c);
+}
+
+.ui-bottom-sheet__content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-4);
+}
+
+.ui-bottom-sheet__footer {
+  padding: var(--space-4);
+  border-top: 1px solid rgba(11, 27, 44, 0.08);
+  background-color: var(--color-white, #ffffff);
+  flex-shrink: 0;
+}
+
+.ui-bottom-sheet:focus-visible {
+  outline: 2px solid var(--color-focus-ring, rgba(255, 255, 255, 0.85));
+  outline-offset: -2px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * Kinetic Enterprise Dark variant — siyah/koyu yüzey + açık metin.
+ * Iletişim mobil ve diğer dark sayfalarda picker/sheet için.
+ * ───────────────────────────────────────────────────────────── */
+
+.ui-bottom-sheet__overlay--kinetic {
+  background-color: rgba(10, 10, 11, 0.65);
+}
+
+.ui-bottom-sheet--kinetic {
+  background-color: var(--color-kinetic-surface);
+  border-color: var(--color-kinetic-border-soft);
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.ui-bottom-sheet--kinetic .ui-bottom-sheet__handle {
+  background-color: var(--color-kinetic-border);
+}
+
+.ui-bottom-sheet--kinetic .ui-bottom-sheet__title {
+  color: var(--color-kinetic-text);
+}
+
+.ui-bottom-sheet__footer--kinetic {
+  background-color: var(--color-kinetic-surface);
+  border-top-color: var(--color-kinetic-border-soft);
+}

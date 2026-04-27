@@ -1,0 +1,62 @@
+/**
+ * SectionHeader — UI Kit bölüm başlığı (Faz 10+ tasarım güncellemesi).
+ * Seçim S2: başlık + alt açıklama solda, "Tümü →" linki sağda.
+ * Overline opsiyoneldir (SECTOR gibi küçük üst etiketler için).
+ */
+
+.ui-section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-4) 0 var(--space-3);
+  gap: var(--space-3);
+}
+
+.ui-section-header__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+  flex: 1;
+}
+
+.ui-section-header__overline {
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold, 600);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-primary, #ff6a00);
+}
+
+.ui-section-header__title {
+  margin: 0;
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-text-primary, #0b1b2c);
+  line-height: 1.2;
+}
+
+.ui-section-header__subtitle {
+  margin: var(--space-1) 0 0 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary, rgba(11, 27, 44, 0.6));
+  line-height: 1.5;
+}
+
+.ui-section-header__action {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-primary, #ff6a00);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.ui-section-header__action:hover,
+.ui-section-header__action:focus-visible {
+  text-decoration: underline;
+}
