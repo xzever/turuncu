@@ -254,7 +254,7 @@
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1280px) and (hover: hover) and (pointer: fine) {
   .handheld-dock,
   .ui-bottom-nav {
     display: none;
