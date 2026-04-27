@@ -24,8 +24,10 @@
  * - `font-weight:` ve `font: …` kısayolunda ağırlık yalnızca `--weight-regular` … `--weight-heavy` ile (sayı yazılmaz).
  */
 :root {
-  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --font-mono: "SF Mono", "Menlo", "Monaco", "Consolas", monospace;
+  --font-sans: var(--font-roboto), "Roboto", sans-serif;
+  --font-serif: var(--font-roboto-slab), "Roboto Slab", serif;
+  --font-slab: var(--font-serif);
+  --font-mono: var(--font-roboto-mono), "Roboto Mono", monospace;
 
   /* ── Fluid text scale (phone → tablet → desktop) ──
      clamp(min_phone, fluid, max_desktop)
