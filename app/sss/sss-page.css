@@ -1,3 +1,25 @@
+html:has(.sss-mobile-page),
+body:has(.sss-mobile-page),
+html:has(.sss-desktop),
+body:has(.sss-desktop) {
+  background:
+    radial-gradient(ellipse at 50% 30%, #FFB060 0%, #FF8C3A 30%, #D4621A 65%, #3A1408 100%) !important;
+  background-color: #3A1408 !important;
+  background-attachment: fixed !important;
+}
+
+body:has(.sss-mobile-page) > div,
+body:has(.sss-mobile-page) #main-content.app-chrome-main,
+body:has(.sss-desktop) > div,
+body:has(.sss-desktop) #main-content.app-chrome-main {
+  background: transparent !important;
+}
+
+body:has(.sss-mobile-page) .solar-video-bg,
+body:has(.sss-desktop) .solar-video-bg {
+  display: none !important;
+}
+
 .sss-mobile-page,
 .sss-desktop {
   font-family: "Manrope", "Inter", system-ui, sans-serif;
