@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import SolarVideoBackground from "@/components/effects/SolarVideoBackground";
 import SssPageContent from "@/components/sss/SssPageContent";
 import { FAQS, getFaqAnswerText } from "@/components/sss/faqs";
+import "@/styles/components/solstice/solstice-tokens-v2.css";
 import "./sss-page.css";
+import "./sss-mobile.css";
+import "./sss-desktop.css";
 
 const RAW_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL;
 const SITE_URL =
