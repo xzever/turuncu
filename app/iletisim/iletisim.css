@@ -31,7 +31,9 @@ body:has(.contact-desktop-page) .solar-video-bg {
   flex: 1 1 auto;
   min-height: 0;
   margin: 0;
-  padding-block: clamp(20px, 2.5vh, 32px) clamp(16px, 2.2vh, 28px);
+  padding-block:
+    calc(var(--site-header-clearance, 72px) + clamp(12px, 1.5vh, 20px))
+    clamp(16px, 2.2vh, 28px);
   padding-inline: clamp(1.5rem, 4vw, 4rem);
   display: grid;
   grid-template-rows: auto minmax(160px, 25vh) minmax(0, 1fr);

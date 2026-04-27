@@ -123,7 +123,7 @@ export default function IletisimPage({
         <header className="contact-page__head">
           <div className="contact-page__title">
             <h1>
-              Bize <em>ulasin.</em>
+              Bize <em>yazin.</em>
             </h1>
             <p>2 ofis · muhendis ekip ayni gun doner.</p>
           </div>
