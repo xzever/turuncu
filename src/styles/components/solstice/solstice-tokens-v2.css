@@ -1,0 +1,355 @@
+:root {
+  --o-deep: #B83A0E;
+  --o-base: #D4621A;
+  --o-bright: #FF8C3A;
+  --o-warm: #FFA060;
+  --o-glow: #FFD2A0;
+  --bg-page: #1A0907;
+  --ink: #FFF8F0;
+  --muted: rgba(255, 248, 240, 0.62);
+  --dim: rgba(255, 248, 240, 0.40);
+  --line: rgba(255, 248, 240, 0.10);
+  --line-soft: rgba(255, 248, 240, 0.06);
+  --accent: #FF8533;
+}
+
+.ic {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.30);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ic svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+.h-page {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: #fff;
+  margin-top: 14px;
+}
+
+.h-page em {
+  font-style: italic;
+  color: #FFD2A0;
+}
+
+.lead {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.55;
+  margin-top: 8px;
+}
+
+.lead strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+.search {
+  position: relative;
+}
+
+.search input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 14px;
+  padding: 13px 16px 13px 42px;
+  font-size: 14px;
+  color: #fff;
+}
+
+.search input::placeholder {
+  color: rgba(255, 255, 255, 0.40);
+}
+
+.search > svg {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  color: rgba(255, 255, 255, 0.55);
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  pointer-events: none;
+}
+
+.chips {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  margin: 0 -22px;
+  padding: 0 22px;
+}
+
+.chip {
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.chip.is-active {
+  background: #fff;
+  color: #1A0907;
+  border-color: #fff;
+}
+
+.seg {
+  display: flex;
+  background: rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 999px;
+  padding: 5px;
+}
+
+.seg button {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: 999px;
+  letter-spacing: -0.005em;
+}
+
+.seg button.is-active {
+  background: #fff;
+  color: #1A0907;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #fff;
+  color: #1A0907;
+  padding: 14px 22px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  border: none;
+  text-decoration: none;
+}
+
+.btn.full {
+  width: 100%;
+}
+
+.btn.glass {
+  background: rgba(0, 0, 0, 0.30);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.2;
+}
+
+.rail-head {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  margin-bottom: 6px;
+  padding-left: 4px;
+}
+
+.rail {
+  background: rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.rail-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.rail-row:first-child {
+  border-top: none;
+}
+
+.rail-row .ic-mini {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rail-row .ic-mini svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+.rail-row .lbl-r {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.55);
+  min-width: 80px;
+  letter-spacing: -0.005em;
+}
+
+.rail-row .val {
+  flex: 1;
+  font-size: 14px;
+  color: #fff;
+  font-weight: 500;
+}
+
+.rail-row .val input,
+.rail-row .val textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+}
+
+.rail-row .val input::placeholder,
+.rail-row .val textarea::placeholder {
+  color: rgba(255, 255, 255, 0.30);
+}
+
+.rail-row .arr {
+  color: rgba(255, 255, 255, 0.40);
+}
+
+.rail-row .arr svg {
+  width: 13px;
+  height: 13px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+.acc {
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.acc:last-child {
+  border-bottom: none;
+}
+
+.acc-h {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.acc-q {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  flex: 1;
+  letter-spacing: -0.005em;
+}
+
+.acc-t {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.30);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  flex-shrink: 0;
+}
+
+.acc.is-open .acc-t {
+  background: #fff;
+  color: #1A0907;
+  border-color: #fff;
+}
+
+.acc-t svg {
+  width: 11px;
+  height: 11px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.4;
+}
+
+.acc.is-open .acc-t svg {
+  transform: rotate(180deg);
+}
+
+.acc-a {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.78);
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.acc-a strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+.acc-a em {
+  color: #FFD2A0;
+  font-style: italic;
+}
+
+@media (min-width: 768px) and (max-width: 1366px) {
+  .h-page {
+    font-size: 42px;
+  }
+}

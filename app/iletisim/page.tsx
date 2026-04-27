@@ -4,6 +4,7 @@ import JsonLd from "@/components/seo/JsonLd";
 import { SITE_URL } from "@/config/env";
 import "./iletisim-mobile.css";
 import "@/styles/components/solstice/solstice-tokens.css";
+import "@/styles/components/solstice/solstice-tokens-v2.css";
 import "@/styles/components/solstice/solstice-components.css";
 
 const LOCALE = "tr";
