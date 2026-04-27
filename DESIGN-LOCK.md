@@ -1,8 +1,8 @@
-# TURUNCU SOLAR — DESIGN LOCK (SOLSTICE DARK)
+# TURUNCU SOLAR — DESIGN LOCK (SOLSTICE LIGHT)
 
-> **Onay tarihi:** 2026-04-26  
-> **Kaynak referans:** `mockups/SOLSTICE-DARK-design-system.html`  
-> **Durum:** 🔒 **KİLİTLİ** — bu tasarım dili tek geçerli görsel sistemdir.
+> **Onay tarihi:** 2026-04-28  
+> **Kaynak referans:** `mockups/TURUNCU-LIGHT-UI-KIT.html`  
+> **Durum:** 🔒 **KİLİTLİ** — açık tema tek geçerli görsel sistemdir.
 
 Bu doküman görsel kilittir. Uygulama kural hiyerarşisinde `AGENTS.md` ana kuraldır; burada
 tanımlanan tasarım kararları onunla çelişmeden uygulanır.
@@ -11,59 +11,60 @@ tanımlanan tasarım kararları onunla çelişmeden uygulanır.
 
 ## 1) Tek Doğru Referans
 
-- Solstice DARK sistemindeki palette, komponent dili, ikon tavrı ve yüzey yapısı baz alınır.
-- Yeni ekran/komponent yapılırken önce bu sistemde eşleniği bulunur, sonra kodlanır.
+- Solstice LIGHT sistemindeki palette, komponent dili, ikon tavrı ve yüzey yapısı baz alınır.
+- Yeni ekran/komponent yapılırken önce `mockups/TURUNCU-LIGHT-UI-KIT.html` içinde eşleniği bulunur.
 - "Bu sayfada farklı olsun" yaklaşımı yasak; varyant gerekiyorsa token/komponent seviyesinde eklenir.
 
 ---
 
 ## 2) Renk ve Yüzey Kilidi
 
-Tek kaynak: `src/styles/tokens/colors.css` (ve blog/feature local token katmanı).
+Tek kaynak: `src/styles/tokens/colors.css` ve UI-kit komponent token katmanı.
 
-### 2.1 Ana Solstice DARK tonları
+### 2.1 Ana Solstice LIGHT tonları
 | Token (anlam) | Değer | Kullanım |
 |---|---|---|
-| `--bg` | `#100E0B` | Ana koyu zemin |
-| `--surface` | `#1B1714` | Kart, input, panel yüzeyi |
-| `--surface-2` | `#26211C` | Sıcak ikinci yüzey |
-| `--surface-3` | `#332D26` | Hover/active yüzey |
-| `--text` | `#F5F1E8` | Ana metin |
-| `--muted` | `rgba(245,241,232,0.68)` | Paragraf/ikincil metin |
-| `--dim` | `rgba(245,241,232,0.45)` | Meta |
-| `--hint` | `rgba(245,241,232,0.30)` | Placeholder |
-| `--accent` | `#FF6A00` | Marka vurgu/CTA |
-| `--accent-hover` | `#FF8533` | Hover |
-| `--accent-soft` | `rgba(255,106,0,0.16)` | Soft vurgu |
-| `--accent-glow` | `rgba(255,106,0,0.42)` | Glow/border |
-| `--line` | `rgba(245,241,232,0.10)` | Border |
-| `--line-soft` | `rgba(245,241,232,0.05)` | İnce ayraç |
+| `--bg` / `--color-bg` | `#FAF6EE` | Ana açık warm krem zemin |
+| `--surface` / `--color-surface` | `#FFFFFF` | Kart, input, panel yüzeyi |
+| `--surface-2` / `--color-surface-warm` | `#F5EDDF` | Sıcak ikincil yüzey |
+| `--surface-3` / `--color-surface-3` | `#FFF8EE` | Hover/active yüzey |
+| `--text` / `--color-text` | `#1B1813` | Ana metin |
+| `--muted` / `--color-muted` | `#6B5F4E` | Paragraf/ikincil metin |
+| `--dim` / `--color-dim` | `#9C8E7A` | Meta, açıklama |
+| `--hint` | `rgba(27,24,19,0.30)` | Placeholder |
+| `--primary` / `--color-primary` | `#D4621A` | Marka vurgu/CTA |
+| `--primary-hover` / `--color-primary-hover` | `#B8521A` | Hover |
+| `--primary-soft` / `--color-primary-soft` | `rgba(212,98,26,0.10)` | Soft vurgu |
+| `--gold` / `--color-gold` | `#C9A961` | Premium detay |
+| `--line` / `--color-line` | `rgba(27,24,19,0.10)` | Border |
+| `--line-soft` / `--color-line-soft` | `rgba(27,24,19,0.05)` | İnce ayraç |
 
 ### 2.2 Yasaklar
-- Hardcoded hex/rgba yazmak yasak (token dışı renk yok).
-- Açık tema bileşenini koyu tema içine gömmek yasak.
-- Turuncu dışı rastgele vurgu rengi yasak.
+- Koyu Solstice DARK yüzeyleri yeni tasarımda kullanmak yasak.
+- Radial deep/warm page gradient'leri tasarım zemini olarak geri getirmek yasak.
+- Turuncu/altın dışında rastgele vurgu rengi yasak.
 
 ---
 
 ## 3) Tipografi ve İkon Kilidi
 
-- Display + body: **Manrope** yaklaşımı korunur.
-- Kod/sayı yardımcı alanlar: mono (JetBrains Mono tarzı) kullanılabilir.
+- Display + body: **Roboto**.
+- Başlıklar: **Roboto Slab**.
+- Kod/sayı yardımcı alanlar: **Roboto Mono**.
 - İkon dili: Lucide-style stroke (`stroke=currentColor`, net çizgi, dolgu yok).
-- Hiyerarşi: başlıklar güçlü, body muted; meta dim. Karışık ton kullanımına izin yok.
+- Hiyerarşi: başlıklar koyu text, body muted; meta dim.
 
 ---
 
 ## 4) Komponent Dili (Zorunlu)
 
-1. **Pill/Button:** tam yuvarlak, primary accent; ghost yüzey tabanlı.  
-2. **Chip/Icon-chip:** filtre chip aktifte accent, icon-chip accent-soft dairesel.  
-3. **Card:** surface tabanlı, soft line border, radius 14-18 bandı.  
-4. **Accordion:** açık state accent border + sıcak arka plan.  
-5. **Form:** koyu surface input + line border + belirgin focus state.  
-6. **Topbar/BottomNav:** Solstice DARK chrome yapısı (mobil app hissi) korunur.  
-7. **Prose/Article:** koyu zeminde okunaklı muted body, accent başlık vurguları.
+1. **Pill/Button:** primary turuncu; ghost beyaz yüzey + line border.  
+2. **Chip/Icon-chip:** filtre chip aktifte primary; pasifte beyaz yüzey.  
+3. **Card:** surface tabanlı, soft line border, radius 14-20 bandı.  
+4. **Accordion:** açık state primary border + `--surface-3` zemin.  
+5. **Form:** light surface input + line border + primary focus state.  
+6. **Topbar/BottomNav:** Solstice LIGHT chrome yapısı korunur.  
+7. **Prose/Article:** açık zeminde koyu body, primary başlık/vurgu.
 
 ---
 
@@ -72,24 +73,24 @@ Tek kaynak: `src/styles/tokens/colors.css` (ve blog/feature local token katmanı
 - Hover-only davranış yok; touch-first korunur.
 - Hareketler kısa ve sakin (transform/opacity öncelikli).
 - `prefers-reduced-motion` desteği zorunlu.
-- Focus görünürlüğü erişilebilir kalır (projedeki focus kuralları geçerli).
+- Focus görünürlüğü erişilebilir kalır.
 
 ---
 
 ## 6) Uygulama Kararı
 
-Bu lock ile cevap: **Evet, bu daha doğru design lock.**  
-Bundan sonra tasarım referansı olarak `mockups/SOLSTICE-DARK-design-system.html` kullanılır.
+**v3.0 — Açık tema (Solstice LIGHT) referansına yeniden kilitlendi. Tek kaynak: `mockups/TURUNCU-LIGHT-UI-KIT.html`.**  
+Açık tema final lock'tur. Solstice DARK arşivde.
 
 ---
 
 ## 7) Değişiklik Prosedürü
 
-1. Gerekçe yazılır (neden mevcut Solstice LOCK yetmiyor).  
-2. Etki analizi yapılır (hangi sayfalar/komponentler).  
+1. Gerekçe yazılır.  
+2. Etki analizi yapılır.  
 3. `AGENTS.md` kuralları ile uyum kontrolü yapılır.  
 4. Onay sonrası bu dosya versiyonu güncellenir.
 
 ---
 
-*Versiyon: v2.0 — Solstice DARK referansına kilitlendi.*
+*Versiyon: v3.0 — Solstice LIGHT referansına kilitlendi.*
