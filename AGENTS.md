@@ -449,26 +449,22 @@ Bu kontroller yapılmadan breakpoint'e özel küçük yama yazmak YASAK.
 - **Focus ring** → BEYAZ (`rgba(255, 255, 255, 0.85)`), TURUNCU DEĞİL
 - Her renk değeri token'a bağlı
 
-### 4.1 BACKGROUND GRADIENT'LERİ — TEK KAYNAK
+### 4.1 BACKGROUND — TEK KAYNAK
 
-> Sayfa arka planı tasarımcı keyfine göre seçilmez. UI Kit Token Studio'da **iki gradient** vardır; sayfa içeriğine göre biri seçilir. Üçüncüsü YASAK.
+> Sayfa arka planı tasarımcı keyfine göre seçilmez. Solstice LIGHT için tek sahne vardır; eski Warm/Deep radial gradient'ler v2 arşivinde kalmıştır.
 
-| Token | Sahne | Gradient | Kullanım |
+| Token | Sahne | Background | Kullanım |
 |---|---|---|---|
-| **Warm** (default) | sıcak güneş radyali | `radial-gradient(ellipse at 50% 25%, #FFB060 0%, #FF8C3A 30%, #C25218 65%, #2A1008 100%)` | Anasayfa, sistemlerimiz, kurumsal — birincil tema |
-| **Deep** | yoğun referans / detay sahneleri için | `radial-gradient(ellipse at 50% 70%, #FF8C3A 0%, #D4621A 35%, #B83A0E 70%, #1A0907 100%)` | İletişim, SSS, referanslar, fiyat detayı, vaka çalışması — bilgi yoğun sayfalar |
+| **Light** (default) | Açık warm krem | `#FAF6EE` solid | Tüm sayfalar |
 
 Zorunlu:
-- App-frame sayfaları (iletişim, SSS) **Deep** kullanır. İçerik yoğun, dikkat alt yarıya çekilir.
-- Pazarlama/landing odaklı sayfalar (anasayfa, sistemlerimiz hero) **Warm** kullanır.
-- Sayfa arka planı `body:has(.<page-class>)` selector'ü ile **uygulama-kabuğu** üzerine değil, **doküman seviyesinde** verilir; `background-attachment: fixed`.
-- Aynı sayfada gradient karıştırılmaz; tek gradient sayfanın tamamında geçerlidir.
+- Tüm sayfalar `var(--color-bg)` / `#FAF6EE` açık zemini kullanır.
+- Sayfa arka planı gerekiyorsa `body:has(.<page-class>)` selector'ü ile **doküman seviyesinde** verilir; uygulama-kabuğu üzerine gradient/video bindirilmez.
+- Aynı sayfada koyu/gradient sahne ile açık sahne karıştırılmaz.
 
 Yasak:
-- ❌ Sayfaya özgü, kit dışı yeni gradient üretmek (`50% 30%`, `50% 50%` gibi farklı pozisyonlar).
-- ❌ Warm + Deep'i aynı sayfada karıştırmak.
-- ❌ Solid renk arka plan (`background: #1F1410`) — sahne hissi kaybolur.
-- ❌ Video/görsel arka plan ile gradient'i çakıştırmak.
+- ❌ Warm/Deep radial gradient'leri yeni sayfa zemini olarak kullanmak.
+- ❌ Video/görsel arka plan ile light sahneyi çakıştırmak.
 
 ---
 
@@ -598,13 +594,11 @@ Ultra-wide ekranlarda map/grid pattern'ı bozulursa **ne yapılır?** Layout'u r
 **1) Sayfa scope CSS (örnek `.foo-desktop`):**
 
 ```css
-/* SAHNE — Madde 4.1 'den seç: Warm veya Deep */
+/* SAHNE — Madde 4.1: Light default */
 html:has(.foo-desktop),
 body:has(.foo-desktop) {
-  background:
-    radial-gradient(ellipse at 50% 70%, #FF8C3A 0%, #D4621A 35%, #B83A0E 70%, #1A0907 100%) !important;
-  background-color: #1A0907 !important;
-  background-attachment: fixed !important;
+  background: var(--color-bg) !important;
+  background-color: var(--color-bg) !important;
 }
 
 body:has(.foo-desktop) > div {
@@ -701,7 +695,7 @@ body:has(.foo-m) #main-content.app-chrome-main {
 
 **Definition of Done:**
 
-- [ ] Madde 4.1 gradient'i seçildi (Warm veya Deep) — kit dışı yok.
+- [ ] Madde 4.1 Light background kullanıldı — kit dışı sahne yok.
 - [ ] Sayfa kabuğu `flex: 1 1 auto; min-height: 0; overflow: hidden`.
 - [ ] Shell `max-width: 100%`, fluid `padding-inline`, **ortalanmış değil**.
 - [ ] En az bir scroll-panel mevcut (form/accordion/list); panel-içi scroll çalışıyor.
