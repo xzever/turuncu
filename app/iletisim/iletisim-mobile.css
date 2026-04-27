@@ -1,3 +1,20 @@
+html:has(.iletisim-mobile-page),
+body:has(.iletisim-mobile-page) {
+  background:
+    radial-gradient(ellipse at 50% 70%, #FF8C3A 0%, #D4621A 35%, #B83A0E 70%, #1A0907 100%) !important;
+  background-color: #1A0907 !important;
+  background-attachment: fixed !important;
+}
+
+body:has(.iletisim-mobile-page) > div,
+body:has(.iletisim-mobile-page) #main-content.app-chrome-main {
+  background: transparent !important;
+}
+
+body:has(.iletisim-mobile-page) .solar-video-bg {
+  display: none !important;
+}
+
 .iletisim-mobile-page {
   width: 100%;
   height: 100dvh;
