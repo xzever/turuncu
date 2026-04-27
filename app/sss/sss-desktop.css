@@ -4,7 +4,9 @@
   flex: 1 1 auto;
   min-height: 0;
   overflow: hidden;
-  padding-block: clamp(20px, 2.5vh, 32px) clamp(16px, 2.2vh, 28px);
+  padding-block:
+    calc(var(--site-header-clearance, 72px) + clamp(12px, 1.5vh, 20px))
+    clamp(16px, 2.2vh, 28px);
   padding-inline: clamp(1.5rem, 4vw, 4rem);
   box-sizing: border-box;
   display: grid;
@@ -75,6 +77,18 @@
   scrollbar-gutter: stable;
   padding-top: 18px;
   padding-right: 6px;
+}
+
+.sss-desktop__main .acc-h {
+  min-height: 56px;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.sss-desktop__main .acc-q {
+  color: var(--color-text);
 }
 
 .sss-desktop__main::-webkit-scrollbar {

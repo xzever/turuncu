@@ -51,6 +51,18 @@
   flex-direction: column;
 }
 
+.sss-mobile-page__list .acc-h {
+  min-height: 56px;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.sss-mobile-page__list .acc-q {
+  color: var(--color-text);
+}
+
 @media (min-width: 768px) and (max-width: 1366px) {
   .sss-mobile-page {
     padding-inline: clamp(32px, 7vw, 72px);

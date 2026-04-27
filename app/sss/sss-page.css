@@ -28,9 +28,41 @@ body:has(.sss-desktop) .solar-video-bg {
   width: 100%;
   background: transparent;
   border: 0;
-  padding: 0;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
   text-align: left;
-  font: inherit;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1.35;
+  color: inherit;
+}
+
+.sss-mobile-page .acc,
+.sss-desktop .acc {
+  position: relative;
+}
+
+.sss-mobile-page .acc-h,
+.sss-desktop .acc-h {
+  position: static;
+  opacity: 1;
+}
+
+.sss-mobile-page .acc-q,
+.sss-desktop .acc-q {
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.sss-mobile-page .acc-t,
+.sss-desktop .acc-t {
+  color: var(--color-primary);
 }
 
 .sss-mobile-page .acc-a p,
