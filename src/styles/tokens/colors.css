@@ -42,10 +42,16 @@
   --color-error: #A03A2E;
   --color-error-soft: rgba(160, 58, 46, 0.10);
   --color-error-border: rgba(160, 58, 46, 0.24);
+  --color-danger: #A03A2E;
+  --color-danger-soft: rgba(160, 58, 46, 0.10);
+  --color-danger-border: rgba(160, 58, 46, 0.24);
 
   --color-warning: #B8801F;
   --color-warning-soft: rgba(184, 128, 31, 0.12);
   --color-warning-border: rgba(184, 128, 31, 0.24);
+  --color-warn: #B8801F;
+  --color-warn-soft: rgba(184, 128, 31, 0.12);
+  --color-warn-border: rgba(184, 128, 31, 0.24);
 
   --color-info: #3D6B85;
   --color-info-soft: rgba(61, 107, 133, 0.10);

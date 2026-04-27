@@ -1,4 +1,4 @@
-> v1 (DARK) — geçersiz, açık temaya geçildi v2 için bkz mockup.
+> ⚠️ v1 (DARK) — geçersiz. Açık temaya geçildi v2 için bkz mockups/TURUNCU-LIGHT-UI-KIT.html
 
 # Denetim Raporu — İletişim ve SSS Sayfaları
 
