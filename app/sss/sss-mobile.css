@@ -14,7 +14,7 @@
   overflow-x: hidden;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
-  color: #fff;
+  color: var(--color-text);
   background: transparent !important;
 }
 

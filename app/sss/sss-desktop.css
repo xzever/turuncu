@@ -10,7 +10,7 @@
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
   gap: clamp(20px, 2vw, 36px);
-  color: #fff;
+  color: var(--color-text);
   background: transparent !important;
 }
 
@@ -82,7 +82,7 @@
 }
 
 .sss-desktop__main::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.20);
+  background: var(--color-line);
   border-radius: 999px;
 }
 

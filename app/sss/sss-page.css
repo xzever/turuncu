@@ -2,10 +2,8 @@ html:has(.sss-mobile-page),
 body:has(.sss-mobile-page),
 html:has(.sss-desktop),
 body:has(.sss-desktop) {
-  background:
-    radial-gradient(ellipse at 50% 30%, #FFB060 0%, #FF8C3A 30%, #D4621A 65%, #3A1408 100%) !important;
-  background-color: #3A1408 !important;
-  background-attachment: fixed !important;
+  background: var(--color-bg) !important;
+  background-color: var(--color-bg) !important;
 }
 
 body:has(.sss-mobile-page) > div,
@@ -22,7 +20,7 @@ body:has(.sss-desktop) .solar-video-bg {
 
 .sss-mobile-page,
 .sss-desktop {
-  font-family: "Manrope", "Inter", system-ui, sans-serif;
+  font-family: var(--font-sans);
 }
 
 .sss-mobile-page .acc-h,
@@ -58,7 +56,7 @@ body:has(.sss-desktop) .solar-video-bg {
 
 .sss-empty {
   padding: 16px 0;
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--color-muted);
   font-size: 13px;
   line-height: 1.6;
 }
