@@ -1,110 +1,110 @@
 /**
- * Color Tokens — KILITLI (Faz 10 sonu, 2026-04-24 kullanıcı onayı)
- * ================================================================
- * Bu dosyadaki değerler onaylanmış sabit paletin tamamıdır.
- * Tasarım fazında bu değerler AŞILMAZ, değişmez, genişletilmez.
- * Her mobil component, her sayfa bu token'ları tüketmek zorundadır.
- * Hardcoded hex YASAK — yeni renk gerekirse önce buraya eklenir.
+ * Color Tokens — Solstice LIGHT lock v3.0
+ * Reference: mockups/TURUNCU-LIGHT-UI-KIT.html
  */
 
 :root {
-  /* ── Mutlak referans (değişmez) ─────────────────────────── */
+  color-scheme: light;
+
   --color-white: #ffffff;
   --color-black: #000000;
 
-  /* ── Marka rengi — Turuncu Solar ─────────────────────────── */
-  /* Primary buton, aktif chip, vurgu ikonları, brand linkler */
-  --color-primary: #ff6a00;
-  --color-primary-hover: #ff8533;
-  --color-primary-soft: rgba(255, 106, 0, 0.16); /* ghost pill, ikon chip, accordion-open */
-  --color-primary-softer: rgba(255, 106, 0, 0.08); /* B3 secondary hover */
+  --color-bg: #FAF6EE;
+  --color-surface: #FFFFFF;
+  --color-surface-warm: #F5EDDF;
+  --color-surface-2: #F5EDDF;
+  --color-surface-3: #FFF8EE;
 
-  /* Marka gradient — sadece CTA banner'larda */
-  --color-gradient-start: #ff6a00;
-  --color-gradient-end: #ff6a00;
+  --color-text: #1B1813;
+  --color-muted: #6B5F4E;
+  --color-dim: #9C8E7A;
+  --color-hint: rgba(27, 24, 19, 0.30);
 
-  /* Legacy marka token'ları (desktop/eski bileşenler) */
-  --color-neutral-dark: #4d4d4d;
-  --color-panel: #0e2a47;
+  --color-primary: #D4621A;
+  --color-primary-hover: #B8521A;
+  --color-primary-soft: rgba(212, 98, 26, 0.10);
+  --color-primary-softer: rgba(212, 98, 26, 0.06);
+  --color-primary-line: rgba(212, 98, 26, 0.30);
+  --color-primary-glow: rgba(212, 98, 26, 0.42);
+  --color-on-primary: #FFFFFF;
 
-  /* ── Arka plan katmanları (mobil açık tema) ─────────────── */
-  --color-bg-cream: #100e0b;          /* Sayfa zemini (Solstice dark) */
-  --color-bg-app: #100e0b;            /* Desktop legacy */
-  --color-bg-surface: #1b1714; /* Kart / TopBar / BottomSheet */
-  --color-bg-subtle: rgba(245, 241, 232, 0.04); /* List hover, alt zemin */
+  --color-gold: #C9A961;
+  --color-gold-soft: rgba(201, 169, 97, 0.14);
 
-  /* Overlay katmanları (backdrop blur ile kullanılır) */
-  --color-bg-layer-a: rgba(255, 255, 255, 0.62);
-  --color-bg-layer-b: rgba(238, 246, 255, 0.86);
+  --color-line: rgba(27, 24, 19, 0.10);
+  --color-line-soft: rgba(27, 24, 19, 0.05);
+  --color-field-bg: rgba(255, 248, 238, 0.72);
 
-  --color-placeholder: #d4956a;
+  --color-success: #5B7F4E;
+  --color-success-soft: rgba(91, 127, 78, 0.10);
+  --color-success-border: rgba(91, 127, 78, 0.24);
 
-  /* ── Yazı renkleri (4 katman) ────────────────────────────── */
-  --color-text-primary: #f5f1e8;                    /* Başlık, önemli metin */
-  --color-text-secondary: rgba(245, 241, 232, 0.72);   /* Paragraf, açıklama */
-  --color-text-muted: rgba(245, 241, 232, 0.45);        /* Meta, tarih, ikincil */
-  --color-text-hint: rgba(245, 241, 232, 0.30);        /* Placeholder, disclaimer */
-  --color-text-brown: #f5f1e8;                      /* Legacy */
+  --color-error: #A03A2E;
+  --color-error-soft: rgba(160, 58, 46, 0.10);
+  --color-error-border: rgba(160, 58, 46, 0.24);
 
-  /* ── Çizgi, çerçeve, ayırıcı ─────────────────────────────── */
-  --color-line: rgba(245, 241, 232, 0.10);       /* Input border, belirgin kart kenarı */
-  --color-line-soft: rgba(245, 241, 232, 0.05);  /* Divider, subtle kart kenarı */
+  --color-warning: #B8801F;
+  --color-warning-soft: rgba(184, 128, 31, 0.12);
+  --color-warning-border: rgba(184, 128, 31, 0.24);
 
-  /* ── Glass efekti (backdrop blur) ────────────────────────── */
-  --color-glass-light: rgba(255, 255, 255, 0.15);
-  --color-glass-dark: rgba(0, 0, 0, 0.25);
-  --color-glass-border: rgba(255, 255, 255, 0.58);
-  --color-glass-highlight: rgba(255, 255, 255, 0.66);
+  --color-info: #3D6B85;
+  --color-info-soft: rgba(61, 107, 133, 0.10);
+  --color-info-border: rgba(61, 107, 133, 0.24);
 
-  /* ── Semantik (form, alert) ──────────────────────────────── */
-  --color-success: #15803d;
-  --color-success-soft: rgba(21, 128, 61, 0.08);
-  --color-success-border: rgba(21, 128, 61, 0.2);
+  --color-nav: rgba(255, 254, 250, 0.88);
+  --color-nav-dark: #1B1813;
+  --color-nav-label-muted: rgba(250, 246, 238, 0.68);
 
-  --color-error: #b91c1c;
-  --color-error-soft: rgba(185, 28, 28, 0.08);
-  --color-error-border: rgba(185, 28, 28, 0.2);
+  --color-focus-ring: rgba(27, 24, 19, 0.55);
+  --color-selection-bg: rgba(212, 98, 26, 0.20);
 
-  --color-warning: #b45309;
-  --color-warning-soft: rgba(180, 83, 9, 0.08);
-  --color-warning-border: rgba(180, 83, 9, 0.2);
+  --color-gradient-start: var(--color-primary);
+  --color-gradient-end: var(--color-primary-hover);
 
-  --color-info: #1e40af;
-  --color-info-soft: rgba(30, 64, 175, 0.08);
-  --color-info-border: rgba(30, 64, 175, 0.2);
+  /* Legacy aliases mapped to the LIGHT lock. */
+  --color-neutral-dark: var(--color-text);
+  --color-panel: var(--color-surface-warm);
+  --color-bg-cream: var(--color-bg);
+  --color-bg-app: var(--color-bg);
+  --color-bg-surface: var(--color-surface);
+  --color-bg-subtle: var(--color-surface-3);
+  --color-bg-layer-a: rgba(255, 255, 255, 0.78);
+  --color-bg-layer-b: rgba(250, 246, 238, 0.90);
+  --color-placeholder: var(--color-hint);
 
-  /* ── Focus & selection ───────────────────────────────────── */
-  --color-focus-ring: rgba(255, 255, 255, 0.85);
-  --color-selection-bg: rgba(255, 122, 0, 0.25);
+  --color-text-primary: var(--color-text);
+  --color-text-secondary: var(--color-muted);
+  --color-text-muted: var(--color-dim);
+  --color-text-hint: var(--color-hint);
+  --color-text-brown: var(--color-text);
 
-  /* ── Status — proje/iş akışı (legacy admin/dashboard) ───── */
-  --color-status-done: #4ade80;
-  --color-status-doing: #60a5fa;
-  --color-status-warn: #facc15;
+  --color-glass-light: rgba(255, 255, 255, 0.72);
+  --color-glass-dark: rgba(27, 24, 19, 0.08);
+  --color-glass-border: var(--color-line);
+  --color-glass-highlight: rgba(255, 255, 255, 0.86);
 
-  /* Ana sayfa istatistik / şerit vurguları (Tailwind-uyumlu accent — tek kaynak) */
-  --color-data-purple: #a78bfa;
-  --color-data-teal: #2dd4bf;
+  --color-status-done: #5B7F4E;
+  --color-status-doing: #3D6B85;
+  --color-status-warn: #B8801F;
+  --color-data-purple: #8B6FBD;
+  --color-data-teal: #3F8F84;
 
-  /* ── Kinetic Enterprise (Dark) — /iletisim desktop demo (2026-04-24) ─
-   * Kullanıcı onayı ile eklendi. Şu an SADECE `.contact-desktop-page`
-   * scope'unda tüketilir. Onaylanırsa site geneline yayılabilir.
-   * Kaynak: kullanıcı tarafından sağlanan DESIGN.md (Kinetic Enterprise).
-   */
-  --color-kinetic-bg: #1A1C1E;                 /* Secondary — sayfa zemini */
-  --color-kinetic-surface: #2A2D31;            /* Tertiary — kart zemini */
-  --color-kinetic-surface-high: #333537;       /* Yükseltilmiş kart */
-  --color-kinetic-text: #F4F4F6;               /* Neutral — başlık/body */
-  --color-kinetic-text-muted: rgba(244, 244, 246, 0.72);  /* İkincil metin */
-  --color-kinetic-text-dim: rgba(244, 244, 246, 0.55);    /* Meta, hint */
-  --color-kinetic-primary: #E6391A;            /* CTA, marka, accent */
-  --color-kinetic-primary-hover: #ff4a2a;      /* Hover / active */
-  --color-kinetic-primary-soft: rgba(230, 57, 26, 0.12);  /* Ghost, ikon chip */
-  --color-kinetic-primary-glow: rgba(230, 57, 26, 0.3);   /* CTA shadow */
-  --color-kinetic-border: #3A3D42;             /* Kart kenarı, divider */
-  --color-kinetic-border-soft: rgba(244, 244, 246, 0.08); /* Hafif kenar */
-  /* Mobile dark derin zemin varyantları */
-  --color-kinetic-bg-deep: #0a0a0b;
-  --color-kinetic-bg-deepest: #050506;
-  --color-kinetic-bg-solid: #060606;
+  --bg: var(--color-bg);
+  --surface: var(--color-surface);
+  --surface-2: var(--color-surface-warm);
+  --surface-3: var(--color-surface-3);
+  --text: var(--color-text);
+  --muted: var(--color-muted);
+  --dim: var(--color-dim);
+  --hint: var(--color-hint);
+  --primary: var(--color-primary);
+  --primary-hover: var(--color-primary-hover);
+  --primary-soft: var(--color-primary-soft);
+  --primary-line: var(--color-primary-line);
+  --primary-glow: var(--color-primary-glow);
+  --on-primary: var(--color-on-primary);
+  --gold: var(--color-gold);
+  --gold-soft: var(--color-gold-soft);
+  --line: var(--color-line);
+  --line-soft: var(--color-line-soft);
 }
