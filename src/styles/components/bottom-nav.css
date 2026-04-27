@@ -5,10 +5,10 @@
  */
 .handheld-dock {
   --handheld-dock-brand: var(--color-primary);
-  --handheld-dock-border: rgba(255, 255, 255, 0.10);
-  --handheld-dock-muted: rgba(255, 255, 255, 0.55);
-  --handheld-dock-active-text: #fff;
-  --handheld-dock-active-dot: #FFD2A0;
+  --handheld-dock-border: var(--color-line);
+  --handheld-dock-muted: var(--color-muted);
+  --handheld-dock-active-text: var(--color-text);
+  --handheld-dock-active-dot: var(--color-primary);
   --handheld-dock-icon-size: var(--space-5);
 
   pointer-events: none;
@@ -54,10 +54,10 @@
   border: none;
   border-top: 1px solid var(--handheld-dock-border);
   border-radius: 0;
-  background: rgba(15, 8, 5, 0.78);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(28px) saturate(160%);
   -webkit-backdrop-filter: blur(28px) saturate(160%);
-  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.40);
+  box-shadow: 0 -8px 24px rgba(27, 24, 19, 0.08);
   overflow: visible;
 }
 
@@ -110,12 +110,12 @@
   height: 5px;
   border-radius: 50%;
   background: var(--handheld-dock-active-dot);
-  box-shadow: 0 0 10px rgba(255, 210, 160, 0.55);
+  box-shadow: 0 0 10px rgba(212, 98, 26, 0.28);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .handheld-dock__cell:hover {
-    color: var(--color-white);
+    color: var(--color-primary);
   }
 }
 
@@ -176,10 +176,10 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.20);
-  background: #fff;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-  color: #1A0907;
+  border: 1px solid var(--color-primary);
+  background: var(--color-primary);
+  box-shadow: 0 4px 14px rgba(212, 98, 26, 0.24);
+  color: var(--color-on-primary);
 }
 
 .handheld-dock__cell--fab:hover .handheld-dock__icon-slot {

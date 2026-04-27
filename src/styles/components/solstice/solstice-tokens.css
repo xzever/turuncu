@@ -1,42 +1,33 @@
 /**
- * Solstice Dark — token paleti (BELIRGIN warm sun versiyonu).
- * Kinetic'ten net fark için:
- *   - BG çok warm dark (sıcak kahve siyahı)
- *   - Accent parlak amber-orange (vermillion red değil)
- *   - Gold dengeli
+ * Solstice Light token paleti.
+ * Legacy `.solstice` bileşenleri v3.0 açık tema renklerine bağlanır.
  */
 
 .solstice {
-  /* Surfaces — sıcak kahve dark */
-  --sol-bg:#0E0805;
-  --sol-surface:#1C140C;
-  --sol-surface-2:#2A1F14;
-  --sol-surface-3:#3D2E1F;
+  --sol-bg: var(--color-bg);
+  --sol-surface: var(--color-surface);
+  --sol-surface-2: var(--color-surface-warm);
+  --sol-surface-3: var(--color-surface-3);
 
-  /* Text — warm cream */
-  --sol-text:#FAF1E2;
-  --sol-muted:rgba(250,241,226,0.72);
-  --sol-dim:rgba(250,241,226,0.48);
-  --sol-hint:rgba(250,241,226,0.32);
+  --sol-text: var(--color-text);
+  --sol-muted: var(--color-muted);
+  --sol-dim: var(--color-dim);
+  --sol-hint: rgba(27, 24, 19, 0.32);
 
-  /* Accent — parlak amber/sunrise */
-  --sol-accent:#FF6A00;
-  --sol-accent-hover:#FF8533;
-  --sol-accent-soft:rgba(255,106,0,0.18);
-  --sol-accent-glow:rgba(255,106,0,0.5);
+  --sol-accent: var(--color-primary);
+  --sol-accent-hover: var(--color-primary-hover);
+  --sol-accent-soft: var(--color-primary-soft);
+  --sol-accent-glow: rgba(212, 98, 26, 0.28);
 
-  /* Gold ikincil */
-  --sol-gold:#E0BC72;
-  --sol-gold-soft:rgba(224,188,114,0.18);
+  --sol-gold: var(--color-gold);
+  --sol-gold-soft: rgba(201, 169, 97, 0.14);
 
-  /* Lines */
-  --sol-line:rgba(250,241,226,0.10);
-  --sol-line-soft:rgba(250,241,226,0.05);
+  --sol-line: var(--color-line);
+  --sol-line-soft: var(--color-line-soft);
 
-  /* Shadows */
-  --sol-shadow-sm:0 2px 8px rgba(0,0,0,0.40);
-  --sol-shadow:0 16px 48px rgba(0,0,0,0.6);
-  --sol-shadow-warm:0 12px 40px rgba(255,106,0,0.30);
+  --sol-shadow-sm: var(--shadow-sm);
+  --sol-shadow: var(--shadow-md);
+  --sol-shadow-warm: 0 12px 32px rgba(212, 98, 26, 0.14);
 
   color: var(--sol-text);
 }

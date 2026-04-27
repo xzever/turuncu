@@ -1,3 +1,5 @@
+> v1 (DARK) — geçersiz, açık temaya geçildi v2 için bkz mockup.
+
 # Denetim Raporu — İletişim ve SSS Sayfaları
 
 **Kaynak (single source of truth):** `mockups/SOLSTICE-FINAL-UI-KIT.html`

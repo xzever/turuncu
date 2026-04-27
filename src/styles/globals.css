@@ -27,13 +27,8 @@ body {
   margin: 0;
   /* PWA / mobil: akıcı touch scroll */
   -webkit-overflow-scrolling: touch;
-
-  /* ═══ Site-wide background: bizkimizbackround.jpg
-     Ana sayfa tam ekran video katmanını HomePageClient içinde render eder. */
-  background:
-    #05101f
-    url("/bizkimizbackround.jpg") center center / cover no-repeat fixed !important;
-  background-attachment: fixed !important;
+  background: var(--color-bg) !important;
+  color: var(--color-text);
 }
 
 /* Her sayfa kabuğu şeffaf — body bizkimizbackround.jpg turuncu dokusu görünür.

@@ -845,7 +845,7 @@
 
 .mobile-topbar__menu-lang.is-active {
   background: #fff !important;
-  color: #1A0907 !important;
+  color: var(--color-text) !important;
   border: none !important;
   box-shadow: none !important;
 }
@@ -942,19 +942,19 @@
   width: 6px !important;
   height: 6px !important;
   border-radius: 50% !important;
-  background: #FFD2A0 !important;
-  box-shadow: 0 0 8px rgba(255, 210, 160, 0.55) !important;
+  background: var(--color-primary) !important;
+  box-shadow: 0 0 8px rgba(212, 98, 26, 0.24) !important;
 }
 
 .mobile-topbar__panel-link.is-active .mobile-topbar__panel-icon {
   background: rgba(255, 210, 160, 0.18) !important;
   border-color: rgba(255, 210, 160, 0.30) !important;
-  color: #FFD2A0 !important;
+  color: var(--color-primary) !important;
 }
 
 .mobile-topbar__panel-link.is-active .mobile-topbar__panel-icon svg {
-  color: #FFD2A0 !important;
-  stroke: #FFD2A0 !important;
+  color: var(--color-primary) !important;
+  stroke: var(--color-primary) !important;
 }
 
 .mobile-topbar__panel-link.is-active .mobile-topbar__panel-link-label {

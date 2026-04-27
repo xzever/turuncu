@@ -1,7 +1,7 @@
 /**
- * Solstice Dark UI Kit — barrel export.
- * Tasarım sistemi: warm-black zemin (#100E0B), parlak orange accent (#E07A2A),
- * gold ikincil (#D4B575), serif başlıklar.
+ * Solstice Light UI Kit — barrel export.
+ * Tasarım sistemi: açık warm krem zemin, Turuncu Solar primary,
+ * gold ikincil, Roboto Slab başlıklar.
  *
  * Stil dosyaları (sayfada import edilmeli):
  *   src/styles/components/solstice/solstice-tokens.css

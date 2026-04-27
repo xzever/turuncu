@@ -14,9 +14,9 @@ const SSS_PATH = "/sss";
 const SSS_URL = new URL(SSS_PATH, SITE_URL).toString();
 
 export const metadata: Metadata = {
-  title: "SSS | Mühendise Sor",
+  title: "SSS | Turuncu Solar",
   description:
-    "Güneş enerjisi kurulumu, maliyetler, bakım ve izin süreçleri hakkında sık sorulan sorular. Cevabı bulamazsan mühendis asistanına sor.",
+    "Güneş enerjisi kurulumu, maliyetler, bakım ve izin süreçleri hakkında sık sorulan sorular.",
   alternates: {
     canonical: SSS_URL,
     languages: {
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "tr_TR",
     url: SSS_URL,
-    title: "SSS | Mühendise Sor",
+    title: "SSS | Turuncu Solar",
     description:
       "Güneş enerjisi kurulumu, maliyet, bakım, izin ve garanti hakkında sık sorulan sorular.",
     images: [
@@ -36,13 +36,13 @@ export const metadata: Metadata = {
         url: "/sistemlerimiz.webp",
         width: 1200,
         height: 630,
-        alt: "Turuncu Solar SSS - Mühendise Sor",
+        alt: "Turuncu Solar SSS",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "SSS | Mühendise Sor",
+    title: "SSS | Turuncu Solar",
     description:
       "Güneş enerjisi kurulumu, maliyet, bakım, izin ve garanti hakkında sık sorulan sorular.",
     images: ["/sistemlerimiz.webp"],
