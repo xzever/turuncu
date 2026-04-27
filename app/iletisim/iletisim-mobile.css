@@ -1,9 +1,7 @@
 html:has(.iletisim-mobile-page),
 body:has(.iletisim-mobile-page) {
-  background:
-    radial-gradient(ellipse at 50% 70%, #FF8C3A 0%, #D4621A 35%, #B83A0E 70%, #1A0907 100%) !important;
-  background-color: #1A0907 !important;
-  background-attachment: fixed !important;
+  background: var(--color-bg) !important;
+  background-color: var(--color-bg) !important;
 }
 
 body:has(.iletisim-mobile-page) > div,
@@ -31,7 +29,7 @@ body:has(.iletisim-mobile-page) .solar-video-bg {
   overflow-x: hidden;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
-  color: #fff;
+  color: var(--color-text);
   background: transparent !important;
 }
 
@@ -64,6 +62,10 @@ body:has(.iletisim-mobile-page) .solar-video-bg {
   min-width: 0;
 }
 
+.iletisim-mobile-page .rail {
+  background: var(--color-surface-warm);
+}
+
 .iletisim-mobile-page .rail-row {
   min-height: 61px;
 }
@@ -87,16 +89,15 @@ body:has(.iletisim-mobile-page) .solar-video-bg {
 
 .iletisim-m__success,
 .iletisim-m__error {
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  border-radius: 18px;
-  background: rgba(0, 0, 0, 0.28);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-line-soft);
+  border-radius: var(--r-xl, 20px);
+  background: var(--color-surface-warm);
+  box-shadow: var(--shadow-sm, 0 2px 8px rgba(27, 24, 19, 0.04));
 }
 
 .iletisim-m__success {
   padding: 16px;
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--color-muted);
   font-size: 14px;
   line-height: 1.55;
 }
@@ -108,7 +109,7 @@ body:has(.iletisim-mobile-page) .solar-video-bg {
 
 .iletisim-m__error {
   padding: 12px 14px;
-  color: #FFD2A0;
+  color: var(--color-error);
   font-size: 13px;
   line-height: 1.45;
 }

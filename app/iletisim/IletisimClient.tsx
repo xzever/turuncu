@@ -66,6 +66,7 @@ export default function IletisimPage({
 }) {
   const locations = contactPage?.locations ?? [];
   const labels = contactPage?.content.labels ?? {};
+  const kvkkUrl = contactPage?.kvkkUrl ?? "/kvkk";
   const [selectedLocationId, setSelectedLocationId] = useState<string | null>(null);
   const selectedLocation =
     locations.find((item) => item.id === selectedLocationId) ??
@@ -347,6 +348,10 @@ export default function IletisimPage({
                   <span>{submitting ? labels.submittingLabel ?? "Gonderiliyor..." : labels.submitLabel ?? "Gonder"}</span>
                   <Send aria-hidden="true" />
                 </button>
+                <p className="kvkk-note">
+                  Gönder&apos;e basarak{" "}
+                  <a href={kvkkUrl}>KVKK aydınlatma metnini</a> onayladığını kabul edersin.
+                </p>
               </form>
             )}
           </section>

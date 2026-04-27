@@ -30,6 +30,7 @@ export type IletisimMobileProps = {
 export default function IletisimMobile({ contactPage }: IletisimMobileProps) {
   const locations = useMemo(() => contactPage?.locations ?? [], [contactPage?.locations]);
   const labels = contactPage?.content.labels ?? {};
+  const kvkkUrl = contactPage?.kvkkUrl ?? "/kvkk";
   const primary = locations.find((item) => item.isPrimary) ?? locations[0];
   const [activeLocationId, setActiveLocationId] = useState<string>(primary?.id ?? "");
   const [form, setForm] = useState({
@@ -207,6 +208,10 @@ export default function IletisimMobile({ contactPage }: IletisimMobileProps) {
             <span>{submitting ? labels.submittingLabel ?? "Gonderiliyor..." : labels.submitLabel ?? "Gonder"}</span>
             <Send aria-hidden="true" />
           </button>
+          <p className="kvkk-note">
+            Gönder&apos;e basarak{" "}
+            <a href={kvkkUrl}>KVKK aydınlatma metnini</a> onayladığını kabul edersin.
+          </p>
         </form>
       )}
     </main>
