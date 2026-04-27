@@ -634,3 +634,59 @@ html[data-device="desktop"] .solar-header.solar-header--layout .solar-header__co
   width: 16px !important;
   height: 16px !important;
 }
+
+/* Solstice LIGHT v3.0: desktop header açık zemin üzerinde koyu okunur. */
+html[data-device="desktop"] .solar-header.solar-header--layout {
+  color: var(--color-text) !important;
+}
+
+html[data-device="desktop"] .solar-header.solar-header--layout .solar-header__brand img,
+html[data-device="desktop"] .solar-header.solar-header--layout .solar-header__brand-logo,
+html[data-device="desktop"] .solar-header.solar-header--layout .solar-header__brand svg {
+  filter: none !important;
+}
+
+html[data-device="desktop"] .solar-header.solar-header--layout .sh5__nav-link,
+html[data-device="desktop"] .solar-header.solar-header--layout .solar-header__menu-link.sh5__nav-link,
+html[data-device="desktop"] .solar-header.solar-header--layout .solar-header__contact-link.sh5__nav-link,
+html[data-device="desktop"] .solar-header.solar-header--layout .solar-header__menu-label,
+html[data-device="desktop"] .solar-header.solar-header--layout .solar-header__contact-label,
+html[data-device="desktop"] .solar-header.solar-header--layout .partner-side-pill,
+html[data-device="desktop"] .solar-header.solar-header--layout .partner-side-pill__word,
+html[data-device="desktop"] .solar-header.solar-header--layout .partner-side-pill__icon svg,
+html[data-device="desktop"] .solar-header.solar-header--layout .solar-header__social-link,
+html[data-device="desktop"] .solar-header.solar-header--layout .sh5__lang-btn {
+  color: var(--color-text) !important;
+}
+
+html[data-device="desktop"] .solar-header.solar-header--layout .solar-header__menu-icon,
+html[data-device="desktop"] .solar-header.solar-header--layout .solar-header__contact-icon {
+  color: var(--color-muted) !important;
+}
+
+html[data-device="desktop"] .solar-header.solar-header--layout .solar-header__menu-icon svg,
+html[data-device="desktop"] .solar-header.solar-header--layout .solar-header__contact-icon svg,
+html[data-device="desktop"] .solar-header.solar-header--layout .solar-header__social-link svg,
+html[data-device="desktop"] .solar-header.solar-header--layout .sh5__lang-btn svg {
+  color: currentColor !important;
+  stroke: currentColor !important;
+}
+
+html[data-device="desktop"] .solar-header.solar-header--layout .solar-header__social-link,
+html[data-device="desktop"] .solar-header.solar-header--layout .sh5__lang-btn {
+  border-color: var(--color-line) !important;
+  background: rgba(255, 255, 255, 0.45) !important;
+}
+
+html[data-device="desktop"] .solar-header.solar-header--layout .partner-side-pill__sep {
+  background: var(--color-line) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html[data-device="desktop"] .solar-header.solar-header--layout .sh5__nav-link:hover,
+  html[data-device="desktop"] .solar-header.solar-header--layout .sh5__nav-link.is-active,
+  html[data-device="desktop"] .solar-header.solar-header--layout .solar-header__social-link:hover,
+  html[data-device="desktop"] .solar-header.solar-header--layout .sh5__lang-btn:hover {
+    color: var(--color-primary) !important;
+  }
+}
