@@ -23,6 +23,7 @@ import { type CSSProperties, useCallback, useEffect, useId, useMemo, useRef, use
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import OfferModal from "@/components/home/OfferModal";
+import { SHELL_HANDHELD_QUERY } from "@/lib/breakpoints";
 
 import {
   PLATFORM_DEFAULT_LANGUAGE,
@@ -408,8 +409,8 @@ export default function HomePage() {
     // dahil yatay) aynı mobil aile. (max-width: 1279px) klasik viewport kuralı,
     // (pointer: coarse) ile dokunmatik tablet/laptop yatay (1366px gibi) dahil edilir.
     // Bu sayede iPad'lerde de native <select> yerine custom MobileSelect render edilir.
-    const mediaQuery = window.matchMedia("(max-width: 1024px)");
-    const selectQuery = window.matchMedia("(max-width: 1024px)");
+    const mediaQuery = window.matchMedia(SHELL_HANDHELD_QUERY);
+    const selectQuery = window.matchMedia(SHELL_HANDHELD_QUERY);
     const syncViewport = () => setIsMobileViewport(mediaQuery.matches);
     const syncSelect = () => setIsMobileSelect(selectQuery.matches);
     syncViewport();
