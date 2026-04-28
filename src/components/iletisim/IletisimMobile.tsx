@@ -1,9 +1,17 @@
 "use client";
 
-import { useMemo, useState, type FormEvent } from "react";
+import { useMemo, useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { Mail, MessageCircle, Phone, Send, User } from "lucide-react";
+import {
+  contactFormSchema,
+  getContactFormDefaults,
+  type ContactFormValues,
+} from "@/components/iletisim/contactFormSchema";
 import type { Locale } from "@/components/layout/headerConfig";
 import { Card } from "@/components/ui/card";
+import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
@@ -37,38 +45,20 @@ export default function IletisimMobile({ contactPage }: IletisimMobileProps) {
   const kvkkUrl = contactPage?.kvkkUrl ?? "/kvkk";
   const primary = locations.find((item) => item.isPrimary) ?? locations[0];
   const [activeLocationId, setActiveLocationId] = useState<string>(primary?.id ?? "");
-  const [form, setForm] = useState({
-    fullName: "",
-    email: "",
-    phone: "",
-    systemType: contactPage?.systemTypes?.[0]?.id ?? "",
-    message: "",
+  const form = useForm<ContactFormValues>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: getContactFormDefaults(contactPage?.systemTypes?.[0]?.id ?? ""),
   });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const formError =
+    form.formState.errors.fullName?.message ??
+    form.formState.errors.email?.message ??
+    form.formState.errors.phone?.message ??
+    form.formState.errors.message?.message;
 
-  function update<K extends keyof typeof form>(key: K, value: (typeof form)[K]) {
-    setForm((previous) => ({ ...previous, [key]: value }));
-  }
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  function handleSubmit() {
     if (submitting) return;
-    if (!form.fullName.trim()) {
-      setError(labels.fullNameError ?? "Lutfen ad soyad girin.");
-      return;
-    }
-    if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      setError("Lutfen gecerli bir e-posta girin.");
-      return;
-    }
-    if (!form.message.trim() || form.message.trim().length < 3) {
-      setError(labels.messageError ?? "Lutfen mesajinizi yazin.");
-      return;
-    }
-
-    setError(null);
     setSubmitting(true);
     setTimeout(() => {
       setSubmitting(false);
@@ -110,7 +100,8 @@ export default function IletisimMobile({ contactPage }: IletisimMobileProps) {
           <p>{labels.successMessage ?? "Tesekkur ederiz. Ekibimiz en kisa surede size donus yapacaktir."}</p>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} noValidate aria-describedby={error ? "im-form-err" : undefined}>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(handleSubmit)} noValidate aria-describedby={formError ? "im-form-err" : undefined}>
           <section className="iletisim-m__group" aria-labelledby="im-info-head">
             <h2 id="im-info-head" className="rail-head">
               Bilgileriniz
@@ -130,8 +121,7 @@ export default function IletisimMobile({ contactPage }: IletisimMobileProps) {
                     required
                     autoComplete="name"
                     placeholder={labels.fullNamePlaceholder ?? "Adiniz Soyadiniz"}
-                    value={form.fullName}
-                    onChange={(event) => update("fullName", event.target.value)}
+                    {...form.register("fullName")}
                   />
                 </div>
               </div>
@@ -150,8 +140,7 @@ export default function IletisimMobile({ contactPage }: IletisimMobileProps) {
                     inputMode="email"
                     autoComplete="email"
                     placeholder={labels.emailFieldPlaceholder ?? "ornek@email.com"}
-                    value={form.email}
-                    onChange={(event) => update("email", event.target.value)}
+                    {...form.register("email")}
                   />
                 </div>
               </div>
@@ -169,8 +158,7 @@ export default function IletisimMobile({ contactPage }: IletisimMobileProps) {
                     inputMode="tel"
                     autoComplete="tel"
                     placeholder={labels.phoneFieldPlaceholder ?? "05XX XXX XX XX"}
-                    value={form.phone}
-                    onChange={(event) => update("phone", event.target.value)}
+                    {...form.register("phone")}
                   />
                 </div>
               </div>
@@ -184,8 +172,8 @@ export default function IletisimMobile({ contactPage }: IletisimMobileProps) {
               </h2>
               <RadioGroup
                 className="contact-radio-grid"
-                value={form.systemType}
-                onValueChange={(value) => update("systemType", value)}
+                value={form.watch("systemType")}
+                onValueChange={(value) => form.setValue("systemType", value, { shouldDirty: true })}
               >
                 {contactPage.systemTypes.map((systemType) => (
                   <label key={systemType.id} className="contact-radio-tile">
@@ -217,17 +205,16 @@ export default function IletisimMobile({ contactPage }: IletisimMobileProps) {
                     rows={1}
                     required
                     placeholder={labels.messagePlaceholder ?? "Gunes enerjisi hakkinda merak ettiklerinizi yazin..."}
-                    value={form.message}
-                    onChange={(event) => update("message", event.target.value)}
+                    {...form.register("message")}
                   />
                 </div>
               </div>
             </div>
           </section>
 
-          {error ? (
+          {formError ? (
             <p id="im-form-err" role="alert" className="iletisim-m__error">
-              {error}
+              {formError}
             </p>
           ) : null}
 
@@ -239,7 +226,8 @@ export default function IletisimMobile({ contactPage }: IletisimMobileProps) {
             Gönder&apos;e basarak{" "}
             <a href={kvkkUrl}>KVKK aydınlatma metnini</a> onayladığını kabul edersin.
           </p>
-        </form>
+          </form>
+        </Form>
       )}
     </main>
   );

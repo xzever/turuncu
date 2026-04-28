@@ -1,8 +1,16 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import type { Locale } from "@/components/layout/headerConfig";
+import {
+  contactFormSchema,
+  getContactFormDefaults,
+  type ContactFormValues,
+} from "@/components/iletisim/contactFormSchema";
 import { Card } from "@/components/ui/card";
+import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
@@ -77,44 +85,26 @@ export default function IletisimPage({
     locations.find((item) => item.isPrimary) ??
     locations[0] ??
     null;
-  const [form, setForm] = useState({
-    fullName: "",
-    email: "",
-    phone: "",
-    systemType: contactPage?.systemTypes?.[0]?.id ?? "",
-    message: "",
+  const form = useForm<ContactFormValues>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: getContactFormDefaults(contactPage?.systemTypes?.[0]?.id ?? ""),
   });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const mapSrc = getMapEmbedUrl(selectedLocation);
   const phoneVal = getChannelValue(selectedLocation, "PHONE");
   const waVal = getChannelValue(selectedLocation, "WHATSAPP");
   const emailVal = getChannelValue(selectedLocation, "EMAIL");
   const whatsappMessage = "Merhaba, gunes enerjisi projem icin bilgi almak istiyorum.";
+  const formError =
+    form.formState.errors.fullName?.message ??
+    form.formState.errors.email?.message ??
+    form.formState.errors.phone?.message ??
+    form.formState.errors.message?.message;
 
-  function update<K extends keyof typeof form>(key: K, value: (typeof form)[K]) {
-    setForm((previous) => ({ ...previous, [key]: value }));
-  }
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  function handleSubmit() {
     if (submitting) return;
-    if (!form.fullName.trim()) {
-      setError(labels.fullNameError ?? "Lutfen ad soyad girin.");
-      return;
-    }
-    if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      setError("Lutfen gecerli bir e-posta girin.");
-      return;
-    }
-    if (!form.message.trim() || form.message.trim().length < 3) {
-      setError(labels.messageError ?? "Lutfen mesajinizi yazin.");
-      return;
-    }
-
-    setError(null);
     setSubmitting(true);
     setTimeout(() => {
       setSubmitting(false);
@@ -251,7 +241,12 @@ export default function IletisimPage({
                 <p>{labels.successMessage ?? "Tesekkur ederiz. Ekibimiz en kisa surede size donus yapacaktir."}</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} noValidate aria-describedby={error ? "contact-form-error" : undefined}>
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(handleSubmit)}
+                  noValidate
+                  aria-describedby={formError ? "contact-form-error" : undefined}
+                >
                 <section aria-labelledby="desktop-form-info-head">
                   <h2 id="desktop-form-info-head" className="rail-head">
                     Bilgileriniz
@@ -271,8 +266,7 @@ export default function IletisimPage({
                           required
                           autoComplete="name"
                           placeholder={labels.fullNamePlaceholder ?? "Adiniz Soyadiniz"}
-                          value={form.fullName}
-                          onChange={(event) => update("fullName", event.target.value)}
+                          {...form.register("fullName")}
                         />
                       </div>
                     </div>
@@ -291,8 +285,7 @@ export default function IletisimPage({
                           inputMode="email"
                           autoComplete="email"
                           placeholder={labels.emailFieldPlaceholder ?? "ornek@email.com"}
-                          value={form.email}
-                          onChange={(event) => update("email", event.target.value)}
+                          {...form.register("email")}
                         />
                       </div>
                     </div>
@@ -310,8 +303,7 @@ export default function IletisimPage({
                           inputMode="tel"
                           autoComplete="tel"
                           placeholder={labels.phoneFieldPlaceholder ?? "05XX XXX XX XX"}
-                          value={form.phone}
-                          onChange={(event) => update("phone", event.target.value)}
+                          {...form.register("phone")}
                         />
                       </div>
                     </div>
@@ -325,8 +317,8 @@ export default function IletisimPage({
                     </h2>
                     <RadioGroup
                       className="contact-radio-grid"
-                      value={form.systemType}
-                      onValueChange={(value) => update("systemType", value)}
+                      value={form.watch("systemType")}
+                      onValueChange={(value) => form.setValue("systemType", value, { shouldDirty: true })}
                     >
                       {contactPage.systemTypes.map((systemType) => (
                         <label key={systemType.id} className="contact-radio-tile">
@@ -357,17 +349,16 @@ export default function IletisimPage({
                           id="contact-message"
                           required
                           placeholder={labels.messagePlaceholder ?? "Gunes enerjisi hakkinda merak ettiklerinizi yazin..."}
-                          value={form.message}
-                          onChange={(event) => update("message", event.target.value)}
+                          {...form.register("message")}
                         />
                       </div>
                     </div>
                   </div>
                 </section>
 
-                {error ? (
+                {formError ? (
                   <p id="contact-form-error" role="alert" className="contact-page__error">
-                    {error}
+                    {formError}
                   </p>
                 ) : null}
 
@@ -379,7 +370,8 @@ export default function IletisimPage({
                   Gönder&apos;e basarak{" "}
                   <a href={kvkkUrl}>KVKK aydınlatma metnini</a> onayladığını kabul edersin.
                 </p>
-              </form>
+                </form>
+              </Form>
             )}
           </section>
         </section>
