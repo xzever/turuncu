@@ -5,6 +5,101 @@
 @import "./tokens/index.css";
 @import "./components/pill-buttons.css";
 
+/* ─────────────────────────────────────────────
+   shadcn/ui token bridge — Turuncu Solar paleti
+   Tailwind v4 + shadcn entegrasyonu (DESIGN-LOCK v3.0 LIGHT)
+   ───────────────────────────────────────────── */
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-success: hsl(var(--success));
+  --color-warning: hsl(var(--warning));
+  --color-info: hsl(var(--info));
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: 'Roboto', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Roboto Mono', monospace;
+}
+
+:root {
+  /* Turuncu Solar LIGHT palette (HSL — shadcn formatı) */
+  --background: 38 50% 96%;          /* #FAF6EE bg */
+  --foreground: 30 14% 9%;            /* #1B1813 text */
+  --card: 0 0% 100%;                  /* #FFFFFF surface */
+  --card-foreground: 30 14% 9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 30 14% 9%;
+  --primary: 23 78% 47%;              /* #D4621A turuncu */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 30 28% 92%;            /* #F5EDDF surface-2 */
+  --secondary-foreground: 31 14% 36%; /* #6B5F4E muted */
+  --muted: 30 28% 92%;
+  --muted-foreground: 31 14% 36%;
+  --accent: 30 28% 92%;
+  --accent-foreground: 30 14% 9%;
+  --destructive: 8 56% 41%;           /* #A03A2E danger */
+  --destructive-foreground: 0 0% 100%;
+  --border: 30 14% 9% / 0.10;
+  --input: 30 14% 9% / 0.10;
+  --ring: 23 78% 47%;                 /* primary focus ring */
+  --success: 110 25% 40%;             /* #5B7F4E */
+  --warning: 38 71% 42%;              /* #B8801F */
+  --info: 203 38% 38%;                /* #3D6B85 */
+  --radius: 0.625rem;
+}
+
+[data-theme="dark"] {
+  --background: 11 70% 6%;            /* #1A0907 deep */
+  --foreground: 35 100% 97%;
+  --card: 12 65% 10%;
+  --card-foreground: 35 100% 97%;
+  --popover: 12 65% 10%;
+  --popover-foreground: 35 100% 97%;
+  --primary: 23 100% 61%;             /* #FF8C3A */
+  --primary-foreground: 11 70% 6%;
+  --secondary: 12 65% 14%;
+  --secondary-foreground: 35 100% 97%;
+  --muted: 12 65% 14%;
+  --muted-foreground: 35 100% 70%;
+  --accent: 12 65% 14%;
+  --accent-foreground: 35 100% 97%;
+  --destructive: 8 56% 51%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 35 100% 97% / 0.16;
+  --input: 35 100% 97% / 0.16;
+  --ring: 23 100% 61%;
+}
+
+/* Hover guard — Madde 0.3: touch'ta hover-only davranış YASAK */
+@media (hover: none) and (pointer: coarse) {
+  .hover\:bg-accent:hover,
+  .hover\:bg-primary:hover,
+  .hover\:text-accent-foreground:hover,
+  .hover\:text-primary-foreground:hover {
+    background-color: revert;
+    color: revert;
+  }
+}
+
 /* Base — Anayasa Madde 14.1 uyumu:
    body/html { overflow: hidden } YASAK (iOS momentum scroll kırılır).
    Sadece html { overflow-x: clip } istisnası izinli (Madde 14.2). */
