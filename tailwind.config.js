@@ -17,6 +17,9 @@ const config = {
       "2xl": "1920px",
     },
     extend: {
+      fontFamily: {
+        sans: ["var(--font-poppins)", "Poppins", "system-ui", "sans-serif"],
+      },
       /**
        * Tailwind `text-*` sınıfları → src/styles/tokens/typography.css fluid ölçeği.
        * Eşleme: TW `text-xs` ≈ --text-2xs, `text-sm` ≈ --text-xs (isimler farklı; tek kaynak aynı clamp’ler).
