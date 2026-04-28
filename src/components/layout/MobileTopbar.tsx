@@ -306,6 +306,7 @@ export default function MobileTopbar({ homeHref, fixed = false }: MobileTopbarPr
             <span className="mobile-topbar__brand-frame">
               <LogoMarkIcon className="mobile-topbar__brand-mark" aria-hidden />
             </span>
+            <span className="mobile-topbar__brand-text">TURUNCU SOLAR</span>
           </Link>
 
           <div className="mobile-topbar__actions">
