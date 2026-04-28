@@ -1,4 +1,5 @@
 import { type CSSProperties, type ReactNode } from "react";
+import { Tabs, TabsTrigger } from "@/components/ui/tabs";
 
 export type SystemSectionId =
   | "grid"
@@ -72,12 +73,16 @@ export default function OrbitalNav<T extends string>({
   const currentIcons = icons || (TAB_ICONS as unknown as Record<T, ReactNode>);
 
   return (
-    <nav className={`${classPrefix}-tabs`} aria-label={navAriaLabel}>
+    <Tabs
+      value={activeSection}
+      onValueChange={(value) => onSelect(value as T)}
+      className={`${classPrefix}-tabs`}
+      aria-label={navAriaLabel}
+    >
       {sectionOrder.map((id, index) => (
-        <button
+        <TabsTrigger
           key={id}
-          type="button"
-          onClick={() => onSelect(id)}
+          value={id}
           className={`${classPrefix}-tab ${activeSection === id ? "is-active" : ""}`.trim()}
           data-system-id={id}
           style={{ "--tab-delay": `${index * 70}ms` } as CSSProperties}
@@ -87,9 +92,9 @@ export default function OrbitalNav<T extends string>({
             {currentIcons[id]}
           </span>
           <span>{labels[id]}</span>
-        </button>
+        </TabsTrigger>
       ))}
       {trailing}
-    </nav>
+    </Tabs>
   );
 }

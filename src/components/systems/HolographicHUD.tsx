@@ -1,3 +1,5 @@
+import { Card } from "@/components/ui/card";
+
 interface KPI {
   label: string;
   value: string;
@@ -45,23 +47,23 @@ export default function HolographicHUD({ kpis, isVisible }: HolographicHUDProps)
 
   return (
     <div className={`systems-hud ${isVisible ? "is-visible" : ""}`} aria-hidden="true">
-      <div className="systems-hud__card systems-hud__card--left">
+      <Card className="systems-hud__card systems-hud__card--left">
         <span className="systems-hud__label">
           <KPIIcon icon={roi.icon} />
           <em>{roi.label}</em>
         </span>
         <strong>{roi.value}</strong>
         {roi.description ? <small>{roi.description}</small> : null}
-      </div>
+      </Card>
 
-      <div className="systems-hud__card systems-hud__card--right">
+      <Card className="systems-hud__card systems-hud__card--right">
         <span className="systems-hud__label">
           <KPIIcon icon={independence.icon} />
           <em>{independence.label}</em>
         </span>
         <strong>{independence.value}</strong>
         {independence.description ? <small>{independence.description}</small> : null}
-      </div>
+      </Card>
 
       <div className="systems-hud__pill">
         <i aria-hidden="true" />
