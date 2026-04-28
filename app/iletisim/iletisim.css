@@ -233,6 +233,7 @@ body:has(.contact-desktop-page) .solar-video-bg {
   gap: var(--space-2);
   padding-bottom: calc(var(--space-3) + var(--space-1));
   border-bottom: 1px solid var(--orisa-line);
+  transition: border-color var(--duration-fast);
 }
 
 .orisa-field--message {
@@ -278,6 +279,10 @@ body:has(.contact-desktop-page) .solar-video-bg {
   border-bottom-color: var(--orisa-text);
 }
 
+.orisa-field:has([aria-invalid="true"]) {
+  border-bottom-color: var(--color-error);
+}
+
 .orisa-form__error,
 .orisa-form-success {
   grid-column: 1 / -1;
@@ -314,6 +319,13 @@ body:has(.contact-desktop-page) .solar-video-bg {
   font-size: var(--text-xs);
   font-weight: 600;
   letter-spacing: 0;
+  transition:
+    opacity var(--duration-fast),
+    transform var(--duration-fast);
+}
+
+.orisa-submit:active {
+  transform: translateY(1px);
 }
 
 .orisa-submit:disabled {
@@ -322,6 +334,7 @@ body:has(.contact-desktop-page) .solar-video-bg {
 }
 
 .orisa-kvkk {
+  min-height: 44px;
   max-width: 34ch;
   display: flex;
   align-items: center;
@@ -329,6 +342,12 @@ body:has(.contact-desktop-page) .solar-video-bg {
   color: var(--orisa-muted);
   font-size: var(--text-2xs);
   line-height: 1.45;
+}
+
+.orisa-kvkk [role="checkbox"] {
+  width: var(--space-5);
+  height: var(--space-5);
+  border-color: var(--orisa-text);
 }
 
 .orisa-kvkk a {

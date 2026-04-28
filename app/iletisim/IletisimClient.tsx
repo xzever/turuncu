@@ -95,22 +95,22 @@ function OrisaForm({
       <form className={compact ? "orisa-form is-compact" : "orisa-form"} onSubmit={form.handleSubmit(handleSubmit)} noValidate aria-describedby={formError ? "orisa-form-error" : undefined}>
         <label className="orisa-field">
           <span>Ad</span>
-          <input type="text" required autoComplete="name" placeholder={labels.fullNamePlaceholder ?? "Adınız Soyadınız"} {...form.register("fullName")} />
+          <input type="text" required autoComplete="name" aria-invalid={!!form.formState.errors.fullName} placeholder={labels.fullNamePlaceholder ?? "Adınız Soyadınız"} {...form.register("fullName")} />
         </label>
 
         <label className="orisa-field">
           <span>Email</span>
-          <input type="email" required inputMode="email" autoComplete="email" placeholder={labels.emailFieldPlaceholder ?? "ornek@email.com"} {...form.register("email")} />
+          <input type="email" required inputMode="email" autoComplete="email" aria-invalid={!!form.formState.errors.email} placeholder={labels.emailFieldPlaceholder ?? "ornek@email.com"} {...form.register("email")} />
         </label>
 
         <label className="orisa-field">
           <span>Tel</span>
-          <input type="tel" inputMode="tel" autoComplete="tel" placeholder={labels.phoneFieldPlaceholder ?? "05XX XXX XX XX"} {...form.register("phone")} />
+          <input type="tel" inputMode="tel" autoComplete="tel" aria-invalid={!!form.formState.errors.phone} placeholder={labels.phoneFieldPlaceholder ?? "05XX XXX XX XX"} {...form.register("phone")} />
         </label>
 
         <label className="orisa-field orisa-field--message">
           <span>Mesaj</span>
-          <textarea required placeholder={labels.messagePlaceholder ?? "Çatı, arazi, tüketim ve hedefinizi yazın..."} {...form.register("message")} />
+          <textarea required aria-invalid={!!form.formState.errors.message} placeholder={labels.messagePlaceholder ?? "Çatı, arazi, tüketim ve hedefinizi yazın..."} {...form.register("message")} />
         </label>
 
         {formError ? <p id="orisa-form-error" role="alert" className="orisa-form__error">{formError}</p> : null}
