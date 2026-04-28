@@ -27,7 +27,7 @@
   --info: var(--color-info);
   --info-soft: var(--color-info-soft);
   --nav: var(--color-nav);
-  --font-slab: var(--font-serif);
+  --font-slab: var(--font-poppins), "Poppins", system-ui, sans-serif;
   --r-sm: 6px;
   --r-md: 10px;
   --r-lg: 14px;
@@ -74,7 +74,7 @@
 }
 
 .h-page {
-  font-family: var(--font-slab);
+  font-family: var(--font-poppins), "Poppins", system-ui, sans-serif;
   font-size: var(--text-3xl);
   font-weight: 700;
   letter-spacing: 0;
@@ -422,7 +422,7 @@
 }
 
 .acc-num {
-  font-family: var(--font-slab);
+  font-family: var(--font-poppins), "Poppins", system-ui, sans-serif;
   font-weight: 700;
   font-size: 13px;
   color: var(--primary);
@@ -695,7 +695,7 @@
 }
 
 .info-head h3 {
-  font-family: var(--font-slab);
+  font-family: var(--font-poppins), "Poppins", system-ui, sans-serif;
   font-size: var(--text-lg);
   font-weight: 700;
   color: var(--text);

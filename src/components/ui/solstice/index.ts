@@ -1,7 +1,7 @@
 /**
  * Solstice Light UI Kit — barrel export.
  * Tasarım sistemi: açık warm krem zemin, Turuncu Solar primary,
- * gold ikincil, Roboto Slab başlıklar.
+ * gold ikincil, Poppins başlıklar.
  *
  * Stil dosyaları (sayfada import edilmeli):
  *   src/styles/components/solstice/solstice-tokens.css
