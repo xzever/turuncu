@@ -9,15 +9,16 @@ import {
   getContactFormDefaults,
   type ContactFormValues,
 } from "@/components/iletisim/contactFormSchema";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
-import { ChevronRight, Mail, MapPin, MessageCircle, Navigation, Phone, Send, User } from "lucide-react";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Clock, Copy, Mail, MapPin, MessageCircle, Navigation, Phone, Send } from "lucide-react";
 import "./iletisim.css";
 
 type ContactChannel = { type?: string; value?: string };
@@ -46,6 +47,15 @@ type ContactPage = {
     settings?: Record<string, boolean>;
   };
 };
+
+const HOURS = [
+  ["Pazartesi", "09:00 - 18:00"],
+  ["Salı", "09:00 - 18:00"],
+  ["Çarşamba", "09:00 - 18:00"],
+  ["Perşembe", "09:00 - 18:00"],
+  ["Cuma", "09:00 - 18:00"],
+  ["Cumartesi", "10:00 - 15:00"],
+] as const;
 
 function getMapEmbedUrl(location: ContactLocation | null): string {
   if (!location) return "";
@@ -101,7 +111,7 @@ export default function IletisimPage({
   const phoneVal = getChannelValue(selectedLocation, "PHONE");
   const waVal = getChannelValue(selectedLocation, "WHATSAPP");
   const emailVal = getChannelValue(selectedLocation, "EMAIL");
-  const whatsappMessage = "Merhaba, gunes enerjisi projem icin bilgi almak istiyorum.";
+  const whatsappMessage = "Merhaba, güneş enerjisi projem için bilgi almak istiyorum.";
   const formError =
     form.formState.errors.fullName?.message ??
     form.formState.errors.email?.message ??
@@ -118,275 +128,123 @@ export default function IletisimPage({
     }, 700);
   }
 
+  function copyValue(value: string) {
+    if (!value) return;
+    void navigator.clipboard?.writeText(value);
+  }
+
   return (
-    <div className="contact-desktop-page">
+    <div className="contact-desktop-page contact-concept">
       <main className="contact-page">
         <header className="contact-page__head">
           <div className="contact-page__title">
-            <h1>
-              Bize <em>yazin.</em>
-            </h1>
-            <p>2 ofis · muhendis ekip ayni gun doner.</p>
+            <Badge variant="secondary">İletişim</Badge>
+            <h1>Bize ulaşın.</h1>
+            <p>Ankara ve Muğla irtibat ofisleri, aynı gün mühendis dönüşü.</p>
           </div>
 
           {locations.length > 1 ? (
-            <Tabs
+            <ToggleGroup
+              type="single"
               value={selectedLocation?.id ?? ""}
-              onValueChange={setSelectedLocationId}
+              onValueChange={(value) => value && setSelectedLocationId(value)}
               className="contact-page__branches"
+              aria-label="Şube seçimi"
             >
-              <TabsList className="seg" aria-label="Subeler">
-                {locations.map((location) => {
-                  const isActive = selectedLocation?.id === location.id;
-                  return (
-                    <TabsTrigger key={location.id} value={location.id} className={isActive ? "is-active" : undefined}>
-                    {location.tabLabel ?? location.name}
-                    </TabsTrigger>
-                  );
-                })}
-              </TabsList>
-            </Tabs>
+              {locations.map((location) => (
+                <ToggleGroupItem key={location.id} value={location.id}>
+                  {location.tabLabel ?? location.name}
+                </ToggleGroupItem>
+              ))}
+            </ToggleGroup>
           ) : null}
         </header>
 
-        {selectedLocation && mapSrc ? (
-          <section className="map-card contact-page__map" aria-label={`${selectedLocation.name} haritasi`}>
-            <iframe
-              src={mapSrc}
-              title={`${selectedLocation.name} haritasi`}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-            <span className="pin" aria-hidden="true" />
-            {selectedLocation.mapLink ? (
-              <div className="controls">
-                <a className="map-btn" href={selectedLocation.mapLink} target="_blank" rel="noreferrer">
-                  <Navigation aria-hidden="true" />
-                  Yol Tarifi
-                </a>
-              </div>
-            ) : null}
-          </section>
-        ) : null}
+        <section className="contact-page__dashboard" aria-label="İletişim dashboard">
+          <Card className="contact-panel contact-panel--info">
+            <CardHeader>
+              <CardTitle>{selectedLocation?.name ?? "Ankara İrtibat Ofisi"}</CardTitle>
+            </CardHeader>
+            <CardContent className="contact-info-list">
+              <div><MapPin aria-hidden="true" /><span>{selectedLocation?.address ?? "Adres bilgisi için bizimle iletişime geçin."}</span><Button type="button" variant="ghost" size="icon" onClick={() => copyValue(selectedLocation?.address ?? "")} aria-label="Adresi kopyala"><Copy /></Button></div>
+              <div><Phone aria-hidden="true" /><a href={phoneVal ? telHref(phoneVal) : undefined}>{phoneVal || "+90 312 285 66 67"}</a><Button type="button" variant="ghost" size="icon" onClick={() => copyValue(phoneVal)} aria-label="Telefonu kopyala"><Copy /></Button></div>
+              <div><MessageCircle aria-hidden="true" /><a href={waVal ? whatsappHref(waVal, whatsappMessage) : undefined} target="_blank" rel="noreferrer">{waVal || "WhatsApp danışmanlığı"}</a><Button type="button" variant="ghost" size="icon" onClick={() => copyValue(waVal)} aria-label="WhatsApp kopyala"><Copy /></Button></div>
+              <div><Mail aria-hidden="true" /><a href={emailVal ? emailHref(emailVal) : undefined}>{emailVal || "info@turuncusolar.com"}</a><Button type="button" variant="ghost" size="icon" onClick={() => copyValue(emailVal)} aria-label="E-postayı kopyala"><Copy /></Button></div>
+            </CardContent>
+          </Card>
 
-        <section className="lay-2" aria-label="Iletisim bilgileri ve form">
-          <div className="contact-page__left">
-            <section aria-labelledby="branch-head">
-              <h2 id="branch-head" className="rail-head">
-                Sube
-              </h2>
-              <div className="rail">
-                <div className="rail-row">
-                  <span className="ic-mini">
-                    <MapPin aria-hidden="true" />
-                  </span>
-                  <span className="lbl-r">Ofis</span>
-                  <span className="val">{selectedLocation?.name ?? "Ankara Irtibat Ofisi"}</span>
-                  <span className="arr" aria-hidden="true">
-                    <ChevronRight />
-                  </span>
-                </div>
-                {selectedLocation?.address ? (
-                  <div className="rail-row">
-                    <span className="ic-mini">
-                      <Navigation aria-hidden="true" />
-                    </span>
-                    <span className="lbl-r">Adres</span>
-                    <span className="val">{selectedLocation.address}</span>
-                  </div>
-                ) : null}
-              </div>
-            </section>
-
-            <section aria-labelledby="desktop-info-head">
-              <h2 id="desktop-info-head" className="rail-head">
-                Bilgileriniz
-              </h2>
-              <div className="rail">
-                <div className="rail-row">
-                  <span className="ic-mini">
-                    <Phone aria-hidden="true" />
-                  </span>
-                  <span className="lbl-r">Telefon</span>
-                  <span className="val">
-                    {phoneVal ? <a href={telHref(phoneVal)}>{phoneVal}</a> : "+90 312 285 66 67"}
-                  </span>
-                </div>
-                <div className="rail-row">
-                  <span className="ic-mini">
-                    <MessageCircle aria-hidden="true" />
-                  </span>
-                  <span className="lbl-r">WhatsApp</span>
-                  <span className="val">
-                    {waVal ? (
-                      <a href={whatsappHref(waVal, whatsappMessage)} target="_blank" rel="noreferrer">
-                        {waVal}
+          <Card className="contact-panel contact-panel--map">
+            <CardHeader>
+              <CardTitle><Clock aria-hidden="true" /> Harita ve saatler</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {selectedLocation && mapSrc ? (
+                <div className="map-card contact-page__map" aria-label={`${selectedLocation.name} haritası`}>
+                  <iframe src={mapSrc} title={`${selectedLocation.name} haritası`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+                  <span className="pin" aria-hidden="true" />
+                  {selectedLocation.mapLink ? (
+                    <div className="controls">
+                      <a className="map-btn" href={selectedLocation.mapLink} target="_blank" rel="noreferrer">
+                        <Navigation aria-hidden="true" />
+                        Yol Tarifi
                       </a>
-                    ) : (
-                      "0312 285 66 67"
-                    )}
-                  </span>
+                    </div>
+                  ) : null}
                 </div>
-                <div className="rail-row">
-                  <span className="ic-mini">
-                    <Mail aria-hidden="true" />
-                  </span>
-                  <span className="lbl-r">E-Posta</span>
-                  <span className="val">
-                    {emailVal ? <a href={emailHref(emailVal)}>{emailVal}</a> : "info@turuncusolar.com"}
-                  </span>
+              ) : null}
+              <div className="contact-hours-grid">
+                {HOURS.map(([day, hour]) => <div key={day}><strong>{day}</strong><span>{hour}</span></div>)}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="contact-panel contact-panel--form">
+            <CardHeader>
+              <CardTitle>Ücretsiz keşif</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {submitted ? (
+                <div className="contact-page__success" role="status">
+                  <p>{labels.successMessage ?? "Teşekkür ederiz. Ekibimiz en kısa sürede size dönüş yapacaktır."}</p>
                 </div>
-              </div>
-            </section>
-          </div>
+              ) : (
+                <Form {...form}>
+                  <form className="contact-page__form-grid" onSubmit={form.handleSubmit(handleSubmit)} noValidate aria-describedby={formError ? "contact-form-error" : undefined}>
+                    <label><span>Ad Soyad</span><Input type="text" required autoComplete="name" placeholder={labels.fullNamePlaceholder ?? "Adınız Soyadınız"} {...form.register("fullName")} /></label>
+                    <label><span>E-posta</span><Input type="email" required inputMode="email" autoComplete="email" placeholder={labels.emailFieldPlaceholder ?? "ornek@email.com"} {...form.register("email")} /></label>
+                    <label><span>Telefon</span><Input type="tel" inputMode="tel" autoComplete="tel" placeholder={labels.phoneFieldPlaceholder ?? "05XX XXX XX XX"} {...form.register("phone")} /></label>
 
-          <section className="contact-page__form" aria-label="Mesaj formu">
-            {submitted ? (
-              <div className="contact-page__success" role="status">
-                <p>{labels.successMessage ?? "Tesekkur ederiz. Ekibimiz en kisa surede size donus yapacaktir."}</p>
-              </div>
-            ) : (
-              <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(handleSubmit)}
-                  noValidate
-                  aria-describedby={formError ? "contact-form-error" : undefined}
-                >
-                <section aria-labelledby="desktop-form-info-head">
-                  <h2 id="desktop-form-info-head" className="rail-head">
-                    Bilgileriniz
-                  </h2>
-                  <div className="rail">
-                    <div className="rail-row">
-                      <span className="ic-mini">
-                        <User aria-hidden="true" />
-                      </span>
-                      <label className="lbl-r" htmlFor="contact-name">
-                        Ad Soyad
-                      </label>
-                      <div className="val">
-                        <Input
-                          id="contact-name"
-                          type="text"
-                          required
-                          autoComplete="name"
-                          placeholder={labels.fullNamePlaceholder ?? "Adiniz Soyadiniz"}
-                          {...form.register("fullName")}
-                        />
-                      </div>
-                    </div>
-                    <div className="rail-row">
-                      <span className="ic-mini">
-                        <Mail aria-hidden="true" />
-                      </span>
-                      <label className="lbl-r" htmlFor="contact-email">
-                        E-Posta
-                      </label>
-                      <div className="val">
-                        <Input
-                          id="contact-email"
-                          type="email"
-                          required
-                          inputMode="email"
-                          autoComplete="email"
-                          placeholder={labels.emailFieldPlaceholder ?? "ornek@email.com"}
-                          {...form.register("email")}
-                        />
-                      </div>
-                    </div>
-                    <div className="rail-row">
-                      <span className="ic-mini">
-                        <Phone aria-hidden="true" />
-                      </span>
-                      <label className="lbl-r" htmlFor="contact-phone">
-                        Telefon
-                      </label>
-                      <div className="val">
-                        <Input
-                          id="contact-phone"
-                          type="tel"
-                          inputMode="tel"
-                          autoComplete="tel"
-                          placeholder={labels.phoneFieldPlaceholder ?? "05XX XXX XX XX"}
-                          {...form.register("phone")}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </section>
+                    {contactPage?.systemTypes?.length ? (
+                      <RadioGroup className="contact-radio-grid" value={selectedSystemType} onValueChange={(value) => form.setValue("systemType", value, { shouldDirty: true })}>
+                        {contactPage.systemTypes.slice(0, 4).map((systemType) => (
+                          <label key={systemType.id} className="contact-radio-tile">
+                            <Card className="contact-radio-tile__card">
+                              <RadioGroupItem value={systemType.id} aria-label={systemType.name} />
+                              <span>{systemType.name}</span>
+                            </Card>
+                          </label>
+                        ))}
+                      </RadioGroup>
+                    ) : null}
 
-                {contactPage?.systemTypes?.length ? (
-                  <section className="contact-page__system" aria-labelledby="desktop-system-head">
-                    <h2 id="desktop-system-head" className="rail-head">
-                      {labels.systemTypeLabel ?? "Sistem tipi"}
-                    </h2>
-                    <RadioGroup
-                      className="contact-radio-grid"
-                      value={selectedSystemType}
-                      onValueChange={(value) => form.setValue("systemType", value, { shouldDirty: true })}
-                    >
-                      {contactPage.systemTypes.map((systemType) => (
-                        <label key={systemType.id} className="contact-radio-tile">
-                          <Card className="contact-radio-tile__card">
-                            <RadioGroupItem value={systemType.id} aria-label={systemType.name} />
-                            <span>{systemType.name}</span>
-                          </Card>
-                        </label>
-                      ))}
-                    </RadioGroup>
-                  </section>
-                ) : null}
+                    <label><span>Mesaj</span><Textarea required placeholder={labels.messagePlaceholder ?? "Güneş enerjisi hakkında merak ettiklerinizi yazın..."} {...form.register("message")} /></label>
 
-                <section className="contact-page__message" aria-labelledby="desktop-message-head">
-                  <h2 id="desktop-message-head" className="rail-head">
-                    Mesajiniz
-                  </h2>
-                  <div className="rail">
-                    <div className="rail-row rail-row--textarea">
-                      <span className="ic-mini">
-                        <MessageCircle aria-hidden="true" />
-                      </span>
-                      <label className="lbl-r" htmlFor="contact-message">
-                        Konu
-                      </label>
-                      <div className="val">
-                        <Textarea
-                          id="contact-message"
-                          required
-                          placeholder={labels.messagePlaceholder ?? "Gunes enerjisi hakkinda merak ettiklerinizi yazin..."}
-                          {...form.register("message")}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </section>
+                    {formError ? <p id="contact-form-error" role="alert" className="contact-page__error">{formError}</p> : null}
 
-                {formError ? (
-                  <p id="contact-form-error" role="alert" className="contact-page__error">
-                    {formError}
-                  </p>
-                ) : null}
+                    <label className="kvkk-control">
+                      <Checkbox checked={kvkkAccepted} onCheckedChange={(checked) => form.setValue("kvkkAccepted", checked === true, { shouldDirty: true, shouldValidate: true })} />
+                      <span><a href={kvkkUrl}>KVKK aydınlatma metnini</a> okudum ve onaylıyorum.</span>
+                    </label>
 
-                <label className="kvkk-control">
-                  <Checkbox
-                    checked={kvkkAccepted}
-                    onCheckedChange={(checked) =>
-                      form.setValue("kvkkAccepted", checked === true, { shouldDirty: true, shouldValidate: true })
-                    }
-                  />
-                  <span>
-                    <a href={kvkkUrl}>KVKK aydinlatma metnini</a> okudum ve onayliyorum.
-                  </span>
-                </label>
-
-                <Button type="submit" className="btn full" disabled={submitting}>
-                  <span>{submitting ? labels.submittingLabel ?? "Gonderiliyor..." : labels.submitLabel ?? "Gonder"}</span>
-                  <Send aria-hidden="true" />
-                </Button>
-                </form>
-              </Form>
-            )}
-          </section>
+                    <Button type="submit" className="btn full" disabled={submitting}>
+                      <span>{submitting ? labels.submittingLabel ?? "Gönderiliyor..." : labels.submitLabel ?? "Gönder"}</span>
+                      <Send aria-hidden="true" />
+                    </Button>
+                  </form>
+                </Form>
+              )}
+            </CardContent>
+          </Card>
         </section>
       </main>
     </div>
