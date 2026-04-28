@@ -20,6 +20,23 @@
   }
 }
 
+.bs-list-shell .bs-story-card {
+  gap: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  box-shadow: none;
+}
+
+.bs-list-shell .bs-story-badge {
+  min-height: var(--space-6);
+  border-color: rgba(255, 248, 240, 0.18);
+  background: rgba(255, 248, 240, 0.14);
+  color: currentColor;
+}
+
 @media (max-width: 896px) and (orientation: landscape) {
   .bs-detail-shell__hero {
     aspect-ratio: 21 / 9;
@@ -219,12 +236,37 @@
 
   .bs-detail-shell__related-card {
     display: block;
-    border: 1px solid var(--blog-detail-line);
-    border-radius: var(--radius-lg);
-    background: var(--blog-detail-glass);
     color: var(--blog-detail-ink);
     text-decoration: none;
     overflow: hidden;
+  }
+
+  .bs-detail-shell__related-card-shell {
+    gap: 0;
+    padding: 0;
+    border-color: var(--blog-detail-line);
+    border-radius: var(--radius-lg);
+    background: var(--blog-detail-glass);
+    color: inherit;
+    overflow: hidden;
+  }
+
+  .bs-detail-shell__related-image {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: rgba(26, 9, 7, 0.28);
+  }
+
+  .bs-detail-shell__related-image img {
+    object-fit: cover;
+  }
+
+  .bs-detail-shell__related-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-4);
   }
 
   .bs-detail-shell__related-title {
@@ -232,6 +274,7 @@
   }
 
   .bs-detail-shell__related-date {
+    width: fit-content;
     color: var(--blog-detail-muted);
   }
 

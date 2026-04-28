@@ -38,6 +38,8 @@ import {
   Twitter,
   X,
 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
 import type { BlogPost } from "@/lib/blogTypes";
 
 /* ──────────────────────────────────────────────────────────────
@@ -519,13 +521,13 @@ export default function BlogStoryShell({ posts, basePath = "/blog" }: Props) {
               const p = d.post;
               const postUrl = `https://www.turuncusolar.com${basePath}/${p.slug}`;
               return (
-                <section
+                <Card
                   key={p.id}
                   ref={(el) => {
                     sectionRefs.current[idx] = el;
                   }}
                   data-idx={idx}
-                  className="rfs-story bs-story-clickable"
+                  className="rfs-story bs-story-clickable bs-story-card"
                   aria-label={`${idx + 1}. yazı — ${p.title}`}
                   role="button"
                   tabIndex={0}
@@ -552,7 +554,9 @@ export default function BlogStoryShell({ posts, basePath = "/blog" }: Props) {
 
                     <div className="rfs-story__loc">
                       <Tags size={14} aria-hidden="true" />
-                      <span>{d.categoryName}</span>
+                      <Badge variant="secondary" className="bs-story-badge">
+                        {d.categoryName}
+                      </Badge>
                       <span className="rfs-story__sep" aria-hidden="true">·</span>
                       <CalendarDays size={14} aria-hidden="true" />
                       <span>{d.dateLabel}</span>
@@ -610,7 +614,7 @@ export default function BlogStoryShell({ posts, basePath = "/blog" }: Props) {
                       )}
                     </div>
                   </div>
-                </section>
+                </Card>
               );
             })
           )}

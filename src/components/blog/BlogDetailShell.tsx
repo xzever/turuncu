@@ -3,6 +3,8 @@
 import { useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 import type { BlogPost } from "@/lib/blogTypes";
 import { sanitizeHtml } from "@/lib/sanitize";
 import NewsletterCta from "./NewsletterCta";
@@ -166,16 +168,16 @@ export default function BlogDetailShell({
           )}
 
           <div
-            className="bs-detail-shell__content"
+            className="bs-detail-shell__content prose"
             dangerouslySetInnerHTML={{ __html: sanitizedContent }}
           />
 
           {tags.length > 0 && (
             <div className="bs-detail-shell__tags" aria-label="Etiketler">
               {tags.slice(0, 8).map((tag, index) => (
-                <span className="bs-detail-shell__tag" key={`${tag}-${index}`}>
+                <Badge variant="outline" className="bs-detail-shell__tag" key={`${tag}-${index}`}>
                   {tag}
-                </span>
+                </Badge>
               ))}
             </div>
           )}
@@ -191,25 +193,27 @@ export default function BlogDetailShell({
                   href={`${basePath}/${p.slug}`}
                   className="bs-detail-shell__related-card"
                 >
-                  {p.featuredImage && (
-                    <div className="bs-detail-shell__related-image">
-                      <Image
-                        src={resolveImageUrl(p.featuredImage) ?? ""}
-                        alt={p.title}
-                        fill
-                        loading="lazy"
-                        sizes="(max-width: 767px) 100vw, 33vw"
-                      />
-                    </div>
-                  )}
-                  <div className="bs-detail-shell__related-body">
-                    <h3 className="bs-detail-shell__related-title">{p.title}</h3>
-                    {p.publishedAt && (
-                      <span className="bs-detail-shell__related-date">
-                        {formatDateTr(p.publishedAt)}
-                      </span>
+                  <Card className="bs-detail-shell__related-card-shell">
+                    {p.featuredImage && (
+                      <div className="bs-detail-shell__related-image">
+                        <Image
+                          src={resolveImageUrl(p.featuredImage) ?? ""}
+                          alt={p.title}
+                          fill
+                          loading="lazy"
+                          sizes="(max-width: 767px) 100vw, 33vw"
+                        />
+                      </div>
                     )}
-                  </div>
+                    <CardContent className="bs-detail-shell__related-body">
+                      <h3 className="bs-detail-shell__related-title">{p.title}</h3>
+                      {p.publishedAt && (
+                        <Badge variant="secondary" className="bs-detail-shell__related-date">
+                          {formatDateTr(p.publishedAt)}
+                        </Badge>
+                      )}
+                    </CardContent>
+                  </Card>
                 </Link>
               ))}
             </div>
