@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useRef, useState, type ReactNode } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
 import OrbitalNav from "@/components/systems/OrbitalNav";
 import "@/styles/components/hakkimizda-solar2-desktop.css";
 // Faz 10 cleanup: HakkimizdaSolar2Mobile + useResponsiveShell + useDevice kaldırıldı.
@@ -213,7 +215,9 @@ export default function HakkimizdaSolar2Desktop() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/logo.svg" alt="" aria-hidden="true" className="suscols__brandmark" />
               <div className="suscols__head">
-                <div className="suscols__kicker">Sürdürülebilirlik · Dört Taahhüt</div>
+                <Badge variant="secondary" className="suscols__kicker">
+                  Sürdürülebilirlik · Dört Taahhüt
+                </Badge>
                 <h2 className="suscols__h">
                   Temiz bir gelecek için gücümüz enerji, <em>hedefimiz sürdürülebilirlik.</em>
                 </h2>
@@ -261,7 +265,7 @@ export default function HakkimizdaSolar2Desktop() {
                     ),
                   },
                 ].map((c) => (
-                  <article key={c.n} className="suscols__col" data-n={c.n}>
+                  <Card key={c.n} className="suscols__col" data-n={c.n}>
                     <p className="suscols__col-top">{c.top}</p>
                     <div className="suscols__icon" aria-hidden="true">{c.svg}</div>
                     <div className="suscols__col-divider" />
@@ -270,7 +274,7 @@ export default function HakkimizdaSolar2Desktop() {
                     <div className="suscols__arrow" aria-hidden="true">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
                     </div>
-                  </article>
+                  </Card>
                 ))}
               </div>
             </motion.div>

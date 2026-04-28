@@ -2908,6 +2908,11 @@
   transform: translateY(24px);
   animation: suscols-in 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
+.systems-page--hakkimizda-desktop .suscols__col[data-slot="card"] {
+  gap: 0;
+  box-shadow: none;
+  color: inherit;
+}
 .systems-page--hakkimizda-desktop .suscols__col:last-child { border-right: none; }
 .systems-page--hakkimizda-desktop .suscols__col[data-n="01"] { background: rgba(255, 255, 255, 0.04); animation-delay: 0.05s; }
 .systems-page--hakkimizda-desktop .suscols__col[data-n="02"] { background: rgba(0, 0, 0, 0.22);  animation-delay: 0.18s; }
