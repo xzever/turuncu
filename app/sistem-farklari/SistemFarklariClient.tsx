@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { type CSSProperties, useCallback, useMemo, useState } from "react";
 import OrbitalNav from "@/components/systems/OrbitalNav";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { buildLocaleAwareHref, resolveLocaleFromPathname } from "@/lib/localePath";
 import {
   ICONS,
@@ -121,50 +122,46 @@ export default function SistemFarklariClient() {
 
         <p className="sf-hint">Kıyaslama için en az 2 sistem seçili kalır.</p>
 
-        <div
+        <Table
           className="sf-table"
-          role="table"
           aria-label="Sistem karşılaştırma tablosu"
           style={{ "--compare-cols": `${shownCompareColumns.length}` } as CSSProperties}
         >
-          <div className="sf-row sf-row--head" role="row">
-            <div role="columnheader" className="sf-head-cell sf-head-cell--criterion">
-              <UiIcon name="versus" />
-              <span>Kriter</span>
-            </div>
-            {shownCompareColumns.map((column) => (
-              <div
-                key={column.key}
-                role="columnheader"
-                className={`sf-head-cell sf-head-cell--${column.key}`}
-              >
-                <UiIcon name={column.icon} />
-                <div>
-                  <strong>{column.label}</strong>
-                  <small>{column.detail}</small>
-                </div>
-              </div>
-            ))}
-          </div>
+          <TableHeader>
+            <TableRow className="sf-row sf-row--head">
+              <TableHead className="sf-head-cell sf-head-cell--criterion">
+                <UiIcon name="versus" />
+                <span>Kriter</span>
+              </TableHead>
+              {shownCompareColumns.map((column) => (
+                <TableHead key={column.key} className={`sf-head-cell sf-head-cell--${column.key}`}>
+                  <UiIcon name={column.icon} />
+                  <div>
+                    <strong>{column.label}</strong>
+                    <small>{column.detail}</small>
+                  </div>
+                </TableHead>
+              ))}
+            </TableRow>
+          </TableHeader>
 
-          {VERSUS_ROWS.map((row, index) => (
-            <div
-              key={row.criterion}
-              className="sf-row"
-              role="row"
-              style={{ "--delay": `${index * 80}ms` } as CSSProperties}
-            >
-              <div role="cell" className="sf-criterion">
+          <TableBody>
+            {VERSUS_ROWS.map((row, index) => (
+              <TableRow
+                key={row.criterion}
+                className="sf-row"
+                style={{ "--delay": `${index * 80}ms` } as CSSProperties}
+              >
+              <TableCell className="sf-criterion">
                 <UiIcon name={row.criterionIcon} />
                 <div>
                   <strong>{row.criterion}</strong>
                   <small>{row.criterionMeta}</small>
                 </div>
-              </div>
+              </TableCell>
               {shownCompareColumns.map((column) => (
-                <div
+                <TableCell
                   key={column.key}
-                  role="cell"
                   className={`sf-cell sf-cell--${column.key}`}
                   data-column-label={column.label}
                 >
@@ -173,11 +170,12 @@ export default function SistemFarklariClient() {
                     <strong>{row[column.key]}</strong>
                   </div>
                   <small>{VERSUS_CELL_DETAILS[row.criterion]?.[column.key]}</small>
-                </div>
+                </TableCell>
               ))}
-            </div>
-          ))}
-        </div>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </section>
 
       {/*
