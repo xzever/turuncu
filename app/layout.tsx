@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
-import { Roboto, Roboto_Mono, Roboto_Slab } from "next/font/google";
+import { Poppins, Roboto_Mono } from "next/font/google";
 import AppChrome from "@/components/layout/AppChrome";
 import CookieConsent from "@/components/legal/CookieConsent";
 import { GLOBAL_SEO_KEYWORDS_TR } from "@/lib/seoKeywords";
@@ -10,17 +10,10 @@ import "@/styles/mobile-foundation.css";
 import "@/styles/components/mobile-page-frame.css";
 import "@/styles/components/mobile/index.css";
 
-const roboto = Roboto({
+const poppins = Poppins({
   subsets: ["latin", "latin-ext"],
-  weight: ["300", "400", "500", "700", "900"],
-  variable: "--font-roboto",
-  display: "swap",
-});
-
-const robotoSlab = Roboto_Slab({
-  subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "700"],
-  variable: "--font-roboto-slab",
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-poppins",
   display: "swap",
 });
 
@@ -153,7 +146,7 @@ export default async function RootLayout({
   return (
     <html lang={htmlLang} data-device={device}>
       <body
-        className={`${roboto.variable} ${robotoSlab.variable} ${robotoMono.variable} antialiased flex min-h-[100dvh] flex-col`}
+        className={`${poppins.variable} ${robotoMono.variable} antialiased flex min-h-[100dvh] flex-col`}
         suppressHydrationWarning
       >
         {/* Site-wide JSON-LD Organization (Google SEO structured data) */}

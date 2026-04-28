@@ -36,8 +36,8 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --font-sans: 'Roboto', system-ui, -apple-system, sans-serif;
-  --font-mono: 'Roboto Mono', monospace;
+  --font-sans: var(--font-poppins), 'Poppins', system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-roboto-mono), 'Roboto Mono', monospace;
 }
 
 :root {
@@ -109,7 +109,7 @@ html {
   margin: 0;
   background: var(--color-bg-app);
   color: var(--color-text-primary);
-  font-family: var(--font-sans);
+  font-family: var(--font-poppins), "Poppins", system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   touch-action: manipulation;
@@ -117,9 +117,15 @@ html {
 }
 
 body {
+  --font-sans: var(--font-poppins), "Poppins", system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-poppins), "Poppins", system-ui, -apple-system, sans-serif;
+  --font-slab: var(--font-poppins), "Poppins", system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-roboto-mono), "Roboto Mono", monospace;
+
   width: 100%;
   min-height: 100dvh;
   margin: 0;
+  font-family: var(--font-poppins), "Poppins", system-ui, -apple-system, sans-serif;
   /* PWA / mobil: akıcı touch scroll */
   -webkit-overflow-scrolling: touch;
   background: var(--color-bg) !important;
@@ -237,7 +243,7 @@ button,
 input,
 select,
 textarea {
-  font-family: var(--font-sans);
+  font-family: var(--font-poppins), "Poppins", system-ui, -apple-system, sans-serif;
 }
 
 /* Telefon + tablet aynı mobil aile: tipografi aynı kalır, container büyür. */
