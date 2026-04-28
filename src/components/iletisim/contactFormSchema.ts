@@ -8,6 +8,7 @@ export const contactFormSchema = z.object({
   phone: z.string().trim().regex(phonePattern, "Lutfen gecerli bir telefon girin.").optional().or(z.literal("")),
   systemType: z.string().optional(),
   message: z.string().trim().min(10, "Mesajiniz en az 10 karakter olmalidir."),
+  kvkkAccepted: z.boolean().refine((value) => value, "KVKK aydinlatma metnini onaylamalisiniz."),
 });
 
 export type ContactFormValues = z.infer<typeof contactFormSchema>;
@@ -19,5 +20,6 @@ export function getContactFormDefaults(systemType = ""): ContactFormValues {
     phone: "",
     systemType,
     message: "",
+    kvkkAccepted: false,
   };
 }

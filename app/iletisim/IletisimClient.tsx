@@ -2,17 +2,20 @@
 
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import type { Locale } from "@/components/layout/headerConfig";
 import {
   contactFormSchema,
   getContactFormDefaults,
   type ContactFormValues,
 } from "@/components/iletisim/contactFormSchema";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { ChevronRight, Mail, MapPin, MessageCircle, Navigation, Phone, Send, User } from "lucide-react";
 import "./iletisim.css";
@@ -89,6 +92,8 @@ export default function IletisimPage({
     resolver: zodResolver(contactFormSchema),
     defaultValues: getContactFormDefaults(contactPage?.systemTypes?.[0]?.id ?? ""),
   });
+  const selectedSystemType = useWatch({ control: form.control, name: "systemType" });
+  const kvkkAccepted = useWatch({ control: form.control, name: "kvkkAccepted" });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -101,7 +106,8 @@ export default function IletisimPage({
     form.formState.errors.fullName?.message ??
     form.formState.errors.email?.message ??
     form.formState.errors.phone?.message ??
-    form.formState.errors.message?.message;
+    form.formState.errors.message?.message ??
+    form.formState.errors.kvkkAccepted?.message;
 
   function handleSubmit() {
     if (submitting) return;
@@ -124,23 +130,22 @@ export default function IletisimPage({
           </div>
 
           {locations.length > 1 ? (
-            <div className="seg contact-page__branches" role="tablist" aria-label="Subeler">
-              {locations.map((location) => {
-                const isActive = selectedLocation?.id === location.id;
-                return (
-                  <button
-                    key={location.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={isActive}
-                    className={isActive ? "is-active" : undefined}
-                    onClick={() => setSelectedLocationId(location.id)}
-                  >
+            <Tabs
+              value={selectedLocation?.id ?? ""}
+              onValueChange={setSelectedLocationId}
+              className="contact-page__branches"
+            >
+              <TabsList className="seg" aria-label="Subeler">
+                {locations.map((location) => {
+                  const isActive = selectedLocation?.id === location.id;
+                  return (
+                    <TabsTrigger key={location.id} value={location.id} className={isActive ? "is-active" : undefined}>
                     {location.tabLabel ?? location.name}
-                  </button>
-                );
-              })}
-            </div>
+                    </TabsTrigger>
+                  );
+                })}
+              </TabsList>
+            </Tabs>
           ) : null}
         </header>
 
@@ -317,7 +322,7 @@ export default function IletisimPage({
                     </h2>
                     <RadioGroup
                       className="contact-radio-grid"
-                      value={form.watch("systemType")}
+                      value={selectedSystemType}
                       onValueChange={(value) => form.setValue("systemType", value, { shouldDirty: true })}
                     >
                       {contactPage.systemTypes.map((systemType) => (
@@ -362,14 +367,22 @@ export default function IletisimPage({
                   </p>
                 ) : null}
 
-                <button type="submit" className="btn full" disabled={submitting}>
+                <label className="kvkk-control">
+                  <Checkbox
+                    checked={kvkkAccepted}
+                    onCheckedChange={(checked) =>
+                      form.setValue("kvkkAccepted", checked === true, { shouldDirty: true, shouldValidate: true })
+                    }
+                  />
+                  <span>
+                    <a href={kvkkUrl}>KVKK aydinlatma metnini</a> okudum ve onayliyorum.
+                  </span>
+                </label>
+
+                <Button type="submit" className="btn full" disabled={submitting}>
                   <span>{submitting ? labels.submittingLabel ?? "Gonderiliyor..." : labels.submitLabel ?? "Gonder"}</span>
                   <Send aria-hidden="true" />
-                </button>
-                <p className="kvkk-note">
-                  Gönder&apos;e basarak{" "}
-                  <a href={kvkkUrl}>KVKK aydınlatma metnini</a> onayladığını kabul edersin.
-                </p>
+                </Button>
                 </form>
               </Form>
             )}

@@ -117,6 +117,21 @@ body:has(.iletisim-mobile-page) .solar-video-bg {
   cursor: wait;
 }
 
+.iletisim-mobile-page .kvkk-control {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--color-muted);
+  font-size: var(--text-2xs);
+  line-height: 1.45;
+}
+
+.iletisim-mobile-page .kvkk-control a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .iletisim-m__success,
 .iletisim-m__error {
   border: 1px solid var(--color-line-soft);
