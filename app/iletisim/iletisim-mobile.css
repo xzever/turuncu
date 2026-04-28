@@ -141,7 +141,7 @@ body:has(.iletisim-mobile-page) .solar-video-bg {
 }
 
 .iletisim-m__success {
-  padding: 16px;
+  padding: var(--space-4);
   color: var(--color-muted);
   font-size: 14px;
   line-height: 1.55;
@@ -166,13 +166,13 @@ body:has(.iletisim-mobile-page) .solar-video-bg {
   }
 
   .iletisim-mobile-page form {
-    gap: 16px;
+    gap: var(--space-4);
   }
 }
 
 @media (orientation: landscape) and (max-width: 1279px) {
   .iletisim-mobile-page {
-    gap: 12px;
+    gap: var(--space-3);
   }
 
   .iletisim-mobile-page .h-page {
@@ -180,7 +180,7 @@ body:has(.iletisim-mobile-page) .solar-video-bg {
   }
 
   .iletisim-mobile-page .lead {
-    margin-top: 4px;
+    margin-top: var(--space-1);
   }
 
   .iletisim-mobile-page .rail-row {

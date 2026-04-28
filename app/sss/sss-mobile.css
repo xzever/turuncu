@@ -36,7 +36,7 @@
 .sss-mobile-page .chip {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
   font-family: inherit;
 }
 
@@ -72,7 +72,7 @@
 
 @media (orientation: landscape) and (max-width: 1279px) {
   .sss-mobile-page {
-    gap: 12px;
+    gap: var(--space-3);
   }
 
   .sss-mobile-page .h-page {
@@ -80,11 +80,11 @@
   }
 
   .sss-mobile-page .lead {
-    margin-top: 4px;
+    margin-top: var(--space-1);
   }
 
   .sss-mobile-page .acc {
-    padding-block: 12px;
+    padding-block: var(--space-3);
   }
 }
 

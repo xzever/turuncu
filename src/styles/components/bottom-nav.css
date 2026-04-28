@@ -205,7 +205,7 @@
 @media (max-width: 380px) {
   .handheld-dock__cell {
     gap: 0;
-    padding-inline: 4px;
+    padding-inline: var(--space-1);
   }
 }
 

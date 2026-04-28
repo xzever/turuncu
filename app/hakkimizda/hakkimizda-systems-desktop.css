@@ -1,4 +1,4 @@
-﻿/* Hakkımızda desktop — full-viewport systems shell + corporate stage (no sistemlerimiz.css dependency) */
+/* Hakk�m�zda desktop � full-viewport systems shell + corporate stage (no sistemlerimiz.css dependency) */
 
 @keyframes systems-orb-float {
   0% {
@@ -182,7 +182,7 @@
   transform: none;
 }
 
-/* Hikayemiz — tam ekran döngü video arka planı */
+/* Hikayemiz � tam ekran d�ng� video arka plan� */
 .systems-page--hakkimizda-desktop .systems-stage__bg-video {
   position: absolute;
   inset: 0;
@@ -192,8 +192,8 @@
   object-position: center;
 }
 
-/* Hikayemiz — video üstüne turuncu gradient + bizkimizbackround.jpg overlay
-   (sistemlerimiz ile aynı sistem, opacity 0.6). §11 uyumlu: sadece opacity anim. */
+/* Hikayemiz � video �st�ne turuncu gradient + bizkimizbackround.jpg overlay
+   (sistemlerimiz ile ayn� sistem, opacity 0.6). �11 uyumlu: sadece opacity anim. */
 .systems-page--hakkimizda-desktop .hikayemiz-overlay {
   position: absolute;
   inset: 0;
@@ -262,7 +262,7 @@
   );
 }
 
-/* Hikayemiz (video): kurumsal maske videoyu gömerdi — daha şeffaf katman */
+/* Hikayemiz (video): kurumsal maske videoyu g�merdi � daha �effaf katman */
 .systems-page--hakkimizda-desktop .systems-stage__bg--hikayemiz-video .systems-stage__bg-mask {
   background: linear-gradient(
     90deg,
@@ -273,7 +273,7 @@
   );
 }
 
-/* Üst nokta grid — kurumsal sahne (önceki .systems-stage iç içe seçici geçersizdi) */
+/* �st nokta grid � kurumsal sahne (�nceki .systems-stage i� i�e se�ici ge�ersizdi) */
 .systems-page--hakkimizda-desktop .systems-stage.systems-stage--corporate::after {
   opacity: 0.1;
 }
@@ -371,7 +371,7 @@
   border-radius: 50%;
   background: #f97316;
   border: 3px solid rgba(249, 115, 22, 0.3);
-  margin-top: 20px;
+  margin-top: var(--space-5);
   margin-left: 19px;
   box-shadow: 0 0 16px rgba(249, 115, 22, 0.5);
   position: relative;
@@ -437,7 +437,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  margin-bottom: 12px;
+  margin-bottom: var(--space-3);
 }
 
 .systems-page--hakkimizda-desktop .corp-vtl__card-icon {
@@ -649,7 +649,7 @@
     font-size: var(--text-2xs);
   }
 
-  /* Biz Kimiz vertical cards — tighter padding so all 3 fit on laptop viewport */
+  /* Biz Kimiz vertical cards � tighter padding so all 3 fit on laptop viewport */
   .systems-page--hakkimizda-desktop .corp-vtl {
     gap: clamp(12px, 1.6vh, 20px);
     padding: clamp(8px, 1.2vh, 16px) 0;
@@ -663,7 +663,7 @@
 
   .systems-page--hakkimizda-desktop .corp-vtl__card-header {
     gap: var(--space-2);
-    margin-bottom: 8px;
+    margin-bottom: var(--space-2);
   }
 
   .systems-page--hakkimizda-desktop .corp-vtl__card-icon {
@@ -935,7 +935,7 @@
   }
 }
 
-/* Tablet and below only — keep desktop layout intact for 1025px+ laptops */
+/* Tablet and below only � keep desktop layout intact for 1025px+ laptops */
 @media (max-width: 1024px) {
   .systems-page--hakkimizda-desktop .corporate-stage__content {
     grid-template-columns: 1fr;
@@ -956,7 +956,7 @@
   }
 }
 
-/* Bottom dock tabs — kullanıcı isteği: arka plan şeffaf, gölge/blur kaldırıldı (tüm ekranlar) */
+/* Bottom dock tabs � kullan�c� iste�i: arka plan �effaf, g�lge/blur kald�r�ld� (t�m ekranlar) */
 .systems-page--hakkimizda-desktop .systems-tabs {
   position: fixed;
   left: 50%;
@@ -1038,7 +1038,7 @@
   height: 100%;
 }
 
-/* 13" desktop — kurumsal alt dock daha okunur ve sistemlerimiz ile hizalı */
+/* 13" desktop � kurumsal alt dock daha okunur ve sistemlerimiz ile hizal� */
 @media (min-width: 1280px) and (max-width: 1439px) {
   .systems-page--hakkimizda-desktop .systems-tabs {
     gap: var(--space-3);
@@ -1068,7 +1068,7 @@
   }
 }
 
-/* ─── Large desktop scaling (1920px+) ─── */
+/* ��� Large desktop scaling (1920px+) ��� */
 @media (min-width: 1920px) {
   .systems-page--hakkimizda-desktop .corp-vtl {
     max-width: 520px;
@@ -1086,11 +1086,11 @@
 
   .systems-page--hakkimizda-desktop .corp-vtl__card-header {
     gap: var(--space-4);
-    margin-bottom: 16px;
+    margin-bottom: var(--space-4);
   }
 }
 
-/* ─── Ultra-wide scaling (2560px+) ─── */
+/* ��� Ultra-wide scaling (2560px+) ��� */
 @media (min-width: 2560px) {
   .systems-page--hakkimizda-desktop .corp-vtl {
     max-width: 600px;
@@ -1111,7 +1111,7 @@
   }
 }
 
-/* ─── Biz Kimiz safe-fit override (laptop 1025-1439) ─── */
+/* ��� Biz Kimiz safe-fit override (laptop 1025-1439) ��� */
 @media (min-width: 1025px) and (max-width: 1439px) {
   .systems-page--hakkimizda-desktop .corporate-stage__content--bizkimiz {
     grid-template-columns: 1.1fr 0.9fr !important;
@@ -1167,9 +1167,9 @@
 }
 
 /* ============================================================
-   FLUID DESKTOP SCALING — Kurumsal (Hakkimizda) sayfası
-   Global --sbu birimine bağlı. Her stage 100dvh ve içerik fluid.
-   14"–32"+ tüm desktop ekranlarda aynı düzen orantılı küçülür/büyür.
+   FLUID DESKTOP SCALING � Kurumsal (Hakkimizda) sayfas�
+   Global --sbu birimine ba�l�. Her stage 100dvh ve i�erik fluid.
+   14"�32"+ t�m desktop ekranlarda ayn� d�zen orant�l� k���l�r/b�y�r.
    ============================================================ */
 @media (min-width:1025px){
   .systems-page--hakkimizda-desktop .systems-stage{
@@ -1181,7 +1181,7 @@
       calc(var(--sbu) * 60);
   }
 
-  /* ── Hero / Corporate intro ── */
+  /* �� Hero / Corporate intro �� */
   .systems-page--hakkimizda-desktop .corporate-stage__content,
   .systems-page--hakkimizda-desktop .corporate-stage__content--sustainability{
     margin-top: calc(var(--sbu) * 18);
@@ -1208,7 +1208,7 @@
     line-height:1.55;
   }
 
-  /* ── Pillars (sustainability cards) ── */
+  /* �� Pillars (sustainability cards) �� */
   .systems-page--hakkimizda-desktop .corporate-stage__pillars{
     gap: calc(var(--sbu) * 10);
     grid-template-rows: repeat(2, minmax(calc(var(--sbu) * 110), 1fr));
@@ -1232,7 +1232,7 @@
     line-height:1.25;
   }
 
-  /* ── Timeline (Hikayemiz) ── */
+  /* �� Timeline (Hikayemiz) �� */
   .systems-page--hakkimizda-desktop .corporate-stage__content--timeline{
     padding: 0 calc(var(--sbu) * 28) !important;
     gap: calc(var(--sbu) * 22);
@@ -1284,7 +1284,7 @@
     height: calc(var(--sbu) * 11);
   }
 
-  /* ── Vertical timeline (Biz Kimiz) ── */
+  /* �� Vertical timeline (Biz Kimiz) �� */
   .systems-page--hakkimizda-desktop .corp-vtl{
     gap: calc(var(--sbu) * 14);
     padding: calc(var(--sbu) * 10) 0;
@@ -1321,13 +1321,13 @@
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   KURUMSAL · YENİ TASARIM SİSTEMLERİ
-   Biz Kimiz → Konsept 4 (Immersive)
-   Hikayemiz → Konsept 1 (Cinematic Split + dikey yıl seçici)
-   Sürdürülebilirlik → Konsept 4 (Immersive)
-   Tüm boyutlar global --sbu fluid birime bağlıdır.
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* ===========================================================================
+   KURUMSAL � YEN� TASARIM S�STEMLER�
+   Biz Kimiz � Konsept 4 (Immersive)
+   Hikayemiz � Konsept 1 (Cinematic Split + dikey y�l se�ici)
+   S�rd�r�lebilirlik � Konsept 4 (Immersive)
+   T�m boyutlar global --sbu fluid birime ba�l�d�r.
+   =========================================================================== */
 
 @media (min-width: 1025px) {
   .systems-page--hakkimizda-desktop .kurumsal-c1,
@@ -1345,7 +1345,7 @@
       calc(var(--sbu) * 38);
   }
 
-  /* ─────────── KONSEPT 4 (Biz Kimiz + Sürdürülebilirlik) ─────────── */
+  /* ����������� KONSEPT 4 (Biz Kimiz + S�rd�r�lebilirlik) ����������� */
   .systems-page--hakkimizda-desktop .kurumsal-c4 {
     display: flex;
     flex-direction: column;
@@ -1471,7 +1471,7 @@
     margin: 0;
   }
 
-  /* ─────────── KONSEPT 1 (Hikayemiz · Cinematic Split) ─────────── */
+  /* ����������� KONSEPT 1 (Hikayemiz � Cinematic Split) ����������� */
   .systems-page--hakkimizda-desktop .kurumsal-c1 {
     display: grid;
     grid-template-columns: minmax(0, 0.5fr) minmax(0, 1.5fr);
@@ -1483,12 +1483,12 @@
   }
 
   /* JSX: .kurumsal-c1 > .kurumsal-c1__inner > (.kurumsal-c1__left | .kurumsal-c1__tl)
-     Sarmalayıcı grid satırına katılmazsa tek hücrede sıkışır; sağ sütun boş kalır. */
+     Sarmalay�c� grid sat�r�na kat�lmazsa tek h�crede s�k���r; sa� s�tun bo� kal�r. */
   .systems-page--hakkimizda-desktop .kurumsal-c1__inner {
     display: contents;
   }
 
-  /* 13" / dar masaüstü: sol metin sütununu genişlet, taşmayı önle */
+  /* 13" / dar masa�st�: sol metin s�tununu geni�let, ta�may� �nle */
   @media (min-width: 1025px) and (max-width: 1599px) {
     .systems-page--hakkimizda-desktop .kurumsal-c1 {
       grid-template-columns: minmax(0, 0.58fr) minmax(0, 1.42fr);
@@ -1791,7 +1791,7 @@
     display: block;
     filter: drop-shadow(0 0 calc(var(--sbu) * 24) rgba(255, 107, 43, 0.18));
   }
-  /* Dev başlık ve içerik harita önünde kalsın */
+  /* Dev ba�l�k ve i�erik harita �n�nde kals�n */
   .systems-page--hakkimizda-desktop .kurumsal-c4__h,
   .systems-page--hakkimizda-desktop .kurumsal-c4__lede,
   .systems-page--hakkimizda-desktop .kurumsal-c4__grid,
@@ -1801,11 +1801,11 @@
   }
 }
 
-/* ─── Alt nav bar minimal/şeffaf override (yalnızca kurumsal) ─── */
+/* ��� Alt nav bar minimal/�effaf override (yaln�zca kurumsal) ��� */
 @media (min-width: 1440px) {
   .systems-page--hakkimizda-desktop ~ .systems-tabs,
   .systems-page--hakkimizda-desktop .systems-tabs {
-    /* Koyu gölge/backdrop kaldırıldı — kullanıcı isteği: arka plan tamamen şeffaf */
+    /* Koyu g�lge/backdrop kald�r�ld� � kullan�c� iste�i: arka plan tamamen �effaf */
     background: transparent !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
@@ -1847,9 +1847,9 @@
   }
 }
 
-/* ─── BİZ KİMİZ · Yeni layout (worldmap merkez-sol + dev başlık sağ + 4 kart) ─── */
+/* ��� B�Z K�M�Z � Yeni layout (worldmap merkez-sol + dev ba�l�k sa� + 4 kart) ��� */
 @media (min-width: 1025px) {
-  /* Hero satırı yapsın diye kurumsal-c4'ü 2 alana böl: hero + cards */
+  /* Hero sat�r� yaps�n diye kurumsal-c4'� 2 alana b�l: hero + cards */
   .systems-page--hakkimizda-desktop .systems-stage--corporate:not(.systems-stage--bizkimiz) ~ * .kurumsal-c4 {}
 
   .systems-page--hakkimizda-desktop .kurumsal-c4:has(.kurumsal-c4__cards) {
@@ -1859,7 +1859,7 @@
     justify-content: stretch;
   }
 
-  /* Worldmap'i merkez-sola taşı, daha büyük yap */
+  /* Worldmap'i merkez-sola ta��, daha b�y�k yap */
   .systems-page--hakkimizda-desktop .kurumsal-c4:has(.kurumsal-c4__cards) .kurumsal-c4__worldmap {
     position: absolute;
     top: 50%;
@@ -1872,7 +1872,7 @@
     z-index: 1;
   }
 
-  /* Dev başlık sağda */
+  /* Dev ba�l�k sa�da */
   .systems-page--hakkimizda-desktop .kurumsal-c4__h--right {
     position: absolute;
     top: calc(var(--topbar-clearance, 72px) + var(--sbu) * 70);
@@ -1950,7 +1950,7 @@
   }
 }
 
-/* ─── Biz Kimiz: lede sağda + 3 mv-card ─── */
+/* ��� Biz Kimiz: lede sa�da + 3 mv-card ��� */
 @media (min-width: 1025px) {
   .systems-page--hakkimizda-desktop .kurumsal-c4__lede--right {
     position: absolute;
@@ -1966,7 +1966,7 @@
   }
 }
 
-/* ─── Biz Kimiz: Dev R brandmark (sol-üst alanda büyük dekoratif eleman) ─── */
+/* ��� Biz Kimiz: Dev R brandmark (sol-�st alanda b�y�k dekoratif eleman) ��� */
 @media (min-width: 1025px) {
   .systems-page--hakkimizda-desktop .kurumsal-c4__brandmark {
     position: absolute;
@@ -1988,7 +1988,7 @@
     display: block;
     opacity: 0.96;
   }
-  /* Worldmap'i küçült ve sağ-üste taşı (dekoratif rozet gibi) */
+  /* Worldmap'i k���lt ve sa�-�ste ta�� (dekoratif rozet gibi) */
   .systems-page--hakkimizda-desktop .kurumsal-c4__worldmap {
     position: absolute;
     top: calc(var(--topbar-clearance, 72px) + var(--sbu) * 28) !important;
@@ -2000,14 +2000,14 @@
     opacity: 0.55 !important;
     z-index: 1;
   }
-  /* Lede pozisyonunu eski sol-altına geri sabitle (sağ override iptal) */
+  /* Lede pozisyonunu eski sol-alt�na geri sabitle (sa� override iptal) */
   .systems-page--hakkimizda-desktop .kurumsal-c4__lede {
     position: relative;
     z-index: 3;
   }
 }
 
-/* ─── Biz Kimiz: R brandmark BEYAZ + dev + belli-belirsiz ─── */
+/* ��� Biz Kimiz: R brandmark BEYAZ + dev + belli-belirsiz ��� */
 @media (min-width: 1025px) {
   .systems-page--hakkimizda-desktop .kurumsal-c4__brandmark {
     top: 50% !important;
@@ -2026,9 +2026,9 @@
   }
 }
 
-/* ─── Biz Kimiz: MV seçici Hikayemiz layout'una göre yerleşim ─── */
+/* ��� Biz Kimiz: MV se�ici Hikayemiz layout'una g�re yerle�im ��� */
 @media (min-width: 1025px) {
-  /* Biz Kimiz container'ı 2-col grid yap (Hikayemiz gibi) */
+  /* Biz Kimiz container'� 2-col grid yap (Hikayemiz gibi) */
   .systems-page--hakkimizda-desktop .kurumsal-c4:has(.kurumsal-c4__mvtl) {
     display: grid !important;
     grid-template-columns: 1.05fr 0.95fr !important;
@@ -2037,7 +2037,7 @@
     align-items: center !important;
     justify-content: stretch !important;
   }
-  /* Sol kolon: başlık + lede */
+  /* Sol kolon: ba�l�k + lede */
   .systems-page--hakkimizda-desktop .kurumsal-c4:has(.kurumsal-c4__mvtl) .kurumsal-c4__h {
     grid-column: 1;
     margin: 0 0 calc(var(--sbu) * 18);
@@ -2047,7 +2047,7 @@
     margin: 0;
     max-width: calc(var(--sbu) * 480);
   }
-  /* Sağ kolon: MV seçici panel */
+  /* Sa� kolon: MV se�ici panel */
   .systems-page--hakkimizda-desktop .kurumsal-c4__mvtl {
     grid-column: 2;
     grid-row: 1 / span 2;
@@ -2057,7 +2057,7 @@
   }
 }
 
-/* ─── Biz Kimiz: çok paragraflı lede ─── */
+/* ��� Biz Kimiz: �ok paragrafl� lede ��� */
 @media (min-width: 1025px) {
   .systems-page--hakkimizda-desktop .kurumsal-c4 div.kurumsal-c4__lede {
     display: flex;
@@ -2073,7 +2073,7 @@
   }
 }
 
-/* ─── Biz Kimiz MV paneli: arka plan kaldır, beyaz yazı ─── */
+/* ��� Biz Kimiz MV paneli: arka plan kald�r, beyaz yaz� ��� */
 @media (min-width: 1025px) {
   .systems-page--hakkimizda-desktop .kurumsal-c4__mvtl .kurumsal-c1__panel {
     background: transparent !important;
@@ -2091,7 +2091,7 @@
   }
 }
 
-/* ─── Biz Kimiz · Referans layout (logo + başlık + 2 kolon metin) ─── */
+/* ��� Biz Kimiz � Referans layout (logo + ba�l�k + 2 kolon metin) ��� */
 @media (min-width: 1025px) {
   .systems-page--hakkimizda-desktop .kurumsal-bk {
     position: relative;
@@ -2162,21 +2162,21 @@
       0 calc(var(--sbu) * 3) calc(var(--sbu) * 18) rgba(0, 0, 0, 0.9),
       0 0 calc(var(--sbu) * 4) rgba(0, 0, 0, 0.7);
   }
-  /* Biz Kimiz aktif iken eski c4 içerikleri ve brandmark gizlensin */
+  /* Biz Kimiz aktif iken eski c4 i�erikleri ve brandmark gizlensin */
   .systems-page--hakkimizda-desktop .kurumsal-c4:has(.kurumsal-bk) .kurumsal-c4__brandmark,
   .systems-page--hakkimizda-desktop .kurumsal-c4:has(.kurumsal-bk) .kurumsal-c4__h,
   .systems-page--hakkimizda-desktop .kurumsal-c4:has(.kurumsal-bk) .kurumsal-c4__lede,
   .systems-page--hakkimizda-desktop .kurumsal-c4:has(.kurumsal-bk) .kurumsal-c4__top {
     display: none !important;
   }
-  /* Container'ı düz blok yap (kurumsal-bk full alanı kaplasın) */
+  /* Container'� d�z blok yap (kurumsal-bk full alan� kaplas�n) */
   .systems-page--hakkimizda-desktop .kurumsal-c4:has(.kurumsal-bk) {
     display: block !important;
     grid-template-columns: none !important;
   }
 }
 
-/* ─── Biz Kimiz: 2-kolon row-aligned grid (paragraflar karşılıklı) ─── */
+/* ��� Biz Kimiz: 2-kolon row-aligned grid (paragraflar kar��l�kl�) ��� */
 @media (min-width: 1025px) {
   .systems-page--hakkimizda-desktop .kurumsal-bk:has(.kurumsal-bk__grid) {
     display: flex !important;
@@ -2185,7 +2185,7 @@
     height: auto !important;
     padding-bottom: calc(var(--sbu) * 24);
   }
-  /* Container Biz Kimiz aktifken: bk üstte, mv altta */
+  /* Container Biz Kimiz aktifken: bk �stte, mv altta */
   .systems-page--hakkimizda-desktop .kurumsal-c4:has(.kurumsal-bk) {
     display: flex !important;
     flex-direction: column !important;
@@ -2237,7 +2237,7 @@
   }
 }
 
-/* MV bullet list — beyaz, okunaklı */
+/* MV bullet list � beyaz, okunakl� */
 .systems-page--hakkimizda-desktop .kurumsal-bk__mvlist {
   list-style: none;
   margin: calc(var(--sbu) * 6) 0;
@@ -2266,7 +2266,7 @@
   box-shadow: 0 0 0 calc(var(--sbu) * 2) rgba(255,178,74,0.25);
 }
 
-/* Hikayemiz · Hikayemiz başlığını yıl-card alanı üzerine overlay olarak yerleştir */
+/* Hikayemiz � Hikayemiz ba�l���n� y�l-card alan� �zerine overlay olarak yerle�tir */
 .systems-page--hakkimizda-desktop .kurumsal-c1__hikoverlay {
   position: absolute;
   top: calc(var(--sbu) * 4);
@@ -2312,7 +2312,7 @@
   padding-top: calc(var(--sbu) * 96);
 }
 
-/* Hikayemiz sol kolon · MV selektör kapsayıcısı */
+/* Hikayemiz sol kolon � MV selekt�r kapsay�c�s� */
 .systems-page--hakkimizda-desktop .kurumsal-c1__mv {
   display: flex;
   flex-direction: column;
@@ -2340,7 +2340,7 @@
   text-shadow: 0 calc(var(--sbu) * 2) calc(var(--sbu) * 8) rgba(0,0,0,0.75);
 }
 
-/* Hikayemiz · yıl panelinin içine resim + üzerine okunaklı yazı */
+/* Hikayemiz � y�l panelinin i�ine resim + �zerine okunakl� yaz� */
 .systems-page--hakkimizda-desktop .kurumsal-c1__panel--withimg {
   position: relative;
   background-size: cover;
@@ -2373,7 +2373,7 @@
   color: #fff;
 }
 
-/* Hikayemiz · panel + overlay sarmalayıcı */
+/* Hikayemiz � panel + overlay sarmalay�c� */
 .systems-page--hakkimizda-desktop .kurumsal-c1__panelwrap {
   position: relative;
   display: flex;
@@ -2397,7 +2397,7 @@
   padding-top: 0;
 }
 
-/* Hikayemiz overlay · ZORLA BEYAZ */
+/* Hikayemiz overlay � ZORLA BEYAZ */
 .systems-page--hakkimizda-desktop .kurumsal-c1__hikoverlay,
 .systems-page--hakkimizda-desktop .kurumsal-c1__hikoverlay *,
 .systems-page--hakkimizda-desktop .kurumsal-c1__hikoverlay .kurumsal-c1__eyebrow,
@@ -2406,7 +2406,7 @@
   color: #ffffff !important;
 }
 
-/* Hikayemiz · merkez çizgi üzerinde akan animasyon noktaları */
+/* Hikayemiz � merkez �izgi �zerinde akan animasyon noktalar� */
 @keyframes kurumsal-c1-dot-flow {
   0% { transform: translate(-100%, -50%); opacity: 0; }
   10% { opacity: 1; }
@@ -2457,7 +2457,7 @@
 .systems-page--hakkimizda-desktop .kurumsal-c1-dot:nth-child(4) { animation-delay: 4.8s; width: calc(var(--sbu) * 5); height: calc(var(--sbu) * 5); }
 .systems-page--hakkimizda-desktop .kurumsal-c1-dot:nth-child(5) { animation-delay: 5.7s; width: calc(var(--sbu) * 4); height: calc(var(--sbu) * 4); }
 
-/* dikey salınım kaldırıldı */
+/* dikey sal�n�m kald�r�ld� */
 
 @media (min-width: 1025px) {
   .systems-page--hakkimizda-desktop .kurumsal-bk {
@@ -2516,12 +2516,12 @@
   }
 }
 
-/* Biz Kimiz: tek çocuk sarmalayıcı flex/grid hizasını bozmasın */
+/* Biz Kimiz: tek �ocuk sarmalay�c� flex/grid hizas�n� bozmas�n */
 .systems-page--hakkimizda-desktop .kurumsal-c4__inner {
   display: contents;
 }
 
-/* === BIZ KIMIZ v2 · referans görsele göre yeniden tasarım === */
+/* === BIZ KIMIZ v2 � referans g�rsele g�re yeniden tasar�m === */
 .systems-page--hakkimizda-desktop .kurumsal-bk2 {
   position: relative;
   width: 100% !important;
@@ -2617,15 +2617,15 @@
   filter: brightness(0) invert(1);
 }
 
-/* Eski bk varyasyonları için fallback gizleme yok — sadece yeni v2 gösterilir */
+/* Eski bk varyasyonlar� i�in fallback gizleme yok � sadece yeni v2 g�sterilir */
 
-/* Biz Kimiz v2 · yazılar zorla beyaz */
+/* Biz Kimiz v2 � yaz�lar zorla beyaz */
 .systems-page--hakkimizda-desktop .kurumsal-bk2,
 .systems-page--hakkimizda-desktop .kurumsal-bk2 * {
   color: #ffffff !important;
 }
 
-/* Biz Kimiz v2 · harita üzerinde yanıp-sönen noktalar */
+/* Biz Kimiz v2 � harita �zerinde yan�p-s�nen noktalar */
 @keyframes kurumsal-bk2-twinkle {
   0%, 100% { opacity: 0; transform: scale(0.6); }
   50% { opacity: 1; transform: scale(1.4); }
@@ -2651,7 +2651,7 @@
   animation-iteration-count: infinite;
 }
 
-/* Biz Kimiz · siyah perde kaldır + fluid responsive ölçüler */
+/* Biz Kimiz � siyah perde kald�r + fluid responsive �l��ler */
 .systems-page--hakkimizda-desktop .systems-stage--bizkimiz .systems-stage__bg-mask {
   background: transparent !important;
 }
@@ -2809,7 +2809,7 @@
   }
 }
 
-/* Tüm hakkımızda sayfalarında siyah maskeleri kaldır */
+/* T�m hakk�m�zda sayfalar�nda siyah maskeleri kald�r */
 .systems-page--hakkimizda-desktop .systems-stage__bg-mask,
 .systems-page--hakkimizda-desktop .systems-stage--corporate .systems-stage__bg-mask {
   background: transparent !important;
@@ -2821,9 +2821,9 @@
   opacity: 0 !important;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   SÜRDÜRÜLEBİLİRLİK · 4 Kolon Animasyonlu Tasarım (desktop)
-   ═══════════════════════════════════════════════════════════════ */
+/* ===============================================================
+   S�RD�R�LEB�L�RL�K � 4 Kolon Animasyonlu Tasar�m (desktop)
+   =============================================================== */
 .systems-page--hakkimizda-desktop .suscols {
   position: relative;
   width: min(1280px, 94vw);
@@ -2847,7 +2847,7 @@
   text-transform: uppercase;
   color: #ffd9b8;
   opacity: 0.88;
-  margin-bottom: 16px;
+  margin-bottom: var(--space-4);
   opacity: 0;
   transform: translateY(12px);
   animation: suscols-in 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.05s forwards;
@@ -2938,7 +2938,7 @@
   align-items: center;
   justify-content: center;
   color: #fff;
-  margin-bottom: 16px;
+  margin-bottom: var(--space-4);
   transition: transform var(--duration-slow) var(--ease-base), border-color var(--duration-slow) var(--ease-base), box-shadow var(--duration-slow) var(--ease-base);
 }
 .systems-page--hakkimizda-desktop .suscols__icon::before,
@@ -3053,7 +3053,7 @@
   50%      { transform: translateX(4px); }
 }
 
-/* Sürdürülebilirlik · dev R brandmark (sol-üstte belli-belirsiz dekor) */
+/* S�rd�r�lebilirlik � dev R brandmark (sol-�stte belli-belirsiz dekor) */
 .systems-page--hakkimizda-desktop .suscols { position: relative; }
 .systems-page--hakkimizda-desktop .suscols__brandmark {
   position: absolute;
@@ -3076,7 +3076,7 @@
   50%      { opacity: 0.16; transform: scale(1.015); }
 }
 
-/* Sürdürülebilirlik · tüm metinler beyaz */
+/* S�rd�r�lebilirlik � t�m metinler beyaz */
 .systems-page--hakkimizda-desktop .suscols,
 .systems-page--hakkimizda-desktop .suscols *,
 .systems-page--hakkimizda-desktop .suscols__kicker,
@@ -3092,7 +3092,7 @@
   background: #ffffff !important;
 }
 
-/* Sürdürülebilirlik: zoom kaldırıldı (Firefox netliği + öngörülebilir layout) */
+/* S�rd�r�lebilirlik: zoom kald�r�ld� (Firefox netli�i + �ng�r�lebilir layout) */
 .systems-page--hakkimizda-desktop .suscols {
   width: min(1440px, calc(100% - var(--space-8))) !important;
   max-width: 100% !important;
@@ -3131,7 +3131,7 @@
   height: clamp(400px, 48vh, 540px) !important;
 }
 
-/* 13" laptop (1280-1439): 4-sütun grid KORUNUR, içerik kompakt ama okunabilir */
+/* 13" laptop (1280-1439): 4-s�tun grid KORUNUR, i�erik kompakt ama okunabilir */
 @media (min-width: 1025px) and (max-width: 1439px) {
   .systems-page--hakkimizda-desktop .suscols {
     width: min(1360px, calc(100% - var(--space-6))) !important;
@@ -3170,7 +3170,7 @@
   .systems-page--hakkimizda-desktop .suscols__icon {
     width: 42px !important;
     height: 42px !important;
-    margin-bottom: 12px !important;
+    margin-bottom: var(--space-3) !important;
   }
   .systems-page--hakkimizda-desktop .suscols__icon svg {
     width: 20px !important;
@@ -3211,13 +3211,13 @@
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   HİKAYEMİZ · Yatay Zigzag Timeline (referans görsel uyumlu)
-   – Kesintisiz yatay çizgi
-   – Üzerinde outlined dotlar
-   – Tarih + başlık + açıklama alternatif üst/alt
-   – Foto/media kaldırıldı (sade, okunaklı)
-   ═══════════════════════════════════════════════════════════════ */
+/* ===============================================================
+   H�KAYEM�Z � Yatay Zigzag Timeline (referans g�rsel uyumlu)
+   � Kesintisiz yatay �izgi
+   � �zerinde outlined dotlar
+   � Tarih + ba�l�k + a��klama alternatif �st/alt
+   � Foto/media kald�r�ld� (sade, okunakl�)
+   =============================================================== */
 @media (min-width: 1025px) {
   .systems-page--hakkimizda-desktop .kurumsal-c1__tl {
     min-height: auto !important;
@@ -3244,7 +3244,7 @@
     padding: 0 var(--space-6) !important;
   }
 
-  /* Kesintisiz yatay çizgi (tek tam-genişlik rail) */
+  /* Kesintisiz yatay �izgi (tek tam-geni�lik rail) */
   .systems-page--hakkimizda-desktop .kurumsal-storyboard__track::before {
     content: "" !important;
     position: absolute !important;
@@ -3264,13 +3264,13 @@
     display: none !important;
   }
 
-  /* Eski dekoratif animasyonlu dotları gizle (görselde sade istiyoruz) */
+  /* Eski dekoratif animasyonlu dotlar� gizle (g�rselde sade istiyoruz) */
   .systems-page--hakkimizda-desktop .kurumsal-c1-dots,
   .systems-page--hakkimizda-desktop .kurumsal-c1-dot {
     display: none !important;
   }
 
-  /* Her item tek sütun: yalnızca dot + absolute copy */
+  /* Her item tek s�tun: yaln�zca dot + absolute copy */
   .systems-page--hakkimizda-desktop .kurumsal-storyboard__item {
     appearance: none !important;
     position: relative !important;
@@ -3293,10 +3293,10 @@
     transform: none !important;
   }
 
-  /* Dot: çizgi üzerinde dolu beyaz daire.
-     NOT: transform / background / box-shadow !important KULLANMA —
+  /* Dot: �izgi �zerinde dolu beyaz daire.
+     NOT: transform / background / box-shadow !important KULLANMA �
      @keyframes (c1-dot-pop + c1-dot-wave) bu property'leri animate eder ve
-     CSS spec'i gereği !important animasyonu kilitler. Base rule "plain" olacak. */
+     CSS spec'i gere�i !important animasyonu kilitler. Base rule "plain" olacak. */
   .systems-page--hakkimizda-desktop .kurumsal-storyboard__item::before {
     content: "" !important;
     position: absolute !important;
@@ -3325,7 +3325,7 @@
     box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.28), 0 0 18px rgba(255, 255, 255, 0.55) !important;
   }
 
-  /* Copy bloğu — tarih + başlık + açıklama — çizgiye göre konumlanır */
+  /* Copy blo�u � tarih + ba�l�k + a��klama � �izgiye g�re konumlan�r */
   .systems-page--hakkimizda-desktop .kurumsal-storyboard__copy {
     position: absolute !important;
     left: 50% !important;
@@ -3384,7 +3384,7 @@
     max-width: calc(var(--space-16) * 3) !important;
   }
 
-  /* Foto/media artık kaldırıldı — görselde yok */
+  /* Foto/media art�k kald�r�ld� � g�rselde yok */
   .systems-page--hakkimizda-desktop .kurumsal-storyboard__media {
     display: none !important;
   }
@@ -3394,16 +3394,16 @@
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   HİKAYEMİZ · Intro üstte / Timeline altta (full-width) + animasyon
-   – Intro (Kurumsal Yolculuk + Hikayemiz + lede) timeline ÜSTÜNDE
-   – Timeline edge-to-edge full-width
-   – Tüm yazılar pure #ffffff
-   – Entrance animasyonları: intro fade-down, çizgi draw-in,
+/* ===============================================================
+   H�KAYEM�Z � Intro �stte / Timeline altta (full-width) + animasyon
+   � Intro (Kurumsal Yolculuk + Hikayemiz + lede) timeline �ST�NDE
+   � Timeline edge-to-edge full-width
+   � T�m yaz�lar pure #ffffff
+   � Entrance animasyonlar�: intro fade-down, �izgi draw-in,
      dotlar stagger pop-in, copy stagger fade-up
-   ═══════════════════════════════════════════════════════════════ */
+   =============================================================== */
 @media (min-width: 1025px) {
-  /* Tek sütun dikey stack: intro → timeline */
+  /* Tek s�tun dikey stack: intro � timeline */
   .systems-page--hakkimizda-desktop .kurumsal-c1 {
     grid-template-columns: minmax(0, 1fr) !important;
     gap: var(--space-12) !important;
@@ -3414,7 +3414,7 @@
     justify-items: stretch !important;
   }
 
-  /* Intro — sayfa başlığı gibi ortada */
+  /* Intro � sayfa ba�l��� gibi ortada */
   .systems-page--hakkimizda-desktop .kurumsal-c1__left {
     width: 100% !important;
     max-width: calc(var(--space-16) * 12) !important;
@@ -3439,7 +3439,7 @@
     background: #ffffff !important;
   }
 
-  /* Tüm intro yazıları saf beyaz */
+  /* T�m intro yaz�lar� saf beyaz */
   .systems-page--hakkimizda-desktop .kurumsal-c1__eyebrow,
   .systems-page--hakkimizda-desktop .kurumsal-c1__h,
   .systems-page--hakkimizda-desktop .kurumsal-c1__lede {
@@ -3451,7 +3451,7 @@
     margin: 0 auto !important;
   }
 
-  /* Timeline konteyneri — full-width (edge-to-edge) */
+  /* Timeline konteyneri � full-width (edge-to-edge) */
   .systems-page--hakkimizda-desktop .kurumsal-c1__tl {
     width: 100% !important;
     max-width: none !important;
@@ -3466,13 +3466,13 @@
     padding: 0 !important;
   }
 
-  /* Track: kenardan kenara yayılır, padding'i sıfırla */
+  /* Track: kenardan kenara yay�l�r, padding'i s�f�rla */
   .systems-page--hakkimizda-desktop .kurumsal-storyboard__track {
     padding: 0 !important;
     width: 100% !important;
   }
 
-  /* Entrance animasyonları */
+  /* Entrance animasyonlar� */
   @keyframes c1-intro-drop {
     from {
       opacity: 0;
@@ -3519,23 +3519,23 @@
     }
   }
 
-  /* Çizgi soldan sağa çizilir */
+  /* �izgi soldan sa�a �izilir */
   .systems-page--hakkimizda-desktop .kurumsal-storyboard__track::before {
     transform-origin: left center !important;
     animation: c1-line-draw 900ms var(--ease-base) both !important;
     animation-delay: 150ms !important;
   }
 
-  /* Dot'lar: ilk giriş sıralı pop-in + ardından sonsuz beyaz dalga pulse
-     (is-on/hover stili override'ları üstte tanımlı — aktif dot durur). */
+  /* Dot'lar: ilk giri� s�ral� pop-in + ard�ndan sonsuz beyaz dalga pulse
+     (is-on/hover stili override'lar� �stte tan�ml� � aktif dot durur). */
   .systems-page--hakkimizda-desktop .kurumsal-storyboard__item::before {
     animation:
       c1-dot-pop 420ms var(--ease-base) both,
       c1-dot-wave 4800ms var(--ease-base) infinite !important;
   }
 
-  /* Ilk pop-in staggered + sürekli dalga staggered.
-     Dalga periodu 4800ms, 8 dot var → her biri 600ms arayla pulse (sıralı "koşan ışık"). */
+  /* Ilk pop-in staggered + s�rekli dalga staggered.
+     Dalga periodu 4800ms, 8 dot var � her biri 600ms arayla pulse (s�ral� "ko�an ���k"). */
   .systems-page--hakkimizda-desktop .kurumsal-storyboard__item:nth-child(1)::before { animation-delay: 400ms, 1400ms !important; }
   .systems-page--hakkimizda-desktop .kurumsal-storyboard__item:nth-child(2)::before { animation-delay: 500ms, 2000ms !important; }
   .systems-page--hakkimizda-desktop .kurumsal-storyboard__item:nth-child(3)::before { animation-delay: 600ms, 2600ms !important; }
@@ -3545,13 +3545,13 @@
   .systems-page--hakkimizda-desktop .kurumsal-storyboard__item:nth-child(7)::before { animation-delay: 1000ms, 5000ms !important; }
   .systems-page--hakkimizda-desktop .kurumsal-storyboard__item:nth-child(8)::before { animation-delay: 1100ms, 5600ms !important; }
 
-  /* Hover / aktif dot dalga animasyonunu durdur — pozisyon sabit kalsın. */
+  /* Hover / aktif dot dalga animasyonunu durdur � pozisyon sabit kals�n. */
   .systems-page--hakkimizda-desktop .kurumsal-storyboard__item:hover::before,
   .systems-page--hakkimizda-desktop .kurumsal-storyboard__item.is-on::before {
     animation: none !important;
   }
 
-  /* Beyaz sıralı pulse — büyüt + glow + dön. §11: sadece transform + box-shadow. */
+  /* Beyaz s�ral� pulse � b�y�t + glow + d�n. �11: sadece transform + box-shadow. */
   @keyframes c1-dot-wave {
     0%, 65%, 100% {
       opacity: 1;
@@ -3573,7 +3573,7 @@
     }
   }
 
-  /* Copy (yıl + başlık + açıklama) sırayla yukarı fade-up */
+  /* Copy (y�l + ba�l�k + a��klama) s�rayla yukar� fade-up */
   .systems-page--hakkimizda-desktop .kurumsal-storyboard__copy {
     animation: c1-copy-up 520ms var(--ease-base) both !important;
   }
@@ -3587,7 +3587,7 @@
   .systems-page--hakkimizda-desktop .kurumsal-storyboard__item:nth-child(7) .kurumsal-storyboard__copy { animation-delay: 1120ms !important; }
   .systems-page--hakkimizda-desktop .kurumsal-storyboard__item:nth-child(8) .kurumsal-storyboard__copy { animation-delay: 1220ms !important; }
 
-  /* Timeline yazılarını saf beyaza zorla */
+  /* Timeline yaz�lar�n� saf beyaza zorla */
   .systems-page--hakkimizda-desktop .kurumsal-storyboard__year,
   .systems-page--hakkimizda-desktop .kurumsal-storyboard__title,
   .systems-page--hakkimizda-desktop .kurumsal-storyboard__desc,
@@ -3597,7 +3597,7 @@
     opacity: 1 !important;
   }
 
-  /* Reduced motion — animasyonları kapat */
+  /* Reduced motion � animasyonlar� kapat */
   @media (prefers-reduced-motion: reduce) {
     .systems-page--hakkimizda-desktop .kurumsal-c1__intro,
     .systems-page--hakkimizda-desktop .kurumsal-storyboard__track::before,

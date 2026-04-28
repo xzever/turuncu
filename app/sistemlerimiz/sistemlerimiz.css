@@ -1,4 +1,4 @@
-﻿@keyframes systems-tab-enter {
+@keyframes systems-tab-enter {
   from {
     opacity: 0;
     transform: translateY(12px);
@@ -99,8 +99,8 @@
   width: 100%;
   min-height: 100svh;
   color: var(--color-white);
-  /* AGENTS.md §0.2 — mobil & desktop aynı bg: body'deki bizkimizbackround.jpg
-     görünsün diye sayfa şeffaf bırakılır. globals.css'te !important override
+  /* AGENTS.md �0.2 � mobil & desktop ayn� bg: body'deki bizkimizbackround.jpg
+     g�r�ns�n diye sayfa �effaf b�rak�l�r. globals.css'te !important override
      zaten var; burada lokal override temizlendi ki orange/blue gradient yok. */
   background: transparent;
   overflow-x: clip;
@@ -257,7 +257,7 @@
   display: none;
 }
 
-/* ═══ BIZ KIMIZ LAYOUT ═══ */
+/* === BIZ KIMIZ LAYOUT === */
 .systems-stage--bizkimiz {
   background: transparent;
 }
@@ -269,7 +269,7 @@
 .corporate-stage__content--bizkimiz {
   display: grid !important;
   grid-template-columns: 1.2fr 0.8fr !important;
-  gap: 24px;
+  gap: var(--space-6);
   align-items: stretch;
   width: 100%;
   max-width: 100% !important;
@@ -277,7 +277,7 @@
   padding: 0 32px 0 56px;
 }
 
-/* World map — fills left column */
+/* World map � fills left column */
 .corporate-stage__content--bizkimiz .corp-worldmap {
   display: flex;
   align-items: center;
@@ -292,7 +292,7 @@
   max-height: 90%;
 }
 
-/* Vertical timeline — right column, full height, pushed right */
+/* Vertical timeline � right column, full height, pushed right */
 .corp-vtl {
   display: flex;
   flex-direction: column;
@@ -324,7 +324,7 @@
 .corp-vtl__item {
   display: flex;
   align-items: flex-start;
-  gap: 20px;
+  gap: var(--space-5);
   position: relative;
   z-index: 1;
 }
@@ -336,7 +336,7 @@
   border-radius: 50%;
   background: #f97316;
   border: 3px solid rgba(249, 115, 22, 0.3);
-  margin-top: 20px;
+  margin-top: var(--space-5);
   margin-left: 19px;
   box-shadow: 0 0 16px rgba(249, 115, 22, 0.5);
   position: relative;
@@ -390,8 +390,8 @@
 .corp-vtl__card-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
 }
 
 .corp-vtl__card-icon {
@@ -430,7 +430,7 @@
   font-family: var(--sys-font-family);
 }
 
-/* ═══ CORPORATE TIMELINE (Hikayemiz) ═══ */
+/* === CORPORATE TIMELINE (Hikayemiz) === */
 .corporate-stage__content--timeline {
   /* Override base .corporate-stage__content 2-column grid */
   display: flex !important;
@@ -478,7 +478,7 @@
   margin: 0;
 }
 
-/* ── Timeline container: 3 rows (top cards / track / bottom cards) ── */
+/* �� Timeline container: 3 rows (top cards / track / bottom cards) �� */
 .corp-tl {
   width: 100%;
   max-width: 100%;
@@ -489,11 +489,11 @@
   padding: 0 16px;
 }
 
-/* ── Card rows: 8-column grid matching timeline items ── */
+/* �� Card rows: 8-column grid matching timeline items �� */
 .corp-tl__row {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 .corp-tl__row--top {
@@ -511,7 +511,7 @@
   justify-content: center;
 }
 
-/* ── Horizontal track with dots ── */
+/* �� Horizontal track with dots �� */
 .corp-tl__track {
   position: relative;
   display: grid;
@@ -548,7 +548,7 @@
   z-index: 2;
 }
 
-/* ── Card ── */
+/* �� Card �� */
 .corp-tl__card {
   background: rgba(10, 18, 30, 0.55);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -559,7 +559,7 @@
   text-align: center;
   width: 100%;
   max-width: 160px;
-  /* §11: transition: all YASAK — spesifik properties */
+  /* �11: transition: all YASAK � spesifik properties */
   transition:
     background-color var(--duration-base, 250ms) var(--ease-base, ease),
     border-color var(--duration-base, 250ms) var(--ease-base, ease),
@@ -602,14 +602,14 @@
   margin: 0;
 }
 
-/* ── Responsive: 14" laptop ── */
+/* �� Responsive: 14" laptop �� */
 @media (min-width: 1025px) and (max-width: 1400px) {
   .corp-tl__card { max-width: 140px; padding: var(--space-2) var(--space-2) var(--space-2); }
   .corp-tl__card-title { font-size: var(--text-2xs); }
   .corp-tl__card-desc { font-size: var(--text-2xs); }
 }
 
-/* ── Ultra-wide ── */
+/* �� Ultra-wide �� */
 @media (min-width: 1800px) {
   .corp-tl__card { max-width: 180px; }
 }
@@ -632,7 +632,7 @@
   gap: 1rem;
 }
 
-/* ── Dotted World Map ── */
+/* �� Dotted World Map �� */
 .corp-worldmap {
   width: 100%;
   height: 100%;
@@ -1288,7 +1288,7 @@
   color: var(--systems-accent-strong);
 }
 
-/* AGENTS.md §3: tipografi token'ları; text-shadow kaldırıldı; beyaz metin. */
+/* AGENTS.md �3: tipografi token'lar�; text-shadow kald�r�ld�; beyaz metin. */
 .systems-stage__eyebrow {
   margin: 0;
   display: inline-flex;
@@ -1493,7 +1493,7 @@
   left: 50%;
   transform: translateX(-50%);
   bottom: var(--dock-bottom-offset);
-  /* §12: z-index token — bottom nav katmanı */
+  /* �12: z-index token � bottom nav katman� */
   z-index: var(--z-nav, 50);
   display: inline-flex;
   align-items: center;
@@ -1592,8 +1592,8 @@
   height: 100%;
 }
 
-/* Off-Grid'in sağında yer alan "Sistem Farkları" linki — OrbitalNav trailing slot'u.
-   Kurallar: tasarım tutarlı, turuncu vurgu (var(--color-primary)), focus-visible beyaz ring. */
+/* Off-Grid'in sa��nda yer alan "Sistem Farklar�" linki � OrbitalNav trailing slot'u.
+   Kurallar: tasar�m tutarl�, turuncu vurgu (var(--color-primary)), focus-visible beyaz ring. */
 .systems-tab.systems-tab--link {
   text-decoration: none;
   color: rgba(24, 64, 92, 0.86);
@@ -1796,7 +1796,7 @@
   left: var(--space-4, 1rem);
   bottom: var(--space-8, 2rem);
   max-width: min(56%, 420px);
-  /* §12: z-index token */
+  /* �12: z-index token */
   z-index: var(--z-base, 10);
 }
 
@@ -1921,9 +1921,9 @@
   }
 }
 
-/* 13" compact desktop (1280-1439) — içerik ekran yüksekliğine zorla sığdırılmaz.
-   Kurumsal ve sistem şemaları bu bantta doğal yükseklik kazanır; clipping yerine
-   kontrollü dikey akış kullanılır. */
+/* 13" compact desktop (1280-1439) � i�erik ekran y�ksekli�ine zorla s��d�r�lmaz.
+   Kurumsal ve sistem �emalar� bu bantta do�al y�kseklik kazan�r; clipping yerine
+   kontroll� dikey ak�� kullan�l�r. */
 @media (min-width: 1280px) and (max-width: 1439px) {
   .systems-page {
     height: auto;
@@ -2027,7 +2027,7 @@
   }
 
   .systems-phase {
-    gap: 4px;
+    gap: var(--space-1);
   }
 
   .systems-phase__icon {
@@ -2042,7 +2042,7 @@
   }
 
   .systems-phase__body {
-    gap: 4px;
+    gap: var(--space-1);
   }
 
   .systems-phase__title {
@@ -2283,7 +2283,7 @@
 
   .corporate-stage__content--bizkimiz {
     grid-template-columns: 1.05fr 0.95fr !important;
-    gap: 16px;
+    gap: var(--space-4);
     align-items: center;
     height: auto;
     min-height: clamp(520px, 72vh, 680px);
@@ -2503,11 +2503,11 @@
   }
 }
 
-/* ═══════════════════════════════════════════════════════════
-   Son override — tüm sistemlerimiz metin + ikonları beyaz,
-   tüm bölüm arka planları turuncu body dokusu görünsün diye
-   şeffaflaştırıldı (Kurulum Akışı + Sistem Farkları dahil).
-   ═══════════════════════════════════════════════════════════ */
+/* ===========================================================
+   Son override � t�m sistemlerimiz metin + ikonlar� beyaz,
+   t�m b�l�m arka planlar� turuncu body dokusu g�r�ns�n diye
+   �effafla�t�r�ld� (Kurulum Ak��� + Sistem Farklar� dahil).
+   =========================================================== */
 .systems-page h1,
 .systems-page h2,
 .systems-page h3,
@@ -2534,35 +2534,35 @@
   stroke: currentColor;
 }
 
-/* Kurulum Akışı + Sistem Farkları arka planlarını şeffaflaştır — body turuncusu görünsün */
+/* Kurulum Ak��� + Sistem Farklar� arka planlar�n� �effafla�t�r � body turuncusu g�r�ns�n */
 
-/* ═══════════════════════════════════════════════════════════
-   Sistem Farkları tablosu — arka plan şeffaf, sadece body turuncusu.
+/* ===========================================================
+   Sistem Farklar� tablosu � arka plan �effaf, sadece body turuncusu.
    Metin + ikonlar beyaz.
-   ═══════════════════════════════════════════════════════════ */
+   =========================================================== */
 
 
 
 
-/* Filtre pill'leri — şeffaf, sadece çerçeve + beyaz metin */
+/* Filtre pill'leri � �effaf, sadece �er�eve + beyaz metin */
 
 
-/* ═══════════════════════════════════════════════════════════
-   Tablo satır/hücre zeminleri kaldır — sadece body turuncu
-   gözüksün. Sınırlar beyaz/yarı şeffaf.
-   ═══════════════════════════════════════════════════════════ */
+/* ===========================================================
+   Tablo sat�r/h�cre zeminleri kald�r � sadece body turuncu
+   g�z�ks�n. S�n�rlar beyaz/yar� �effaf.
+   =========================================================== */
 
 
-/* ═══════════════════════════════════════════════════════════
-   FINAL override — tüm versus yazı/ikon beyaz. Alt dock (systems-tabs)
-   referanslar .rfs-indicator stiline uydurulur: koyu şeffaf pill.
-   ═══════════════════════════════════════════════════════════ */
+/* ===========================================================
+   FINAL override � t�m versus yaz�/ikon beyaz. Alt dock (systems-tabs)
+   referanslar .rfs-indicator stiline uydurulur: koyu �effaf pill.
+   =========================================================== */
 
-/* Versus: TÜM metin beyaz */
+/* Versus: T�M metin beyaz */
 
-/* Alt dock — referanslar .rfs-indicator gibi koyu şeffaf pill
-   Kullanıcı isteği: telefon ve tablette arka gölge kaldırıldı,
-   sadece desktop (≥1280px) koyu pill görünsün */
+/* Alt dock � referanslar .rfs-indicator gibi koyu �effaf pill
+   Kullan�c� iste�i: telefon ve tablette arka g�lge kald�r�ld�,
+   sadece desktop (?1280px) koyu pill g�r�ns�n */
 @media (min-width: 1280px) {
   .systems-tabs {
     background: var(--systems-tab-surface) !important;
@@ -2607,17 +2607,17 @@
   color: var(--color-primary, #f97316) !important;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   Versus son rötuş: gölgeler kaldır, tablo tam genişlik
-   ═══════════════════════════════════════════════════════════ */
+/* ===========================================================
+   Versus son r�tu�: g�lgeler kald�r, tablo tam geni�lik
+   =========================================================== */
 
 
 
 
-/* ═══════════════════════════════════════════════════════════
-   GENEL — Tüm sistemlerimiz sayfası (Grid/Hibrit/Off-Grid/
-   Kurulum/Sistem Farkları) metinleri beyaz.
-   ═══════════════════════════════════════════════════════════ */
+/* ===========================================================
+   GENEL � T�m sistemlerimiz sayfas� (Grid/Hibrit/Off-Grid/
+   Kurulum/Sistem Farklar�) metinleri beyaz.
+   =========================================================== */
 .systems-hero__title,
 .systems-hero__title strong,
 .systems-hero__title em,
@@ -2646,15 +2646,15 @@
 }
 
 /*
-  NOT: Eski CIRCUIT FLOW stilleri (__circuit*, __grid, __card, __duration) silindi —
-  Konsept 06 V3 Dashboard tasarımına geçildi. Yeni stiller ~line 1745'de __dash/__arc-pane/__active-pane.
+  NOT: Eski CIRCUIT FLOW stilleri (__circuit*, __grid, __card, __duration) silindi �
+  Konsept 06 V3 Dashboard tasar�m�na ge�ildi. Yeni stiller ~line 1745'de __dash/__arc-pane/__active-pane.
   Eski infographic track/runner/point fallback'leri:
 */
 
-/* ═══════════════════════════════════════════════════════════
-   "Sistem Farkları" trailing link butonu — turuncu vurgu override.
-   (FINAL override !important değerlerini yenebilmek için en sona koyuyoruz.)
-   ═══════════════════════════════════════════════════════════ */
+/* ===========================================================
+   "Sistem Farklar�" trailing link butonu � turuncu vurgu override.
+   (FINAL override !important de�erlerini yenebilmek i�in en sona koyuyoruz.)
+   =========================================================== */
 .systems-tab.systems-tab--link {
   text-decoration: none !important;
   color: var(--systems-white-soft) !important;
@@ -2681,7 +2681,7 @@
   outline-offset: 2px;
 }
 
-/* /sistem-farklari sayfasındayken Sistem Farkları link'i is-active — turuncu dolu */
+/* /sistem-farklari sayfas�ndayken Sistem Farklar� link'i is-active � turuncu dolu */
 .systems-tab.systems-tab--link.is-active {
   color: var(--systems-white-strong) !important;
   background: var(--systems-link-surface-active) !important;
@@ -2696,11 +2696,11 @@
   stroke: currentColor !important;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   SYSTEMS TICKER — yatay kayan açıklama barı
-   Header'ın altında, diagram'ın üstünde. Summary + bullets içinde gezer.
-   Sadece transform animate (AGENTS.md §11). Hover + reduced-motion → pause.
-   ═══════════════════════════════════════════════════════════ */
+/* ===========================================================
+   SYSTEMS TICKER � yatay kayan a��klama bar�
+   Header'�n alt�nda, diagram'�n �st�nde. Summary + bullets i�inde gezer.
+   Sadece transform animate (AGENTS.md �11). Hover + reduced-motion � pause.
+   =========================================================== */
 .systems-ticker {
   position: relative;
   width: 100%;
@@ -2791,12 +2791,12 @@
     animation: none;
   }
   .systems-ticker {
-    /* Azaltılmış hareket: içerik yatay scroll edilir, kullanıcı kontrolü */
+    /* Azalt�lm�� hareket: i�erik yatay scroll edilir, kullan�c� kontrol� */
     overflow-x: auto;
   }
 }
 
-/* Mobil: ticker bar biraz daha küçük font + hız */
+/* Mobil: ticker bar biraz daha k���k font + h�z */
 @media (max-width: 1279px) {
   .systems-ticker {
     max-width: calc(100% - var(--space-8, 2rem));
@@ -2809,13 +2809,13 @@
   }
 }
 
-/* ═══════════════════════════════════════════════════════════
-   Akış (flow) animasyonları — SystemSimulation (TÜM sekmelerde BEYAZ)
-   Her üç sekme için (Grid Sistem / Hibrit / Off-Grid) TÜM akışlar + nodelar
-   + accent renkleri BEYAZ. Turuncu / mavi / mor / yeşil / sarı yok.
-   ═══════════════════════════════════════════════════════════ */
+/* ===========================================================
+   Ak�� (flow) animasyonlar� � SystemSimulation (T�M sekmelerde BEYAZ)
+   Her �� sekme i�in (Grid Sistem / Hibrit / Off-Grid) T�M ak��lar + nodelar
+   + accent renkleri BEYAZ. Turuncu / mavi / mor / ye�il / sar� yok.
+   =========================================================== */
 
-/* 1) RGB token override — sekmeye göre değişen tüm tonları beyaza çekiyor */
+/* 1) RGB token override � sekmeye g�re de�i�en t�m tonlar� beyaza �ekiyor */
 .systems-page,
 .systems-page[data-active-system="grid"],
 .systems-page[data-active-system="hybrid-no-battery"],
@@ -2827,7 +2827,7 @@
   --systems-accent-rgb: 255, 255, 255 !important;
 }
 
-/* 2) Çizgiler (zemin + kayan vurgu) */
+/* 2) �izgiler (zemin + kayan vurgu) */
 .system-sim__line--solar,
 .system-sim__line--grid,
 .system-sim__line--storage {
@@ -2849,9 +2849,9 @@
   filter: drop-shadow(0 0 0.55rem rgba(255, 255, 255, 0.35)) !important;
 }
 
-/* 3) HUD connector çizgileri (KPI kartları arası) + pill accent noktası BEYAZ.
-      --systems-accent-rgb zaten yukarıda beyaza çekildi; burada linear-gradient
-      safhalarına ayrıca sabit beyaz dikte etmeye gerek yok, ancak accent var()
+/* 3) HUD connector �izgileri (KPI kartlar� aras�) + pill accent noktas� BEYAZ.
+      --systems-accent-rgb zaten yukar�da beyaza �ekildi; burada linear-gradient
+      safhalar�na ayr�ca sabit beyaz dikte etmeye gerek yok, ancak accent var()
       kullanmayan yerler varsa burada garanti verilir. */
 .systems-hud__pill i {
   background: #ffffff !important;
@@ -2859,11 +2859,11 @@
 }
 
 /* ============================================================
-   FRAMED NODE MODU — Desktop=Mobil tek stil (AGENTS.md §0.2)
-   Mobil .mob-flow-node__icon--hollow ile aynı dil:
-   - Kutu (node box): bg/shadow yok (pür zemin)
+   FRAMED NODE MODU � Desktop=Mobil tek stil (AGENTS.md �0.2)
+   Mobil .mob-flow-node__icon--hollow ile ayn� dil:
+   - Kutu (node box): bg/shadow yok (p�r zemin)
    - Icon paneli: 1px beyaz border %52, transparent bg, rounded (radius-lg)
-   - Label (p) görünür, beyaz, üstü boşluklu
+   - Label (p) g�r�n�r, beyaz, �st� bo�luklu
    - SVG ikon beyaz stroke (ince line)
    ============================================================ */
 .system-sim__node {
@@ -2921,16 +2921,16 @@
 }
 
 /* ============================================================
-   KURULUM Aï¿½?AMALARI — 5 fazlı yatay timeline
-   - Rail: ince beyaz çizgi + içinden akan glow pulse
-   - Her faz: numara + ikon + başlık + meta
-   - Sadece transform/opacity animate (AGENTS.md §11)
-   - Tüm ölçüler token'a bağlı (§5)
-   - Desktop=Mobil içerik eşdeğerliği (§0.2)
+   KURULUM A�?AMALARI � 5 fazl� yatay timeline
+   - Rail: ince beyaz �izgi + i�inden akan glow pulse
+   - Her faz: numara + ikon + ba�l�k + meta
+   - Sadece transform/opacity animate (AGENTS.md �11)
+   - T�m �l��ler token'a ba�l� (�5)
+   - Desktop=Mobil i�erik e�de�erli�i (�0.2)
    ============================================================ */
 .systems-phases {
-  /* Dış çerçeve kaldırıldı — sadece zemin üzerinde ikonlar + çift rail.
-     Sistem akış diyagramı ile aynı dil: çerçevesiz, pür. */
+  /* D�� �er�eve kald�r�ld� � sadece zemin �zerinde ikonlar + �ift rail.
+     Sistem ak�� diyagram� ile ayn� dil: �er�evesiz, p�r. */
   position: relative;
   list-style: none;
   margin: var(--space-4, 1rem) auto 0;
@@ -2948,8 +2948,8 @@
   isolation: isolate;
 }
 
-/* Rail — sistem akış diyagramı dili: ÇİFT parallel beyaz çizgi.
-   Icon = 44px hollow frame → yarısı = 22px. Phase padding-top = 0.
+/* Rail � sistem ak�� diyagram� dili: ��FT parallel beyaz �izgi.
+   Icon = 44px hollow frame � yar�s� = 22px. Phase padding-top = 0.
    Rail dikey merkezi ikonun dikey merkezinde (padding + 22px). */
 .systems-phases__rail {
   position: absolute;
@@ -2964,9 +2964,9 @@
   background: transparent;
 }
 
-/* Her parça eşit genişlikte (25%); ikon hizasında nefes bırakır.
-   overflow: hidden — glow animasyonu segment dışına (ilk ikonun solu, son ikonun
-   sağı) taşmasın. Çizgiler sadece ikonlar ARASINDA görünür. */
+/* Her par�a e�it geni�likte (25%); ikon hizas�nda nefes b�rak�r.
+   overflow: hidden � glow animasyonu segment d���na (ilk ikonun solu, son ikonun
+   sa��) ta�mas�n. �izgiler sadece ikonlar ARASINDA g�r�n�r. */
 .systems-phases__segment {
   position: relative;
   flex: 1 1 25%;
@@ -2974,8 +2974,8 @@
   overflow: hidden;
 }
 
-/* Çift parallel çizgi: border-top + border-bottom, 10px boşluk.
-   Inset 36px → ikon (44px) + 14px nefes: çizgi ikona dokunmaz. */
+/* �ift parallel �izgi: border-top + border-bottom, 10px bo�luk.
+   Inset 36px � ikon (44px) + 14px nefes: �izgi ikona dokunmaz. */
 .systems-phases__segment::before {
   content: "";
   position: absolute;
@@ -2984,7 +2984,7 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.42);
 }
 
-/* Staggered glow akışı — iki çizginin arasından geçer */
+/* Staggered glow ak��� � iki �izginin aras�ndan ge�er */
 .systems-phases__segment::after {
   content: "";
   position: absolute;
@@ -3028,11 +3028,11 @@
   }
 }
 
-/* Pulse: rail üzerinde sürekli akan parlak nokta */
-/* Eski tek parçalı pulse kaldırıldı — yerine .systems-phases__segment::after
-   4 ayrı parçada staggered akış sağlıyor. */
+/* Pulse: rail �zerinde s�rekli akan parlak nokta */
+/* Eski tek par�al� pulse kald�r�ld� � yerine .systems-phases__segment::after
+   4 ayr� par�ada staggered ak�� sa�l�yor. */
 
-/* Faz itemı — Icon ÜSTTE (rail üzerinde), body ALTTA */
+/* Faz item� � Icon �STTE (rail �zerinde), body ALTTA */
 .systems-phase {
   position: relative;
   display: flex;
@@ -3055,13 +3055,13 @@
   }
 }
 
-/* Numara tamamen kaldırıldı — istek üzerine */
+/* Numara tamamen kald�r�ld� � istek �zerine */
 .systems-phase__num {
   display: none !important;
 }
 
-/* Icon: 44px rounded square hollow frame — mobil ÇİFT YÖNLÜ SAYAÇ tile ile aynı dil
-   1px beyaz border %52, transparent bg, radius-lg. §0.2 desktop=mobil. */
+/* Icon: 44px rounded square hollow frame � mobil ��FT Y�NL� SAYA� tile ile ayn� dil
+   1px beyaz border %52, transparent bg, radius-lg. �0.2 desktop=mobil. */
 .systems-phase__icon {
   position: relative;
   width: 44px;
@@ -3083,7 +3083,7 @@
   fill: none;
 }
 
-/* Kalp atışı — frame'in dışında hafif parlayan çerçeve (köşeleri dahil) */
+/* Kalp at��� � frame'in d���nda hafif parlayan �er�eve (k��eleri dahil) */
 .systems-phase__icon::before {
   content: "";
   position: absolute;
@@ -3117,7 +3117,7 @@
   }
 }
 
-/* Body: title + meta YAN YANA tek satır (iki satır değil) */
+/* Body: title + meta YAN YANA tek sat�r (iki sat�r de�il) */
 .systems-phase__body {
   display: inline-flex;
   flex-direction: row;
@@ -3141,14 +3141,14 @@
   white-space: nowrap;
 }
 
-/* Title ile meta arasına ince ayraç noktası */
+/* Title ile meta aras�na ince ayra� noktas� */
 .systems-phase__meta::before {
-  content: "·";
+  content: "�";
   margin-right: 6px;
   color: rgba(255, 255, 255, 0.4);
 }
 
-/* Erişilebilirlik: hareket azaltma */
+/* Eri�ilebilirlik: hareket azaltma */
 @media (prefers-reduced-motion: reduce) {
   .systems-phases__segment::after,
   .systems-phase,
@@ -3159,7 +3159,7 @@
   }
 }
 
-/* Mobil (≤1279px): 5 sütun dar düşüyor → kompakt grid, rail icon ortası */
+/* Mobil (?1279px): 5 s�tun dar d���yor � kompakt grid, rail icon ortas� */
 @media (max-width: 1279px) {
   .systems-phases {
     grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -3169,7 +3169,7 @@
   .systems-phases__rail {
     left: calc(10% + var(--space-2, 0.5rem));
     right: calc(10% + var(--space-2, 0.5rem));
-    /* Mobil icon 36px → merkez = padding + 18px */
+    /* Mobil icon 36px � merkez = padding + 18px */
     top: calc(var(--space-2, 0.5rem) + 18px);
   }
   .systems-phase__icon {
@@ -3191,7 +3191,7 @@
   }
 }
 
-/* Küçük telefonlar: daha kompakt */
+/* K���k telefonlar: daha kompakt */
 @media (max-width: 480px) {
   .systems-phases {
     padding: var(--space-1, 0.25rem) var(--space-1, 0.25rem);
@@ -3202,15 +3202,15 @@
 }
 
 /* ============================================================
-   TITLE BLOï¿½?U — EDITÖRYAL ZARIFL STIL
-   Eski ï¿½? ikonları kaldırıldı. Eyebrow artık:
-   - iki yanında soluklaşan ince çizgiler
-   - nabız atan beyaz nokta
-   - uppercase, geniş letter-spacing
+   TITLE BLO�?U � EDIT�RYAL ZARIFL STIL
+   Eski �? ikonlar� kald�r�ld�. Eyebrow art�k:
+   - iki yan�nda solukla�an ince �izgiler
+   - nab�z atan beyaz nokta
+   - uppercase, geni� letter-spacing
    Title:
-   - tamamen ortalı, büyük, clean display type
-   - altında dar, parıldayan beyaz accent
-   AGENTS.md §3 (tokenize), §4 (beyaz), §11 (transform-only)
+   - tamamen ortal�, b�y�k, clean display type
+   - alt�nda dar, par�ldayan beyaz accent
+   AGENTS.md �3 (tokenize), �4 (beyaz), �11 (transform-only)
    ============================================================ */
 .systems-stage__copy--elegant {
   text-align: center;
@@ -3236,7 +3236,7 @@
   padding: 0 clamp(18px, 3vw, 48px);
 }
 
-/* İki yana fade çizgi — editorial vibe */
+/* �ki yana fade �izgi � editorial vibe */
 .systems-stage__copy--elegant .systems-stage__eyebrow::before,
 .systems-stage__copy--elegant .systems-stage__eyebrow::after {
   content: "";
@@ -3251,7 +3251,7 @@
   );
 }
 
-/* Eyebrow içinde nabız atan beyaz nokta */
+/* Eyebrow i�inde nab�z atan beyaz nokta */
 .systems-stage__eyebrow-dot {
   display: inline-block;
   width: 6px;
@@ -3282,7 +3282,7 @@
   }
 }
 
-/* Display title — büyük, ortalı, clean */
+/* Display title � b�y�k, ortal�, clean */
 .systems-title-inline--display {
   display: inline-flex !important;
   flex-direction: column;
@@ -3304,7 +3304,7 @@
   position: relative;
 }
 
-/* Title altında ince, parıldayan beyaz accent — transform/opacity animate */
+/* Title alt�nda ince, par�ldayan beyaz accent � transform/opacity animate */
 .systems-title-inline--display::after {
   content: "";
   display: block;
@@ -3344,16 +3344,16 @@
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   /sistemlerimiz · full-bleed arka plan katmanları (desktop)
-   Katman sırası (aşağıdan yukarıya):
-     1. __el       — /sisi.mp4 video (base)
-     2. __gradient — tatlı turuncu gradient · opacity 0.6
-     3. __image    — bizkimizbackround.jpg · opacity 0.6
-     4. __mask     — okunabilirlik için ince koyu vignette
-   İçerik (systems-shell, header, nav) z-index:1 ile üstte kalır.
-   §11: sadece opacity animasyonu; transform/reflow yok.
-   ═══════════════════════════════════════════════════════════════ */
+/* ===============================================================
+   /sistemlerimiz � full-bleed arka plan katmanlar� (desktop)
+   Katman s�ras� (a�a��dan yukar�ya):
+     1. __el       � /sisi.mp4 video (base)
+     2. __gradient � tatl� turuncu gradient � opacity 0.6
+     3. __image    � bizkimizbackround.jpg � opacity 0.6
+     4. __mask     � okunabilirlik i�in ince koyu vignette
+   ��erik (systems-shell, header, nav) z-index:1 ile �stte kal�r.
+   �11: sadece opacity animasyonu; transform/reflow yok.
+   =============================================================== */
 .systems-page > .sistemlerimiz-bgvideo {
   position: fixed !important;
   inset: 0 !important;
@@ -3381,7 +3381,7 @@
   inset: 0 !important;
   display: block !important;
   pointer-events: none !important;
-  /* Tatlı turuncu gradient — sabah/akşam güneşi tonu */
+  /* Tatl� turuncu gradient � sabah/ak�am g�ne�i tonu */
   background: linear-gradient(
     135deg,
     #ff9a3c 0%,
@@ -3436,8 +3436,8 @@
   }
 }
 
-/* İçerik video'nun üstünde kalsın.
-   NOT: .systems-tabs ve .orbital-nav `<nav>` tag'i; ayrı kural gerekiyor.
+/* ��erik video'nun �st�nde kals�n.
+   NOT: .systems-tabs ve .orbital-nav `<nav>` tag'i; ayr� kural gerekiyor.
    Onlar `position: fixed` olmak zorunda (alt dock). */
 .systems-page > .systems-shell,
 .systems-page > header,
@@ -3452,11 +3452,11 @@
   z-index: var(--z-nav, 50);
 }
 
-/* ═══════════════════════════════════════════════════════════
+/* ===========================================================
    FINAL SYSTEMS LOCK
-   Kullanıcı kararı: /sistemlerimiz tek sahne kalacak; page scroll YOK.
-   Referanslar benzeri sabit ekran davranışı burada en sonda kilitlenir.
-   ═══════════════════════════════════════════════════════════ */
+   Kullan�c� karar�: /sistemlerimiz tek sahne kalacak; page scroll YOK.
+   Referanslar benzeri sabit ekran davran��� burada en sonda kilitlenir.
+   =========================================================== */
 @media (min-width: 1280px) {
   #main-content:has(.systems-page) {
     height: 100dvh !important;

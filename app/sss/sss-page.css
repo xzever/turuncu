@@ -119,7 +119,7 @@ body:has(.sss-desktop) .solar-video-bg {
 
 .sss-mobile-page .acc-a li + li,
 .sss-desktop .acc-a li + li {
-  margin-top: 8px;
+  margin-top: var(--space-2);
 }
 
 .sss-empty {

@@ -1,38 +1,38 @@
-﻿/*
-  references-kesif.css — Referanslar · Hikâye (Full-bleed TikTok)
+/*
+  references-kesif.css � Referanslar � Hik�ye (Full-bleed TikTok)
 
-  Yapı:
-    - Her proje 100svh — tam ekran arka plan
-    - Dikey scroll-snap (proximity, mandatory YASAK — Madde 14)
-    - Sol üstte yüzen filtre şeridi
-    - Sağ kenarda dikey dot indicator + counter
-    - Sol altta başlık + KPI + CTA
-    - Sağ altta eylem butonları
+  Yap�:
+    - Her proje 100svh � tam ekran arka plan
+    - Dikey scroll-snap (proximity, mandatory YASAK � Madde 14)
+    - Sol �stte y�zen filtre �eridi
+    - Sa� kenarda dikey dot indicator + counter
+    - Sol altta ba�l�k + KPI + CTA
+    - Sa� altta eylem butonlar�
 
-  Güneş Anayasası uyumu:
-    - Tüm değerler token'lardan
+  G�ne� Anayasas� uyumu:
+    - T�m de�erler token'lardan
     - 100vh kullanmaz (100svh)
     - scroll-snap-type: y proximity (mandatory yok)
-    - Dokunma hedefleri ≥44×44
+    - Dokunma hedefleri ?44�44
 */
 
-/* ═══════════════════════════════════════════════════════════════
-   SAYFA SCROLL ÜZERİNDE NOT — story container kendi kayar,
-   sayfanın kendisi sabit. Globals'taki overflow:hidden kuralı
-   zaten bunu yapıyor; burada bozmamak için override YOK.
-   ═══════════════════════════════════════════════════════════════ */
+/* ===============================================================
+   SAYFA SCROLL �ZER�NDE NOT � story container kendi kayar,
+   sayfan�n kendisi sabit. Globals'taki overflow:hidden kural�
+   zaten bunu yap�yor; burada bozmamak i�in override YOK.
+   =============================================================== */
 
-/* AppChrome #main-content alt boşluğa (bottomnav clearance) ihtiyaç duyar.
-   Referanslar shell'i 100dvh ile tam viewport'u doldurduğu için
-   bu padding body'yi taşırır → body scroll olur → altta turuncu
-   bizkimizbackround.jpg görünür. Bu sayfada padding'i nötrle. */
+/* AppChrome #main-content alt bo�lu�a (bottomnav clearance) ihtiya� duyar.
+   Referanslar shell'i 100dvh ile tam viewport'u doldurdu�u i�in
+   bu padding body'yi ta��r�r � body scroll olur � altta turuncu
+   bizkimizbackround.jpg g�r�n�r. Bu sayfada padding'i n�trle. */
 #main-content:has(.references-story-shell) {
   padding-bottom: 0 !important;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   SHELL — token tanımları
-   ═══════════════════════════════════════════════════════════════ */
+/* ===============================================================
+   SHELL � token tan�mlar�
+   =============================================================== */
 .references-story-shell {
   --rfs-orange: var(--color-primary);
   --rfs-orange-hi: var(--color-primary-hover);
@@ -42,9 +42,9 @@
   --rfs-line: rgba(255, 255, 255, 0.14);
   --rfs-surface: rgba(255, 255, 255, 0.1);
 
-  /* Shell yüksekliği = viewport (dynamic dvh → URL bar / browser chrome
-     açılıp kapandığında hep tam viewport'u doldur; 100svh kullanılırsa
-     alt boşlukta body'nin turuncu bizkimizbackround.jpg'i görünür). */
+  /* Shell y�ksekli�i = viewport (dynamic dvh � URL bar / browser chrome
+     a��l�p kapand���nda hep tam viewport'u doldur; 100svh kullan�l�rsa
+     alt bo�lukta body'nin turuncu bizkimizbackround.jpg'i g�r�n�r). */
   height: var(--viewport-height-dynamic, 100dvh);
   max-height: var(--viewport-height-dynamic, 100dvh);
   overflow: hidden;
@@ -59,11 +59,11 @@
   overflow: hidden;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   STORIES CONTAINER — YATAY scroll, sola/sağa swipe ile gezinti.
-   Tüm cihazlarda tutarlı (mobil + tablet + desktop).
+/* ===============================================================
+   STORIES CONTAINER � YATAY scroll, sola/sa�a swipe ile gezinti.
+   T�m cihazlarda tutarl� (mobil + tablet + desktop).
    scroll-snap-type: x proximity (Anayasa Madde 14: mandatory yasak).
-   ═══════════════════════════════════════════════════════════════ */
+   =============================================================== */
 .rfs-stories {
   display: flex;
   flex-direction: row;
@@ -78,10 +78,10 @@
 }
 .rfs-stories::-webkit-scrollbar { display: none; }
 
-/* ═══════════════════════════════════════════════════════════════
-   STORY — full-bleed bg + content overlay (DESKTOP/TABLET ORİJİNAL)
-   Mobil farklı davranış için aşağıda media query var.
-   ═══════════════════════════════════════════════════════════════ */
+/* ===============================================================
+   STORY � full-bleed bg + content overlay (DESKTOP/TABLET OR�J�NAL)
+   Mobil farkl� davran�� i�in a�a��da media query var.
+   =============================================================== */
 .rfs-story {
   position: relative;
   flex: 0 0 100%;
@@ -94,7 +94,7 @@
   isolation: isolate;
 }
 
-/* Full-bleed bg — desktop/tablet ana görünüm */
+/* Full-bleed bg � desktop/tablet ana g�r�n�m */
 .rfs-story__bg {
   position: absolute;
   inset: 0;
@@ -123,11 +123,11 @@
       rgba(0, 0, 0, 0) 70%);
 }
 
-/* ═══ MEDIA KARTI — base'de SADECE detay panelinde varsa render, görünmez kalır
-   Mobilde aktif olur (aşağıdaki media query'de) ═══ */
+/* === MEDIA KARTI � base'de SADECE detay panelinde varsa render, g�r�nmez kal�r
+   Mobilde aktif olur (a�a��daki media query'de) === */
 .rfs-story__media {
   position: relative;
-  display: none; /* default gizli — sadece mobilde görünür */
+  display: none; /* default gizli � sadece mobilde g�r�n�r */
 }
 
 .rfs-story__media-image {
@@ -136,7 +136,7 @@
   background-size: cover;
   background-position: center;
   z-index: 0;
-  /* Büyütme kaldırıldı — sadece görüntü, tıklamaya tepki yok */
+  /* B�y�tme kald�r�ld� � sadece g�r�nt�, t�klamaya tepki yok */
 }
 
 .rfs-story__media-fade {
@@ -151,15 +151,15 @@
   );
 }
 
-/* Detay açıkken Filtreler butonunu gizle — kullanıcı isteği. */
+/* Detay a��kken Filtreler butonunu gizle � kullan�c� iste�i. */
 .rfs-main:has(.rfs-detail--open) .rfs-filter-bar {
   display: none;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   CONTENT — sol alt: başlık + KPI + CTA
-   Safe area'lara karşı topbar + bottom nav clearance'ı alır.
-   ═══════════════════════════════════════════════════════════════ */
+/* ===============================================================
+   CONTENT � sol alt: ba�l�k + KPI + CTA
+   Safe area'lara kar�� topbar + bottom nav clearance'� al�r.
+   =============================================================== */
 .rfs-story__content {
   /* Desktop/tablet: orijinal absolute bottom overlay */
   position: absolute;
@@ -169,13 +169,13 @@
   z-index: 3;
   padding: var(--space-5)
     var(--space-6)
-    /* Bottom pill indicator için ekstra alan → içerik pill'in üstünde kalır */
+    /* Bottom pill indicator i�in ekstra alan � i�erik pill'in �st�nde kal�r */
     calc(var(--bottomnav-clearance, 0px) + var(--space-16) + var(--space-3));
   max-width: 860px;
   color: var(--color-white);
 }
 
-/* ═══ Pills — tek tip cam pil, yan yana ═══ */
+/* === Pills � tek tip cam pil, yan yana === */
 .rfs-story__pills {
   display: flex;
   flex-wrap: wrap;
@@ -183,10 +183,10 @@
   margin-bottom: var(--space-3);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   DETAY ACCORDION — mobilde TEK buton, içeride hem pills hem KPI'lar
-   Tablet/desktop'ta buton GİZLİ, panel her zaman açık.
-   ═══════════════════════════════════════════════════════════════ */
+/* ===============================================================
+   DETAY ACCORDION � mobilde TEK buton, i�eride hem pills hem KPI'lar
+   Tablet/desktop'ta buton G�ZL�, panel her zaman a��k.
+   =============================================================== */
 .rfs-detail {
   margin-bottom: var(--space-3);
 }
@@ -194,7 +194,7 @@
 .rfs-detail__toggle {
   appearance: none;
   cursor: pointer;
-  display: none; /* default gizli — sadece mobilde görünür */
+  display: none; /* default gizli � sadece mobilde g�r�n�r */
   align-items: center;
   gap: var(--space-2);
   min-height: 44px;
@@ -215,8 +215,8 @@
 }
 
   
-  /* Hover: sadece gerçek hover-capable cihazlarda (masaüstü).
-       Mobilde "sticky hover" olmasın — tıklayınca turuncu kalmıyor. */
+  /* Hover: sadece ger�ek hover-capable cihazlarda (masa�st�).
+       Mobilde "sticky hover" olmas�n � t�klay�nca turuncu kalm�yor. */
     @media (hover: hover) and (pointer: fine) {
       .rfs-detail__toggle:hover {
         background: rgba(255, 255, 255, 0.16);
@@ -225,14 +225,14 @@
 }
 
 
-/* Focus indicator — Anayasa Madde 13 uyumlu.
-   Beyaz subtle ring, Anayasa uyumlu ama dikkat çekmeyen. */
+/* Focus indicator � Anayasa Madde 13 uyumlu.
+   Beyaz subtle ring, Anayasa uyumlu ama dikkat �ekmeyen. */
 .rfs-detail__toggle:focus-visible {
   outline: 2px solid rgba(255, 255, 255, 0.7);
   outline-offset: 2px;
 }
-/* Mobil tıklamada kalan "sticky focus" turuncu halkayı bastır.
-   Sadece KLAVYE fokusunda :focus-visible tetiklenir, tıklamada değil. */
+/* Mobil t�klamada kalan "sticky focus" turuncu halkay� bast�r.
+   Sadece KLAVYE fokusunda :focus-visible tetiklenir, t�klamada de�il. */
 .rfs-detail__toggle:focus:not(:focus-visible) {
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -269,7 +269,7 @@
   color: var(--color-white);
 }
 
-/* Renkli noktalı varyantlar — prefix dot */
+/* Renkli noktal� varyantlar � prefix dot */
 .rfs-pill::before {
   content: "";
   width: 6px;
@@ -290,7 +290,7 @@
   50% { opacity: 0.5; transform: scale(1.25); }
 }
 
-/* Başlık — dengeli, abartısız */
+/* Ba�l�k � dengeli, abart�s�z */
 .rfs-story__title {
   font-size: var(--text-3xl) !important;
   line-height: 1.05;
@@ -313,7 +313,7 @@
 
 .rfs-story__sep { opacity: 0.4; }
 
-/* KPI şeridi */
+/* KPI �eridi */
 .rfs-story__kpis {
   display: flex;
   gap: clamp(var(--space-4), 3vw, var(--space-8));
@@ -340,7 +340,7 @@
   color: var(--color-white);
 }
 
-/* Galeri thumbnail şeridi — birden fazla foto olan projeler için */
+/* Galeri thumbnail �eridi � birden fazla foto olan projeler i�in */
 .rfs-story__thumbs {
   display: flex;
   gap: var(--space-2);
@@ -375,14 +375,14 @@
 }
 
 
-/* Aktif thumbnail — TURUNCU yok. Sadece opaklık + hafif yukarı kalkma. */
+/* Aktif thumbnail � TURUNCU yok. Sadece opakl�k + hafif yukar� kalkma. */
 .rfs-thumb--on {
   opacity: 1;
   border-color: rgba(255, 255, 255, 0.9);
   transform: translateY(-2px);
 }
 
-/* CTA satırı */
+/* CTA sat�r� */
 .rfs-story__ctas {
   display: flex;
   gap: var(--space-2);
@@ -432,35 +432,35 @@
 .rfs-cta:active { transform: scale(0.97); }
 .rfs-cta:disabled { opacity: 0.4; cursor: not-allowed; }
 
-/* ═══════════════════════════════════════════════════════════════
-   SHARE (paylaş) — resim kartının SA�? ÜST köşesinde overlay
-   (kullanıcı isteği: resim üzerine koyalım).
-   ═══════════════════════════════════════════════════════════════ */
+/* ===============================================================
+   SHARE (payla�) � resim kart�n�n SA?? �ST k��esinde overlay
+   (kullan�c� iste�i: resim �zerine koyal�m).
+   =============================================================== */
 .rfs-story__actions--overlay {
   position: absolute;
   top: var(--space-3);
   right: var(--space-3);
   z-index: 3;
 }
-/* Overlay paylaş butonu — cam efekt, resim üstünde okunsun */
+/* Overlay payla� butonu � cam efekt, resim �st�nde okunsun */
 .rfs-story__actions--overlay .rfs-action {
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.22);
 }
-/* Fan A�?A�?I açılsın (normal share-fan üstten açılıyordu, burada sağ üst köşede olduğu için aşağı daha uygun) */
+/* Fan A??A??I a��ls�n (normal share-fan �stten a��l�yordu, burada sa� �st k��ede oldu�u i�in a�a�� daha uygun) */
 .rfs-share-fan--down {
   top: calc(100% + var(--space-2));
   bottom: auto !important;
   right: 0;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   QUICK ACTIONS — paylaş widget'ı.
-   --floating: desktop/tablet sağ alt floating (orijinal konum)
-   --overlay: mobil media kartının sağ üstünde overlay
-   ═══════════════════════════════════════════════════════════════ */
+/* ===============================================================
+   QUICK ACTIONS � payla� widget'�.
+   --floating: desktop/tablet sa� alt floating (orijinal konum)
+   --overlay: mobil media kart�n�n sa� �st�nde overlay
+   =============================================================== */
 .rfs-story__actions {
   display: flex;
   flex-direction: column;
@@ -468,7 +468,7 @@
   flex-shrink: 0;
 }
 
-/* Desktop/tablet: floating sağ alt köşe (ana görünümde bg photo üzerinde) */
+/* Desktop/tablet: floating sa� alt k��e (ana g�r�n�mde bg photo �zerinde) */
 .rfs-story__actions--floating {
   position: absolute;
   right: var(--space-4);
@@ -509,9 +509,9 @@
 }
 
 
-/* ═══════════════════════════════════════════════════════════════
-   SHARE FAN — paylaş butonuna tıklayınca dikey olarak açılır
-   ═══════════════════════════════════════════════════════════════ */
+/* ===============================================================
+   SHARE FAN � payla� butonuna t�klay�nca dikey olarak a��l�r
+   =============================================================== */
 .rfs-action-share {
   position: relative;
 }
@@ -538,27 +538,27 @@
   .rfs-share-fan { animation: none; }
 }
 
-/* ═══════════════════════════════════════════════════════════════
+/* ===============================================================
    FILTER MODAL HEADER + FOOTER + APPLY BUTTON
-   Default GİZLİ — sadece mobil tam ekran modal'da görünür.
-   Desktop/tablet inline chip layout kullanır, bunlara gerek yok.
-   ═══════════════════════════════════════════════════════════════ */
+   Default G�ZL� � sadece mobil tam ekran modal'da g�r�n�r.
+   Desktop/tablet inline chip layout kullan�r, bunlara gerek yok.
+   =============================================================== */
 .rfs-filter-modal-header,
 .rfs-filter-modal-footer,
 .rfs-filter-apply {
   display: none;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   FILTER BACKDROP — modal açıkken arka planı karartır
-   Sadece mobilde görünür (tablet/desktop'ta filter inline duruyor).
-   ═══════════════════════════════════════════════════════════════ */
+/* ===============================================================
+   FILTER BACKDROP � modal a��kken arka plan� karart�r
+   Sadece mobilde g�r�n�r (tablet/desktop'ta filter inline duruyor).
+   =============================================================== */
 .rfs-filter-backdrop {
-  display: none; /* default gizli — sadece mobilde görünür */
+  display: none; /* default gizli � sadece mobilde g�r�n�r */
   position: fixed;
   inset: 0;
-  /* z-alert seviyesinde, modal panelin HEMEN ALTINDA (aynı katman).
-     DOM order ile panel üstte kalır. Topbar/bottom nav bu katmanın altında. */
+  /* z-alert seviyesinde, modal panelin HEMEN ALTINDA (ayn� katman).
+     DOM order ile panel �stte kal�r. Topbar/bottom nav bu katman�n alt�nda. */
   z-index: var(--z-alert, 60);
   background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(12px);
@@ -573,10 +573,10 @@
   .rfs-filter-backdrop { animation: none; }
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   FILTER BAR — tek satır bar, açılınca chips aynı bar içinden sağa açılır
-   Konum: topbar'dan 80px aşağıda (logo ile mesafe)
-   ═══════════════════════════════════════════════════════════════ */
+/* ===============================================================
+   FILTER BAR � tek sat�r bar, a��l�nca chips ayn� bar i�inden sa�a a��l�r
+   Konum: topbar'dan 80px a�a��da (logo ile mesafe)
+   =============================================================== */
 .rfs-filter-bar {
   position: fixed;
   top: calc(var(--topbar-clearance, 66px) + 80px);
@@ -654,9 +654,9 @@
   margin-left: var(--space-1);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   FILTER PANEL — aynı bar içinden yana doğru açılan chip paneli
-   ═══════════════════════════════════════════════════════════════ */
+/* ===============================================================
+   FILTER PANEL � ayn� bar i�inden yana do�ru a��lan chip paneli
+   =============================================================== */
 .rfs-filter-panel {
   display: flex;
   align-items: center;
@@ -705,7 +705,7 @@
   stroke: currentColor;
 }
 
-/* Chip içinde icon + metin */
+/* Chip i�inde icon + metin */
 .rfs-chip--with-icon {
   gap: var(--space-2);
 }
@@ -770,9 +770,9 @@
 }
 
 
-/* ═══════════════════════════════════════════════════════════════
-   CHIP — minimal, arkaplansız. Aktif = yalnızca turuncu yazı.
-   ═══════════════════════════════════════════════════════════════ */
+/* ===============================================================
+   CHIP � minimal, arkaplans�z. Aktif = yaln�zca turuncu yaz�.
+   =============================================================== */
 .rfs-chip {
   appearance: none;
   cursor: pointer;
@@ -802,8 +802,8 @@
   color: var(--rfs-orange);
 }
 
-/* Status chip'leri — küçük renkli nokta prefix
-   Dekoratif küçük indikatör, Anayasa Madde 9 dokunma alanı değil. */
+/* Status chip'leri � k���k renkli nokta prefix
+   Dekoratif k���k indikat�r, Anayasa Madde 9 dokunma alan� de�il. */
 .rfs-chip--status::before {
   content: "";
   display: inline-block;
@@ -821,27 +821,27 @@
 .rfs-chip--warn::before { background: var(--rfs-warn); }
 .rfs-chip--all::before { background: rgba(255, 255, 255, 0.45); }
 
-/* ═══════════════════════════════════════════════════════════════
-   INDICATOR — bottom-center YATAY pill (tüm cihazlarda tutarlı).
-   Bottom nav'ın 16px üstünde, Detay butonuyla aynı yükseklik & şekil.
-   İçerik: [← ok] [● ● ● ● ●] [→ ok] [KAYDIR]
-   "01 / 15" sayaç GÖRSEL OLARAK YOK (a11y için aria-label'da var).
-   ═══════════════════════════════════════════════════════════════ */
+/* ===============================================================
+   INDICATOR � bottom-center YATAY pill (t�m cihazlarda tutarl�).
+   Bottom nav'�n 16px �st�nde, Detay butonuyla ayn� y�kseklik & �ekil.
+   ��erik: [� ok] [? ? ? ? ?] [� ok] [KAYDIR]
+   "01 / 15" saya� G�RSEL OLARAK YOK (a11y i�in aria-label'da var).
+   =============================================================== */
 .rfs-indicator {
   position: fixed;
   left: 50%;
-  /* Mobil/tablet: bottom nav'ın 16px üstünde
-     Desktop (≥1280): aşağıda override ile sadece 16px (bottom nav yok) */
+  /* Mobil/tablet: bottom nav'�n 16px �st�nde
+     Desktop (?1280): a�a��da override ile sadece 16px (bottom nav yok) */
   bottom: calc(var(--bottomnav-clearance, 0px) + var(--space-4));
   transform: translateX(-50%);
   z-index: var(--z-sticky, 30);
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* Elemanlar pill içinde ORTADA birlikte */
+  /* Elemanlar pill i�inde ORTADA birlikte */
   justify-content: center;
   gap: var(--space-3);
-  /* Detay butonuyla aynı EBAT: min-height 44, padding, radius full + genişlik */
+  /* Detay butonuyla ayn� EBAT: min-height 44, padding, radius full + geni�lik */
   min-height: 44px;
   padding: var(--space-2) var(--space-3);
   border-radius: var(--radius-full);
@@ -851,20 +851,20 @@
   border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   pointer-events: none;
-  /* Detay buton genişliğiyle aynı: içerik padding'ini bırakıp tam yayıl */
+  /* Detay buton geni�li�iyle ayn�: i�erik padding'ini b�rak�p tam yay�l */
   width: calc(100% - var(--space-4) * 2);
   max-width: 480px;
 }
 
 .rfs-indicator > * { pointer-events: auto; }
 
-/* Görsel sayaç GİZLİ — sayı bilgisi aria-label'da, görselde dots progress yeter */
+/* G�rsel saya� G�ZL� � say� bilgisi aria-label'da, g�rselde dots progress yeter */
 .rfs-indicator__counter,
 .rfs-indicator__progress {
   display: none;
 }
 
-/* Dots container — oklarla beraber gruplanmış, arada boşluk yok */
+/* Dots container � oklarla beraber gruplanm��, arada bo�luk yok */
 .rfs-indicator__dots {
   display: inline-flex;
   flex-direction: row;
@@ -898,7 +898,7 @@
   border-radius: var(--radius-sm);
 }
 
-/* Nav arrow — ↑ / ↓ butonları indicator içinde */
+/* Nav arrow � ^ / v butonlar� indicator i�inde */
 .rfs-nav-arrow {
   appearance: none;
   cursor: pointer;
@@ -937,7 +937,7 @@
   animation: rfs-arrow-bob 2.2s var(--ease-base, ease) infinite;
 }
 @keyframes rfs-arrow-bob {
-  /* Yatay scroll → ok yatay nabız (translateX) */
+  /* Yatay scroll � ok yatay nab�z (translateX) */
   0%, 100% { transform: translateX(0); }
   50% { transform: translateX(3px); }
 }
@@ -964,26 +964,26 @@
   .rfs-story__media-image { transition: none; }
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   LIGHTBOX — thumbnail tıklanınca full-ekran resim modalı.
-   Backdrop tıklayınca veya ESC ile kapanır, ←/→ ile gezinir.
-   ═══════════════════════════════════════════════════════════════ */
+/* ===============================================================
+   LIGHTBOX � thumbnail t�klan�nca full-ekran resim modal�.
+   Backdrop t�klay�nca veya ESC ile kapan�r, �/� ile gezinir.
+   =============================================================== */
 .rfs-lightbox {
   position: fixed;
   inset: 0;
-  /* z-alert (60) → topbar/bottom-nav (z-nav: 50) ÜSTÜNDE.
-     Lightbox açıkken navigation'lar arkada kalır, X butonu kesinlikle görünür. */
+  /* z-alert (60) � topbar/bottom-nav (z-nav: 50) �ST�NDE.
+     Lightbox a��kken navigation'lar arkada kal�r, X butonu kesinlikle g�r�n�r. */
   z-index: var(--z-alert, 60);
   display: flex;
-  /* Kullanıcı isteği: resim ÜSTTEN başlasın (center yerine flex-start),
-     X butonuyla çakışmaması için üst padding ayarlı. */
+  /* Kullan�c� iste�i: resim �STTEN ba�las�n (center yerine flex-start),
+     X butonuyla �ak��mamas� i�in �st padding ayarl�. */
   align-items: flex-start;
   justify-content: center;
   background: rgba(0, 0, 0, 0.92);
   padding: /* Top: safe-top + X butonu (44) + iki gap (space-3 + space-3) */
     calc(var(--safe-top) + var(--space-3) + 48px + var(--space-3))
     var(--space-4)
-    /* Bottom: safe-bottom + sayaç + nav arrow için yer */
+    /* Bottom: safe-bottom + saya� + nav arrow i�in yer */
     calc(var(--safe-bottom) + var(--space-16) + var(--space-4));
   animation: rfs-lightbox-in var(--duration-base, var(--duration-base, 250ms)) var(--ease-base, ease);
 }
@@ -1042,7 +1042,7 @@
   outline-offset: 2px;
 }
 
-/* Sol/sağ navigation okları */
+/* Sol/sa� navigation oklar� */
 .rfs-lightbox__nav {
   appearance: none;
   cursor: pointer;
@@ -1080,7 +1080,7 @@
 .rfs-lightbox__nav--prev { left: var(--space-3); }
 .rfs-lightbox__nav--next { right: var(--space-3); }
 
-/* Sayaç — alt orta */
+/* Saya� � alt orta */
 .rfs-lightbox__counter {
   position: absolute;
   bottom: calc(var(--safe-bottom) + var(--space-4));
@@ -1098,7 +1098,7 @@
   letter-spacing: 0.06em;
 }
 
-/* Mobilde nav butonlarını biraz küçült */
+/* Mobilde nav butonlar�n� biraz k���lt */
 @media (max-width: 767px) {
   .rfs-lightbox__nav {
     width: 40px;
@@ -1106,9 +1106,9 @@
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════
+/* ===============================================================
    EMPTY state
-   ═══════════════════════════════════════════════════════════════ */
+   =============================================================== */
 .rfs-empty {
   min-height: var(--viewport-height-stable, 100svh);
   display: flex;
@@ -1120,9 +1120,9 @@
   padding: var(--space-8);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   RESPONSIVE — telefon/tablet uyarlamaları
-   ═══════════════════════════════════════════════════════════════ */
+/* ===============================================================
+   RESPONSIVE � telefon/tablet uyarlamalar�
+   =============================================================== */
 
 /* Tablet (768-1279px) */
 @media (max-width: 1279px) {
@@ -1147,14 +1147,14 @@
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   MOBİL + TABLET (≤1279px) — App nizamı
+/* ===============================================================
+   MOB�L + TABLET (?1279px) � App nizam�
    Telefon (xs) + tablet (sm + md) ortak mobil paket: Detay accordion,
-   Filtre tam-ekran modal, KPI 2×2 grid, media-in-panel, paylaş overlay.
-   Tablet'e özel font/spacing büyütmeleri A�?A�?IDA ayrı bloktadır.
-   ═══════════════════════════════════════════════════════════════ */
+   Filtre tam-ekran modal, KPI 2�2 grid, media-in-panel, payla� overlay.
+   Tablet'e �zel font/spacing b�y�tmeleri A??A??IDA ayr� bloktad�r.
+   =============================================================== */
 @media (max-width: 1279px) {
-      /* Mobilde content padding — bottom pill için ekstra alan */
+      /* Mobilde content padding � bottom pill i�in ekstra alan */
       .rfs-story__content {
         padding: var(--space-3)
           var(--space-4)
@@ -1166,8 +1166,8 @@
           );
       }
 
-      /* Mobilde detay açıkken arka bg fotoğrafı blur'lansın
-         (media kartı panel içinde olduğu için odak orada toplansın) */
+      /* Mobilde detay a��kken arka bg foto�raf� blur'lans�n
+         (media kart� panel i�inde oldu�u i�in odak orada toplans�n) */
       .rfs-story:has(.rfs-detail--open) .rfs-story__bg {
         filter: saturate(1) brightness(0.4) blur(8px);
         transform: scale(1.12);
@@ -1176,7 +1176,7 @@
           transform var(--duration-slow, 350ms) var(--ease-base, cubic-bezier(.22,.61,.36,1));
       }
 
-      /* ─── MOBİLDE: Detay panelinin İÇİNDE media kartı görünür ─── */
+      /* ��� MOB�LDE: Detay panelinin ���NDE media kart� g�r�n�r ��� */
       .rfs-story__media--in-panel {
         display: block;
         position: relative;
@@ -1201,7 +1201,7 @@
         pointer-events: none;
       }
 
-      /* Thumbnails — media kartının içinde, alt overlay */
+      /* Thumbnails � media kart�n�n i�inde, alt overlay */
       .rfs-story__media--in-panel .rfs-story__thumbs {
         position: absolute;
         left: var(--space-3);
@@ -1212,13 +1212,13 @@
         gap: var(--space-2);
         overflow-x: auto;
         scrollbar-width: none;
-        padding-bottom: 4px;
+        padding-bottom: var(--space-1);
         margin-top: 0;
       }
       .rfs-story__media--in-panel .rfs-story__thumbs::-webkit-scrollbar { display: none; }
       .rfs-story__media--in-panel .rfs-story__thumbs > * { flex-shrink: 0; }
 
-      /* Başlık — kompakt */
+      /* Ba�l�k � kompakt */
       .rfs-story__title {
         font-size: var(--text-2xl) !important;
         max-width: none;
@@ -1226,7 +1226,7 @@
         margin-bottom: var(--space-2);
       }
 
-      /* Pills — TEK SATIR yan yana (kullanıcı isteği), sığmazsa yatay scroll */
+      /* Pills � TEK SATIR yan yana (kullan�c� iste�i), s��mazsa yatay scroll */
       .rfs-story__pills {
         gap: var(--space-1);
         margin-bottom: var(--space-2);
@@ -1243,19 +1243,19 @@
         white-space: nowrap;
       }
 
-      /* Meta satırı — yatay scroll (taşmasın) */
+      /* Meta sat�r� � yatay scroll (ta�mas�n) */
       .rfs-story__loc {
         font-size: var(--text-xs);
         margin-bottom: var(--space-3);
         flex-wrap: nowrap;
         overflow-x: auto;
         scrollbar-width: none;
-        padding-bottom: 4px;
+        padding-bottom: var(--space-1);
       }
       .rfs-story__loc::-webkit-scrollbar { display: none; }
       .rfs-story__loc > * { flex-shrink: 0; }
 
-      /* KPI — 2×2 grid (app-style düzgün kutular) */
+      /* KPI � 2�2 grid (app-style d�zg�n kutular) */
       .rfs-story__kpis {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -1265,26 +1265,26 @@
       }
       .rfs-story__kpis dt {
         font-size: var(--text-2xs);
-        margin-bottom: 4px;
+        margin-bottom: var(--space-1);
       }
       .rfs-story__kpis dd {
         font-size: var(--text-lg);
         letter-spacing: -0.3px;
       }
 
-      /* ─── DETAY: mobilde tek accordion (pills + KPI'lar birlikte) ─── */
+      /* ��� DETAY: mobilde tek accordion (pills + KPI'lar birlikte) ��� */
       .rfs-detail {
         margin-bottom: var(--space-3);
       }
 
-      /* Buton görünür ol */
+      /* Buton g�r�n�r ol */
       .rfs-detail__toggle {
         display: inline-flex;
         width: 100%;
       }
 
-      /* Panel — kapalıyken tam sıfıra in, animasyonlu aç/kapa.
-         İçinde pills + KPI grid + thumbnails var, max-height buna göre. */
+      /* Panel � kapal�yken tam s�f�ra in, animasyonlu a�/kapa.
+         ��inde pills + KPI grid + thumbnails var, max-height buna g�re. */
       .rfs-detail .rfs-detail__panel {
         max-height: 0;
         margin-top: 0;
@@ -1301,8 +1301,8 @@
         opacity: 1;
       }
 
-      /* Panel içindeki pills / KPI: dikey stack, aralarında boşluk
-         (paylaş butonu artık panel'de değil, üst media kartında overlay) */
+      /* Panel i�indeki pills / KPI: dikey stack, aralar�nda bo�luk
+         (payla� butonu art�k panel'de de�il, �st media kart�nda overlay) */
       .rfs-detail__panel > .rfs-story__pills {
         margin-bottom: var(--space-3);
       }
@@ -1317,7 +1317,7 @@
         }
       }
 
-      /* Thumbnails — küçük (media kartının içinde overlay) */
+      /* Thumbnails � k���k (media kart�n�n i�inde overlay) */
       .rfs-thumb { width: 56px; height: 40px; }
 
       /* Parity correction: mobile keeps the shared controls available; layout changes instead of hiding. */
@@ -1349,8 +1349,8 @@
       }
       .rfs-action { width: 40px; height: 40px; }
 
-      /* Indicator — mobilde de base ile aynı: bottom-center yatay pill.
-         Sadece kompakt ayarlamalar: oklar küçüldü, gap daraldı, KAYDIR compact. */
+      /* Indicator � mobilde de base ile ayn�: bottom-center yatay pill.
+         Sadece kompakt ayarlamalar: oklar k���ld�, gap darald�, KAYDIR compact. */
       .rfs-indicator {
         gap: var(--space-2);
         padding: var(--space-1) var(--space-2);
@@ -1379,12 +1379,12 @@
         }
       }
 
-      /* ─── FILTRE BACKDROP: mobilde görünür ol ─── */
+      /* ��� FILTRE BACKDROP: mobilde g�r�n�r ol ��� */
       .rfs-filter-backdrop {
         display: block;
       }
 
-      /* ─── FILTRE BAR: trigger sol üstte kalır, panel ayrı modal açılır ─── */
+      /* ��� FILTRE BAR: trigger sol �stte kal�r, panel ayr� modal a��l�r ��� */
       .rfs-filter-bar {
         top: calc(var(--topbar-clearance, 66px) + 20px);
         left: var(--space-3);
@@ -1396,7 +1396,7 @@
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
       }
-      /* Açık state: trigger yerinde kalır, panel modal açılır.
+      /* A��k state: trigger yerinde kal�r, panel modal a��l�r.
          Z-index z-alert: parent stacking context panel'i hapsetmesin. */
       .rfs-filter-bar--open {
         background: transparent;
@@ -1405,10 +1405,10 @@
         z-index: var(--z-alert, 60);
       }
 
-      /* Panel — TAM EKRAN modal, EN ÜST katman (topbar + bottom nav üstünde).
-         z-alert (60) > z-nav (50) → topbar/hamburger modal arkasında kalır. */
+      /* Panel � TAM EKRAN modal, EN �ST katman (topbar + bottom nav �st�nde).
+         z-alert (60) > z-nav (50) � topbar/hamburger modal arkas�nda kal�r. */
       .rfs-filter-bar--open .rfs-filter-panel {
-        /* AGENTS.md §6: 100vw YASAK. fixed inset:0 + width:100% eşdeğer. */
+        /* AGENTS.md �6: 100vw YASAK. fixed inset:0 + width:100% e�de�er. */
         position: fixed;
         inset: 0;
         width: 100%;
@@ -1423,7 +1423,7 @@
           var(--space-4)
           calc(var(--safe-bottom) + var(--space-4));
         gap: var(--space-6);
-        /* Daha şeffaf + güçlü blur → arka sayfa belirgin biçimde bulanık görünür */
+        /* Daha �effaf + g��l� blur � arka sayfa belirgin bi�imde bulan�k g�r�n�r */
         background: rgba(12, 16, 26, 0.4);
         backdrop-filter: blur(28px) saturate(1.2);
         -webkit-backdrop-filter: blur(28px) saturate(1.2);
@@ -1433,7 +1433,7 @@
         animation: rfs-modal-in var(--duration-base, var(--duration-base, 250ms)) var(--ease-base, ease);
       }
 
-      /* Modal header — başlık + X kapat butonu */
+      /* Modal header � ba�l�k + X kapat butonu */
       .rfs-filter-modal-header {
         display: flex;
         align-items: center;
@@ -1478,7 +1478,7 @@
         outline-offset: 2px;
       }
 
-      /* ─── MODAL FOOTER: sticky alt kısım, "Filtrele (N sonuç)" butonu ─── */
+      /* ��� MODAL FOOTER: sticky alt k�s�m, "Filtrele (N sonu�)" butonu ��� */
       .rfs-filter-modal-footer {
         position: sticky;
         bottom: 0;
@@ -1487,7 +1487,7 @@
         align-items: center;
         gap: var(--space-3);
         padding-top: var(--space-3);
-        /* Üstten gradient blend → scroll edilen chip'lerin altına geçişi yumuşak */
+        /* �stten gradient blend � scroll edilen chip'lerin alt�na ge�i�i yumu�ak */
         background:
           linear-gradient(
             to bottom,
@@ -1499,14 +1499,14 @@
         -webkit-backdrop-filter: blur(8px);
       }
 
-      /* Sıfırla — sol tarafta, ikincil eylem */
+      /* S�f�rla � sol tarafta, ikincil eylem */
       .rfs-filter-modal-footer .rfs-filter-clear {
         flex-shrink: 0;
         align-self: stretch;
         margin-top: 0;
       }
 
-      /* Filtrele (Apply) — sağda büyük primary buton */
+      /* Filtrele (Apply) � sa�da b�y�k primary buton */
       .rfs-filter-apply {
         display: inline-flex;
         align-items: center;
@@ -1570,7 +1570,7 @@
     border-color: rgba(255, 255, 255, 0.18);
   }
 
-  /* Panel: dikey stack, her grup kendi satırında */
+  /* Panel: dikey stack, her grup kendi sat�r�nda */
   .rfs-filter-panel {
     display: flex;
     flex-direction: column;
@@ -1589,12 +1589,12 @@
   }
   .rfs-filter-label {
     font-size: var(--text-2xs);
-    padding-bottom: 4px;
+    padding-bottom: var(--space-1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     width: 100%;
   }
-  /* Chips ALT ALTA — her biri kendi satırında, sol tarafta icon
-     (kullanıcı isteği). Hem sektör (lucide icon) hem durum (renkli nokta) chip'leri. */
+  /* Chips ALT ALTA � her biri kendi sat�r�nda, sol tarafta icon
+     (kullan�c� iste�i). Hem sekt�r (lucide icon) hem durum (renkli nokta) chip'leri. */
   .rfs-filter-chips {
     flex-direction: column;
     align-items: stretch;
@@ -1602,7 +1602,7 @@
     gap: var(--space-2);
     width: 100%;
   }
-  /* Her chip tam genişlik, sol tarafta icon, metin solda hizalı, 44px dokunma alanı */
+  /* Her chip tam geni�lik, sol tarafta icon, metin solda hizal�, 44px dokunma alan� */
   .rfs-filter-chips > .rfs-chip {
     width: 100%;
     min-height: 44px;
@@ -1623,21 +1623,21 @@
   }
 }
 
-/* Çok dar ekran (≤359px) — daha da kompakt */
+/* �ok dar ekran (?359px) � daha da kompakt */
 @media (max-width: 359px) {
   .rfs-story__kpis dd { font-size: var(--text-base); }
   .rfs-story__title { font-size: var(--text-xl) !important; }
   .rfs-pill { font-size: var(--text-2xs); padding: 4px 8px; }
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   TABLET SCALE-UP (768–1279px) — Telefon yapısı + büyütülmüş font/spacing
-   Aynı detay accordion + filter modal davranışı, ama içerikler iPad
-   ekranı için daha okunaklı: başlık, KPI sayıları, meta, pill'ler büyür.
-   Anayasa: tüm değerler token'a bağlı, dokunma alanı ≥44px korunur.
-   ═══════════════════════════════════════════════════════════════ */
+/* ===============================================================
+   TABLET SCALE-UP (768�1279px) � Telefon yap�s� + b�y�t�lm�� font/spacing
+   Ayn� detay accordion + filter modal davran���, ama i�erikler iPad
+   ekran� i�in daha okunakl�: ba�l�k, KPI say�lar�, meta, pill'ler b�y�r.
+   Anayasa: t�m de�erler token'a ba�l�, dokunma alan� ?44px korunur.
+   =============================================================== */
 @media (min-width: 768px) and (max-width: 1279px) {
-  /* Content padding — tablette daha rahat soluk alsın */
+  /* Content padding � tablette daha rahat soluk als�n */
   .rfs-story__content {
     padding: var(--space-4)
       var(--space-6)
@@ -1649,26 +1649,26 @@
       );
   }
 
-  /* Başlık — tablet mobil ailede token hiyerarşisi korunur */
+  /* Ba�l�k � tablet mobil ailede token hiyerar�isi korunur */
   .rfs-story__title {
     font-size: var(--text-3xl) !important;
     line-height: 1.15;
     margin-bottom: var(--space-3);
   }
 
-  /* Meta satırı — daha büyük ve okunaklı */
+  /* Meta sat�r� � daha b�y�k ve okunakl� */
   .rfs-story__loc {
     font-size: var(--text-sm);
     margin-bottom: var(--space-4);
   }
 
-  /* Pills — büyük ve dokunmatik dostu */
+  /* Pills � b�y�k ve dokunmatik dostu */
   .rfs-pill {
     font-size: var(--text-xs);
     padding: var(--space-1) var(--space-3);
   }
 
-  /* KPI grid — sayılar gerçekten büyük */
+  /* KPI grid � say�lar ger�ekten b�y�k */
   .rfs-story__kpis {
     gap: var(--space-4) var(--space-6);
     padding: var(--space-4) 0;
@@ -1682,31 +1682,31 @@
     letter-spacing: 0;
   }
 
-  /* Detay accordion butonu — daha büyük dokunma alanı + okunaklı */
+  /* Detay accordion butonu � daha b�y�k dokunma alan� + okunakl� */
   .rfs-detail__toggle {
     min-height: calc(var(--space-12) + var(--space-1));
     font-size: var(--text-sm);
   }
 
-  /* Detail panel açıkken — KPI listesi sığabilsin diye daha geniş max */
+  /* Detail panel a��kken � KPI listesi s��abilsin diye daha geni� max */
   .rfs-detail.rfs-detail--open .rfs-detail__panel {
     max-height: 720px;
   }
 
-  /* Media kart yüksekliği — tablette daha büyük resim alanı */
+  /* Media kart y�ksekli�i � tablette daha b�y�k resim alan� */
   .rfs-story__media--in-panel {
     height: calc(var(--space-20) * 4);
     min-height: calc(var(--space-20) * 3 + var(--space-10));
   }
 
-  /* Thumbnails — daha büyük dokunma alanı */
+  /* Thumbnails � daha b�y�k dokunma alan� */
   .rfs-thumb {
     width: calc(var(--space-16) + var(--space-2));
     height: calc(var(--space-12) + var(--space-1));
   }
 
-  /* KAYDIR indicator pill — tablette ekranın geneline yayılsın
-     (telefonda 480px max idi, iPad'de 480px küçük kalıyordu) */
+  /* KAYDIR indicator pill � tablette ekran�n geneline yay�ls�n
+     (telefonda 480px max idi, iPad'de 480px k���k kal�yordu) */
   .rfs-indicator {
     max-width: calc(100% - var(--space-8));
     min-height: calc(var(--space-12) + var(--space-1));
@@ -1718,29 +1718,29 @@
     height: calc(var(--space-10) + var(--space-1));
   }
 
-  /* Content max-width kaldırıldı — title ve içerik tablet ekranını dolu kullansın */
+  /* Content max-width kald�r�ld� � title ve i�erik tablet ekran�n� dolu kullans�n */
   .rfs-story__content {
     max-width: none;
   }
 }
 
-/* Masaüstü — filter bar header hizasından 80px aşağıda */
+/* Masa�st� � filter bar header hizas�ndan 80px a�a��da */
 @media (min-width: 1280px) {
   .rfs-filter-bar {
     top: calc(var(--space-4) + 60px + 80px);
   }
-  /* Indicator: desktop'ta bottom nav yok, viewport tabanından sadece 16px yukarı */
+  /* Indicator: desktop'ta bottom nav yok, viewport taban�ndan sadece 16px yukar� */
   .rfs-indicator {
     bottom: var(--space-4);
   }
 
-  /* ─── DESKTOP PAYLA�? — Filtreler'in sağında, fan SA�?A açılır ───
-     Tek top-level instance; aktif story'nin paylaşımı.
-     Per-story floating paylaş gizlenir (alt bottom-right'taki). */
+  /* ��� DESKTOP PAYLA?? � Filtreler'in sa��nda, fan SA??A a��l�r ���
+     Tek top-level instance; aktif story'nin payla��m�.
+     Per-story floating payla� gizlenir (alt bottom-right'taki). */
   .rfs-story__actions--top {
     position: fixed;
     top: calc(var(--space-4) + 60px + 80px);
-    /* Filtreler bar genişliği + gap (yaklaşık) */
+    /* Filtreler bar geni�li�i + gap (yakla��k) */
     left: calc(var(--space-4) + 156px + var(--space-3));
     z-index: var(--z-sticky, 30);
   }
@@ -1756,7 +1756,7 @@
     justify-content: stretch;
     margin-top: var(--space-3);
   }
-  /* Fan SA�?A açılır (yukarı yerine yana) */
+  /* Fan SA??A a��l�r (yukar� yerine yana) */
   .rfs-share-fan--right {
     flex-direction: row;
     left: calc(100% + var(--space-2));
@@ -1766,12 +1766,12 @@
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   DESKTOP — 1280–1439px (13" notebook) için filter kompakt override.
+/* ===============================================================
+   DESKTOP � 1280�1439px (13" notebook) i�in filter kompakt override.
    Parity correction: labels/separators stay visible and wrap instead of being hidden.
-   ═══════════════════════════════════════════════════════════════ */
+   =============================================================== */
 @media (min-width: 1280px) and (max-width: 1439px) {
-  /* Filtre bar: tüm ekran genişliğine yayıl */
+  /* Filtre bar: t�m ekran geni�li�ine yay�l */
   .rfs-filter-bar {
     max-width: calc(100% - var(--space-6));
     gap: var(--space-2);
@@ -1791,7 +1791,7 @@
     display: inline-flex;
     opacity: 0.45;
   }
-  /* Chip kompakt: 36px min-height korunur, padding/font daraltılır */
+  /* Chip kompakt: 36px min-height korunur, padding/font daralt�l�r */
   .rfs-filter-bar .rfs-chip {
     padding: var(--space-1) var(--space-2);
     font-size: var(--text-2xs);
@@ -1802,7 +1802,7 @@
   .rfs-filter-bar .rfs-filter-group {
     gap: var(--space-1);
   }
-  /* Chip içindeki icon biraz küçültülür */
+  /* Chip i�indeki icon biraz k���lt�l�r */
   .rfs-filter-bar .rfs-chip--with-icon > svg {
     width: 12px;
     height: 12px;
@@ -1838,19 +1838,19 @@
     margin-bottom: var(--space-4);
     flex-wrap: wrap;
   }
-  /* Desktop'ta thumbnail biraz daha büyük (mobile 64×44 → desktop 88×62) */
+  /* Desktop'ta thumbnail biraz daha b�y�k (mobile 64�44 � desktop 88�62) */
   .rfs-story__thumbs--desktop .rfs-thumb {
     width: 88px;
     height: 62px;
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   FOCUS + ERİ�?İLEBİLİRLİK
-   :focus-visible → klavye navigation için (beyaz ring görünür)
-   :focus:not(:focus-visible) → mobilde tıklama sonrası sticky focus, BASTIR
-   Anayasa Madde 13 korunur çünkü focus-visible hâlâ görünür.
-   ═══════════════════════════════════════════════════════════════ */
+/* ===============================================================
+   FOCUS + ER�??�LEB�L�RL�K
+   :focus-visible � klavye navigation i�in (beyaz ring g�r�n�r)
+   :focus:not(:focus-visible) � mobilde t�klama sonras� sticky focus, BASTIR
+   Anayasa Madde 13 korunur ��nk� focus-visible h�l� g�r�n�r.
+   =============================================================== */
 .rfs-filter-trigger:focus:not(:focus-visible),
 .rfs-filter-modal-close:focus:not(:focus-visible),
 .rfs-chip:focus:not(:focus-visible),
