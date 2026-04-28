@@ -43,6 +43,8 @@ import {
   Twitter,
   X,
 } from "lucide-react";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   REFERENCE_PROJECTS,
   SECTOR_FILTERS,
@@ -414,23 +416,23 @@ export default function ReferencesShell({ projects }: Props = {}) {
                   <Tags size={14} aria-hidden="true" />
                   <span>Sektör</span>
                 </span>
-                <div className="rfs-filter-chips">
+                <Tabs value={activeSector} onValueChange={(value) => setActiveSector(value as SectorFilter)}>
+                  <TabsList className="rfs-filter-chips">
                   {sectorTabs.map((s) => {
                     const SectorIcon = SECTOR_ICON[s.id] ?? Layers;
                     return (
-                      <button
+                      <TabsTrigger
                         key={s.id}
-                        type="button"
+                        value={s.id}
                         className={`rfs-chip rfs-chip--with-icon${activeSector === s.id ? " rfs-chip--on" : ""}`}
-                        onClick={() => setActiveSector(s.id)}
-                        aria-pressed={activeSector === s.id}
                       >
                         <SectorIcon size={14} aria-hidden="true" />
                         <span>{s.name}</span>
-                      </button>
+                      </TabsTrigger>
                     );
                   })}
-                </div>
+                  </TabsList>
+                </Tabs>
               </div>
 
               <span className="rfs-filter-sep" aria-hidden="true" />
@@ -439,22 +441,22 @@ export default function ReferencesShell({ projects }: Props = {}) {
                 <span className="rfs-filter-label">
                   <span>Durum</span>
                 </span>
-                <div className="rfs-filter-chips">
+                <Tabs value={activeStatus} onValueChange={(value) => setActiveStatus(value as StatusFilter)}>
+                  <TabsList className="rfs-filter-chips">
                   {statusPills.map((s) => (
-                    <button
+                    <TabsTrigger
                       key={s.id}
-                      type="button"
+                      value={s.id}
                       className={
                         `rfs-chip rfs-chip--status rfs-chip--${s.variant}`
                         + (activeStatus === s.id ? " rfs-chip--on" : "")
                       }
-                      onClick={() => setActiveStatus(s.id)}
-                      aria-pressed={activeStatus === s.id}
                     >
                       {STATUS_FILTER_LABEL[s.id] ?? s.name}
-                    </button>
+                    </TabsTrigger>
                   ))}
-                </div>
+                  </TabsList>
+                </Tabs>
               </div>
 
               {/* Sticky footer: Sıfırla + Filtrele butonu
@@ -878,14 +880,17 @@ export default function ReferencesShell({ projects }: Props = {}) {
       {/* Lightbox — tıklanan thumbnail'ın büyük görüntüsü.
           Backdrop'a tıklayınca veya ESC basınca kapanır.
           Çoklu resim varsa ← / → oklarıyla gezinme. */}
-      {lightbox && (
-        <div
+      <Dialog open={Boolean(lightbox)} onOpenChange={(open) => {
+        if (!open) closeLightbox();
+      }}>
+        {lightbox && (
+        <DialogContent
           className="rfs-lightbox"
-          role="dialog"
-          aria-modal="true"
+          showCloseButton={false}
           aria-label={lightbox.alt}
           onClick={closeLightbox}
         >
+          <DialogTitle className="sr-only">{lightbox.alt}</DialogTitle>
           <button
             type="button"
             className="rfs-lightbox__close"
@@ -938,8 +943,9 @@ export default function ReferencesShell({ projects }: Props = {}) {
               {lightbox.idx + 1} / {lightbox.gallery.length}
             </span>
           )}
-        </div>
-      )}
+        </DialogContent>
+        )}
+      </Dialog>
     </div>
   );
 }
