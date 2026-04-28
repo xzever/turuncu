@@ -33,7 +33,7 @@
   --systems-solar-rgb: 224, 246, 86;
   --systems-grid-rgb: 120, 196, 255;
   --systems-storage-rgb: 255, 170, 95;
-  --sys-font-family: "Inter", "Noto Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --sys-font-family: var(--font-poppins), "Poppins", system-ui, sans-serif;
   --sys-fs-h1: clamp(2rem, 1.28rem + 1.85vw, 3rem);
   --sys-fs-h2: clamp(1.55rem, 1.05rem + 1.12vw, 2.2rem);
   --sys-fs-h3: clamp(1.2rem, 0.95rem + 0.68vw, 1.58rem);
