@@ -1,7 +1,10 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ChevronDown, Search } from "lucide-react";
+import { Search } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Input } from "@/components/ui/input";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FAQS, FAQ_CATEGORIES, FAQ_INTRO_TEXT, type FaqCategory } from "./faqs";
 
 const ALL_CATEGORY = FAQ_CATEGORIES[0].key;
@@ -19,15 +22,13 @@ function flattenAnswerToText(node: unknown): string {
 
 type FaqSurfaceProps = {
   activeCategory: FaqCategory;
-  query: string;
   openId: string;
   filteredFaqs: typeof FAQS;
   onCategoryChange: (category: FaqCategory) => void;
-  onQueryChange: (value: string) => void;
-  onToggle: (id: string) => void;
+  onOpenChange: (id: string) => void;
 };
 
-function AccordionList({ filteredFaqs, openId, onToggle }: Pick<FaqSurfaceProps, "filteredFaqs" | "openId" | "onToggle">) {
+function AccordionList({ filteredFaqs, openId, onOpenChange }: Pick<FaqSurfaceProps, "filteredFaqs" | "openId" | "onOpenChange">) {
   if (filteredFaqs.length === 0) {
     return (
       <div className="sss-empty" role="status">
@@ -36,56 +37,35 @@ function AccordionList({ filteredFaqs, openId, onToggle }: Pick<FaqSurfaceProps,
     );
   }
 
-  return filteredFaqs.map((faq) => {
-    const isOpen = openId === faq.id;
-    const panelId = `sss-answer-${faq.id}`;
-    const buttonId = `sss-question-${faq.id}`;
-
-    return (
-      <article key={faq.id} className={`acc${isOpen ? " is-open" : ""}`}>
-        <button
-          id={buttonId}
-          type="button"
-          className="acc-h"
-          aria-expanded={isOpen}
-          aria-controls={panelId}
-          onClick={() => onToggle(faq.id)}
-        >
-          <span className="acc-q">{faq.title}</span>
-          <span className="acc-t" aria-hidden="true">
-            <ChevronDown />
-          </span>
-        </button>
-
-        {isOpen ? (
-          <div id={panelId} className="acc-a" role="region" aria-labelledby={buttonId}>
-            {faq.answer}
-          </div>
-        ) : null}
-      </article>
-    );
-  });
+  return (
+    <Accordion type="single" collapsible value={openId} onValueChange={onOpenChange} className="sss-accordion">
+      {filteredFaqs.map((faq) => (
+        <AccordionItem key={faq.id} value={faq.id} className="acc">
+          <AccordionTrigger className="acc-h">
+            <span className="acc-q">{faq.title}</span>
+          </AccordionTrigger>
+          <AccordionContent className="acc-a">{faq.answer}</AccordionContent>
+        </AccordionItem>
+      ))}
+    </Accordion>
+  );
 }
 
 function CategoryChips({ activeCategory, onCategoryChange }: Pick<FaqSurfaceProps, "activeCategory" | "onCategoryChange">) {
   return (
-    <>
-      {FAQ_CATEGORIES.map((category) => {
-        const isActive = activeCategory === category.key;
-        return (
-          <button
-            key={category.key}
-            type="button"
-            className={`chip${isActive ? " is-active" : ""}`}
-            aria-pressed={isActive}
-            onClick={() => onCategoryChange(category.key)}
-          >
-            <span>{category.key}</span>
-            <small>{category.count}</small>
-          </button>
-        );
-      })}
-    </>
+    <Tabs value={activeCategory} onValueChange={(value) => onCategoryChange(value as FaqCategory)} className="sss-tabs">
+      <TabsList className="chips" aria-label="SSS kategorileri">
+        {FAQ_CATEGORIES.map((category) => {
+          const isActive = activeCategory === category.key;
+          return (
+            <TabsTrigger key={category.key} value={category.key} className={`chip${isActive ? " is-active" : ""}`}>
+              <span>{category.key}</span>
+              <small>{category.count}</small>
+            </TabsTrigger>
+          );
+        })}
+      </TabsList>
+    </Tabs>
   );
 }
 
@@ -113,10 +93,6 @@ export default function SssPageContent() {
     if (next) setOpenId(next.id);
   }
 
-  function handleToggle(id: string) {
-    setOpenId((current) => (current === id ? "" : id));
-  }
-
   return (
     <>
       <main className="sss-mobile-page" aria-labelledby="sss-mobile-title">
@@ -129,7 +105,7 @@ export default function SssPageContent() {
 
         <div className="search" role="search">
           <Search aria-hidden="true" />
-          <input
+          <Input
             type="search"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
@@ -138,12 +114,12 @@ export default function SssPageContent() {
           />
         </div>
 
-        <nav className="chips" aria-label="SSS kategorileri">
+        <nav className="sss-mobile-page__chips" aria-label="SSS kategorileri">
           <CategoryChips activeCategory={activeCategory} onCategoryChange={handleCategoryChange} />
         </nav>
 
         <section className="sss-mobile-page__list" aria-label="Sik sorulan sorular">
-          <AccordionList filteredFaqs={filteredFaqs} openId={openId} onToggle={handleToggle} />
+          <AccordionList filteredFaqs={filteredFaqs} openId={openId} onOpenChange={setOpenId} />
         </section>
       </main>
 
@@ -159,7 +135,7 @@ export default function SssPageContent() {
           <aside className="sss-desktop__aside">
             <div className="search" role="search">
               <Search aria-hidden="true" />
-              <input
+              <Input
                 type="search"
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
@@ -174,7 +150,7 @@ export default function SssPageContent() {
           </aside>
 
           <section className="sss-desktop__main" aria-label="Sik sorulan sorular">
-            <AccordionList filteredFaqs={filteredFaqs} openId={openId} onToggle={handleToggle} />
+            <AccordionList filteredFaqs={filteredFaqs} openId={openId} onOpenChange={setOpenId} />
           </section>
         </section>
       </main>
