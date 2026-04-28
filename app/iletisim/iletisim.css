@@ -408,6 +408,15 @@ body:has(.contact-desktop-page) .solar-video-bg {
     transform var(--duration-fast);
 }
 
+.orisa-follow a:active {
+  color: var(--color-primary);
+}
+
+.orisa-follow a:active svg {
+  color: var(--color-primary);
+  transform: translateX(var(--space-1));
+}
+
 @media (hover: hover) and (pointer: fine) {
   .orisa-follow a:hover {
     color: var(--color-primary);

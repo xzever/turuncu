@@ -57,7 +57,7 @@ body:has(.iletisim-mobile-page) .solar-video-bg {
 
 .contact-orisa--mobile .orisa-hero h1 {
   max-width: 10ch;
-  font-size: clamp(40px, 8vw, 80px);
+  font-size: clamp(40px, 8vw, 80px) !important;
 }
 
 .contact-orisa--mobile .orisa-status {
@@ -103,6 +103,7 @@ body:has(.iletisim-mobile-page) .solar-video-bg {
 
 .contact-orisa--mobile .orisa-form-section h2 {
   max-width: 9ch;
+  font-size: clamp(36px, 6vw, 64px) !important;
 }
 
 .contact-orisa--mobile .orisa-form {
