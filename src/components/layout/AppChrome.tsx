@@ -6,6 +6,7 @@ import { MenuProvider } from "@/components/layout/MenuContext";
 import MobileTopbar from "@/components/layout/MobileTopbar";
 import BottomNav from "@/components/layout/BottomNav";
 import SiteHeader from "@/components/layout/SiteHeader";
+import SideRail from "@/components/layout/SideRail";
 import { useDevice } from "@/components/layout/DeviceProvider";
 import { getActiveNavIdFromPathname, type SiteHeaderNavId } from "@/components/layout/headerConfig";
 import { useWideNavLayout } from "@/hooks/useWideNavLayout";
@@ -50,6 +51,8 @@ export default function AppChrome({
    * media query ile gizlenir. Böylece SSR/client DOM ağacı tutarlı. */
   return (
     <MenuProvider>
+      <SideRail />
+
       {showDesktopHeader ? (
         <SiteHeader activeNavId={headerActiveId} onNavChange={home ? setHomeSection : undefined} />
       ) : (
