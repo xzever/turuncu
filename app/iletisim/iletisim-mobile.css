@@ -26,7 +26,7 @@ body:has(.iletisim-mobile-page) .solar-video-bg {
   flex-direction: column;
   gap: 18px;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: clip;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
   color: var(--color-text);

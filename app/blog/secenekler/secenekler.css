@@ -18,7 +18,7 @@
 
 .bs-secenekler .rfs-stories.bs-secenekler-stories {
   flex-direction: column;
-  overflow-x: hidden;
+  overflow-x: clip;
   overflow-y: auto;
   scroll-snap-type: y proximity;
   height: 100svh;
