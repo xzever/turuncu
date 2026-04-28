@@ -2,6 +2,8 @@
 
 import { useState, type FormEvent } from "react";
 import type { Locale } from "@/components/layout/headerConfig";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { ChevronRight, Mail, MapPin, MessageCircle, Navigation, Phone, Send, User } from "lucide-react";
 import "./iletisim.css";
 
@@ -260,7 +262,7 @@ export default function IletisimPage({
                         Ad Soyad
                       </label>
                       <div className="val">
-                        <input
+                        <Input
                           id="contact-name"
                           type="text"
                           required
@@ -279,7 +281,7 @@ export default function IletisimPage({
                         E-Posta
                       </label>
                       <div className="val">
-                        <input
+                        <Input
                           id="contact-email"
                           type="email"
                           required
@@ -299,7 +301,7 @@ export default function IletisimPage({
                         Telefon
                       </label>
                       <div className="val">
-                        <input
+                        <Input
                           id="contact-phone"
                           type="tel"
                           inputMode="tel"
@@ -326,7 +328,7 @@ export default function IletisimPage({
                         Konu
                       </label>
                       <div className="val">
-                        <textarea
+                        <Textarea
                           id="contact-message"
                           required
                           placeholder={labels.messagePlaceholder ?? "Gunes enerjisi hakkinda merak ettiklerinizi yazin..."}

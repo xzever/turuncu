@@ -3,6 +3,8 @@
 import { useMemo, useState, type FormEvent } from "react";
 import { Mail, MessageCircle, Phone, Send, User } from "lucide-react";
 import type { Locale } from "@/components/layout/headerConfig";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 type ContactLocation = {
   id: string;
@@ -119,7 +121,7 @@ export default function IletisimMobile({ contactPage }: IletisimMobileProps) {
                   Ad Soyad
                 </label>
                 <div className="val">
-                  <input
+                  <Input
                     id="im-name"
                     type="text"
                     required
@@ -138,7 +140,7 @@ export default function IletisimMobile({ contactPage }: IletisimMobileProps) {
                   E-Posta
                 </label>
                 <div className="val">
-                  <input
+                  <Input
                     id="im-email"
                     type="email"
                     required
@@ -158,7 +160,7 @@ export default function IletisimMobile({ contactPage }: IletisimMobileProps) {
                   Telefon
                 </label>
                 <div className="val">
-                  <input
+                  <Input
                     id="im-phone"
                     type="tel"
                     inputMode="tel"
@@ -185,7 +187,7 @@ export default function IletisimMobile({ contactPage }: IletisimMobileProps) {
                   Konu
                 </label>
                 <div className="val">
-                  <textarea
+                  <Textarea
                     id="im-message"
                     rows={1}
                     required
