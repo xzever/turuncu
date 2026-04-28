@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_PATH=./node_modules next dev --turbo --hostname 0.0.0.0",
+    "dev": "cross-env NODE_PATH=./node_modules next dev --webpack --hostname 0.0.0.0",
     "build": "npm run verify:header-lock && cross-env NODE_PATH=./node_modules NEXT_DISABLE_FONT_DOWNLOAD=1 NEXT_TURBOPACK=0 TURBOPACK=0 next build",
     "start": "cross-env NODE_PATH=./node_modules NEXT_DISABLE_FONT_DOWNLOAD=1 next start",
     "lint": "eslint . --max-warnings=0",
