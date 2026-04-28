@@ -5,13 +5,13 @@
   min-height: 0;
   overflow: hidden;
   padding-block:
-    calc(var(--site-header-clearance, 72px) + clamp(12px, 1.5vh, 20px))
-    clamp(16px, 2.2vh, 28px);
+    calc(var(--site-header-clearance, 72px) + clamp(var(--space-3), 1.5vh, var(--space-5)))
+    clamp(var(--space-4), 2.2vh, 28px);
   padding-inline: clamp(1.5rem, 4vw, 4rem);
   box-sizing: border-box;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
-  gap: clamp(20px, 2vw, 36px);
+  gap: clamp(var(--space-5), 2vw, 36px);
   color: var(--color-text);
   background: transparent !important;
 }
@@ -32,8 +32,8 @@
 .lay-side {
   min-height: 0;
   display: grid;
-  grid-template-columns: 280px minmax(0, 1fr);
-  gap: clamp(20px, 2vw, 36px);
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: clamp(var(--space-5), 2vw, 36px);
   overflow: hidden;
 }
 
@@ -46,18 +46,20 @@
 .sss-desktop__aside {
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  padding-top: 18px;
+  gap: var(--space-4);
+  padding-top: var(--space-2);
+  overflow-y: auto;
 }
 
 .sss-desktop__chips {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--space-2);
 }
 
 .sss-desktop__chips .chip {
   width: 100%;
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
@@ -75,16 +77,12 @@
 .sss-desktop__main {
   overflow-y: auto;
   scrollbar-gutter: stable;
-  padding-top: 18px;
-  padding-right: 6px;
+  padding-top: var(--space-2);
+  padding-right: var(--space-2);
 }
 
 .sss-desktop__main .acc-h {
-  min-height: 56px;
-  padding: 16px 18px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
+  min-height: 64px;
 }
 
 .sss-desktop__main .acc-q {

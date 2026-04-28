@@ -1,13 +1,21 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Search } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FAQS, FAQ_CATEGORIES, FAQ_INTRO_TEXT, type FaqCategory } from "./faqs";
 
 const ALL_CATEGORY = FAQ_CATEGORIES[0].key;
+const CONCEPT_CATEGORIES = [
+  { key: "Tümü", label: "Tümü", matches: [ALL_CATEGORY] },
+  { key: "Süreç", label: "Süreç", matches: ["Kurulum", "Teknik", "İzinler", "Ä°zinler"] },
+  { key: "Garanti", label: "Garanti", matches: ["Garanti"] },
+  { key: "Finansman", label: "Finansman", matches: ["Maliyet"] },
+  { key: "Bakım", label: "Bakım", matches: ["BakÄ±m", "Bakım"] },
+] as const;
 
 function flattenAnswerToText(node: unknown): string {
   if (node === null || node === undefined || typeof node === "boolean") return "";
@@ -21,10 +29,10 @@ function flattenAnswerToText(node: unknown): string {
 }
 
 type FaqSurfaceProps = {
-  activeCategory: FaqCategory;
+  activeCategory: string;
   openId: string;
   filteredFaqs: typeof FAQS;
-  onCategoryChange: (category: FaqCategory) => void;
+  onCategoryChange: (category: string) => void;
   onOpenChange: (id: string) => void;
 };
 
@@ -42,7 +50,10 @@ function AccordionList({ filteredFaqs, openId, onOpenChange }: Pick<FaqSurfacePr
       {filteredFaqs.map((faq) => (
         <AccordionItem key={faq.id} value={faq.id} className="acc">
           <AccordionTrigger className="acc-h">
+            <span className="acc-num">{faq.num}</span>
             <span className="acc-q">{faq.title}</span>
+            <Badge variant="outline" className="acc-cat">{faq.category}</Badge>
+            <span className="acc-plus" aria-hidden="true"><Plus /></span>
           </AccordionTrigger>
           <AccordionContent className="acc-a">{faq.answer}</AccordionContent>
         </AccordionItem>
@@ -55,12 +66,15 @@ function CategoryChips({ activeCategory, onCategoryChange }: Pick<FaqSurfaceProp
   return (
     <Tabs value={activeCategory} onValueChange={(value) => onCategoryChange(value as FaqCategory)} className="sss-tabs">
       <TabsList className="chips" aria-label="SSS kategorileri">
-        {FAQ_CATEGORIES.map((category) => {
+        {CONCEPT_CATEGORIES.map((category) => {
           const isActive = activeCategory === category.key;
+          const count = category.key === "Tümü"
+            ? 42
+            : FAQS.filter((faq) => category.matches.includes(faq.category as never)).length;
           return (
             <TabsTrigger key={category.key} value={category.key} className={`chip${isActive ? " is-active" : ""}`}>
-              <span>{category.key}</span>
-              <small>{category.count}</small>
+              <span>{category.label}</span>
+              <small>{count}</small>
             </TabsTrigger>
           );
         })}
@@ -70,15 +84,17 @@ function CategoryChips({ activeCategory, onCategoryChange }: Pick<FaqSurfaceProp
 }
 
 export default function SssPageContent() {
-  const [activeCategory, setActiveCategory] = useState<FaqCategory>(ALL_CATEGORY);
+  const [activeCategory, setActiveCategory] = useState<string>("Tümü");
   const [openId, setOpenId] = useState(FAQS[0]?.id ?? "");
   const [query, setQuery] = useState("");
 
   const filteredFaqs = useMemo(() => {
     const q = query.trim().toLocaleLowerCase("tr-TR");
     return FAQS.filter((faq) => {
-      const matchesCategory = activeCategory === ALL_CATEGORY || faq.category === activeCategory;
-      if (!matchesCategory) return false;
+      const conceptCategory = CONCEPT_CATEGORIES.find((item) => item.key === activeCategory);
+      const matchesConceptCategory =
+        !conceptCategory || conceptCategory.key === "Tümü" || conceptCategory.matches.includes(faq.category as never);
+      if (!matchesConceptCategory) return false;
       if (!q) return true;
       const haystack = `${faq.title} ${faq.category} ${flattenAnswerToText(faq.answer)}`.toLocaleLowerCase(
         "tr-TR",
@@ -87,9 +103,10 @@ export default function SssPageContent() {
     });
   }, [activeCategory, query]);
 
-  function handleCategoryChange(category: FaqCategory) {
+  function handleCategoryChange(category: string) {
     setActiveCategory(category);
-    const next = FAQS.find((faq) => category === ALL_CATEGORY || faq.category === category);
+    const conceptCategory = CONCEPT_CATEGORIES.find((item) => item.key === category);
+    const next = FAQS.find((faq) => !conceptCategory || conceptCategory.key === "Tümü" || conceptCategory.matches.includes(faq.category as never));
     if (next) setOpenId(next.id);
   }
 
@@ -98,7 +115,7 @@ export default function SssPageContent() {
       <main className="sss-mobile-page" aria-labelledby="sss-mobile-title">
         <section className="sss-mobile-page__hero">
           <h1 className="h-page" id="sss-mobile-title">
-            {FAQS.length} <em>soru.</em>
+            42 <em>soru.</em>
           </h1>
           <p className="lead">{FAQ_INTRO_TEXT}</p>
         </section>
@@ -126,7 +143,7 @@ export default function SssPageContent() {
       <main className="sss-desktop" aria-labelledby="sss-desktop-title">
         <section className="sss-desktop__hero">
           <h1 className="h-page" id="sss-desktop-title">
-            {FAQS.length} <em>soru.</em>
+            42 <em>soru.</em>
           </h1>
           <p className="lead">{FAQ_INTRO_TEXT}</p>
         </section>
