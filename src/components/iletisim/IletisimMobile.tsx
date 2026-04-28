@@ -3,7 +3,9 @@
 import { useMemo, useState, type FormEvent } from "react";
 import { Mail, MessageCircle, Phone, Send, User } from "lucide-react";
 import type { Locale } from "@/components/layout/headerConfig";
+import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 
 type ContactLocation = {
@@ -39,6 +41,7 @@ export default function IletisimMobile({ contactPage }: IletisimMobileProps) {
     fullName: "",
     email: "",
     phone: "",
+    systemType: contactPage?.systemTypes?.[0]?.id ?? "",
     message: "",
   });
   const [submitting, setSubmitting] = useState(false);
@@ -173,6 +176,28 @@ export default function IletisimMobile({ contactPage }: IletisimMobileProps) {
               </div>
             </div>
           </section>
+
+          {contactPage?.systemTypes?.length ? (
+            <section className="iletisim-m__group" aria-labelledby="im-system-head">
+              <h2 id="im-system-head" className="rail-head">
+                {labels.systemTypeLabel ?? "Sistem tipi"}
+              </h2>
+              <RadioGroup
+                className="contact-radio-grid"
+                value={form.systemType}
+                onValueChange={(value) => update("systemType", value)}
+              >
+                {contactPage.systemTypes.map((systemType) => (
+                  <label key={systemType.id} className="contact-radio-tile">
+                    <Card className="contact-radio-tile__card">
+                      <RadioGroupItem value={systemType.id} aria-label={systemType.name} />
+                      <span>{systemType.name}</span>
+                    </Card>
+                  </label>
+                ))}
+              </RadioGroup>
+            </section>
+          ) : null}
 
           <section className="iletisim-m__group" aria-labelledby="im-message-head">
             <h2 id="im-message-head" className="rail-head">

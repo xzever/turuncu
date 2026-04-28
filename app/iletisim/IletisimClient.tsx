@@ -2,7 +2,9 @@
 
 import { useState, type FormEvent } from "react";
 import type { Locale } from "@/components/layout/headerConfig";
+import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { ChevronRight, Mail, MapPin, MessageCircle, Navigation, Phone, Send, User } from "lucide-react";
 import "./iletisim.css";
@@ -79,6 +81,7 @@ export default function IletisimPage({
     fullName: "",
     email: "",
     phone: "",
+    systemType: contactPage?.systemTypes?.[0]?.id ?? "",
     message: "",
   });
   const [submitting, setSubmitting] = useState(false);
@@ -314,6 +317,28 @@ export default function IletisimPage({
                     </div>
                   </div>
                 </section>
+
+                {contactPage?.systemTypes?.length ? (
+                  <section className="contact-page__system" aria-labelledby="desktop-system-head">
+                    <h2 id="desktop-system-head" className="rail-head">
+                      {labels.systemTypeLabel ?? "Sistem tipi"}
+                    </h2>
+                    <RadioGroup
+                      className="contact-radio-grid"
+                      value={form.systemType}
+                      onValueChange={(value) => update("systemType", value)}
+                    >
+                      {contactPage.systemTypes.map((systemType) => (
+                        <label key={systemType.id} className="contact-radio-tile">
+                          <Card className="contact-radio-tile__card">
+                            <RadioGroupItem value={systemType.id} aria-label={systemType.name} />
+                            <span>{systemType.name}</span>
+                          </Card>
+                        </label>
+                      ))}
+                    </RadioGroup>
+                  </section>
+                ) : null}
 
                 <section className="contact-page__message" aria-labelledby="desktop-message-head">
                   <h2 id="desktop-message-head" className="rail-head">
