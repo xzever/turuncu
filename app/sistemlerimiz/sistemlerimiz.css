@@ -3530,3 +3530,8 @@
   color: var(--color-white) !important;
   opacity: 1 !important;
 }
+
+.systems-tabs__list {
+  display: contents;
+}
+

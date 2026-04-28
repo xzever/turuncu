@@ -1,5 +1,5 @@
 import { type CSSProperties, type ReactNode } from "react";
-import { Tabs, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export type SystemSectionId =
   | "grid"
@@ -79,22 +79,24 @@ export default function OrbitalNav<T extends string>({
       className={`${classPrefix}-tabs`}
       aria-label={navAriaLabel}
     >
-      {sectionOrder.map((id, index) => (
-        <TabsTrigger
-          key={id}
-          value={id}
-          className={`${classPrefix}-tab ${activeSection === id ? "is-active" : ""}`.trim()}
-          data-system-id={id}
-          style={{ "--tab-delay": `${index * 70}ms` } as CSSProperties}
-          aria-current={activeSection === id ? "true" : undefined}
-        >
-          <span className={`${classPrefix}-tab__icon`} aria-hidden="true">
-            {currentIcons[id]}
-          </span>
-          <span>{labels[id]}</span>
-        </TabsTrigger>
-      ))}
-      {trailing}
+      <TabsList className={`${classPrefix}-tabs__list`}>
+        {sectionOrder.map((id, index) => (
+          <TabsTrigger
+            key={id}
+            value={id}
+            className={`${classPrefix}-tab ${activeSection === id ? "is-active" : ""}`.trim()}
+            data-system-id={id}
+            style={{ "--tab-delay": `${index * 70}ms` } as CSSProperties}
+            aria-current={activeSection === id ? "true" : undefined}
+          >
+            <span className={`${classPrefix}-tab__icon`} aria-hidden="true">
+              {currentIcons[id]}
+            </span>
+            <span>{labels[id]}</span>
+          </TabsTrigger>
+        ))}
+        {trailing}
+      </TabsList>
     </Tabs>
   );
 }
